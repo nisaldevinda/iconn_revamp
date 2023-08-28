@@ -1,0 +1,112 @@
+{
+    "name": "employeeEmergencyContact",
+	"path": "/employeeEmergencyContacts",
+    "singularDefaultLabel": "Emergency Contact",
+    "singularLabelKey": "emergencyContact",
+    "pluralDefaultLabel": "Emergency Contacts",
+    "pluralLabelKey": "emergencyContacts",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee ID",
+			"labelKey": "EMPLOYEE_ID",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "emergencyContacts",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "EMERGENCY_CONTACTS.NAME",
+            "type": "string",
+            "validations": {
+				"isRequired": true,
+                "max" : 100
+			}
+        },
+        "relationship": {
+            "name": "relationship",
+            "defaultLabel": "Relationship",
+            "labelKey": "EMERGENCY_CONTACTS.RELATIONSHIP",
+            "type": "model",
+            "modelName": "relationship",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "mobilePhone": {
+            "name": "mobilePhone",
+            "defaultLabel": "Mobile Phone",
+            "labelKey": "EMERGENCY_CONTACTS.MOBILE_PHONE",
+            "type": "phone",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "homePhone": {
+            "name": "homePhone",
+            "defaultLabel": "Home Phone",
+            "labelKey": "EMERGENCY_CONTACTS.HOME_PHONE",
+            "type": "phone",
+            "defaultValue": null
+        },
+        "workPhone": {
+            "name": "workPhone",
+            "defaultLabel": "Work Phone",
+            "labelKey": "EMERGENCY_CONTACTS.WORK_PHONE",
+            "type": "phone",
+            "defaultValue": null
+        },
+        "emailAddress": {
+            "name": "emailAddress",
+            "defaultLabel": "Email Address",
+			"labelKey": "EMERGENCY_CONTACTS.EMAIL_ADDRESS",
+            "type": "email",
+            "defaultValue": null
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+		"relationship": "HAS_ONE",
+        "employee": "BELONGS_TO_MANY"
+	}
+}

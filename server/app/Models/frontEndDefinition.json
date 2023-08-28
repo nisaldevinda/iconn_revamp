@@ -1,0 +1,75 @@
+{
+    "name": "frontEndDefinition",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "modelName": {
+            "name": "modelName",
+            "defaultLabel": "Name",
+            "labelKey": "FRONTEND_DEFINITION.NAME",
+            "type": "string",
+            "isEditable": false,
+            "isSystemValue": true,
+            "validations": {
+                "isRequired": true,
+                "max": 50
+            }
+        },
+        "alternative": {
+            "name": "alternative",
+            "defaultLabel": "Alternative",
+            "labelKey": "FRONTEND_DEFINITION.ALTERNATIVE",
+            "type": "string"
+        },
+        "topLevelComponent": {
+            "name": "topLevelComponent",
+            "defaultLabel": "Top Level Component",
+            "labelKey": "FRONTEND_DEFINITION.TOP_LEVEL_COMPONENT",
+            "type": "string"
+        },
+        // "tenantId": {
+        //     "name": "tenantId",
+        //     "label": "Tenant Id"
+        // },
+        "structure": {
+            "name": "structure",
+            "defaultLabel": "Structure",
+            "labelKey": "FRONTEND_DEFINITION.STRUCTURE",
+            "type": "string"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

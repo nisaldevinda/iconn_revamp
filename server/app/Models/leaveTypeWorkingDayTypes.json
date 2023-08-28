@@ -1,0 +1,66 @@
+{
+    "name": "leaveTypeWorkingDayTypes",
+	"path": "/leave-type-working-day-types",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "leaveType": {
+            "name": "leaveType",
+            "defaultLabel": "Leave Type",
+			"labelKey": "LEAVE_TYPE",
+			"type": "model",
+            "modelName": "leaveType",
+            "foreignKeyAttribute": "leaveTypeWorkingDayTypes",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "dayType": {
+            "name": "dayType",
+            "defaultLabel": "Day Type",
+			"labelKey": "DAY_TYPE",
+			"type": "model",
+            "modelName": "dayType",
+            "foreignKeyAttribute": "leaveTypeWorkingDayTypes",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "leaveType": "HAS_ONE",
+        "dayType": "HAS_ONE"
+	}
+}

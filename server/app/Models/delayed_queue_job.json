@@ -1,0 +1,41 @@
+{
+    "name": "delayed_queue_job",
+    "fields": {
+        "id": {
+            "name": "id",
+            "label": "ID"
+        },
+        "queueJobId": {
+            "name": "queueJobId",
+            "label": "Queue Job Id"
+        },
+        "parentModel": {
+            "name": "parentModel",
+            "label": "Parent Model"
+        },
+        "parentRecordId": {
+            "name": "parentRecordId",
+            "label": "Parent Record Id"
+        },
+        "childModel": {
+            "name": "childModel",
+            "label": "Child Model"
+        },
+        "childRecordId": {
+            "name": "childRecordId",
+            "label": "Child Record Id"
+        },
+        "isCancelled": {
+            "name": "isCancelled",
+            "label": "Is Cancelled"
+        },
+        "executeAt": {
+            "name": "executeAt",
+            "label": "Execute At"
+        },
+        "executeBy": {
+            "name": "executeBy",
+            "label": "Execute By"
+        }
+    }
+}

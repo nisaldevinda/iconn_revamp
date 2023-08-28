@@ -1,0 +1,25 @@
+{
+    "name": "country",
+    "path": "/countries",
+    "isDataBaseEntryBasedModel": false,
+    "fields": {
+        "key": {
+            "name": "key",
+            "defaultLabel": "Key",
+			"labelKey": "KEY",
+			"type": "string",
+            "isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "COUNTRY.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true
+			}
+        }
+    }
+}

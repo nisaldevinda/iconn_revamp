@@ -1,0 +1,76 @@
+{
+    "name": "financialYear",
+	"path": "/financialYear",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "fromYearAndMonth": {
+            "name": "fromYearAndMonth",
+            "defaultLabel": "From Year An Month",
+			"labelKey": "WORKFLOW_APPROVER_POOL.NAME",
+			"type": "date",
+            "validations": {
+				"isRequired": true
+			}
+	    },
+        "toYearAndMonth": {
+            "name": "toYearAndMonth",
+            "defaultLabel": "To Year An Month",
+			"labelKey": "WORKFLOW_APPROVER_POOL.NAME",
+			"type": "date",
+            "validations": {
+				"isRequired": true
+			}
+	    },
+        "financialDateRangeString": {
+            "name": "financialDateRangeString",
+            "defaultLabel": "Financial Year",
+			"labelKey": "GENDER.NAME",
+            "type": "string"
+        },
+        "isSetAsDefault": {
+            "name": "isSetAsDefault",
+            "defaultLabel": "Is Set As Default",
+            "labelKey": "EMPLOYEE.ALLOW_OT",
+            "type": "switch",
+            "defaultValue": false
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        
+    }
+}

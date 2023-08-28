@@ -1,0 +1,236 @@
+{
+    "name": "reportData",
+    "path": "/reportData",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "reportName": {
+            "name": "reportName",
+            "defaultLabel": "Report Name",
+			"labelKey": "REPORTDATA.REPORTNAME",
+            "type": "string",
+			"isEditable": true,
+			"isSystemValue": false,
+            "validations": {
+                "isRequired": true,
+                "isUnique": true,
+                "max": 50
+            }
+        },
+        // "displayName": {
+        //     "name": "displayName",
+        //     "defaultLabel": "Display Name",
+		// 	"labelKey": "REPORTDATA.DISPLAYNAME",
+        //     "type": "string",
+		// 	"isEditable": true,
+		// 	"isSystemValue": false,
+        //     "validations": {
+        //         "isRequired": true,
+        //         "isUnique": true,
+        //         "max": 30
+        //     }
+        // },
+        "selectedTables": {
+            "name": "selectedTables",
+            "defaultLabel": "Selected Tables",
+			"labelKey": "REPORTDATA.SELECTEDTABLES",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "joinCriterias": {
+            "name": "joinCriterias",
+            "defaultLabel": "Join Criterias",
+			"labelKey": "REPORTDATA.JOINCRITERIAS",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "filterCriterias": {
+            "name": "filterCriterias",
+            "defaultLabel": "Filter Criterias",
+			"labelKey": "REPORTDATA.FILTERCRITERIAS",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "targetKeys": {
+            "name": "targetKeys",
+            "defaultLabel": "Target Keys",
+			"labelKey": "REPORTDATA.TARGETKEYS",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": true
+        },
+        "orderBy": {
+            "name": "orderBy",
+            "defaultLabel": "Order By",
+			"labelKey": "REPORTDATA.ORDERBY",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "groupBy": {
+            "name": "groupBy",
+            "defaultLabel": "Group By",
+			"labelKey": "REPORTDATA.GROUPBY",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "pageSize": {
+            "name": "pageSize",
+            "defaultLabel": "Page Size",
+			"labelKey": "REPORTDATA.PAGESIZE",
+            "type": "number",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "outputMethod": {
+            "name": "outputMethod",
+            "defaultLabel": "Output Method",
+			"labelKey": "REPORTDATA.OUTPUTMETHOD",
+            "type": "string",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "isChartAvailable": {
+            "name": "isChartAvailable",
+            "defaultLabel": "Is Chart Available",
+			"labelKey": "REPORTDATA.ISCHARTAVAILABLE",
+            "type": "boolean",
+			"isEditable": true,
+			"isSystemValue": true
+        },
+        "chartType": {
+            "name": "chartType",
+            "defaultLabel": "Chart Type",
+			"labelKey": "REPORTDATA.CHARTTYPE",
+            "type": "string",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "aggregateType": {
+            "name": "aggregateType",
+            "defaultLabel": "Aggregate Type",
+			"labelKey": "REPORTDATA.AGGREGATETYPE",
+            "type": "string",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "aggregateField": {
+            "name": "aggregateField",
+            "defaultLabel": "Aggregate Field",
+			"labelKey": "REPORTDATA.AGGREGATEFIELD",
+            "type": "string",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "showSummeryTable": {
+            "name": "showSummeryTable",
+            "defaultLabel": "Show Summery Table",
+			"labelKey": "REPORTDATA.SHOWSUMMERYTABLE",
+            "type": "boolean",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "hideDetailedData": {
+            "name": "hideDetailedData",
+            "defaultLabel": "Hide Detailed Data",
+			"labelKey": "REPORTDATA.HIDEDETAILEDDATA",
+            "type": "boolean",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "isSystemReport": {
+            "name": "isSystemReport",
+            "defaultLabel": "Is System Report",
+			"labelKey": "REPORTDATA.ISSYSTEMREPORT",
+            "type": "boolean",
+			"isEditable": true,
+			"isSystemValue": true
+        },
+        "filterValues": {
+            "name": "filterValues",
+            "defaultLabel": "Filter Values",
+			"labelKey": "REPORTDATA.FILTERVALUES",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "filterCondition": {
+            "name": "filterCondition",
+            "defaultLabel": "Filter Condition",
+			"labelKey": "REPORTDATA.FILTERCONDITION",
+            "type": "string",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "sortByValues": {
+            "name": "sortByValues",
+            "defaultLabel": "Sort VAlues",
+			"labelKey": "REPORTDATA.SORTVALUES",
+            "type": "model",
+			"isEditable": true,
+			"isSystemValue": false
+        },
+        "isAdminReport": {
+            "name": "isAdminReport",
+            "defaultLabel": "Is Admin Report",
+			"labelKey": "REPORTDATA.ISADMINREPORT",
+            "type": "boolean",
+			"isEditable": true,
+			"isSystemValue": true
+        },
+        "isManagerReport": {
+            "name": "isManagerReport",
+            "defaultLabel": "Is Manager Report",
+			"labelKey": "REPORTDATA.ISMANAGERREPORT",
+            "type": "boolean",
+			"isEditable": true,
+			"isSystemValue": true
+        },
+        "isEmployeeReport": {
+            "name": "isEmployeeReport",
+            "defaultLabel": "Is Employee Report",
+			"labelKey": "REPORTDATA.ISEMPLOYEEREPORT",
+            "type": "boolean",
+			"isEditable": true,
+			"isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    }
+}

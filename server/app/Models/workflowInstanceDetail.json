@@ -1,0 +1,98 @@
+{
+    "name": "workflowInstanceDetail",
+    "path": "/workflowInstanceDetail",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "actionId": {
+            "name": "actionId",
+            "defaultLabel": "actionId",
+            "labelKey": "WORKFLOW.ACTIONID",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "instanceId": {
+            "name": "instanceId",
+            "defaultLabel": "instanceId",
+            "labelKey": "WORKFLOW.INSTANCEID",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "priorState": {
+            "name": "priorState",
+            "defaultLabel": "priorState",
+            "labelKey": "WORKFLOW.PRIORSTATE",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "postState": {
+            "name": "postState",
+            "defaultLabel": "postState",
+            "labelKey": "WORKFLOW.POSTSTATE",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "performUserId":{
+            "name": "performUserId",
+            "defaultLabel": "performUserId",
+            "labelKey": "WORKFLOW.PERFORMUSERID",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "approverComment":{
+            "name":"approverComment",
+            "defaultLabel":"approverComment",
+            "labelKey":"WORKFLOW.APPROVERCOMMENT",
+            "type":"string"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

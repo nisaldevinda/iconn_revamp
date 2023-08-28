@@ -1,0 +1,328 @@
+[
+    {
+        "id": 1,
+        "title": "Top Level Manager",
+        "type": "EMPLOYEE",
+        "isIndirectAccess": true,
+        "isWorkﬂowManagement": [
+            "Leave",
+            "Time",
+            "Attendence",
+            "Vacancy"
+        ],
+        "isOtherActionsPermissions": [],
+        "isScopeofAccess": false,
+        "scopeOfAccess": [
+            {
+                "key":"checkbox",
+                "content":[
+                    
+                 ]
+                
+            },
+            {
+                "key":"tree",
+                "content":[]
+
+                
+            }
+        ],
+        "customCriteria": [
+            {
+                "location": "lk"
+            }
+        ],
+        "permittedActions": [
+        ],
+       
+        "readableFields": {
+            "personal": [],
+            "employment": [],
+            "compensation": [],
+            "dependents": [],
+            "workExperience": [],
+            "qualification": [],
+            "emergency": []
+        },
+        "editableFields": {
+            "personal": [],
+            "employment": [],
+            "compensation": [],
+            "dependents": [],
+            "workExperience": [],
+            "qualification": [],
+            "emergency": []
+        }
+    },
+    {
+        "id": 2,
+        "title": "Top Level Manager",
+        "type": "MANAGER",
+        "isIndirectAccess": true,
+        "isWorkﬂowManagement": [
+            "Leave",
+            "Time",
+            "Attendence",
+            "Vacancy",
+            "On-boarding-Event",
+            "On-boarding-Task",
+            "Performance-Appraisals",
+            "Goals",
+            "Asset",
+            "Expense Claim"
+        ],
+        "isOtherActionsPermissions": [
+            {
+                "id": 1,
+                "name": "Add Employee",
+                "Actions": "USERROLECONTROLLER_CREATEUSER",
+                "isSelect": false
+            },
+            {
+                "id": 2,
+                "name": "Terminate Employee",
+                "Actions": "USERROLECONTROLLER_DELETEUSERROLE",
+                "isSelect": false
+            }
+        ],
+        "permittedActions": [
+            {
+                "key":"userControll",
+                "label":"Create User",
+                "permittedAction":["USERROLECONTROLLER_CREATEUSER","USERROLECONTROLLER_DELETEUSER"]
+            
+            },
+            {
+                "key":"LeaveControll",
+                "label":"Leave User",
+                "permittedAction":["LEAVECONTROLLER_CREATELEAVE","LEAVECONTROLLER_UPDATELEAVE","LEAVECONTROLLER_UPDATELEAVE"]
+            
+            }
+        ],
+        "isScopeofAccess": [
+            {
+                "id": 1,
+                "name": "Add Employee",
+                "isSelect": false
+            },
+            {
+                "id": 2,
+                "name": "Terminate Employee",
+                "isSelect": false
+            }
+        ],
+        "scopeOfAccess": [
+            {
+                "key":"checkbox",
+                "content":[
+                    {
+                        "key": "isDirectAccess",
+                        "id":1,
+                        "isSelect": false,
+                        "defaultLabel": "Direct only – only direct reports are accessible"
+                    },{
+                        "key": "isInDirectAccess",
+                        "id":2,
+                        "isSelect": false,
+                        "defaultLabel": "Direct and Indirect – All reports in the hierarchy"
+                    }
+                   
+
+                 ]
+                
+            },
+            {
+                "key":"tree",
+                "content":[]
+
+                
+            }
+        ],
+        "customCriteria": [
+            {
+                "location": "lk"
+            }
+        ],
+       
+       
+        "readableFields": {
+            "personal": [],
+            "employment": [],
+            "compensation": [],
+            "dependents": [],
+            "workExperience": [],
+            "qualification": [],
+            "emergency": []
+        },
+        "editableFields": {
+            "personal": [],
+            "employment": [],
+            "compensation": [],
+            "dependents": [],
+            "workExperience": [],
+            "qualification": [],
+            "emergency": []
+        }
+    },
+    {
+        "id": 3,
+        "title": "Top Level Manager",
+        "type": "ADMIN",
+        "isIndirectAccess": true,
+        "isWorkﬂowManagement": [
+            "Leave",
+            "Time",
+            "Attendence",
+            "Vacancy",
+            "On-boarding-Event",
+            "On-boarding-Task",
+            "Performance-Appraisals",
+            "Goals",
+            "Asset",
+            "Expense Claim"
+        ],
+        "customCriteria": [
+            {
+                "location": "lk"
+            }
+        ],
+        "isOtherActionsPermissions": [
+            {
+                "id": 1,
+                "name": "Add Employee",
+                "Actions": "USERROLECONTROLLER_CREATEUSER",
+                "isSelect": false
+            },
+            {
+                "id": 2,
+                "name": "Terminate Employee",
+                "Actions": "USERROLECONTROLLER_DELETEUSERROLE",
+                "isSelect": false
+            },
+            {
+                "id": 3,
+                "name": "Time Change Request Workflow",
+                "Actions": "TIMECHANGECONTROLLER_ASSINGWORKFLOW",
+                "isSelect": false
+            },
+            {
+                "id": 4,
+                "name": "Leave Workflow",
+                "Actions": "LEAVECONTROLLER_DELETEUSERROLE",
+                "isSelect": false
+            }
+        ],
+        "isScopeofAccess": [
+            {
+                "id": 1,
+                "name": "Add Employee",
+                "isSelect": false
+            },
+            {
+                "id": 2,
+                "name": "Terminate Employee",
+                "isSelect": false
+            },
+            {
+                "id": 3,
+                "name": "Time Change Request Workflow",
+                "isSelect": false
+            },
+            {
+                "id": 4,
+                "name": "Leave Workflow",
+                "isSelect": false
+            }
+        ],
+        "scopeOfAccess": [
+            {
+                "key":"checkbox",
+                "content":[{
+                    
+
+                 }]
+                
+            },
+            {
+                "key":"tree",
+                "content":[{
+                    "key": "location",
+                    "defaultLabel": "Location",
+                    "modelkey": "jobs.location",
+                    "content": []
+                },
+                {
+                    "key": "department",
+                    "defaultLabel": "Department",
+                    "modelkey": "jobs.departments",
+                    "content": []
+                },
+                {
+                    "key": "division",
+                    "defaultLabel": "Divisions",
+                    "modelkey": "jobs.divisions",
+                    "content": []
+                },
+                {
+                    "key": "employmentStatus",
+                    "defaultLabel": "Employment Status",
+                    "modelkey": "employments.employmentStatus",
+                    "content": []
+                },
+                {
+                    "key": "jobTitle",
+                    "defaultLabel": "Job Title",
+                    "modelkey": "jobs.jobTitle",
+                    "content": []
+                }]
+
+                
+            }
+        ],
+       
+        "permittedActions": [
+            {
+                "key":"userControll",
+                "label":"Create User",
+                "permittedAction":["USERROLECONTROLLER_CREATEUSER","USERROLECONTROLLER_DELETEUSER"]
+            
+            },
+            {
+                "key":"employeeControll",
+                "label":"Terminate Employee",
+                "permittedAction":["EMPLOYEECONTROLLER_DELETEEMPLYEE"]
+            
+            },
+            {
+                "key":"timeControll",
+                "label":"Time Change Request Workflow",
+                "permittedAction":["TIMECONTROLLER_CHANGETIME"]
+            
+            },
+            {
+                "key":"LeaveControll",
+                "label":"Leave User",
+                "permittedAction":["LEAVECONTROLLER_CREATELEAVE","LEAVECONTROLLER_UPDATELEAVE","LEAVECONTROLLER_UPDATELEAVE"]
+            
+            }
+        ],
+        "readableFields": {
+            "personal": [],
+            "employment": [],
+            "compensation": [],
+            "dependents": [],
+            "workExperience": [],
+            "qualification": [],
+            "emergency": []
+        },
+        "editableFields": {
+            "personal": [],
+            "employment": [],
+            "compensation": [],
+            "dependents": [],
+            "workExperience": [],
+            "qualification": [],
+            "emergency": []
+        }
+    }
+]

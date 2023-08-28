@@ -1,0 +1,136 @@
+{
+    "name": "documentManagerFile",
+    "path":"/documentManager",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "folderId": {
+            "name": "folderId",
+            "defaultLabel": "Folder ID",
+            "labelKey": "DOCUMENT.FOLDERID",
+            "type": "number"
+        },
+        "fileId": {
+            "name": "fileId",
+            "defaultLabel": "File ID",
+            "labelKey": "DOCUMENT.FILEID",
+            "type": "number"
+        },
+        "documentName": {
+            "name": "documentName",
+            "defaultLabel": "Document Name",
+            "labelKey": "DOCUMENT.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true
+            }
+        },
+        "documentDescription": {
+            "name": "documentDescription",
+            "defaultLabel": "Document Description",
+            "labelKey": "DOCUMENT.DESCRIPTION",
+            "type": "string"
+        },
+        "deadline": {
+            "name": "deadline",
+            "defaultLabel": "Deadline",
+            "labelKey": "DOCUMENT.DEADLINE",
+            "type": "string"
+        },
+        "hasRequestAcknowledgement": {
+            "name": "hasRequestAcknowledgement",
+            "defaultLabel": "Request Acknowledgement",
+            "type": "boolean"
+        },
+        "hasFilePermission": {
+            "name": "hasFilePermission",
+            "defaultLabel": "File Permission",
+            "type": "boolean"
+        },
+        "systemAlert": {
+            "name": "systemAlertNotification",
+            "defaultLabel": "System Alert Notification",
+            "type": "boolean"
+        },
+        "emailNotification": {
+            "name": "emailNotification",
+            "defaultLabel": "Email Notification",
+            "type": "boolean"
+        },
+        "audienceMethod": {
+            "name": "audienceMethod",
+            "defaultLabel": "Audience Method",
+            "labelKey": "DOCUMENT.AUDIENCE_METHOD",
+            "type": "enum",
+            "defaultValue": "ALL",
+            "values": [
+                {
+                    "value": "ALL",
+                    "labelKey": "DOCUMENT.AUDIENCE_METHOD.ALL",
+                    "defaultLabel": "All"
+                },
+                {
+                    "value": "REPORT_TO",
+                    "labelKey": "DOCUMENT.AUDIENCE_METHOD.REPORT_TO",
+                    "defaultLabel": "Assign to a Manager"
+                },
+                {
+                    "value": "QUERY",
+                    "labelKey": "DOCUMENT.AUDIENCE_METHOD.QUERY",
+                    "defaultLabel": "Location"
+                },
+                {
+                    "value": "CUSTOM",
+                    "labelKey": "DOCUMENT.AUDIENCE_METHOD.CUSTOM",
+                    "defaultLabel": "Custom"
+                }
+            ]
+        },
+        "audienceData": {
+            "name": "audienceData",
+            "defaultLabel": "Audience Data",
+            "labelKey": "DOCUMENT.AUDIENCE_DATA",
+            "type": "json"
+        },
+        "isDelete": {
+            "name": "isDelete",
+            "defaultLabel": "isDelete",
+            "type": "boolean"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    }
+}

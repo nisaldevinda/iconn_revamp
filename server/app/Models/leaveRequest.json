@@ -1,0 +1,129 @@
+{
+   "name":"leaveRequest",
+   "path":"/leaves",
+   "hasSoftDelete":false,
+   "fields":{
+      "id":{
+         "name":"id",
+         "defaultLabel":"ID",
+         "labelKey":"ID",
+         "type":"number",
+         "isEditable":false,
+         "isSystemValue":true
+      },
+      "employeeId":{
+         "name":"employeeId",
+         "defaultLabel":"Employee ID",
+         "labelKey":"Employee ID",
+         "type":"number",
+         "isEditable":false,
+         "isSystemValue":true
+      },
+      "leaveTypeId":{
+         "name":"leaveTypeId",
+         "defaultLabel":"Leave Type",
+         "labelKey":"Leave Type",
+         "type":"number",
+         "isEditable":true,
+         "isSystemValue":false
+      },
+      "fromDate":{
+         "name":"fromDate",
+         "defaultLabel":"From Date",
+         "labelKey":"LEAVE.FROMDATE",
+         "type":"timestamp",
+         "defaultValue":null
+      },
+      "toDate":{
+         "name":"toDate",
+         "defaultLabel":"To Date",
+         "labelKey":"LEAVE.TODATE",
+         "type":"timestamp",
+         "defaultValue":null
+      },
+      "fromTime":{
+         "name":"fromTime",
+         "defaultLabel":"From Time",
+         "labelKey":"LEAVE.FROMTIME",
+         "type":"timestamp",
+         "defaultValue":null
+      },
+      "toTime":{
+         "name":"toTime",
+         "defaultLabel":"To Time",
+         "labelKey":"LEAVE.TOTIME",
+         "type":"timestamp",
+         "defaultValue":null
+      },
+      "numberOfLeaveDates":{
+         "name":"numberOfLeaveDates",
+         "defaultLabel":"Number Of Leave Date",
+         "labelKey":"LEAVE.NUMBEROFLEAVEDATES",
+         "type":"string"
+      },
+      "workflowInstanceId":{
+         "name":"workflowInstanceId",
+         "defaultLabel":"Workflow Instance ID",
+         "labelKey":"Workflow Instance ID",
+         "type":"number",
+         "isEditable":false,
+         "isSystemValue":true
+      },
+      "reason":{
+         "name":"reason",
+         "defaultLabel":"reason",
+         "labelKey":"LEAVE.REASON",
+         "type":"string"
+      },
+      "fileAttachementIds":{
+         "name":"fileAttachementIds",
+         "defaultLabel":"File Attachments",
+         "labelKey":"LEAVETYPE.FILEATTACHMENTS",
+         "type":"json"
+      },
+      "createdBy":{
+         "name":"createdBy",
+         "defaultLabel":"Created By",
+         "labelKey":"CREATED_BY",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "updatedBy":{
+         "name":"updatedBy",
+         "defaultLabel":"Updated By",
+         "labelKey":"UPDATED_BY",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "createdAt":{
+         "name":"createdAt",
+         "defaultLabel":"Created At",
+         "labelKey":"CREATED_AT",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "updatedAt":{
+         "name":"updatedAt",
+         "defaultLabel":"Updated At",
+         "labelKey":"UPDATED_AT",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "comments":{
+         "name":"comments",
+         "defaultLabel":"Comments",
+         "labelKey":"LEAVETYPE.COMMENTS",
+         "type":"json"
+      },
+      "currentState":{
+         "name":"currentState",
+         "defaultLabel":"Current State",
+         "labelKey":"Current State",
+         "type":"number",
+         "isSystemValue":true
+      }
+   },
+   "relations":{
+      
+   }
+}

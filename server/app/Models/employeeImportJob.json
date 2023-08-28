@@ -1,0 +1,104 @@
+{
+    "name": "employeeImportJob",
+    "path": "/azure-active-directory",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "accessToken": {
+            "name": "accessToken",
+            "defaultLabel": "Access Token",
+            "labelKey": "AZURE_SYNC_JOB.ACCESS_TOKEN",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "fieldMap": {
+            "name": "fieldMap",
+            "defaultLabel": "Field Map",
+            "labelKey": "AZURE_SYNC_JOB.FIELD_MAP",
+            "type": "json"
+        },
+        "progress": {
+            "name": "progress",
+            "defaultLabel": "Progress",
+            "labelKey": "AZURE_SYNC_JOB.PROGRESS",
+            "type": "number",
+            "validations": {
+                "isRequired": true,
+                "min": 1,
+                "max": 3
+            }
+        },
+        "status": {
+            "name": "status",
+            "defaultLabel": "Status",
+            "labelKey": "AZURE_SYNC_JOB.STATUS",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "PENDING",
+                    "labelKey": "AZURE_SYNC_JOB.STATUS.PENDING",
+                    "defaultLabel": "Pending"
+                },
+                {
+                    "value": "PROCESSING",
+                    "labelKey": "AZURE_SYNC_JOB.STATUS.PROCESSING",
+                    "defaultLabel": "Processing"
+                },
+                {
+                    "value": "SUCCESS",
+                    "labelKey": "AZURE_SYNC_JOB.STATUS.SUCCESS",
+                    "defaultLabel": "Success"
+                },
+                {
+                    "value": "ERROR",
+                    "labelKey": "AZURE_SYNC_JOB.STATUS.ERROR",
+                    "defaultLabel": "Error"
+                }
+            ]
+        },
+        "responseData": {
+            "name": "responseData",
+            "defaultLabel": "Response Data",
+            "labelKey": "AZURE_SYNC_JOB.RESPONSE_DATA",
+            "type": "json"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+    }
+}

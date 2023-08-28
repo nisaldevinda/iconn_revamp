@@ -1,0 +1,22 @@
+  .time-picker-border {
+    border-color:hsl(43, 88%, 51%);
+  }
+  .clone {
+    vertical-align: top;
+    padding-left: 4px;
+  }
+
+  .ant-table-tbody > tr > td {
+    height: 60px;
+    padding: 4px;
+    overflow-wrap: break-word;
+    padding-top: 14px;
+    vertical-align: top;
+    font-size: 14px;
+  }
+
+  .ant-dropdown-menu {
+    overflow-y: scroll;
+    max-height: 250px;
+    border-radius: 6px;
+}

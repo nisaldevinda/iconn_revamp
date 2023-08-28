@@ -1,0 +1,102 @@
+{
+    "name": "dynamicModel",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "modelName": {
+            "name": "modelName",
+            "defaultLabel": "Name",
+            "labelKey": "DYNAMIC_FORM.NAME",
+            "type": "string",
+            "isEditable": false,
+            "isSystemValue": true,
+            "validations": {
+                "isRequired": true,
+                "max": 50
+            }
+        },
+        "title": {
+            "name": "title",
+            "defaultLabel": "Title",
+            "labelKey": "DYNAMIC_FORM.TITLE",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "max": 50
+            }
+        },
+        "description": {
+            "name": "description",
+            "defaultLabel": "Description",
+            "labelKey": "DYNAMIC_FORM.DESCRIPTION",
+            "type": "textArea",
+            "validations": {
+                "max": 255
+            }
+        },
+        "isDynamicMasterDataModel": {
+            "name": "isDynamicMasterDataModel",
+            "defaultLabel": "Is Dynamic Master Data Model",
+			"labelKey": "DYNAMIC_FORM.IS_DYNAMIC_MASTER_DATA_MODEL",
+            "type": "boolean",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "dynamicModel": {
+            "name": "dynamicModel",
+            "defaultLabel": "Dynamic Model",
+            "labelKey": "DYNAMIC_FORM.DYNAMIC_MODEL",
+            "type": "string"
+        },
+        // "tenantId": {
+        //     "name": "tenantId",
+        //     "label": "Tenant Id"
+        // },
+        // "dynamicModel": {
+        //     "name": "dynamicModel",
+        //     "label": "Dynamic Modal"
+        // },
+        "isDelete": {
+            "name": "isDelete",
+            "defaultLabel": "Is Deleted",
+			"labelKey": "DYNAMIC_FORM.IS_DELETE",
+            "type": "boolean",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

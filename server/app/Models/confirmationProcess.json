@@ -1,0 +1,91 @@
+{
+    "name": "confirmationProcess",
+    "path": "/confirmation-processes",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Resignation Name",
+			"labelKey": "CONFIRMATION_PROCESS_CONFIG.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "max": 255,
+                "isWhitespace":true
+			}
+        },
+        "employmentTypeIds": {
+            "name": "employmentTypeIds",
+            "defaultLabel": "employment Types",
+            "labelKey": "CONFIRMATION_PROCESS_CONFIG.JOB_CATEGORIES",
+            "type": "json",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "jobCategoryIds": {
+            "name": "jobCategoryIds",
+            "defaultLabel": "Job Categories",
+            "labelKey": "CONFIRMATION_PROCESS_CONFIG.JOB_CATEGORIES",
+            "type": "json",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "orgEntityId": {
+            "name": "orgEntityId",
+            "defaultLabel": "Organization Structure",
+            "labelKey": "CONFIRMATION_PROCESS_CONFIG.ORG_ENTITY_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "formTemplateId": {
+            "name": "formTemplateId",
+            "defaultLabel": "Form Template",
+            "labelKey": "CONFIRMATION_PROCESS_CONFIG.FORM_TEMPLATE",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    }
+}

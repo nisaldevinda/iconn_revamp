@@ -1,0 +1,115 @@
+
+  /* row data */
+  /* .ant-table-tbody > tr > td {
+    height: 60px;
+    padding: 4px;
+    overflow-wrap: break-word;
+    padding-top: 0;
+    vertical-align: top;
+    font-size: 14px;
+  } */
+  
+  .workScheduleComponent tr th.ant-table-selection-column, table tr td.ant-table-selection-column {
+    padding-right: 1px;
+    padding-left: 1px;
+    text-align: center;
+    vertical-align: middle;
+    width: 0;
+  }
+  .workScheduleComponent tr td.ant-table-cell-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    vertical-align: middle;
+  }
+  .workScheduleComponent .ant-table-thead > tr > th {
+    height: 50px;
+    padding: 4px;
+    font-size: 14px;
+  }
+  
+  .endTime {
+    border-color:hsl(43, 88%, 51%);
+    
+  }
+  .workschedule-calender .ant-picker-content {
+    border: 1px solid #E1E3E5;
+    box-sizing: border-box;
+    border-radius: 10px !important;
+    border-collapse: separate !important
+}
+
+.workschedule-calender .ant-picker-content thead tr {
+    height: 60px;
+    text-align: left;
+}
+
+.workschedule-calender .ant-picker-content thead tr th:not(:first-child) {
+    border-left: 1px solid #E1E3E6;
+}
+
+.workschedule-calender .ant-picker-content thead tr th {
+    font-weight: 600 !important;
+    font-size: 16px;
+    color: #394241;
+    padding-left: 12px !important;
+
+}
+
+.workschedule-calender .ant-picker-content tbody tr {
+    font-weight: 500;
+    vertical-align: top;
+
+}
+
+.workschedule-calender .ant-picker-content tbody tr:hover {
+    background: #F5FFEE
+}
+
+
+
+.workschedule-calender .ant-picker-cell {
+    border-top: 1px solid #E1E3E6;
+    border-left: 1px solid #E1E3E6;
+    padding: 8px;
+}
+
+.workschedule-calender .ant-picker-content {
+
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.ant-picker-footer {
+  display: none;
+ }
+
+.headerRow {
+  margin-bottom: 20px !important;
+}
+
+@media (max-width: 1920px) {
+  .headerRow {
+    margin-left: 61%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .headerRow {
+    margin-left: 38%;
+  }
+}
+.shiftChangeModalSuccesMode .ant-result-title {
+  font-size: 22px !important;
+}
+.shiftChangeModalSuccesMode .ant-result-icon > .anticon {
+  font-size: 50px !important;
+}
+
+.shiftChangeModalSuccesMode .ant-result{
+  padding: 20px 32px !important;
+}
+.shiftChangeModalNormalMode .ant-form-item {
+  margin-bottom: 0px !important;
+}

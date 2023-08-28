@@ -1,0 +1,88 @@
+{
+    "name": "workflowPermission",
+    "path": "/workflowPermission",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "roleId": {
+            "name": "roleId",
+            "defaultLabel": "Role Id",
+            "type": "enum",
+            "enumValueKey": "value",
+			"values": [
+				{
+					"value": 1,
+					"labelKey": "Admin",
+                    "defaultLabel": "Admin"
+				},
+				{
+					"value": 2,
+					"labelKey": "Employee",
+                    "defaultLabel": "Employee"
+				},
+				{
+					"value": 3,
+					"labelKey": "Manager",
+                    "defaultLabel": "Manager"
+				},
+				{
+					"value": 4,
+					"labelKey": "Managers Manager",
+                    "defaultLabel": "Managers Manager"
+				}],
+                "validations": {
+                    "isRequired": true,
+                    "isUnique": false
+                }
+			
+        },
+        "actionId": {
+            "name": "actionId",
+            "defaultLabel": "Action Name",
+            "labelKey": "WORKFLOWPERMISSION.ACTIONID",
+            "type": "tag",
+            "modelName": "workflowAction",
+            "enumValueKey": "id",
+            "enumLabelKey": "actionName",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+                
+            }
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

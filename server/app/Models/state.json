@@ -1,0 +1,21 @@
+{
+    "name": "state",
+	"path": "/countries/:country/states",
+    "isDataBaseEntryBasedModel": false,
+    "fields": {
+        "key": {
+            "name": "key",
+            "defaultLabel": "Key",
+			"labelKey": "KEY",
+			"type": "string",
+            "isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "STATE.NAME",
+			"type": "string"
+        }
+    }
+}

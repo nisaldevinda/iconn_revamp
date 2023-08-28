@@ -1,0 +1,79 @@
+{
+    "name":"documentTemplate",
+    "path":"/document-template",
+    "fields":{
+        "id":{
+            "name":"id",
+            "defaultLabel":"ID",
+            "labelKey":"ID",
+            "type":"number",
+            "isEditable":false,
+            "isSystemValue":true
+        },
+        "name":{
+            "name":"name",
+            "defaultLabel":"Name",
+            "labelKey":"DOCUMENT_TEMPLATE.NAME",
+            "type":"string",
+            "validations":{
+                "isRequired":true,
+                "max": 100
+            }
+        },
+        "description":{
+            "name":"description",
+            "defaultLabel":"Description",
+            "labelKey":"DOCUMENT_TEMPLATE.DESCRIPTION",
+            "type":"string",
+            "validations":{
+                "max": 250
+            }
+        },
+        "content":{
+            "name":"content",
+            "defaultLabel":"Content",
+            "labelKey":"DOCUMENT_TEMPLATE.CONTENT",
+            "type":"string"
+        },
+        "pageSettings":{
+            "name":"pageSettings",
+            "defaultLabel":"Page Settings",
+            "labelKey":"DOCUMENT_TEMPLATE.PAGE_SETTINGS",
+            "type":"json"
+        },
+        "documentCategoryId":{
+            "name":"documentCategoryId",
+            "defaultLabel":"DocumentCategoryId",
+            "labelKey":"DOCUMENT_TEMPLATE.DOCUMENT_CATEGORY",
+            "type":"number"
+        },
+        "createdBy":{
+            "name":"createdBy",
+            "defaultLabel":"Created By",
+            "labelKey":"CREATED_BY",
+            "type":"string",
+            "isSystemValue":true
+        },
+        "updatedBy":{
+            "name":"updatedBy",
+            "defaultLabel":"Updated By",
+            "labelKey":"UPDATED_BY",
+            "type":"string",
+            "isSystemValue":true
+        },
+        "createdAt":{
+            "name":"createdAt",
+            "defaultLabel":"Created At",
+            "labelKey":"CREATED_AT",
+            "type":"string",
+            "isSystemValue":true
+        },
+        "updatedAt":{
+            "name":"updatedAt",
+            "defaultLabel":"Updated At",
+            "labelKey":"UPDATED_AT",
+            "type":"string",
+            "isSystemValue":true
+        }
+    }
+}

@@ -1,0 +1,128 @@
+{
+    "name":"shortLeaveRequest",
+    "path":"/short-leaves",
+    "hasSoftDelete":false,
+    "fields":{
+       "id":{
+          "name":"id",
+          "defaultLabel":"ID",
+          "labelKey":"ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "employeeId":{
+          "name":"employeeId",
+          "defaultLabel":"Employee ID",
+          "labelKey":"Employee ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "shortLeaveType":{
+          "name":"shortLeaveType",
+          "defaultLabel":"Short Leave Type",
+          "labelKey":"SHORT_LEAVE.SHORT_LEAVE_TYPE",
+          "type":"string"
+       },
+       "date":{
+          "name":"date",
+          "defaultLabel":"Date",
+          "labelKey":"SHORT_LEAVE.DATE",
+          "type":"timestamp",
+          "defaultValue":null
+       },
+       "fromTime":{
+          "name":"fromTime",
+          "defaultLabel":"From Time",
+          "labelKey":"SHORT_LEAVE.FROMTIME",
+          "type":"timestamp",
+          "defaultValue":null
+       },
+       "toTime":{
+          "name":"toTime",
+          "defaultLabel":"To Time",
+          "labelKey":"SHORT_LEAVE.TOTIME",
+          "type":"timestamp",
+          "defaultValue":null
+       },
+       "numberOfMinutes":{
+          "name":"numberOfMinutes",
+          "defaultLabel":"Number Of Minutes",
+          "labelKey":"SHORT_LEAVE.NUMBEROFMINUTES",
+          "type":"string"
+       },
+       "workflowInstanceId":{
+          "name":"workflowInstanceId",
+          "defaultLabel":"Workflow Instance ID",
+          "labelKey":"Workflow Instance ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "reason":{
+          "name":"reason",
+          "defaultLabel":"reason",
+          "labelKey":"SHORT_LEAVE.REASON",
+          "type":"string"
+       },
+       "fileAttachementIds":{
+          "name":"fileAttachementIds",
+          "defaultLabel":"File Attachments",
+          "labelKey":"SHORT_LEAVE.FILEATTACHMENTS",
+          "type":"json"
+       },
+       "createdBy":{
+          "name":"createdBy",
+          "defaultLabel":"Created By",
+          "labelKey":"CREATED_BY",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "updatedBy":{
+          "name":"updatedBy",
+          "defaultLabel":"Updated By",
+          "labelKey":"UPDATED_BY",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "approvedBy":{
+          "name":"approvedBy",
+          "defaultLabel":"Approved By",
+          "labelKey":"SHORT_LEAVE.APPROVED_BY",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "createdAt":{
+          "name":"createdAt",
+          "defaultLabel":"Created At",
+          "labelKey":"CREATED_AT",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "updatedAt":{
+          "name":"updatedAt",
+          "defaultLabel":"Updated At",
+          "labelKey":"UPDATED_AT",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "approvedAt":{
+          "name":"approvedAt",
+          "defaultLabel":"Approved At",
+          "labelKey":"SHORT_LEAVE.APPROVED_AT",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "currentState":{
+          "name":"currentState",
+          "defaultLabel":"Current State",
+          "labelKey":"Current State",
+          "type":"number",
+          "isSystemValue":true
+       }
+    },
+    "relations":{
+       
+    }
+ }

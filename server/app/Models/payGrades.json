@@ -1,0 +1,116 @@
+{
+    "name": "payGrades",
+    "path": "/payGrade",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+            "labelKey": "PAYGRADES.NAME",
+            "type": "string",
+            "isEditable": false,
+            "isSystemValue": false,
+            "validations": {
+                "isRequired": true,
+                "isUnique": false,
+                "max":100
+            }
+        },
+        "currency": {
+            "name": "currency",
+            "defaultLabel": "Currency",
+            "labelKey": "PAYGRADES.CURRENCY",
+            "type": "currency",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        // "minimumSalary": {
+        //     "name": "minimumSalary",
+        //     "defaultLabel": "Minimum Salary",
+        //     "labelKey": "PAYGRADES.MINIMUMSALARY",
+        //     "type": "number",
+        //     "validations": {
+        //         "isRequired": false,
+        //         "isUnique": false,
+        //         "isDecimal":true,
+        //         "maxDependentOn": "maximumSalary"
+        //     }
+        // },
+        // "maximumSalary": {
+        //     "name": "maximumSalary",
+        //     "defaultLabel": "Maximum Salary",
+        //     "labelKey": "PAYGRADES.MAXIMUMSALARY",
+        //     "type": "number",
+        //     "validations": {
+        //         "isRequired": false,
+        //         "isUnique": false,
+        //         "isDecimal":true,
+        //         "minDependentOn": "minimumSalary"
+        //     }
+        // },
+        "salaryComponentIds": {
+            "name": "salaryComponentIds",
+            "defaultLabel": "Salary Component",
+            "labelKey": "PAYGRADES.SALRAYCOMPONENT",
+            "type": "tag",
+            "modelName": "salaryComponents",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": false
+            }
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "employee",
+            "labelKey": "PAYGRADE.EMPLOYEE",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "payGrade",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "isSystemValue": true
+		},
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        "employee": "BELONGS_TO"
+    }
+}

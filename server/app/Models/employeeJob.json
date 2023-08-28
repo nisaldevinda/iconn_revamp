@@ -1,0 +1,498 @@
+{
+    "name": "employeeJob",
+    "path": "/employeeJobs",
+    "singularDefaultLabel": "Job",
+    "singularLabelKey": "job",
+    "pluralDefaultLabel": "Jobs",
+    "pluralLabelKey": "jobs",
+    "hasEffectiveDate": true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "tableColumnName": "id",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee ID",
+            "labelKey": "EMPLOYEE_ID",
+            "type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "jobs",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "effectiveDate": {
+            "name": "effectiveDate",
+            "defaultLabel": "Effective Date",
+            "labelKey": "JOB.EFFECTIVE_DATE",
+            "type": "timestamp",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "employeeJourneyType": {
+            "name": "employeeJourneyType",
+            "defaultLabel": "Employee Journey Type",
+            "labelKey": "JOB.EMPLOYEE_JOURNEY_TYPE",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "JOINED",
+                    "labelKey": "JOINED",
+                    "defaultLabel": "Joined"
+                },
+                {
+                    "value": "PROMOTIONS",
+                    "labelKey": "PROMOTIONS",
+                    "defaultLabel": "Promotions"
+                },
+                {
+                    "value": "CONFIRMATION_CONTRACTS",
+                    "labelKey": "CONFIRMATION_CONTRACTS.",
+                    "defaultLabel": "Confirmation/Contracts"
+                },
+                {
+                    "value": "TRANSFERS",
+                    "labelKey": "TRANSFERS",
+                    "defaultLabel": "Transfers"
+                },
+                {
+                    "value": "RESIGNATIONS",
+                    "labelKey": "RESIGNATIONS",
+                    "defaultLabel": "Resignations"
+                },
+                {
+                    "value": "REJOINED",
+                    "labelKey": "REJOINED",
+                    "defaultLabel": "Rejoined"
+                },
+                {
+                    "value": "REACTIVATED",
+                    "labelKey": "REACTIVATED",
+                    "defaultLabel": "Reactivated"
+                }
+            ],
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "location": {
+            "name": "location",
+            "defaultLabel": "Location",
+            "labelKey": "JOB.LOCATION",
+            "type": "model",
+            "modelName": "location",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": true,
+                "max": 100
+            }
+        },
+        "orgStructureEntity": {
+            "name": "orgStructureEntity",
+            "defaultLabel": "Organization Structure",
+            "labelKey": "JOB.ORG_STRUCTURE",
+            "type": "model",
+            "modelName": "orgEntity",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "orgStructureEntityId": {
+            "name": "orgStructureEntityId",
+            "defaultLabel": "Organization Structure",
+            "labelKey": "JOB.ORG_STRUCTURE",
+            "type": "orgSelector",
+            "validations": {
+                "isRequired": true
+            },
+            "isSystemValue": true
+        },
+        // "department": {
+        //     "name": "department",
+        //     "defaultLabel": "Department",
+        //     "labelKey": "JOB.DEPARTMENT",
+        //     "type": "model",
+        //     "modelName": "department",
+        //     "enumValueKey": "id",
+        //     "enumLabelKey": "name",
+        //     "defaultValue": null
+        // },
+        // "division": {
+        //     "name": "division",
+        //     "defaultLabel": "Division",
+        //     "labelKey": "JOB.DIVISION",
+        //     "type": "model",
+        //     "modelName": "division",
+        //     "enumValueKey": "id",
+        //     "enumLabelKey": "name",
+        //     "defaultValue": null
+        // },
+        "jobTitle": {
+            "name": "jobTitle",
+            "defaultLabel": "Job Title",
+            "labelKey": "JOB.JOB_TITLE",
+            "type": "model",
+            "modelName": "jobTitle",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "jobCategory": {
+            "name": "jobCategory",
+            "defaultLabel": "Job Category",
+            "labelKey": "JOB.JOB_CATEGORY",
+            "type": "model",
+            "modelName": "jobCategory",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "reportsToEmployee": {
+            "name": "reportsToEmployee",
+            "defaultLabel": "Reports-to",
+            "labelKey": "JOB.REPORTS_TO",
+            "type": "model",
+            "modelName": "employee",
+            "route": "/api/managers",
+            "searchableEnum": true,
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "functionalReportsToEmployee": {
+            "name": "functionalReportsToEmployee",
+            "defaultLabel": "Functional Reporting Person",
+            "labelKey": "JOB.FUN_REPORTS_TO",
+            "type": "model",
+            "modelName": "employee",
+            "route": "/api/managers",
+            "searchableEnum": true,
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName",
+            "defaultValue": null
+        },
+        "calendar": {
+            "name": "calendar",
+            "defaultLabel": "Calendar",
+            "labelKey": "JOB.CALENDER",
+            "type": "model",
+            "modelName": "calendar",
+            "route": "/api/work-calender/calendar-list",
+            "searchableEnum": true,
+            "enumValueKey": "calendarId",
+            "enumLabelKey": "menuItemName",
+            "defaultValue": 1,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "scheme": {
+            "name": "scheme",
+            "defaultLabel": "Scheme",
+            "labelKey": "JOB.SCHEME",
+            "type": "model",
+            "modelName": "scheme",
+            "enumValueKey": "id",
+            "enumLabelKey": "name"
+        },
+        "employmentStatus": {
+            "name": "employmentStatus",
+            "defaultLabel": "Employment Status",
+            "labelKey": "JOB.EMPLOYMENT_STATUS",
+            "type": "model",
+            "modelName": "employmentStatus",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "payGrade": {
+            "name": "payGrade",
+            "defaultLabel": "Pay Grade",
+            "labelKey": "JOB.PAY_GRADE",
+            "type": "model",
+            "modelName": "payGrades",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "promotionType": {
+            "name": "promotionType",
+            "defaultLabel": "Promotion Type",
+            "labelKey": "JOB.PROMOTION_TYPE",
+            "type": "model",
+            "modelName": "promotionType",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": false
+            },
+            "isSystemValue": true
+        },
+        "confirmationReason": {
+            "name": "confirmationReason",
+            "defaultLabel": "Confirmation Reason",
+            "labelKey": "JOB.CONFIRMATION_REASON",
+            "type": "model",
+            "modelName": "confirmationReason",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": false
+            },
+            "isSystemValue": true
+        },
+        "transferType": {
+            "name": "transferType",
+            "defaultLabel": "Transfer Type",
+            "labelKey": "JOB.TRANSFER_TYPE",
+            "type": "model",
+            "modelName": "transferType",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": false
+            },
+            "isSystemValue": true
+        },
+        "resignationType": {
+            "name": "resignationType",
+            "defaultLabel": "Resignation Type",
+            "labelKey": "JOB.RESIGNATION_TYPE",
+            "type": "model",
+            "modelName": "resignationType",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": false
+            },
+            "isSystemValue": true
+        },
+        "promotionReason": {
+            "name": "promotionReason",
+            "defaultLabel": "Promotion Reason",
+            "labelKey": "JOB.PROMOTION_REASON",
+            "type": "textArea",
+            "validations": {
+                "max": 250
+            },
+            "isSystemValue": true
+        },
+        "confirmationRemark": {
+            "name": "confirmationRemark",
+            "defaultLabel": "Confirmation Remarks",
+            "labelKey": "JOB.CONFIRMATION_REMARK",
+            "type": "textArea",
+            "validations": {
+                "max": 250
+            },
+            "isSystemValue": true
+        },
+        "transferReason": {
+            "name": "transferReason",
+            "defaultLabel": "Transfer Reason",
+            "labelKey": "JOB.TRANSFER_REASON",
+            "type": "textArea",
+            "validations": {
+                "max": 250
+            },
+            "isSystemValue": true
+        },
+        "resignationReason": {
+            "name": "resignationReason",
+            "defaultLabel": "Resignation Reason",
+            "labelKey": "JOB.RESIGNATION_REASON",
+            "type": "model",
+            "modelName": "terminationReason",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "isSystemValue": true
+        },
+        "resignationRemarks": {
+            "name": "resignationRemarks",
+            "defaultLabel": "Resignation Remarks",
+            "labelKey": "JOB.RESIGNATION_REMARK",
+            "type": "textArea",
+            "validations": {
+                "max": 250
+            },
+            "isSystemValue": true
+        },
+        "confirmationAction": {
+            "name": "confirmationAction",
+            "defaultLabel": "Confirmation Action",
+            "labelKey": "JOB.CONFIRMATION_ACTION",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "ABSORB_TO_PERMANENT_CARDER",
+                    "labelKey": "ABSORB_TO_PERMANENT_CARDER",
+                    "defaultLabel": "Absorb to Permanent Carder"
+                },
+                {
+                    "value": "EXTEND_THE_PROBATION",
+                    "labelKey": "EXTEND_THE_PROBATION.",
+                    "defaultLabel": "Extend The Probation"
+                },
+                {
+                    "value": "CONTRACT_RENEWAL",
+                    "labelKey": "CONTRACT_RENEWAL",
+                    "defaultLabel": "Contract Renewal"
+                }
+            ],
+            "isSystemValue": true
+        },
+        "resignationHandoverDate": {
+            "name": "resignationHandoverDate",
+            "defaultLabel": "Resignation Handover Date",
+            "labelKey": "JOB.RESIGNATION_HANDOVER_DATE",
+            "type": "timestamp",
+            "defaultValue": null,
+            "isSystemValue": true
+        },
+        "resignationNoticePeriodRemainingDays": {
+            "name": "resignationNoticePeriodRemainingDays",
+            "defaultLabel": "Resignation Notice Period Remaining Days",
+            "labelKey": "JOB.RESIGNATION_NOTICE_PERIOD_REMAINING_DAYS",
+            "type": "number",
+            "defaultValue": 0,
+            "isSystemValue": true
+        },
+        "attachmentId": {
+            "name": "attachmentId",
+            "defaultLabel": "File ID",
+            "labelKey": "JOB.ATTACHMENTID",
+            "type": "number",
+            "isSystemValue": true
+        },
+        "lastWorkingDate": {
+            "name": "lastWorkingDate",
+            "defaultLabel": "Last Working Date",
+            "labelKey": "JOB.LAST_WORKING_DATE",
+            "type": "timestamp",
+            "defaultValue": null,
+            "isSystemValue": true
+        },
+        "isRollback": {
+            "name": "isRollback",
+            "defaultLabel": "Is Rollback",
+            "labelKey": "IS_ROLLBACK",
+            "type": "boolean",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "rollbackReason": {
+            "name": "rollbackReason",
+            "defaultLabel": "Rollback Reason",
+            "labelKey": "JOB.ROLLBACK_REASON",
+            "type": "textArea",
+            "validations": {
+                "max": 250
+            },
+            "isSystemValue": true
+        },
+        "rejoinComment": {
+            "name": "rejoinComment",
+            "defaultLabel": "Rejoin Comment",
+            "labelKey": "JOB.REJOIN_COMMENT",
+            "type": "textArea",
+            "validations": {
+                "max": 250
+            },
+            "isSystemValue": true
+        },
+        "reactiveComment": {
+            "name": "reactiveComment",
+            "defaultLabel": "Reactive Comment",
+            "labelKey": "JOB.REACTIVE_COMMENT",
+            "type": "textArea",
+            "validations": {
+                "max": 250
+            },
+            "isSystemValue": true
+        },
+        "previousRecordId": {
+            "name": "previousRecordId",
+            "defaultLabel": "Previous Status",
+            "labelKey": "JOB.PREVIOUS_STATUS",
+            "type": "number",
+            "isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "templateTokens": {
+        "createdAt": "job_created_at"
+    },
+    "relations": {
+        "location": "HAS_ONE",
+        "orgStructureEntity": "HAS_ONE",
+        // "department": "HAS_ONE",
+        // "division": "HAS_ONE",
+        "jobTitle": "HAS_ONE",
+        "jobCategory": "HAS_ONE",
+        "reportsToEmployee": "HAS_ONE",
+        "functionalReportsToEmployee": "HAS_ONE",
+        "calendar": "HAS_ONE",
+        "employee": "BELONGS_TO_MANY",
+        "scheme": "HAS_ONE",
+        "employmentStatus": "HAS_ONE",
+        "payGrade": "HAS_ONE",
+        "promotionType": "HAS_ONE",
+        "confirmationReason": "HAS_ONE",
+        "transferType": "HAS_ONE",
+        "resignationType": "HAS_ONE",
+        "resignationReason": "HAS_ONE"
+    }
+}

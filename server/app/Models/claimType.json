@@ -1,0 +1,152 @@
+{
+    "name": "claimType",
+	"path": "/claimType",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "orgEntityId": {
+            "name": "orgEntityId",
+            "defaultLabel": "Organization Structure",
+            "labelKey": "RESIGNATION_PROCESS_CONFIG.ORG_ENTITY_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "typeName": {
+            "name": "typeName",
+            "defaultLabel": "Type Name",
+            "labelKey": "CLAIM_TYPE.NAME",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true,
+                "max": 100,
+                "min": 1
+            }
+        },
+        "claimCategory": {
+            "name": "claimCategory",
+            "defaultLabel": "Claim Category",
+            "labelKey": "CLAIM_TYPE.CLAIM_CATEGORY_ID",
+            "type": "model",   
+            "modelName": "claimCategory",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "isSystemValue": false,
+            "validations": {
+                "isRequired": true
+              
+            }          
+        },
+        "amountType": {
+            "name": "amountType",
+            "defaultLabel": "Amount Type",
+            "labelKey": "CLAIM_TYPE.AMOUNT_TYPE",
+            "type": "enum",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            },   
+            "values": [
+                {
+                    "value": "UNLIMITED",
+                    "labelKey": "UNLIMITED",
+                    "defaultLabel": "Unlimited"
+                },
+                {
+                    "value": "MAX_AMOUNT",
+                    "labelKey": "MAX_AMOUNT",
+                    "defaultLabel": "Maximum Amount"
+                }
+            ]
+        },
+        "maxAmount": {
+            "name": "maxAmount",
+            "defaultLabel": "Max Amount",
+            "labelKey": "CLAIM_TYPE.MAX_AMOUNT",
+            "type": "string"
+        },
+        "orderType": {
+            "name": "orderType",
+            "defaultLabel": "Order Type",
+            "labelKey": "CLAIM_TYPE.ORDER_TYPE",
+            "type": "enum",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            },   
+            "values": [
+                {
+                    "value": "MONTHLY",
+                    "labelKey": "MONTHLY",
+                    "defaultLabel": "Monthly"
+                },
+                {
+                    "value": "ANNUALY",
+                    "labelKey": "ANNUALY",
+                    "defaultLabel": "Annualy"
+                }
+            ]
+        },
+        "isAllowAttachment": {
+            "name": "isAllowAttachment",
+            "defaultLabel": "Is Allow Attachment",
+            "labelKey": "CLAIM_TYPE.ALLOW_ATTACHMENT",
+            "type": "switch",
+            "defaultValue": false
+        },
+        "isAttachmentMandatory": {
+            "name": "isAttachmentMandatory",
+            "defaultLabel": "Is Attachment Mandatory",
+            "labelKey": "CLAIM_TYPE.IS_ATTACHMENT_MANDATORY",
+            "type": "switch",
+            "defaultValue": false
+        },
+        "isAllocationEnable": {
+            "name": "isAllocationEnable",
+            "defaultLabel": "Is Allocation Enable",
+            "labelKey": "CLAIM_TYPE.IS_ALLOCATION_ENABLE",
+            "type": "switch",
+            "defaultValue": false
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "claimCategory":"HAS_ONE"
+    }
+}

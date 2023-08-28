@@ -1,0 +1,150 @@
+{
+    "name": "employeeEmployment",
+	"path": "/employeeEmployments",
+    "singularDefaultLabel": "Employment",
+    "singularLabelKey": "employment",
+    "pluralDefaultLabel": "Employments",
+    "pluralLabelKey": "employments",
+    "hasEffectiveDate":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee ID",
+			"labelKey": "EMPLOYEE_ID",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "employments",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "effectiveDate": {
+            "name": "effectiveDate",
+            "defaultLabel": "Effective Date",
+			"labelKey": "EMPLOYMENT.EFFECTIVE_DATE",
+            "type": "timestamp",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "employmentStatus": {
+            "name": "employmentStatus",
+            "defaultLabel": "Employment Status",
+            "labelKey": "EMPLOYMENT.EMPLOYMENT_STATUS",
+            "type": "model",
+            "modelName": "employmentStatus",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "probationEndDate": {
+            "name": "probationEndDate",
+            "defaultLabel": "Probation End Date",
+            "labelKey": "EMPLOYMENT.PROBATION_END_DATE",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        // "terminationType": {
+        //     "name": "terminationType",
+        //     "defaultLabel": "Resignation Type",
+        //     "labelKey": "EMPLOYMENT.TERMINATION_TYPE",
+        //     "type": "model",
+        //     "modelName": "terminationType",
+        //     "enumValueKey": "id",
+        //     "enumLabelKey": "name",
+        //     "defaultValue": null,
+        //     "showOn": [
+        //         {
+        //             "dependentFieldName": "employmentStatusId",
+        //             "operator": "eq",
+        //             "value": 1
+        //         }
+        //     ]
+        // },
+        // "terminationReason": {
+        //     "name": "terminationReason",
+        //     "defaultLabel": "Resignation Reason",
+        //     "labelKey": "EMPLOYMENT.TERMINATION_REASON",
+        //     "type": "model",
+        //     "modelName": "terminationReason",
+        //     "enumValueKey": "id",
+        //     "enumLabelKey": "name",
+        //     "defaultValue": null,
+        //     "showOn": [
+        //         {
+        //             "dependentFieldName": "employmentStatusId",
+        //             "operator": "eq",
+        //             "value": 1
+        //         }
+        //     ]
+        // },
+        "rehireEligibility": {
+            "name": "rehireEligibility",
+            "defaultLabel": "Rehire Eligibility",
+            "labelKey": "EMPLOYMENT.REHIRE_ELIGIBILITY",
+            "type": "string",
+            "defaultValue": null,
+            "validations": {
+                "max":100
+			}
+        },
+        "comment": {
+            "name": "comment",
+            "defaultLabel": "Comment",
+            "labelKey": "EMPLOYMENT.COMMENT",
+            "type": "longString",
+            "defaultValue": null,
+            "validations": {
+                "max":100
+			}
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "templateTokens": {
+        "effectiveDate": "employment_effective_date"
+    },
+    "relations": {
+		// "terminationType": "HAS_ONE",
+		"terminationReason": "HAS_ONE",
+        "employee": "BELONGS_TO_MANY",
+        "employmentStatus":"HAS_ONE"
+	}
+}

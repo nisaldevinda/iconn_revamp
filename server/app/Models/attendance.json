@@ -1,0 +1,127 @@
+{
+    "name": "attendance",
+    "path": "/attendances",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "date": {
+            "name": "date",
+            "defaultLabel": "Date",
+            "labelKey": "ATTENDANCE.DATE",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "timeZone": {
+            "name": "timeZone",
+            "defaultLabel": "Time Zone",
+            "labelKey": "ATTENDANCE.TIMEZONE",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "in": {
+            "name": "in",
+            "defaultLabel": "In",
+            "labelKey": "ATTENDANCE.IN",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "out": {
+            "name": "out",
+            "defaultLabel": "out",
+            "labelKey": "ATTENDANCE.OUT",
+            "type": "string"
+        },
+        "typeId": {
+            "name": "typeId",
+            "defaultLabel": "Type Id",
+            "labelKey": "ATTENDANCE.TYPE_ID",
+            "type": "number"
+        },
+        "employeeId": {
+            "name": "employeeId",
+            "defaultLabel": "Employee Id",
+            "labelKey": "ATTENDANCE.EMPLOYEE_ID",
+            "type": "number"
+        },
+        "calendarId": {
+            "name": "calendarId",
+            "defaultLabel": "Calendar Id",
+            "labelKey": "ATTENDANCE.CALENDAR_ID",
+            "type": "number"
+        },
+        "shiftId": {
+            "name": "shiftId",
+            "defaultLabel": "Shift Id",
+            "labelKey": "ATTENDANCE.SHIFT_ID",
+            "type": "number"
+        },
+        "summaryId": {
+            "name": "summaryId",
+            "defaultLabel": "Summary Id",
+            "labelKey": "ATTENDANCE.SUMMARY_ID",
+            "type": "number"
+        },
+        "earlyOut": {
+            "name": "earlyOut",
+            "defaultLabel": "Early Out Hours",
+            "labelKey": "ATTENDANCE.EARLY_OUT",
+            "type": "number"
+        },
+        "lateIn": {
+            "name": "lateIn",
+            "defaultLabel": "Late In Hours",
+            "labelKey": "ATTENDANCE.LATE_IN",
+            "type": "number"
+        },
+        "inUTC": {
+            "name": "inUTC",
+            "defaultLabel": "In UTC",
+            "labelKey": "ATTENDANCE.INUTC",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "outUTC": {
+            "name": "outUTC",
+            "defaultLabel": "Out UTC",
+            "labelKey": "ATTENDANCE.OUTUTC",
+            "type": "string"
+        },
+        "workedHours": {
+            "name": "workedHours",
+            "defaultLabel": "Worked Hours",
+            "labelKey": "ATTENDANCE.WORKED_HOURS",
+            "type": "number"
+        },
+        "breakHours": {
+            "name": "breakHours",
+            "defaultLabel": "Break Hours",
+            "labelKey": "ATTENDANCE.BREAK_HOURS",
+            "type": "number"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {}
+}

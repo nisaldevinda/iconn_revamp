@@ -1,0 +1,68 @@
+{
+   "name":"leaveRequestEntitlement",
+   "path":"/leaveRequestDetail",
+   "hasSoftDelete":false,
+   "fields":{
+      "id":{
+         "name":"id",
+         "defaultLabel":"ID",
+         "labelKey":"ID",
+         "type":"number",
+         "isEditable":false,
+         "isSystemValue":true
+      },
+      "leaveRequestDetailId":{
+         "name":"leaveRequestDetailId",
+         "defaultLabel":"Leave Request Detail ID",
+         "labelKey":"LEAVE_REQUEST_DETAIL_ID",
+         "type":"number",
+         "isEditable":false,
+         "isSystemValue":true
+      },
+      "leaveEntitlementId":{
+         "name":"leaveEntitlementId",
+         "defaultLabel":"Leave Request Entitlement ID",
+         "labelKey":"LEAVE_REQUEST_ENTITLEMENT_ID",
+         "type":"number",
+         "isEditable":false,
+         "isSystemValue":true
+      },
+      "entitlePortion":{
+         "name":"entitlePortion",
+         "defaultLabel":"Entitle Portion",
+         "labelKey":"ENTITLE_POTION",
+         "type":"string"
+      },
+      "createdBy":{
+         "name":"createdBy",
+         "defaultLabel":"Created By",
+         "labelKey":"CREATED_BY",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "updatedBy":{
+         "name":"updatedBy",
+         "defaultLabel":"Updated By",
+         "labelKey":"UPDATED_BY",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "createdAt":{
+         "name":"createdAt",
+         "defaultLabel":"Created At",
+         "labelKey":"CREATED_AT",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "updatedAt":{
+         "name":"updatedAt",
+         "defaultLabel":"Updated At",
+         "labelKey":"UPDATED_AT",
+         "type":"string",
+         "isSystemValue":true
+      }
+   },
+   "relations":{
+      
+   }
+}

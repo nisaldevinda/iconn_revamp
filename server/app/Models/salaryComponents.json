@@ -1,0 +1,195 @@
+{
+    "name": "salaryComponents",
+    "path": "/salaryComponents",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Component Name",
+            "labelKey": "SALARYCOMPONENTS.NAME",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true,
+                "max":100
+            }
+        },
+        "salaryType": {
+            "name": "salaryType",
+            "defaultLabel": "Type",
+			"labelKey": "SALARYCOMPONENTS.SALARYTYPE",
+            "type": "enum",
+			"values": [
+				{
+					"value": "BASE_PAY",
+					"labelKey": "SALARYCOMPONENTS.SALARYTYPE.BASE_PAY",
+                    "defaultLabel": "Base Pay"
+				},
+				{
+					"value": "FIXED_ALLOWANCE",
+					"labelKey": "SALARYCOMPONENTS.SALARYTYPE.FIXED_ALLOWANCE",
+                    "defaultLabel": "Fixed Allowance"
+				}
+            ],
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "country": {
+            "name": "country",
+            "defaultLabel": "Country",
+            "labelKey": "SALARYCOMPONENTS.COUNTRY",
+            "type": "model",
+            "modelName": "country",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "valueType": {
+            "name": "valueType",
+            "defaultLabel": "Value Type",
+			"labelKey": "SALARYCOMPONENTS.VALUETYPE",
+            "type": "enum",
+			"values": [
+				{
+					"value": "MONTHLY_AMOUNT",
+					"labelKey": "SALARYCOMPONENTS.VALUETYPE.MONTHLY_AMOUNT",
+                    "defaultLabel": "Monthly Amount"
+				},
+				{
+					"value": "ANNUAL_AMOUNT",
+					"labelKey": "SALARYCOMPONENTS.VALUETYPE.ANNUAL_AMOUNT",
+                    "defaultLabel": "Annual Amount"
+				}
+            ],
+            "showOn": [
+                {
+                    "dependentFieldName": "salaryType",
+                    "operator": "eq",
+                    "value": "BASE_PAY"
+                }
+            ],
+            "defaultValue": null
+        },
+        "valueTypeMock": {
+            "name": "valueTypeMock",
+            "defaultLabel": "Value Type",
+			"labelKey": "SALARYCOMPONENTS.VALUETYPE",
+            "type": "enum",
+			"values": [
+				{
+					"value": "AMOUNT",
+					"labelKey": "SALARYCOMPONENTS.VALUETYPE.AMOUNT",
+                    "defaultLabel": "Amount"
+				}
+            ],
+            "showOn": [
+                {
+                    "dependentFieldName": "salaryType",
+                    "operator": "eq",
+                    "value": "FIXED_ALLOWANCE"
+                }
+            ],
+            "defaultValue": "AMOUNT"
+        },
+        // "AddTo": {
+        //     "name": "AddTo",
+        //     "defaultLabel": "Add To",
+        //     "labelKey": "SALARYCOMPONENTS.ADDTO",
+        //     "type" : "label",
+        //     "labelSpan": 24,
+        //     "defaultValue": false,
+		// 	"isNonRecordableField": true
+        // },
+        // "totalPayable": {
+        //     "name": "totalPayable",
+        //     "defaultLabel": "Total Payable",
+        //     "labelKey": "SALARYCOMPONENTS.TOTALPAYABLE",
+        //     "type": "checkbox",
+		// 	"defaultValue": false,
+		// 	"isSystemValue": false,
+		// 	"isNonRecordableField": false
+        // },
+        // "costToCompany": {
+        //     "name": "costToCompany",
+        //     "defaultLabel": "Cost To Company",
+        //     "labelKey": "SALARYCOMPONENTS.COSTTOCOMPANY",
+        //     "type": "checkbox",
+        //     "defaultValue": false,
+		// 	"isSystemValue": false,
+		// 	"isNonRecordableField": false
+        // },
+        // "valueType": {
+        //     "name": "valueType",
+        //     "defaultLabel": "Value Type",
+        //     "labelKey": "SALARYCOMPONENTS.VALUETYPE",
+        //     "type": "radio",
+        //     "defaultValue": false,
+        //     "validations": {
+        //         "isRequired": false,
+        //         "isUnique": false
+        //     },
+        //     "options": [
+        //         {
+        //             "labelKey": "salary.amount",
+        //             "value": "amount"
+        //         },
+        //         {
+        //             "labelKey": "salary.percentage",
+        //             "value": "percentage"
+        //         }
+        //     ]
+        // },
+        "payGrades": {
+            "name": "payGrades",
+            "defaultLabel": "PayGrades",
+            "labelKey": "SALARYCOMPONENT.PayGrade",
+			"type": "model",
+            "modelName": "payGrades",
+            "foreignKeyAttribute": "salaryComponent",
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName",
+            "isSystemValue": true
+		},
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        "payGrades": "BELONGS_TO",
+        "country": "HAS_ONE"
+	}
+}

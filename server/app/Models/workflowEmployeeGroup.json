@@ -1,0 +1,113 @@
+{
+    "name": "workflowEmployeeGroup",
+	"path": "/workflowEmployeeGroups",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "WORKFLOW_EMPLOYEE_GROUP.NAME",
+			"type": "string",
+            "validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "isWhitespace":true,
+                "max":100
+			}
+	    },
+        "comment": {
+            "name": "comment",
+            "defaultLabel": "Comment",
+			"labelKey": "WORKFLOW_EMPLOYEE_GROUP.COMMENT",
+			"type": "string"
+            
+	    },
+        "context": {
+            "name": "context",
+            "defaultLabel": "Context Name",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.CONTEXTID",
+            "type": "model",
+            "modelName": "workflowContext",
+            "enumValueKey": "id",
+            "enumLabelKey": "contextName",
+            "defaultValue": null,
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "jobTitles": {
+            "name": "jobTitles",
+            "defaultLabel": "Job Titles",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.JOB_TITLES",
+            "type": "json"
+        },
+        "employmentStatuses": {
+            "name": "employmentStatuses",
+            "defaultLabel": "Employment Statuses",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.EMPLOYMENT_STATUSES",
+            "type": "json"
+        },
+        "departments": {
+            "name": "departments",
+            "defaultLabel": "Departments",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.DEPARTMENTS",
+            "type": "json"
+        },
+        "divisions": {
+            "name": "divisions",
+            "defaultLabel": "Divisions",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.DIVISIONS",
+            "type": "json"
+        },
+        "locations": {
+            "name": "locations",
+            "defaultLabel": "Locations",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.LOCATIONS",
+            "type": "json"
+        },
+        "reportingPersons": {
+            "name": "reportingPersons",
+            "defaultLabel": "Reporting Persons",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.REPORTED_PERSONS",
+            "type": "json"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "context": "HAS_ONE"
+    }
+}

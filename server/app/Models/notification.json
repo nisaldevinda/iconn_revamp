@@ -1,0 +1,41 @@
+{
+    "name": "notification",
+    "fields": {
+        "id": {
+            "name": "id",
+            "label": "ID"
+        },
+        "userId": {
+            "name": "userId",
+            "label": "User ID"
+        },
+        "message": {
+            "name": "message",
+            "label": "Message"
+        },
+        "messageCategory": {
+            "name": "messageCategory",
+            "label": "Message Category"
+        },
+        "isRead": {
+            "name": "isRead",
+            "label": "Is Read"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "label": "Created By"
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "label": "Updated By"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "label": "Created At"
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "label": "Updated At"
+        }
+    }
+}

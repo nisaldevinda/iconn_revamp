@@ -1,0 +1,218 @@
+{
+    "name": "attendance_summary",
+    "path": "/attendance_summary",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "date": {
+            "name": "date",
+            "defaultLabel": "Date",
+            "labelKey": "ATTENDANCE.DATE",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "timeZone": {
+            "name": "timeZone",
+            "defaultLabel": "Time Zone",
+            "labelKey": "ATTENDANCE.TIMEZONE",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "employeeId": {
+            "name": "employeeId",
+            "defaultLabel": "Employee Id",
+            "labelKey": "ATTENDANCE.EMPLOYEE_ID",
+            "type": "number"
+        },
+        "dayTypeId": {
+            "name": "dayTypeId",
+            "defaultLabel": "Day Type Id",
+            "labelKey": "ATTENDANCE.DAY_TYPE_id",
+            "type": "number"
+        },
+        "shiftId": {
+            "name": "shiftId",
+            "defaultLabel": "Shift Id",
+            "labelKey": "ATTENDANCE.SHIFT_ID",
+            "type": "number"
+        },
+        "isExpectedToPresent": {
+            "name": "isExpectedToPresent",
+            "defaultLabel": "Is Expected To Present",
+            "labelKey": "ATTENDANCE.IS_EXPECTED_TO_PRESENT",
+            "type": "boolean"
+        },
+        "expectedLeaveAmount": {
+            "name": "expectedLeaveAmount",
+            "defaultLabel": "Expected Leave Amount",
+            "labelKey": "ATTENDANCE.EXPECTED_LEAVE_AMOUNT",
+            "type": "double"
+        },
+        "expectedIn": {
+            "name": "expectedIn",
+            "defaultLabel": "expected In",
+            "labelKey": "ATTENDANCE.EXPECTED_IN",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "expectedOut": {
+            "name": "expectedOut",
+            "defaultLabel": "expected Out",
+            "labelKey": "ATTENDANCE.EXPECTED_OUT",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "actualIn": {
+            "name": "actualIn",
+            "defaultLabel": "Actual In",
+            "labelKey": "ATTENDANCE.ACTUAL_IN",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "actualInUTC": {
+            "name": "actualInUTC",
+            "defaultLabel": "Actual In UTC",
+            "labelKey": "ATTENDANCE.ACTUAL_IN_UTC",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "actualOut": {
+            "name": "actualOut",
+            "defaultLabel": "Actual Out",
+            "labelKey": "ATTENDANCE.ACTUAL_OUT",
+            "type": "string"
+        },
+        "actualOutUTC": {
+            "name": "actualOutUTC",
+            "defaultLabel": "Actual Out UTC",
+            "labelKey": "ATTENDANCE.ACTUAL_OUT_UTC",
+            "type": "string"
+        },
+        "isPresent": {
+            "name": "isPresent",
+            "defaultLabel": "Is Present",
+            "labelKey": "ATTENDANCE.IS_PRESENT",
+            "type": "boolean"
+        },
+        "isLateIn": {
+            "name": "isLateIn",
+            "defaultLabel": "Is Late In Hours",
+            "labelKey": "ATTENDANCE.IS_LATE_IN",
+            "type": "boolean"
+        },
+        "lateIn": {
+            "name": "lateIn",
+            "defaultLabel": "Late In Hours",
+            "labelKey": "ATTENDANCE.LATE_IN",
+            "type": "number"
+        },
+        "isEarlyOut": {
+            "name": "isEarlyOut",
+            "defaultLabel": "Is Early Out",
+            "labelKey": "ATTENDANCE.IS_EARLY_OUT",
+            "type": "boolean"
+        },
+        "earlyOut": {
+            "name": "earlyOut",
+            "defaultLabel": "Early Out Hours",
+            "labelKey": "ATTENDANCE.EARLY_OUT",
+            "type": "number"
+        },
+        "workTime": {
+            "name": "workTime",
+            "defaultLabel": "Worked Time",
+            "labelKey": "ATTENDANCE.WORKED_Time",
+            "type": "number"
+        },
+        "preShiftWorkTime": {
+            "name": "preShiftWorkTime",
+            "defaultLabel": "Pre Shift Worked Time",
+            "labelKey": "ATTENDANCE.PRE_SHIFT_WORKED_TIME",
+            "type": "number"
+        },
+        "withinShiftWorkTime": {
+            "name": "withinShiftWorkTime",
+            "defaultLabel": "Within Shift Worked Time",
+            "labelKey": "ATTENDANCE.WITHIN_SHIFT_WORKED_TIME",
+            "type": "number"
+        },
+        "postShiftWorkTime": {
+            "name": "postShiftWorkTime",
+            "defaultLabel": "Post Shift Worked Time",
+            "labelKey": "ATTENDANCE.POST_SHIFT_WORKED_TIME",
+            "type": "number"
+        },
+        "breakTime": {
+            "name": "breakTime",
+            "defaultLabel": "Break Time",
+            "labelKey": "ATTENDANCE.BREAK_Time",
+            "type": "number"
+        },
+        "isFullDayLeave": {
+            "name": "isFullDayLeave",
+            "defaultLabel": "Is Full Day Leave",
+            "labelKey": "ATTENDANCE.IS_FULL_DAY_LEAVE",
+            "type": "boolean"
+        },
+        "isHalfDayLeave": {
+            "name": "isHalfDayLeave",
+            "defaultLabel": "Is Half Day Leave",
+            "labelKey": "ATTENDANCE.IS_HALF_DAY_LEAVE",
+            "type": "boolean"
+        },
+        "isShortLeave": {
+            "name": "isShortLeave",
+            "defaultLabel": "Is Short Leave",
+            "labelKey": "ATTENDANCE.IS_SHORT_LEAVE",
+            "type": "boolean"
+        },
+        "isNoPay": {
+            "name": "isNoPay",
+            "defaultLabel": "Is No Pay",
+            "labelKey": "ATTENDANCE.IS_NO_PAY",
+            "type": "boolean"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "isLocked": {
+            "name": "isLocked",
+            "defaultLabel": "Is Locked",
+            "labelKey": "ATTENDANCE.IS_LOCKED",
+            "type": "boolean"
+        }
+    },
+    "relations": {}
+}

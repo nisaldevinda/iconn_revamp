@@ -1,0 +1,143 @@
+@import '~antd/es/style/themes/default.less';
+
+@pro-header-hover-bg: rgba(0, 0, 0, 0.025);
+
+.menu {
+  :global(.anticon) {
+    margin-right: 8px;
+  }
+  :global(.ant-dropdown-menu-item) {
+    min-width: 160px;
+  }
+}
+
+.right {
+  display: flex;
+  float: right;
+  height: 48px;
+  margin-left: auto;
+  overflow: hidden;
+  .action {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    > span {
+      vertical-align: middle;
+    }
+    &:hover {
+      background: @pro-header-hover-bg;
+    }
+    &:global(.opened) {
+      background: @pro-header-hover-bg;
+    }
+  }
+  .search {
+    padding: 0 12px;
+    &:hover {
+      background: transparent;
+    }
+  }
+  .account {
+    .avatar {
+      margin: ~'calc((@{layout-header-height} - 24px) / 2)' 0;
+      margin-right: 8px;
+      color: @primary-color;
+      vertical-align: top;
+      background: rgba(255, 255, 255, 0.85);
+    }
+  }
+}
+
+.dark {
+  .action {
+    color: rgba(255, 255, 255, 0.85);
+    > span {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    &:hover,
+    &:global(.opened) {
+      background: @primary-color;
+    }
+  }
+}
+
+.ant-layout-header{
+  height: 64px !important;
+}
+
+:global(.ant-pro-global-header) {
+  background-color: #E3EBFF;
+  height: 64px;
+  .dark {
+    .action {
+      color: @text-color;
+      > span {
+        color: @text-color;
+      }
+      &:hover {
+        color: rgba(255, 255, 255, 0.85);
+        > span {
+          color: rgba(255, 255, 255, 0.85);
+        }
+      }
+    }
+  }
+}
+.userDropdownMenu{
+  border-radius: 6px !important;
+   :global(.anticon) {
+    margin-right: 8px;
+  }
+  :global(.ant-dropdown-menu-item) {
+    min-width: 160px;
+  }
+}
+.userDropdownMenuItem {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  cursor: default;
+  pointer-events: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #394241;
+}
+
+.userDropDownEmail {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #909A99;
+}
+
+.menuDivider {
+
+  border: 1px solid #E5E5E5;
+}
+
+.userDropdownMenuOptions {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #626D6C;
+}
+
+.userDropDownEmail{
+  display: flex;
+  flex-direction: column;
+}
+
+.fullName{
+  font-weight: bold;
+  margin: 12px 0;
+}

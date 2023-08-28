@@ -1,0 +1,121 @@
+{
+    "name": "noticePeriodConfig",
+    "path": "/notice-period-configs",
+    "singularDefaultLabel": "Notice Period Configuration",
+    "singularLabelKey": "NOTICE_PERIOD_CONFIG",
+    "pluralDefaultLabel": "Notice Period Configurations",
+    "pluralLabelKey": "NOTICE_PERIOD_CONFIGS",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "jobCategory": {
+            "name": "jobCategory",
+            "defaultLabel": "Job Category",
+            "labelKey": "NOTICE_PERIOD_CONFIG.JOB_CATEGORY",
+            "type": "model",
+            "modelName": "jobCategory",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": true
+			}
+        },
+        "employmentStatus": {
+            "name": "employmentStatus",
+            "defaultLabel": "Employment Status",
+            "labelKey": "NOTICE_PERIOD_CONFIG.EMPLOYMENT_STATUS",
+            "type": "model",
+            "modelName": "employmentStatus",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": true
+			}
+        },
+        "noticePeriodUnit": {
+            "name": "noticePeriodUnit",
+            "defaultLabel": "Notice Period Unit",
+            "labelKey": "NOTICE_PERIOD_CONFIG.NOTICE_PERIOD_UNIT",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "Years",
+                    "labelKey": "Years",
+                    "defaultLabel": "Years"
+                },
+                {
+                    "value": "Months",
+                    "labelKey": "Months",
+                    "defaultLabel": "Months"
+                },
+                {
+                    "value": "Days",
+                    "labelKey": "Days",
+                    "defaultLabel": "Days"
+                }
+            ],
+            "validations": {
+                "isRequired": true
+			}
+        },
+        "noticePeriod": {
+            "name": "noticePeriod",
+            "defaultLabel": "Notice Period",
+            "labelKey": "NOTICE_PERIOD_CONFIG.NOTICE_PERIOD",
+            "type": "number",
+            "defaultValue": 0,
+            "validations": {
+                "isRequired": true
+			}
+        },
+        "noticePeriodString": {
+            "name": "noticePeriodString",
+            "defaultLabel": "Notice Period",
+            "labelKey": "NOTICE_PERIOD_CONFIG.NOTICE_PERIOD",
+            "type": "string",
+            "isComputedProperty": true,
+            "concatFields": [
+                "noticePeriod",
+                "noticePeriodUnit"
+            ]
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        "jobCategory": "HAS_ONE",
+        "employmentStatus": "HAS_ONE"
+    }
+}

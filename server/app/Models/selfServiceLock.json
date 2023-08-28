@@ -1,0 +1,90 @@
+{
+    "name": "selfServiceLockConfigs",
+	"path": "/selfServiceLock",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "selfServiceLockDatePeriod": {
+            "name": "selfServiceLockDatePeriod",
+            "defaultLabel": "Month Period",
+			"labelKey": "SCHEME.NAME",
+            "type": "model",
+            "modelName": "selfServiceLockDatePeriods",
+            "enumValueKey": "id",
+            "enumLabelKey": "configuredMonth",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "status": {
+            "name": "status",
+            "defaultLabel": "Status",
+            "labelKey": "AZURE_SYNC_JOB.STATUS",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "LOCKED",
+                    "labelKey": "LOCK",
+                    "defaultLabel": "Lock"
+                },
+                {
+                    "value": "UNLOCKED",
+                    "labelKey": "UNLOCK",
+                    "defaultLabel": "Unlock"
+                }
+            ]
+        },
+        "selfServicesStatus": {
+            "name": "selfServicesStatus",
+            "defaultLabel": "Self Services Status",
+            "labelKey": "LEAVE_TYPE.WHO_CAN_APPLY",
+            "type": "string"
+        },
+        "effectiveFrom":{
+            "name":"effectiveFrom",
+            "defaultLabel":"Effective From",
+            "labelKey":"LEAVE.FROMDATE",
+            "type":"timestamp",
+            "defaultValue":null
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "selfServiceLockDatePeriod": "HAS_ONE"
+    }
+}

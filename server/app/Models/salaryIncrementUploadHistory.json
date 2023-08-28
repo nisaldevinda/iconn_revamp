@@ -1,0 +1,60 @@
+{
+    "name": "salaryIncrementUploadHistory",
+	"path": "/salaryIncrementUploadHistorys",
+    "singularDefaultLabel": "Salary Increment Upload History",
+    "singularLabelKey": "SALARY_INCREMENT_UPLOAD_HISTORY",
+    "pluralDefaultLabel": "Salary Increment Upload Historys",
+    "pluralLabelKey": "SALARY_INCREMENT_UPLOAD_HISTORYS",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employeeSalaryIds": {
+            "name": "employeeSalaryIds",
+            "defaultLabel": "Employee Salary Ids",
+            "labelKey": "SALARY_INCREMENT_UPLOAD_HISTORY.EMPLOYEE_SALARY_IDS",
+            "type": "string"
+        },
+        "isRollback": {
+            "name": "isRollback",
+            "defaultLabel": "Is Rollback",
+			"labelKey": "SALARY_INCREMENT_UPLOAD_HISTORY.IS_ROLLBACK",
+            "type": "boolean",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    }
+}

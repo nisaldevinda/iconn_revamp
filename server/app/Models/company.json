@@ -1,0 +1,249 @@
+{
+    "name": "company",
+    "path": "/companies",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        // General Information
+        "name": {
+            "name": "name",
+            "defaultLabel": "Organization Name",
+            "labelKey": "COMPANY.NAME",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true,
+                "max": 100
+            }
+        },
+        "taxCode": {
+            "name": "taxCode",
+            "defaultLabel": "Tax ID",
+            "labelKey": "COMPANY.TAX_CODE",
+            "type": "string",
+            "validations": {
+                "max":50,
+                "min":1,
+                "isAlphaNumeric":true,
+                "regex": "/^[a-zA-Z0-9]*$/" 
+        	}
+        },
+        "registrationNo": {
+            "name": "registrationNo",
+            "defaultLabel": "Registration Number",
+            "labelKey": "COMPANY.REGISTRATION_NO",
+            "type": "string",
+            "validations": {
+                "max":50,
+                "min":1,
+                "isAlphaNumeric":true,
+                "regex": "/^[a-zA-Z0-9]*$/" 
+			}
+        },
+        "rootEmployee": {
+            "name": "rootEmployee",
+            "defaultLabel": "Root Employee",
+            "labelKey": "COMPANY.ROOT_EMPLOYEE",
+            "type": "model",
+            "route": "/api/get-employees-root-nodes",
+            "modelName": "employee",
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName",
+            "defaultValue": null
+        },
+        // Contact Details
+        "phone": {
+            "name": "phone",
+            "defaultLabel": "Phone",
+            "labelKey": "COMPANY.PHONE",
+            "type": "phone",
+            "defaultValue": null
+        },
+        "fax": {
+            "name": "fax",
+            "defaultLabel": "Fax",
+            "labelKey": "COMPANY.FAX",
+            "type": "phone",
+            "defaultValue": null
+        },
+        "email": {
+            "name": "email",
+            "defaultLabel": "Email",
+            "labelKey": "COMPANY.EMAIL",
+            "type": "email",
+            "defaultValue": null,
+            "validations": {
+                "max": 100
+            }
+        },
+        "street1": {
+            "name": "street1",
+            "defaultLabel": "Address Street 1",
+            "labelKey": "COMPANY.STREET1",
+            "type": "string",
+            "validations": {
+                "max": 100
+            }
+        },
+        "street2": {
+            "name": "street2",
+            "defaultLabel": "Address Street 2",
+            "labelKey": "COMPANY.STREET2",
+            "type": "string",
+            "validations": {
+                "max": 100
+            }
+        },
+        "city": {
+            "name": "city",
+            "defaultLabel": "City",
+            "labelKey": "COMPANY.CITY",
+            "type": "string",
+            "validations": {
+                "max": 100
+            }
+        },
+        "stateProvince": {
+            "name": "stateProvince",
+            "defaultLabel": "State/Province",
+            "labelKey": "COMPANY.STATEPROVINCE",
+            "type": "model",
+            "modelName": "state",
+            "dependOn": [
+                {
+                    "paramKey": "country",
+                    "modelKey": "countryId"
+                }
+            ],
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "zipCode": {
+            "name": "zipCode",
+            "defaultLabel": "Zip Code",
+            "labelKey": "COMPANY.ZIPCODE",
+            "type": "number",
+            "validations": {
+                "max": 100,
+                "min":1
+            }
+        },
+        "country": {
+            "name": "country",
+            "defaultLabel": "Country",
+            "labelKey": "COMPANY.COUNTRY",
+            "type": "model",
+            "modelName": "country",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },     
+        "timeZone": {
+            "name": "timeZone",
+            "defaultLabel": "Time Zone",
+            "labelKey": "COMPANY.TIMEZONE",
+            "type": "timeZone",
+            "route": "/timezones",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "leavePeriodStartingMonth": {
+            "name": "leavePeriodStartingMonth",
+            "defaultLabel": "Leave Period Starting Month",
+            "labelKey": "COMPANY.LEAVE_PERIOD_STARTING_MONTH",
+            "type": "month",
+            "defaultValue": 1
+        },
+        "leavePeriodEndingMonth": {
+            "name": "leavePeriodEndingMonth",
+            "defaultLabel": "Leave Period Ending Month",
+            "labelKey": "COMPANY.LEAVE_PERIOD_ENDING_MONTH",
+            "type": "month",
+            "defaultValue": 12
+        },
+        "notes": {
+            "name": "notes",
+            "defaultLabel": "Notes",
+            "labelKey": "COMPANY.NOTES",
+            "type": "textArea",
+            "validations": {
+                "max": 100
+            }
+        },
+        "primaryColor": {
+            "name": "primaryColor",
+            "defaultLabel": "Primary Color",
+            "labelKey": "PRIMARY_COLOR",
+            "type": "string"
+        },
+        "textColor": {
+            "name": "textColor",
+            "defaultLabel": "Text Color",
+            "labelKey": "TEXT_COLOR",
+            "type": "string"
+        },
+        // "iconFileObjectId": {
+        //     "name": "iconFileObjectId",
+        //     "defaultLabel": "Icon",
+        //     "labelKey": "ICON",
+        //     "type": "number"
+        // },
+        // "coverFileObjectId": {
+        //     "name": "coverFileObjectId",
+        //     "defaultLabel": "Cover",
+        //     "labelKey": "COVER",
+        //     "type": "number"
+        // },
+        "isDelete": {
+            "name": "isDelete",
+            "defaultLabel": "Is Deleted",
+            "labelKey": "IS_DELETE",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        "stateProvince": "HAS_ONE",
+        "country": "HAS_ONE",
+        "rootEmployee": "HAS_ONE"
+    }
+}

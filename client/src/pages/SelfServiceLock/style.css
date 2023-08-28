@@ -1,0 +1,33 @@
+.selfServiceLockCard .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.selfServiceLockCard .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+    background: white !important;
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+}
+
+.selfServiceLockCard .ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
+    margin: 0 0 -6px 0 !important;
+    
+}
+
+.selfServiceLockCard .ant-card-bordered { 
+    border-color: white !important;
+}
+.uploadCard .ant-table-tbody > tr > td {
+    height: 60px;
+    padding: 16px;
+    overflow-wrap: break-word;
+    padding-top: 14px;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.uploadCard .ant-spin-nested-loading > div > .ant-spin {
+    top : -82px !important
+
+}
+

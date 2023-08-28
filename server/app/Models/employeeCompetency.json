@@ -1,0 +1,131 @@
+{
+    "name": "employeeCompetency",
+	"path": "/employeeCompetencies",
+    "singularDefaultLabel": "Competency",
+    "singularLabelKey": "competency",
+    "pluralDefaultLabel": "Competencies",
+    "pluralLabelKey": "competencies",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee",
+			"labelKey": "EMPLOYEE",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "competencies",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "competencyType": {
+            "name": "competencyType",
+            "defaultLabel": "Competency Type",
+            "labelKey": "DEPENDENT.COMPETENCY_TYPE",
+            "type": "model",
+            "modelName": "competencyType",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "competency": {
+            "name": "competency",
+            "defaultLabel": "Competency",
+            "labelKey": "DEPENDENT.COMPETENCY",
+            "type": "model",
+            "modelName": "competency",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "proficiencyLevel": {
+            "name": "proficiencyLevel",
+            "defaultLabel": "Proficiency level",
+            "labelKey": "DEPENDENT.PROFICIENCY_LEVEL",
+            "type": "enum",
+			"values": [
+				{
+					"value": "basic",
+					"labelKey": "BASIC",
+                    "defaultLabel": "Basic"
+				},
+				{
+					"value": "novice",
+					"labelKey": "NOVICE",
+                    "defaultLabel": "Novice"
+				},
+				{
+					"value": "intermediate",
+					"labelKey": "INTERMEDIATE",
+                    "defaultLabel": "Intermediate"
+				},
+				{
+					"value": "advanced",
+					"labelKey": "ADVANCED",
+                    "defaultLabel": "Advanced"
+				},
+				{
+					"value": "expert",
+					"labelKey": "EXPERT",
+                    "defaultLabel": "Expert"
+				}
+			]
+        },
+        "lastEvaluationDate": {
+            "name": "lastEvaluationDate",
+            "defaultLabel": "Last Evaluation Date",
+            "labelKey": "DEPENDENT.LAST_EVALUATION_DATE",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        "comment": {
+            "name": "comment",
+            "defaultLabel": "Comment",
+            "labelKey": "DEPENDENT.COMMENT",
+            "type": "textArea",
+            "defaultValue": null,
+            "validations": {
+                "max":250
+			}
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+		"competency": "HAS_ONE",
+		"competencyType": "HAS_ONE",
+        "employee": "BELONGS_TO_MANY"
+	}
+}

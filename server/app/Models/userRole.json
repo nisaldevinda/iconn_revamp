@@ -1,0 +1,116 @@
+{
+    "name": "userRole",
+    "path": "/userRoles",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "title": {
+            "name": "title",
+            "defaultLabel": "User Role",
+            "labelKey": "USERROLE.TITLE",
+            "type": "string",
+            "validations": {
+				"isRequired": true,
+				"min": 1,
+				"max": 25,
+                "isUnique": true
+			}
+        },
+        "type": {
+            "name": "type",
+            "defaultLabel": "User role type",
+            "labelKey": "USERROLE.TYPE",
+            "type": "string"
+        },
+        "isDirectAccess": {
+            "name": "isDirectAccess",
+            "defaultLabel": "is Direct Access",
+            "labelKey": "USERROLE.ISDIRECTACCESS",
+            "type": "string"
+        },
+        "isInDirectAccess": {
+            "name": "isInDirectAccess",
+            "defaultLabel": "is in Direct Access",
+            "labelKey": "USERROLE.ISINDIRECTACCESS",
+            "type": "string"
+        },
+        "customCriteria": {
+            "name": "customCriteria",
+            "label": "Custom Criteria",
+            "defaultLabel": "Custom criteria",
+            "labelKey": "USERROLE.CUSTOMCRITERIA",
+            "type": "string"
+        },
+        "permittedActions": {
+            "name": "permittedActions",
+            "label": "Permitted Actions",
+            "defaultLabel": "Custom criteria",
+            "labelKey": "USERROLE.PERMITTEDACTIONS",
+            "type": "string"
+        },
+        "workflowManagementActions": {
+            "name": "workflowManagementActions",
+            "label": "Workflow Management Actions",
+            "defaultLabel": "Workflow Management Actions",
+            "labelKey": "USERROLE.WORKFLOWMANAGEMENTACTIONS",
+            "type": "string"
+        },
+        "fieldPermissions": {
+            "name": "fieldPermissions",
+            "label": "Field Permissions",
+            "defaultLabel": "Field Permissions",
+            "labelKey": "USERROLE.FIELD_PERMISSIONS",
+            "type": "string"
+        },
+        "isEditable": {
+            "name": "isEditable",
+            "label": "is Editable",
+            "defaultLabel": "Editable Fields",
+            "labelKey": "USERROLE.EDITABLEFIELDS",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "isVisibility": {
+            "name": "isVisibility",
+            "label": "Visibility Access Role",
+            "defaultLabel": "Visibility Access Role",
+            "labelKey": "USERROLE.ISVISIBILITY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

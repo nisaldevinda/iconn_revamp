@@ -1,0 +1,116 @@
+{
+    "name": "leaveEmployeeGroup",
+	"path": "/leave-employee-group",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "LEAVE_TYPE.NAME",
+			"type": "string",
+            "validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "isWhitespace":true,
+                "max":100
+			}
+	    },
+        "comment": {
+            "name": "comment",
+            "defaultLabel": "Comment",
+			"labelKey": "LEAVE_TYPE.COMMENT",
+			"type": "string"
+            
+	    },
+        "leaveType": {
+            "name": "leaveType",
+            "defaultLabel": "Leave Type",
+			"labelKey": "LEAVE_TYPE",
+			"type": "model",
+            "modelName": "leaveType",
+            "foreignKeyAttribute": "leaveEmployeeGroups",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "jobTitles": {
+            "name": "jobTitles",
+            "defaultLabel": "Job Titles",
+            "labelKey": "LEAVE_TYPE.JOB_TITLES",
+            "type": "json"
+        },
+        "employmentStatuses": {
+            "name": "employmentStatuses",
+            "defaultLabel": "Employment Statuses",
+            "labelKey": "LEAVE_TYPE.EMPLOYMENT_STATUSES",
+            "type": "json"
+        },
+        "genders": {
+            "name": "genders",
+            "defaultLabel": "Genders",
+            "labelKey": "LEAVE_TYPE.GENDERS",
+            "type": "json"
+        },
+        "locations": {
+            "name": "locations",
+            "defaultLabel": "Locations",
+            "labelKey": "LEAVE_TYPE.LOCATIONS",
+            "type": "json"
+        },
+        "minServicePeriod": {
+            "name": "minServicePeriod",
+            "defaultLabel": "Min Service Period",
+            "labelKey": "LEAVE_TYPE.MIN_SERVICE_PERIOD",
+            "type": "number"
+        },
+        "minPemenancyPeriod": {
+            "name": "minPemenancyPeriod",
+            "defaultLabel": "Min Pemenancy Period",
+            "labelKey": "LEAVE_TYPE.MIN_PEMENANCY_PERIOD",
+            "type": "number"
+        },
+        "customCriteria": {
+            "name": "customCriteria",
+            "defaultLabel": "Custom Criteria",
+            "labelKey": "LEAVE_TYPE.CUSTOM_CRITERIA",
+            "type": "json"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "leaveType": "HAS_ONE"
+	}
+}

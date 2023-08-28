@@ -1,0 +1,41 @@
+{
+    "name": "loginHistory",
+    "fields": {
+        "id": {
+            "name": "id",
+            "label": "ID"
+        },
+        "userId": {
+            "name": "userId",
+            "label": "User ID"
+        },
+        "status": {
+            "name": "status",
+            "label": "Status"
+        },
+        "loggedIp": {
+            "name": "loggedIp",
+            "label": "Logged IP"
+        },
+        "loginTimestamp": {
+            "name": "loginTimestamp",
+            "label": "Login Timestamp"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "label": "Created By"
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "label": "Updated By"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "label": "Created At"
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "label": "Updated At"
+        }
+    }
+}

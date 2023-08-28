@@ -1,0 +1,18 @@
+.ant-table-thead > tr > th {
+    color:  #626D6C !important;
+    font-weight: 500 !important;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 19px;
+    align-items: center;
+    background-color: #F2F4F6;
+}
+
+.ant-dropdown-menu {
+    overflow-y: scroll;
+    max-height: 250px;
+}
+
+.ant-table-thead .ant-table-cell {
+    background: #FFFFFF;
+  }

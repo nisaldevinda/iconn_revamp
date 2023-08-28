@@ -1,0 +1,79 @@
+{
+    "name": "scheme",
+	"path": "/schemes",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Scheme Name",
+			"labelKey": "SCHEME.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true,
+				"max": 100,
+                "isWhitespace":true
+			}
+        },
+        "description": {
+            "name": "description",
+            "defaultLabel": "Description",
+            "labelKey": "SCHEME.DESCRIPTION",
+            "type": "textArea",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false,
+                "max":250,
+                "min": 1
+            }
+        },
+        "employeeJob": {
+            "name": "employeeJob",
+            "defaultLabel": "employeeJob",
+            "labelKey": "EMPLOYEE.SCHEME",
+			"type": "model",
+            "modelName": "employeeJob",
+            "foreignKeyAttribute": "scheme",
+            "isSystemValue": true
+		},
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "employeeJob": "BELONGS_TO"
+    }
+}

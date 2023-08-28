@@ -1,0 +1,53 @@
+.dynamic-report-view-container {
+  width: '100%';
+}
+.dynamic-table-export-select {
+  width: 240;
+}
+.customRequiredFields::after {
+  display: inline-block;
+  margin-left: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: '*';
+}
+
+.horizontal-form-column > .ant-form-item {
+  flex-direction: row !important;
+}
+
+.horizontal-form-column > .ant-form-item > .ant-form-item-label > label {
+  height: 32px !important;
+}
+
+.ant-table-cell {
+  white-space: nowrap;
+}
+
+.editBtn {
+  margin-left: 10px !important;
+  color: #7dc014 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #7dc014 !important;
+  border-radius: 6px !important;
+}
+
+pre {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji' !important;
+}
+
+.drop-over-downward {
+  border-bottom: 2px dashed #7dc014;
+  padding-bottom: 10px;
+  background: #d3e9cf;
+}
+
+.drop-over-upward {
+  border-top: 2px dashed #7dc014;
+  padding-top: 10px;
+  background: #d3e9cf;
+}

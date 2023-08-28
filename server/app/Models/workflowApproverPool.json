@@ -1,0 +1,63 @@
+{
+    "name": "workflowApproverPool",
+	"path": "/workflowApproverPools",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "poolName": {
+            "name": "poolName",
+            "defaultLabel": "Pool Name",
+			"labelKey": "WORKFLOW_APPROVER_POOL.NAME",
+			"type": "string",
+            "validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "isWhitespace":true,
+                "max":100
+			}
+	    },
+        "poolPermittedEmployees": {
+            "name": "poolPermittedEmployees",
+            "defaultLabel": "Permitted Employees",
+            "labelKey": "WORKFLOW_EMPLOYEE_GROUP.JOB_TITLES",
+            "type": "string"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        
+    }
+}

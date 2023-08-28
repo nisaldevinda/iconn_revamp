@@ -1,0 +1,95 @@
+{
+    "name": "workShifts",
+    "path": "/workSchedules",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "name",
+            "labelKey": "WORKSHIFT.NAME",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true
+            }
+        },
+        "code": {
+            "name": "code",
+            "defaultLabel": "code",
+            "labelKey": "WORKSHIFT.CODE",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true
+            }
+        },
+        "color": {
+            "name": "color",
+            "defaultLabel": "color",
+            "labelKey": "WORKSHIFT.COLOR",
+            "type": "string",
+            "validations": {
+                "isUnique": true
+            }
+        },
+        "shiftType":{
+            "name": "shiftType",
+            "defaultLabel": "ShiftType",
+            "labelKey": "WORKSHIFT.SHIFTTYPE",
+            "type": "enum",
+            "values": [
+               {
+                  "value": "GENERAL",
+                  "labelKey": "GENERAL",
+                  "defaultLabel": "General"
+               },
+               {
+                  "value": "FLEXI",
+                  "labelKey": "FLEXI",
+                  "defaultLabel": "Flexi"
+               }
+            ]
+        },
+        "isActive": {
+            "name": "isActive",
+            "defaultLabel": "isActive",
+            "labelKey": "WORKSHIFT.ISACTIVE",
+            "type": "boolean"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

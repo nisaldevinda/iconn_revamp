@@ -1,0 +1,137 @@
+{
+    "name": "azureUser",
+    "path": "/azure-active-directory",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee",
+            "labelKey": "AZURE_USER.EMPLOYEE",
+            "type": "model",
+            "modelName": "employee",
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName"
+        },
+        "employeeImportJob": {
+            "name": "employeeImportJob",
+            "defaultLabel": "Azure Sync Job",
+            "labelKey": "AZURE_USER.SYNC_JOB",
+            "type": "model",
+            "modelName": "employeeImportJob",
+            "enumValueKey": "id",
+            "enumLabelKey": "createdAt"
+        },
+        "azureObjectId": {
+            "name": "azureObjectId",
+            "defaultLabel": "Azure Object ID",
+            "labelKey": "AZURE_USER.OBJECT_ID",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "azureObject": {
+            "name": "azureObject",
+            "defaultLabel": "Azure Object",
+            "labelKey": "AZURE_USER.OBJECT",
+            "type": "json"
+        },
+        "status": {
+            "name": "status",
+            "defaultLabel": "Status",
+            "labelKey": "AZURE_USER.STATUS",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "PENDING",
+                    "labelKey": "AZURE_SYNC_JOB.STATUS.PENDING",
+                    "defaultLabel": "Pending"
+                },
+                {
+                    "value": "SUCCESS",
+                    "labelKey": "AZURE_SYNC_JOB.STATUS.SUCCESS",
+                    "defaultLabel": "Success"
+                },
+                {
+                    "value": "ERROR",
+                    "labelKey": "AZURE_SYNC_JOB.STATUS.ERROR",
+                    "defaultLabel": "Error"
+                }
+            ]
+        },
+        "responseData": {
+            "name": "responseData",
+            "defaultLabel": "Response Data",
+            "labelKey": "AZURE_SYNC_JOB.RESPONSE_DATA",
+            "type": "json"
+        },
+        
+
+
+
+
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "DIVISION.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "max": 100,
+                "isWhitespace":true
+			}
+        },
+        "bankCode": {
+            "name": "bankCode",
+            "defaultLabel": "Bank Code",
+			"labelKey": "BANK.CODE",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "max": 100,
+                "isWhitespace":true
+			}
+        },
+
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+    }
+}

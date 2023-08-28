@@ -1,0 +1,81 @@
+{
+    "name":"leaveCoveringPersonRequests",
+    "path":"/leaveCoveringPersonRequest",
+    "hasSoftDelete":true,
+    "fields":{
+       "id":{
+          "name":"id",
+          "defaultLabel":"ID",
+          "labelKey":"ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "leaveRequestId":{
+          "name":"leaveRequestId",
+          "defaultLabel":"Leave Request ID",
+          "labelKey":"Leave Request ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "coveringEmployeeId":{
+          "name":"coveringEmployeeId",
+          "defaultLabel":"Covering Employee ID",
+          "labelKey":"Covering Employee ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "state":{
+          "name":"state",
+          "defaultLabel":"State",
+          "labelKey":"LEAVE.STATE",
+          "type":"string"
+       },
+       "comment":{
+          "name":"comment",
+          "defaultLabel":"Comment",
+          "labelKey":"LEAVE.Comment",
+          "type":"string"
+       },
+       "createdBy":{
+          "name":"createdBy",
+          "defaultLabel":"Created By",
+          "labelKey":"CREATED_BY",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "updatedBy":{
+          "name":"updatedBy",
+          "defaultLabel":"Updated By",
+          "labelKey":"UPDATED_BY",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "approvedAt":{
+          "name":"approvedAt",
+          "defaultLabel":"Approved At",
+          "labelKey":"APPROVED_AT",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "createdAt":{
+          "name":"createdAt",
+          "defaultLabel":"Created At",
+          "labelKey":"CREATED_AT",
+          "type":"string",
+          "isSystemValue":true
+       },
+       "updatedAt":{
+          "name":"updatedAt",
+          "defaultLabel":"Updated At",
+          "labelKey":"UPDATED_AT",
+          "type":"string",
+          "isSystemValue":true
+       }
+    },
+    "relations":{
+       
+    }
+ }

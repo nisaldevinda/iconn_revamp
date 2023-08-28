@@ -1,0 +1,230 @@
+{
+   "name":"leaveType",
+   "path":"/leave-types",
+   "hasSoftDelete":true,
+   "fields":{
+      "id":{
+         "name":"id",
+         "defaultLabel":"ID",
+         "labelKey":"ID",
+         "type":"number",
+         "isEditable":false,
+         "isSystemValue":true
+      },
+      "name":{
+         "name":"name",
+         "defaultLabel":"Name",
+         "labelKey":"LEAVETYPE.NAME",
+         "type":"string",
+         "validations":{
+            "isRequired":true,
+            "isUnique":true,
+            "max":100,
+            "isWhitespace":true
+         }
+      },
+      "leavePeriod": {
+         "name": "leavePeriod",
+         "defaultLabel": "Leave Period",
+         "labelKey": "LEAVE_TYPE.LEAVE_PERIOD",
+         "type": "enum",
+         "values": [
+            {
+               "value": "STANDARD",
+               "labelKey": "STANDARD",
+               "defaultLabel": "Standard"
+            },
+            {
+               "value": "HIRE_DATE_BASED",
+               "labelKey": "HIRE_DATE_BASED",
+               "defaultLabel": "Hire-date based"
+            }
+         ],
+         "validations": {
+            "isRequired": true
+         },
+         "defaultValue": "STANDARD"
+      },
+      "applicableCountry": {
+         "name": "applicableCountry",
+         "defaultLabel": "Applicable Country",
+         "labelKey": "LEAVE_TYPE.APPLICABLE_COUNTRY",
+         "type": "model",
+         "modelName": "country",
+         "enumValueKey": "id",
+         "enumLabelKey": "name",
+         "defaultValue": null,
+         "validations": {
+            "isRequired": true
+         }
+     },
+     "isSituational": {
+         "name": "isSituational",
+         "defaultLabel": "Is Situational",
+         "labelKey": "LEAVE_TYPE.IS_SITUATIONAL",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "adminsCanAssign": {
+         "name": "adminsCanAssign",
+         "defaultLabel": "Admins can assign",
+         "labelKey": "LEAVE_TYPE.ADMINS_CAN_ASSIGN",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "managersCanAssign": {
+         "name": "managersCanAssign",
+         "defaultLabel": "Managers can assign",
+         "labelKey": "LEAVE_TYPE.MANAGERS_CAN_ASSIGN",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "fullDayAllowed": {
+         "name": "fullDayAllowed",
+         "defaultLabel": "Full day allowed",
+         "labelKey": "LEAVE_TYPE.FULL_DAY_ALLOWED",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "halfDayAllowed": {
+         "name": "halfDayAllowed",
+         "defaultLabel": "Half-day allowed",
+         "labelKey": "LEAVE_TYPE.HALF_DAY_ALLOWED",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "shortLeaveAllowed": {
+         "name": "shortLeaveAllowed",
+         "defaultLabel": "Short-leave allowed",
+         "labelKey": "LEAVE_TYPE.SHORT_LEAVE_ALLOWED",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "employeesCanApply": {
+         "name": "employeesCanApply",
+         "defaultLabel": "Employees Can Apply",
+         "labelKey": "LEAVE_TYPE.EMPLYEESCANAPPLY",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "timeDurationAllowed": {
+         "name": "timeDurationAllowed",
+         "defaultLabel": "Time Duration (Specific Time) allowed",
+         "labelKey": "LEAVE_TYPE.SPECIFIC_TIME_ALLOWED",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "adminCanAdjustEntitlements": {
+         "name": "adminCanAdjustEntitlements",
+         "defaultLabel": "Admin can adjust Entitlements",
+         "labelKey": "LEAVE_TYPE.ADMIN_CAN_ADJUST_ENTITLEMENTS",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "allowExceedingBalance": {
+         "name": "allowExceedingBalance",
+         "defaultLabel": "Allow exceeding balance",
+         "labelKey": "LEAVE_TYPE.ALLOW_EXCEEDING_BALANCE",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "allowAttachment": {
+         "name": "allowAttachment",
+         "defaultLabel": "Attachment",
+         "labelKey": "LEAVE_TYPE.ATTACHMENT",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "attachmentManadatory": {
+         "name": "attachmentManadatory",
+         "defaultLabel": "Attachment Manadatory",
+         "labelKey": "LEAVE_TYPE.ATTACHMENT_MANADATORY",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "maximumConsecutiveLeaveDays": {
+         "name": "maximumConsecutiveLeaveDays",
+         "defaultLabel": "Maximum number of consecutive leave days",
+         "labelKey": "LEAVE_TYPE.MAXIMUM_NUMBER_OF_CONSECUTIVE_LEAVE_DAYS",
+         "type": "number"
+      },
+      "whoCanApply": {
+         "name": "whoCanApply",
+         "defaultLabel": "Who can apply",
+         "labelKey": "LEAVE_TYPE.WHO_CAN_APPLY",
+         "type": "json"
+      },
+      "whoCanAssign": {
+         "name": "whoCanAssign",
+         "defaultLabel": "Who can assign",
+         "labelKey": "LEAVE_TYPE.WHO_CAN_ASSIGN",
+         "type": "json"
+      },
+      "leaveTypeColor": {
+         "name": "leaveTypeColor",
+         "defaultLabel": "Leave Type Color",
+         "labelKey": "LEAVE_TYPE.LEAVE_TYPE_COLOR",
+         "type": "string"
+      },
+      "createdBy":{
+         "name":"createdBy",
+         "defaultLabel":"Created By",
+         "labelKey":"CREATED_BY",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "updatedBy":{
+         "name":"updatedBy",
+         "defaultLabel":"Updated By",
+         "labelKey":"UPDATED_BY",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "createdAt":{
+         "name":"createdAt",
+         "defaultLabel":"Created At",
+         "labelKey":"CREATED_AT",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "updatedAt":{
+         "name":"updatedAt",
+         "defaultLabel":"Updated At",
+         "labelKey":"UPDATED_AT",
+         "type":"string",
+         "isSystemValue":true
+      },
+      "isAllEmployeesCanApply": {
+         "name": "isAllEmployeesCanApply",
+         "defaultLabel": "All Employees Can Apply",
+         "labelKey": "LEAVE_TYPE.ALL_EMP_CAN_APPLY",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "allowCoveringPerson": {
+         "name": "allowCoveringPerson",
+         "defaultLabel": "Covering Person",
+         "labelKey": "LEAVE_TYPE.COVERING_PERSON",
+         "type": "boolean",
+         "defaultValue": false
+      },
+      "whoCanUseCoveringPerson": {
+         "name": "whoCanUseCoveringPerson",
+         "defaultLabel": "Who can use covering person",
+         "labelKey": "LEAVE_TYPE.WHO_CAN_USE_COVERING_PERSON",
+         "type": "json"
+      },
+      "leaveTypeComment":{
+         "name":"leaveTypeComment",
+         "defaultLabel":"Comment",
+         "labelKey":"LEAVETYPE.COMMENT",
+         "type":"string",
+         "validations":{
+            "max":250
+         }
+      }
+   },
+   "relations":{
+      "applicableCountry": "HAS_ONE"
+   }
+}

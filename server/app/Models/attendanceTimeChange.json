@@ -1,0 +1,90 @@
+{
+    "name": "time_change_requests",
+    "path": "/time_change_requests",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "shiftId": {
+            "name": "shiftId",
+            "defaultLabel": "Shift Id",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.SHIFT_ID",
+            "type": "number"
+        },
+        "shiftDate": {
+            "name": "shiftDate",
+            "defaultLabel": "Shift Date",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.SHIFT_DATE",
+            "type": "string"
+        },
+        "summaryId": {
+            "name": "summaryId",
+            "defaultLabel": "Summary Id",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.SUMMARY_ID",
+            "type": "number"
+        },
+        "employeeId": {
+            "name": "employeeId",
+            "defaultLabel": "Employee Id",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.EMPLOYEE_ID",
+            "type": "number"
+        },
+        "approvedId": {
+            "name": "approvedId",
+            "defaultLabel": "Approved Id",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.APPROVED_ID",
+            "type": "number"
+        },
+        "inDateTime": {
+            "name": "inDateTime",
+            "defaultLabel": "In Date Time",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.IN_DATE_TIME",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "outDateTime": {
+            "name": "outDateTime",
+            "defaultLabel": "Out Date Time",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.OUT_DATE_TIME",
+            "type": "string"
+        },
+        "reason": {
+            "name": "reason",
+            "defaultLabel": "Reason",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.REASON",
+            "type": "string"
+        },
+        "type": {
+            "name": "type",
+            "defaultLabel": "Type",
+            "labelKey": "ATTENDANCE_TIME_CHANGE.TYPE",
+            "type": "number"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "workflowInstanceId":{
+            "name":"workflowInstanceId",
+            "defaultLabel":"Workflow Instance ID",
+            "labelKey":"Workflow Instance ID",
+            "type":"number",
+            "isEditable":false,
+            "isSystemValue":true
+        }
+    },
+    "relations": {}
+}

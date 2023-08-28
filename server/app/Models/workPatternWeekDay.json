@@ -1,0 +1,60 @@
+{
+    "name": "workPatternWeekDay",
+    "path": "/work-pattern-week-day",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "workPatternWeekId": {
+            "name": "workPatternWeekId",
+            "defaultLabel": "workPatternWeekId",
+            "labelKey": "WORKPATTERNWEEKDAY.WORKPATTERNWEEKID",
+            "type": "number"
+        },
+        "dayTypeId": {
+            "name": "dayTypeId",
+            "defaultLabel": "Day Type Value",
+            "labelKey": "WORKPATTERNWEEKDAY.DAYTYPEID",
+            "type": "string"
+        },
+        "workShiftId": {
+            "name": "workShiftId",
+            "defaultLabel": "workShiftId",
+            "labelKey": "WORKPATTERNWEEKDAY.WORKSHIFTID",
+            "type": "number"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

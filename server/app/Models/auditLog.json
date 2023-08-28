@@ -1,0 +1,63 @@
+{
+    "name": "auditLog",
+    "fields": {
+        "id": {
+            "name": "id",
+            "label": "ID"
+        },
+        "modelName": {
+            "name": "modelName",
+            "label": "Model Name"
+        },
+        "modelId": {
+            "name": "modelId",
+            "label": "Model Id"
+        },
+        "employeeId": {
+            "name": "employeeId",
+            "label": "Employee Id"
+        },
+        "previousState": {
+            "name": "previousState",
+            "label": "Previous State"
+        },
+        "currentState": {
+            "name": "currentState",
+            "label": "Current State"
+        },
+        "timestamp": {
+            "name": "timestamp",
+            "label": "Timestamp"
+        },
+        "userId": {
+            "name": "userId",
+            "label": "User Id"
+        },
+        "action": {
+            "name": "action",
+            "label": "Action"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "label": "Created By"
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "label": "Updated By"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "label": "Created At"
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "label": "Updated At"
+        }
+    },
+    "sensitiveFeilds":[
+        "email",
+        "password",
+        "address",
+        "nicNo"
+    ]
+}

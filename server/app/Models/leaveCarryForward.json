@@ -1,0 +1,100 @@
+{
+    "name": "leaveCarryForward",
+	"path": "/leave-carry-forward",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "leaveType": {
+            "name": "leaveType",
+            "defaultLabel": "Leave Type",
+			"labelKey": "LEAVE_TYPE",
+			"type": "model",
+            "modelName": "leaveType",
+            "foreignKeyAttribute": "leaveEmployeeGroups",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "leaveEmployeeGroup": {
+            "name": "leaveEmployeeGroup",
+            "defaultLabel": "Leave Employee Group",
+			"labelKey": "LEAVE_EMPLOYEE_GROUP",
+			"type": "model",
+            "modelName": "leaveEmployeeGroup",
+            "foreignKeyAttribute": "leaveCarryForward",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "includeOverdrawnLeave": {
+            "name": "includeOverdrawnLeave",
+            "defaultLabel": "Include Overdrawn Leave",
+            "labelKey": "LEAVE_CARRY_FORWARD.INCLUDE_OVERDRAWN_LEAVE",
+            "type": "boolean",
+            "defaultValue": false
+        },
+        "carryForwardNegativeBalance": {
+            "name": "carryForwardNegativeBalance",
+            "defaultLabel": "Carry Forward Negative Balance",
+            "labelKey": "LEAVE_CARRY_FORWARD.CARRY_FORWARD_NEGATIVE_BALANCE",
+            "type": "boolean",
+            "defaultValue": false
+        },
+        "maximumNumberToCarryForward": {
+            "name": "maximumNumberToCarryForward",
+            "defaultLabel": "Maximum number to carry forward",
+            "labelKey": "LEAVE_CARRY_FORWARD.MAXIMUM_NUMBER_TO_CARRY_FORWARD",
+            "type": "number",
+            "validations": {
+				"max": 365,
+                "min": 0
+			}
+        },
+        "expireAfter": {
+            "name": "expireAfter",
+            "defaultLabel": "Expire After (Months)",
+            "labelKey": "LEAVE_CARRY_FORWARD.EXPIRE_AFTER",
+            "type": "number",
+            "validations": {
+				"max": 12,
+                "min": 0
+			}
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "leaveType": "HAS_ONE",
+        "leaveEmployeeGroup": "HAS_ONE"
+	}
+}

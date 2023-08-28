@@ -1,0 +1,107 @@
+{
+    "name": "bulkClaimAllocationHistory",
+	"path": "/expense-management/bulkClaimAllocationHistory",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "financialYearId": {
+            "name": "financialYearId",
+            "defaultLabel": "Financial Year Id",
+            "labelKey": "BULK_CLAIM_ALLOCATION_HISTORY.FINANCIAL_YEAR_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "claimTypeId": {
+            "name": "claimTypeId",
+            "defaultLabel": "Claim Type Id",
+            "labelKey": "BULK_CLAIM_ALLOCATION_HISTORY.CLAIM_TYPE_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "allocationType": {
+            "name": "allocationType",
+            "defaultLabel": "Allocation Type",
+            "labelKey": "BULK_CLAIM_ALLOCATION_HISTORY.ALLOCATION_TYPE",
+            "type": "enum",
+			"validations": {
+				"isRequired": true
+			},
+            "values": [
+                {
+                    "value": "designation",
+                    "labelKey": "Designation",
+                    "defaultLabel": "Designation"
+                },
+                {
+                    "value": "employmentStatus",
+                    "labelKey": "Employment Status",
+                    "defaultLabel": "Employment Status"
+                },
+                {
+                    "value": "jobCategory",
+                    "labelKey": "Job Category",
+                    "defaultLabel": "Job Category"
+                }
+            ]
+        },
+        "allocatedAmount": {
+            "name": "allocatedAmount",
+            "defaultLabel": "Allocated Amount",
+            "labelKey": "BULK_CLAIM_ALLOCATION_HISTORY.ALLOCATED_AMOUNT",
+            "type": "number"
+        },
+        "newlyAffectedEmployees": {
+            "name": "newlyAffectedEmployees",
+            "defaultLabel": "Newly Affected Employees",
+            "labelKey": "BULK_CLAIM_ALLOCATION_HISTORY.NEWLY_AFFECTED_EMPLOYEES",
+            "type": "json"
+        },
+        "updatedEmployees": {
+            "name": "updatedEmployees",
+            "defaultLabel": "Updated Employees",
+            "labelKey": "BULK_CLAIM_ALLOCATION_HISTORY.Updated Employees",
+            "type": "json"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        
+    }
+}

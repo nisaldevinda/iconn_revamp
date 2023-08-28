@@ -1,0 +1,75 @@
+{
+    "name": "competencyType",
+    "path": "/competency-types",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "COMPETENCY_TYPE.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "isWhitespace":true,
+                "max":100
+			}
+        },
+        "isDelete": {
+            "name": "isDelete",
+            "defaultLabel": "Is Deleted",
+			"labelKey": "COMPETENCY_TYPE.IS_DELETE",
+            "type": "boolean",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employeeCompetency": {
+            "name": "employeeCompetency",
+            "defaultLabel": "employeeCompetency",
+            "labelKey": "EMPLOYEECOMPETENCY.COMPETENCY_TYPE",
+			"type": "model",
+            "modelName": "employeeCompetency",
+            "foreignKeyAttribute": "competencyType",
+            "isSystemValue": true
+		},
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "employeeCompetency": "BELONGS_TO"
+    }
+}

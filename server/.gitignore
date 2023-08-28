@@ -1,0 +1,11 @@
+vendor
+.env
+minio
+mysql
+nginx
+php
+docker-compose.yml
+Dockerfile
+start.sh
+stubs
+.DS_Store

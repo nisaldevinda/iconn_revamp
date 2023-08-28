@@ -1,0 +1,47 @@
+.ant-card-head-title {
+    font-size: 24;
+    font-weight: 400 normal;
+}
+
+.work-calendar-sidemenu .ant-menu-sub {
+    height: calc(59vh - 200px) !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: none;
+
+}
+
+.ant-menu-sub::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ant-menu-sub::-webkit-scrollbar-track {
+    margin: 10px;
+}
+
+.ant-menu-sub::-webkit-scrollbar-thumb {
+    background: #88a838 !important;
+    border-radius: 10px !important;
+}
+
+.ant-menu-sub::-webkit-scrollbar-thumb:hover {
+    background: #88a838;
+}
+
+.ant-menu-sub>.ant-menu-item-selected {
+    background: transparent !important;
+}
+
+.ant-menu-sub>.ant-menu-item-selected::after {
+    border: transparent;
+}   
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
+    position: static;
+    width: auto;
+    height: 86px;
+    overflow-x: hidden;
+    color: rgba(0, 0, 0, 0.85);
+    line-height: 1.5715;
+    text-align: left;
+}

@@ -1,0 +1,104 @@
+{
+    "name": "employeeNumberConfiguration",
+	"path": "/employeeNumberConfiguration",
+    "singularDefaultLabel": "Employee Number Configuration",
+    "singularLabelKey": "employeeNumberConfiguration",
+    "pluralDefaultLabel": "employee Number Configuration",
+    "pluralLabelKey": "employeeNumberConfiguration",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+            "tableColumnName": "id",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "entityId": {
+            "name": "entityId",
+            "defaultLabel": "Organization Structure",
+            "labelKey": "JOB.ORG_STRUCTURE",
+            "type": "orgSelector",
+            "validations": {
+				"isRequired": true
+            }
+        },
+        "entity": {
+            "name": "entity",
+            "defaultLabel": "Entity",
+			"labelKey": "ENTITY",
+			"type": "string",
+			"isSystemValue": true
+        },
+        "prefix": {
+            "name": "prefix",
+            "defaultLabel": "Prefix",
+            "labelKey": "PREFIX",
+            "type": "string",
+			"validations": {
+                "max": 10,
+				"isRequired": true,
+                "isUnique": true
+			}
+        },
+        "nextNumber": {
+            "name": "nextNumber",
+            "defaultLabel": "Next Number",
+            "labelKey": "NEXT_NUMBER",
+            "type": "number",
+			"validations": {
+                "max": 10,
+                "min": 1,
+				"isRequired": true
+			}
+        },
+        "numberLength": {
+            "name": "numberLength",
+            "defaultLabel": "Number Length",
+            "labelKey": "NUMBER_LENGTH",
+            "type": "number",
+			"validations": {
+                "max": 10,
+                "min": 1,
+				"isRequired": true
+			}
+        },
+        "isEditable": {
+            "name": "isEditable",
+            "defaultLabel": "Is Editable",
+            "labelKey": "IS_EDITABLE",
+            "type": "boolean",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    }
+}

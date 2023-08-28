@@ -1,0 +1,176 @@
+{
+    "name": "workShiftDayType",
+    "path": "/workShifts",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "dayTypeId" : {
+            "name": "dayTypeId",
+            "defaultLabel": "dayTypeId",
+            "labelKey": "WORKSHIFTDAYTYPE.DAYTYPEID",
+            "type": "string"
+        },
+        "workShiftId" : {
+            "name": "workShiftId",
+            "defaultLabel": "workShiftId",
+            "labelKey": "WORKSHIFTDAYTYPE.WORKSHIFTID",
+            "type": "string"
+        },
+        "noOfDay": {
+            "name": "noOfDay",
+            "defaultLabel": "noOfDay",
+            "labelKey": "WORKSHIFTDAYTYPE.NOFOFDAY",
+            "type": "string"
+        },
+        "startTime": {
+            "name": "startTime",
+            "defaultLabel": "startTime",
+            "labelKey": "WORKSHIFTDAYTYPE.startTime",
+            "type": "time"
+        },
+        "endTime": {
+            "name": "endTime",
+            "defaultLabel": "endTime",
+            "labelKey": "WORKSHIFTDAYTYPE.ENDTIME",
+            "type": "time"
+        },
+        "workHours": {
+            "name": "workHours",
+            "defaultLabel": "workHours",
+            "labelKey": "WORKSHIFTDAYTYPE.WORKHOURS",
+            "type": "time"
+        },
+        "breakTime": {
+            "name": "breakTime",
+            "defaultLabel": "breakTime",
+            "labelKey": "WORKSHIFTDAYTYPE.BREAKTIME",
+            "type": "time"
+        },
+        "hasMidnightCrossOver": {
+            "name": "hasMidnightCrossOver",
+            "defaultLabel": "hasMidnightCrossOver",
+            "labelKey": "WORKSHIFTDAYTYPE.HASMIDNIGHTCROSSOVER",
+            "type": "boolean"
+        },
+        "halfDayLength": {
+            "name": "halfDayLength",
+            "defaultLabel": "halfDayLength",
+            "labelKey": "WORKSHIFTDAYTYPE.HALFDAYLENGTH",
+            "type": "time"
+        },
+        "gracePeriod": {
+            "name": "gracePeriod",
+            "defaultLabel": "gracePeriod",
+            "labelKey": "WORKSHIFTDAYTYPE.GRACEPERIOD",
+            "type": "time"
+        },
+        "isOTEnabled": {
+            "name": "isOTEnabled",
+            "defaultLabel": "isOTEnabled",
+            "labelKey": "WORKSHIFTDAYTYPE.IsOTENABLED",
+            "type": "boolean"
+        },
+        "isBehaveAsNonWorkingDay": {
+            "name": "isBehaveAsNonWorkingDay",
+            "defaultLabel": "isBehaveAsNonWorkingDay",
+            "labelKey": "WORKSHIFTDAYTYPE.isBehaveAsNonWorkingDay",
+            "type": "boolean"
+        },
+        "inOvertime": {
+            "name": "inOvertime",
+            "defaultLabel": "inOvertime",
+            "labelKey": "WORKSHIFTDAYTYPE.INOVERTIME",
+            "type": "boolean"
+        },
+        "outOvertime": {
+            "name": "outOvertime",
+            "defaultLabel": "outOvertime",
+            "labelKey": "WORKSHIFTDAYTYPE.OUTOVERTIME",
+            "type": "boolean"
+        },
+        "deductLateFromOvertime": {
+            "name": "deductLateFromOvertime",
+            "defaultLabel": "deductLateFromOvertime",
+            "labelKey": "WORKSHIFTDAYTYPE.DEDUCTLATEFROMOVERTIME",
+            "type": "boolean"
+        },
+        "minimumOT": {
+            "name": "minimumOT",
+            "defaultLabel": "minimumOT",
+            "labelKey": "WORKSHIFTDAYTYPE.MINIMUMOT",
+            "type": "time"
+        },
+        "roundOffMethod":{
+            "name": "roundOffMethod",
+            "defaultLabel": "RoundOffMethod",
+            "labelKey": "WORKSHIFTDAYTYPE.ROUNDOFFMETHOD",
+            "type": "enum",
+            "values": [
+               {
+                  "value": "NO_ROUNDING",
+                  "labelKey": "NO_ROUNDING",
+                  "defaultLabel": "No Rounding"
+               },
+               {
+                  "value": "ROUND_UP",
+                  "labelKey": "ROUND_UP",
+                  "defaultLabel": "Round Up"
+               },
+               {
+                "value": "ROUND_DOWN",
+                "labelKey": "ROUND_DOWN",
+                "defaultLabel": "Round Down"
+              }
+            ]
+        },
+        "roundOffToNearest":{
+            "name": "roundOffToNearest",
+            "defaultLabel": "RoundOffToNearest",
+            "labelKey": "WORKSHIFTDAYTYPE.ROUNDOFFTONEAREST",
+            "type": "enum",
+            "values": [
+               {
+                  "value": "5_MINUTES",
+                  "labelKey": "5_MINUTES",
+                  "defaultLabel": "5 Minutes"
+               },
+               {
+                "value": "15_MINUTES",
+                "labelKey": "15_MINUTES",
+                "defaultLabel": "15 Minutes"
+               },
+               {
+                "value": "30_MINUTES",
+                "labelKey": "30_MINUTES",
+                "defaultLabel": "30 Minutes"
+               },
+               {
+                "value": "1_HOUR",
+                "labelKey": "1_HOUR",
+                "defaultLabel": "1 Hour"
+               }
+            ]
+        },
+        
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

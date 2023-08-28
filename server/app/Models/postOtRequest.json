@@ -1,0 +1,81 @@
+{
+    "name": "postOtRequest",
+	"path": "/postOtRequests",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employeeId": {
+            "name": "employeeId",
+            "defaultLabel": "Employee Id",
+            "labelKey": "POST_OT_REQUEST.EMPLOYEE_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "month": {
+            "name": "month",
+            "defaultLabel": "Month",
+            "labelKey": "POST_OT_REQUEST.MONTH",
+            "type": "string"
+        },
+        "totalRequestedOtMins": {
+            "name": "totalRequestedOtMins",
+            "defaultLabel": "Total Request Ot",
+            "labelKey": "POST_OT_REQUEST.ALLOCATED_AMOUNT",
+            "type": "number"
+        },
+        "workflowInstanceId":{
+            "name":"workflowInstanceId",
+            "defaultLabel":"Workflow Instance ID",
+            "labelKey":"Workflow Instance ID",
+            "type":"number",
+            "isEditable":false,
+            "isSystemValue":true
+        },
+        "currentState":{
+            "name":"currentState",
+            "defaultLabel":"Current State",
+            "labelKey":"Current State",
+            "type":"number",
+            "isSystemValue":true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        
+    }
+}

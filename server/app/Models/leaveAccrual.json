@@ -1,0 +1,239 @@
+{
+    "name": "leaveAccrual",
+	"path": "/leave-accrual",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee",
+			"labelKey": "EMPLOYEE",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "leaveEntitlement",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "leaveEmployeeGroup": {
+            "name": "leaveEmployeeGroup",
+            "defaultLabel": "Leave Employee Group",
+			"labelKey": "LEAVE_EMPLOYEE_GROUP",
+			"type": "model",
+            "modelName": "leaveEmployeeGroup",
+            "foreignKeyAttribute": "leaveCarryForward",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "accrualFrequency": {
+            "name": "accrualFrequency",
+            "defaultLabel": "Accrual Frequency",
+            "labelKey": "LEAVE_ACCRUAL.ACCRUAL_FREQUENCY",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "MONTHLY",
+                    "labelKey": "LEAVE_ACCRUAL.ACCRUAL_FREQUENCY.MONTHLY",
+                    "defaultLabel": "Monthly"
+                },
+                {
+                    "value": "ANNUAL",
+                    "labelKey": "LEAVE_ACCRUAL.ACCRUAL_FREQUENCY.ANNUAL",
+                    "defaultLabel": "Annual"
+                }
+            ],
+            "validations": {
+               "isRequired": true
+            },
+            "defaultValue": "ANNUAL"
+        },
+        "accrueEvery": {
+            "name": "accrueEvery",
+            "defaultLabel": "Accrue Every",
+            "labelKey": "LEAVE_ACCRUAL.ACCRUE_EVERY",
+            "type": "enum",
+            "values": [
+                {
+                    "value": 1,
+                    "defaultLabel": "1"
+                },
+                {
+                    "value": 2,
+                    "defaultLabel": "2"
+                },
+                {
+                    "value": 3,
+                    "defaultLabel": "3"
+                },
+                {
+                    "value": 4,
+                    "defaultLabel": "4"
+                },
+                {
+                    "value": 6,
+                    "defaultLabel": "6"
+                }
+            ],
+            "defaultValue": null
+        },
+        "dayOfCreditingForAnnualFrequency":{
+            "name":"dayOfCreditingForAnnualFrequency",
+            "defaultLabel":"Day of Crediting to Employee for Annual",
+            "labelKey":"LEAVE_ACCRUAL.DAY_OF_CREDITING_TO_EMPLOYEE_FOR_ANNUAL",
+            "type":"string",
+            "validations": {
+               "isWhitespace":true
+            },
+            "defaultValue": null
+        },
+        "dayOfCreditingForMonthlyFrequency": {
+            "name": "dayOfCreditingForMonthlyFrequency",
+            "defaultLabel": "Day of Crediting to Employee for Monthly",
+            "labelKey": "LEAVE_ACCRUAL.DAY_OF_CREDITING_TO_EMPLOYEE_FOR_MONTHLY",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "FIRST_DAY",
+                    "labelKey": "LEAVE_ACCRUAL.DAY_OF_CREDITING_TO_EMPLOYEE_FOR_MONTHLY.FIRST_DAY",
+                    "defaultLabel": "First Day of the Month"
+                },
+                {
+                    "value": "LAST_DAY",
+                    "labelKey": "LEAVE_ACCRUAL.DAY_OF_CREDITING_TO_EMPLOYEE_FOR_MONTHLY.LAST_DAY",
+                    "defaultLabel": "Last Day of the Month"
+                },
+                {
+                    "value": "MONTHLY_HIRE_DATE",
+                    "labelKey": "LEAVE_ACCRUAL.DAY_OF_CREDITING_TO_EMPLOYEE_FOR_MONTHLY.MONTHLY_HIRE_DATE",
+                    "defaultLabel": "Hire Date and Hire Date Monthly Anniversary"
+                },
+                {
+                    "value": "FIRST_ACCRUE_ON_HIRE_DATE_AND_OTHERS_ON_FIRST_DAY_OF_MONTH",
+                    "labelKey": "LEAVE_ACCRUAL.DAY_OF_CREDITING_TO_EMPLOYEE_FOR_MONTHLY.FIRST_ACCRUE_ON_HIRE_DATE_AND_OTHERS_ON_FIRST_DAY_OF_MONTH",
+                    "defaultLabel": "First Accrue On Hire Date After that First Day of Each Month"
+                },
+                {
+                    "value": "FIRST_ACCRUE_ON_AFTER_GIVEN_NO_OF_DATES_THEN_MONTHLY_ANIVERSARIES",
+                    "labelKey": "LEAVE_ACCRUAL.DAY_OF_CREDITING_TO_EMPLOYEE_FOR_MONTHLY.FIRST_ACCRUE_ON_AFTER_GIVEN_NO_OF_DATES_THEN_MONTHLY_ANIVERSARIES",
+                    "defaultLabel": "First Accrue On After Given No Of Dates Then Run As Monthly Aniversaries"
+                }
+            ],
+            "defaultValue": null
+        },
+        "accrualValidFrom": {
+            "name": "accrualValidFrom",
+            "defaultLabel": "Accrual Valid From",
+            "labelKey": "LEAVE_ACCRUAL.ACCRUAL_VALID_FROM",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "DATE_OF_ACCRUAL",
+                    "labelKey": "LEAVE_ACCRUAL.ACCRUAL_VALID_FROM.DATE_OF_ACCRUAL",
+                    "defaultLabel": "Date of Accrual"
+                },
+                {
+                    "value": "LEAVE_PERIOD_START_DATE",
+                    "labelKey": "LEAVE_ACCRUAL.ACCRUAL_VALID_FROM.LEAVE_PERIOD_START_DATE",
+                    "defaultLabel": "Leave Period Start Date"
+                }
+            ],
+            "defaultValue": null
+        },
+        "firstAccrualForMonthlyFrequency": {
+            "name": "firstAccrualForMonthlyFrequency",
+            "defaultLabel": "First accrual for new employees for Monthly frequency",
+            "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_MONTHLY_FREQUENCY",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "FULL_AMOUNT",
+                    "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_MONTHLY_FREQUENCY.FULL_AMOUNT",
+                    "defaultLabel": "Full Amount"
+                },
+                {
+                    "value": "SKIP",
+                    "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_MONTHLY_FREQUENCY.SKIP",
+                    "defaultLabel": "Skip"
+                },
+                {
+                    "value": "FULL_AMOUNT_IF_JOINED_BEFORE_15",
+                    "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_MONTHLY_FREQUENCY.FULL_AMOUNT_IF_JOINED_BEFORE_15",
+                    "defaultLabel": "Full amount if joined before 15th"
+                }
+            ],
+            "defaultValue": null
+        },
+        "firstAccrualForAnnualfrequency": {
+            "name": "firstAccrualForAnnualfrequency",
+            "defaultLabel": "First accrual for new employees for Annual frequency",
+            "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_NEW_EMPLOYEE_FOR_ANNUAL_FREQUENCY",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "FULL_AMOUNT",
+                    "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_NEW_EMPLOYEE_FOR_ANNUAL_FREQUENCY.FULL_AMOUNT",
+                    "defaultLabel": "Full Amount"
+                },
+                {
+                    "value": "SKIP",
+                    "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_NEW_EMPLOYEE_FOR_ANNUAL_FREQUENCY.SKIP",
+                    "defaultLabel": "Skip"
+                },
+                {
+                    "value": "FULL_AMOUNT_IF_JOINED_IN_THE_FIRST_HALF_OF_THE_YEAR",
+                    "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_NEW_EMPLOYEE_FOR_ANNUAL_FREQUENCY.FULL_AMOUNT_IF_JOINED_IN_THE_FIRST_HALF_OF_THE_YEAR",
+                    "defaultLabel": "Full amount if joined in the first half of the year"
+                },
+                {
+                    "value": "PRO_RATE",
+                    "labelKey": "LEAVE_ACCRUAL.FIRST_ACCRUAL_FOR_NEW_EMPLOYEE_FOR_ANNUAL_FREQUENCY.PRO_RATE",
+                    "defaultLabel": "Pro-rate"
+                }
+            ],
+            "defaultValue": null
+        },
+        "proRateMethodFirstAccrualForAnnualFrequency": {
+            "name": "proRateMethodFirstAccrualForAnnualFrequency",
+            "defaultLabel": "Pro-rate Method for first accrual for new employees for Annual frequency",
+            "labelKey": "LEAVE_ACCRUAL.PRO_RATE_METHOD_FIRST_ACCRUAL_FREQUENCY",
+            "type": "json"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "leaveType": "HAS_ONE",
+        "leaveEmployeeGroup": "HAS_ONE"
+	}
+}

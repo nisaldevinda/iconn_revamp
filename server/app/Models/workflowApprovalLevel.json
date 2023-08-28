@@ -1,0 +1,180 @@
+{
+    "name": "workflowApprovalLevel",
+    "path": "/workflowApprovalLevel",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "workflowId": {
+            "name": "workflowId",
+            "defaultLabel": "workflowId",
+            "labelKey": "WORKFLOW.WORKFLOWID",
+            "type": "number",
+            "validations": {
+                "isRequired": true,
+                "isUnique": false
+            }
+        },
+        "staticApproverEmployeeId": {
+            "name": "staticApproverEmployeeId",
+            "defaultLabel": "staticApproverEmployeeId",
+            "labelKey": "WORKFLOW.STATIC_APPROVER_EMPLOYEE",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "levelName": {
+            "name": "levelName",
+            "defaultLabel": "Level Name",
+            "labelKey": "WORKFLOWAPPROVALLEVEL.LEVELNAME",
+            "type": "string"
+        },
+        "levelSequence": {
+            "name": "levelSequence",
+            "defaultLabel": "Level Sequence",
+            "labelKey": "WORKFLOWAPPROVALLEVEL.LEVEL_SEQUENCE",
+            "type": "number",
+            "isSystemValue": true
+        },
+        "levelType": {
+            "name": "levelType",
+            "defaultLabel": "Level Type",
+            "labelKey": "WORKFLOWAPPROVALLEVEL.LEVEL_TYPE",
+            "type": "enum",
+            "defaultValue": null,
+            "values": [
+                {
+                    "value": "STATIC",
+                    "labelKey": "STATIC",
+                    "defaultLabel": "Static"
+                },
+                {
+                    "value": "DYNAMIC",
+                    "labelKey": "DYNAMIC",
+                    "defaultLabel": "Dynamic"
+                },
+                {
+                    "value": "POOL",
+                    "labelKey": "POOL",
+                    "defaultLabel": "Pool"
+                }
+            ]
+        },
+        "dynamicApprovalTypeCategory": {
+            "name": "dynamicApprovalTypeCategory",
+            "defaultLabel": "Dynamic Approval Type Category",
+            "labelKey": "WORKFLOWAPPROVALLEVEL.DYNAMIC_APPROVAL_TYPE_CATEGORY",
+            "type": "enum",
+            "defaultValue": null,
+            "values": [
+                {
+                    "value": "COMMON",
+                    "labelKey": "COMMON",
+                    "defaultLabel": "Common"
+                },
+                {
+                    "value": "JOB_CATEGORY",
+                    "labelKey": "JOB_CATEGORY",
+                    "defaultLabel": "Job Category"
+                },
+                {
+                    "value": "DESIGNATION",
+                    "labelKey": "DESIGNATION",
+                    "defaultLabel": "Designation"
+                },
+                {
+                    "value": "USER_ROLE",
+                    "labelKey": "USER_ROLE",
+                    "defaultLabel": "User Role"
+                }
+            ]
+        },
+        "commonApprovalType": {
+            "name": "commonApprovalType",
+            "defaultLabel": "Common Approval Type",
+            "labelKey": "WORKFLOWAPPROVALLEVEL.COMMON_APPROVAL_TYPE",
+            "type": "enum",
+            "defaultValue": null,
+            "values": [
+                {
+                    "value": "REPORTING_PERSON",
+                    "labelKey": "REPORTING_PERSON",
+                    "defaultLabel": "Reporting Person"
+                }
+            ]
+        },
+        "approverPoolId": {
+            "name": "approverPoolId",
+            "defaultLabel": "approverPoolId",
+            "labelKey": "WORKFLOW.APPROVER_POOL_ID",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "approvalLevelActions": {
+            "name": "approvalLevelActions",
+            "defaultLabel": "Approver Level Actions",
+            "labelKey": "WORKFLOWSTATETRABSITION.APPROVER_LEVEL_ACTIONS",
+            "type": "tag",
+            "isSystemValue": true
+        },
+        "approverJobCategories": {
+            "name": "approverJobCategories",
+            "defaultLabel": "Approver Job Categories",
+            "labelKey": "WORKFLOWSTATETRABSITION.APPROVER_LEVEL_ACTIONS",
+            "type": "tag"
+            // "isSystemValue": true
+        },
+        "approverDesignation": {
+            "name": "approverDesignation",
+            "defaultLabel": "Approver Designations",
+            "labelKey": "WORKFLOWSTATETRABSITION.APPROVER_LEVEL_ACTIONS",
+            "type": "tag"
+            // "isSystemValue": true
+        },
+        "approverUserRoles": {
+            "name": "approverUserRoles",
+            "defaultLabel": "Approver User Roles",
+            "labelKey": "WORKFLOWSTATETRABSITION.APPROVER_LEVEL_ACTIONS",
+            "type": "tag"
+            // "isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

@@ -1,0 +1,35 @@
+.avatar-upload-icon:hover{
+  display: block;
+  cursor: pointer;
+  opacity: 0.5;
+
+}
+.user-avatar:hover + .avatar-upload-icon{
+  display: block;
+  cursor: pointer;
+
+}
+
+.avatar-upload-btn{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #626D6C !important;
+    text-align: center;
+    padding: 6px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .camera-icon-upload{
+    font-size:50px;
+
+  }
+
+
+.list-item-side-card{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

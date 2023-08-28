@@ -1,0 +1,18 @@
+/* ant-drawer-body */
+.attendanceClockDrawer .ant-drawer-content .ant-drawer-wrapper-body .ant-drawer-body {
+  margin-top: 0rem;
+  padding: 0px 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* remove antd drawer header */
+.attendanceClockDrawer .ant-drawer-content .ant-drawer-wrapper-body .ant-drawer-header {
+  display: none;
+}
+
+/* remove antd drawer footer */
+.attendanceClockDrawer .ant-drawer-content .ant-drawer-wrapper-body .ant-drawer-footer {
+  display: none;
+}

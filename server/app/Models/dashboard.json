@@ -1,0 +1,132 @@
+{
+    "name": "dashboardLayout",
+    "path": "/dashboards",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "employeeId": {
+            "name": "employeeId",
+            "defaultLabel": "Employee Id",
+            "labelKey": "DASHBOARD.EMPID",
+            "type": "number"
+        },
+        "layout": {
+            "name": "layout",
+            "defaultLabel": "Layout",
+            "labelKey": "DASHBOARD.LAYOUT",
+            "type": "string",
+            "attributes": [
+                {
+                    "x": 4,
+                    "y": 0,
+                    "w": 4,
+                    "h": 2,
+                    "i": "w1",
+                    "static": true,
+                    "data": {
+                        "hasAccess":["admin-widget","employee-widget","manager-widget"],
+                        "title": "To Do",
+                        "fieldData": "toDoView",
+                        "filter": true,
+                        "viewMoreLink":"/todo",
+                        "viewMoreText": "View All"
+                         
+                    }
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "w": 4,
+                    "h": 2,
+                    "i": "w2", //this is a unique key to each widget
+                    "static": true,
+                    "data": {
+                        "title": "Shortcuts",
+                        "fieldData": "tableView",
+                        "hasAccess":["admin-widget","employee-widget"],
+                        "fields": [
+                            {
+                                "rowData": [
+                                    {
+                                        "title": "My Team",
+                                        "link": "/my-teams"    
+                                                                       
+                                    },
+                                    {
+                                        "title": "My Info",
+                                        "link": "/my-info"
+                                    },
+                                    {
+                                        "title": "Organization",
+                                        "link": "/department"
+                                    }
+                                ]
+                            },
+                            {
+                                "rowData": [
+                                    {
+                                        "title": "Reports",
+                                        "link": "/report-engine"
+                                    },
+                                    {
+                                        "title": "Settings",
+                                        "link": "/settings"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 4,
+                    "y": 0,
+                    "w": 4,
+                    "h": 2,
+                    "i": "w3",
+                    "static": true,
+                    "data": {
+                        "hasAccess":["employee-widget"],
+                        "title": "Notices",
+                        "fieldData": "tinyView",
+                        "viewMoreText": "View More",
+                        "viewMoreLink": "/notices"
+                    }
+                },
+                {
+                    "x": 8,
+                    "y": 0,
+                    "w": 4,
+                    "h": 2,
+                    "i": "w4",
+                    "static": false,
+                    "data": {
+                        "hasAccess":["admin-widget","employee-widget"],
+                        "title": "Upcoming Birthdays",
+                        "fieldData": "rowView"
+                    }
+                },
+                
+                {
+                    "x": 8,
+                    "y": 2,
+                    "w": 4,
+                    "h": 2,
+                    "i": "w6",
+                    "static": false,
+                    "data": {
+                        "hasAccess":["admin-widget","employee-widget"],
+                        "title": "Upcoming Anniversaries",
+                        "fieldData": "rowView"
+                    }
+                }
+               
+            ]
+        }
+    }
+}

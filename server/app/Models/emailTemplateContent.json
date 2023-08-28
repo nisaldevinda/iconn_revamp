@@ -1,0 +1,57 @@
+{
+    "name":"emailTemplateContent",
+    "path":"/email-template-content",
+    "fields":{
+        "id":{
+            "name":"id",
+            "defaultLabel":"ID",
+            "labelKey":"ID",
+            "type":"number",
+            "isEditable":false,
+            "isSystemValue":true
+        },
+        "templateName":{
+            "name":"templateName",
+            "defaultLabel":"Template Name",
+            "labelKey":"EMAIL_TEMPLATE.NAME",
+            "type":"string",
+            "validations":{
+                "isRequired":true
+            }
+        },
+        "content":{
+            "name":"content",
+            "defaultLabel":"content",
+            "labelKey":"EMAIL_TEMPLATE.CONTENT",
+            "type":"string"
+        },
+        "createdBy":{
+            "name":"createdBy",
+            "defaultLabel":"Created By",
+            "labelKey":"CREATED_BY",
+            "type":"string",
+            "isSystemValue":true
+        },
+        "updatedBy":{
+            "name":"updatedBy",
+            "defaultLabel":"Updated By",
+            "labelKey":"UPDATED_BY",
+            "type":"string",
+            "isSystemValue":true
+        },
+        "createdAt":{
+            "name":"createdAt",
+            "defaultLabel":"Created At",
+            "labelKey":"CREATED_AT",
+            "type":"string",
+            "isSystemValue":true
+        },
+        "updatedAt":{
+            "name":"updatedAt",
+            "defaultLabel":"Updated At",
+            "labelKey":"UPDATED_AT",
+            "type":"string",
+            "isSystemValue":true
+        }
+    }
+}

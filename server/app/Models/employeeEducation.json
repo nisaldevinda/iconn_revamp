@@ -1,0 +1,188 @@
+{
+    "name": "employeeEducation",
+	"path": "/employeeEducations",
+    "singularDefaultLabel": "Education",
+    "singularLabelKey": "education",
+    "pluralDefaultLabel": "Educations",
+    "pluralLabelKey": "educations",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee ID",
+			"labelKey": "EMPLOYEE_ID",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "educations",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "level": {
+            "name": "level",
+            "defaultLabel": "Level",
+			"labelKey": "DEPENDENT.LEVEL",
+            "type": "enum",
+            "validations": {
+                "isRequired": true
+			},
+			"values": [
+				{
+					"value": "diploma",
+					"labelKey": "DIPLOMA",
+                    "defaultLabel": "Diploma"
+				},
+				{
+					"value": "advancedDiploma",
+					"labelKey": "ADVANCED_DIPLOMA",
+                    "defaultLabel": "Advanced Diploma"
+				},
+				{
+					"value": "associateDegree",
+					"labelKey": "ASSOCIATE_DEGREE",
+                    "defaultLabel": "Associate Degree"
+				},
+				{
+					"value": "bachelorsDegree",
+					"labelKey": "BACHELORS_DEGREE",
+                    "defaultLabel": "Bachelor's Degree"
+				},
+				{
+					"value": "postgraduateDiploma",
+					"labelKey": "POSTGRADUATE_DIPLOMA",
+                    "defaultLabel": "Postgraduate Diploma"
+				},
+				{
+					"value": "mastersDegree",
+					"labelKey": "MASTERS_DEGREE",
+                    "defaultLabel": "Master's Degree"
+				},
+				{
+					"value": "doctorate",
+					"labelKey": "DOCTORATE",
+                    "defaultLabel": "Doctorate"
+				},
+				{
+					"value": "other",
+					"labelKey": "OTHER",
+                    "defaultLabel": "Other"
+				}
+			]
+        },
+        "qualification": {
+            "name": "qualification",
+            "defaultLabel": "Qualification",
+            "labelKey": "DEPENDENT.QUALIFICATION",
+            "type": "model",
+            "modelName": "qualification",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "allowAddNewActionButton": true
+        },
+        "institution": {
+            "name": "institution",
+            "defaultLabel": "Institution",
+            "labelKey": "DEPENDENT.INSTITUTION",
+            "type": "model",
+            "modelName": "qualificationInstitution",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "allowAddNewActionButton": true
+        },
+        "year": {
+            "name": "year",
+            "defaultLabel": "Year",
+            "labelKey": "DEPENDENT.YEAR",
+            "type": "number",
+            "defaultValue": null,
+            "validations": {
+			   "max": 4
+			}
+        },
+        "status": {
+            "name": "status",
+            "defaultLabel": "Qualification Status",
+            "labelKey": "DEPENDENT.QUALIFICATION_STATUS",
+            "type": "enum",
+            "validations": {
+                "isRequired": true
+			},
+			"values": [
+				{
+					"value": "PENDING",
+					"labelKey": "DEPENDENT.QUALIFICATION_STATUS.PENDING",
+                    "defaultLabel": "Pending"
+				},
+				{
+					"value": "COMPLETED",
+					"labelKey": "DEPENDENT.QUALIFICATION_STATUS.COMPLETED",
+                    "defaultLabel": "Completed"
+				}
+            ]
+        },
+        "gpaScore": {
+            "name": "gpaScore",
+            "defaultLabel": "GPA/Grades",
+            "labelKey": "DEPENDENT.GPA_OR_GRADES",
+            "type": "number",
+            "defaultValue": null,
+            "validations":{
+                "isDecimal":true
+            },
+            "showOn": [
+                {
+                    "dependentFieldName": "status",
+                    "operator": "eq",
+                    "value": "COMPLETED"
+                }
+            ]
+        },
+        "isHighestQualification": {
+            "name": "isHighestQualification",
+            "defaultLabel": "Highest Qualification",
+            "labelKey": "EMPLOYEE.IS_HIGHEST_QUALIFICATION",
+            "type": "switch",
+            "defaultValue": false,
+            "showAsBadgeOnMultiRecordTable": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "qualification": "HAS_ONE",
+        "institution": "HAS_ONE",
+        "employee": "BELONGS_TO_MANY"
+	}
+}

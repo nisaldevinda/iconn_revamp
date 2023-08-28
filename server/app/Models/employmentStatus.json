@@ -1,0 +1,176 @@
+{
+    "name": "employmentStatus",
+    "path": "/employment-status",
+    "singularDefaultLabel": "Employment Status",
+    "singularLabelKey": "EMPLOYMENT_STATUS",
+    "pluralDefaultLabel": "Employment Status",
+    "pluralLabelKey": "EMPLOYMENT_STATUS",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Employment Status",
+			"labelKey": "EMPLOYMENT_STATUS.EMPLOYMENT_STATUS",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "max": 100,
+                "isWhitespace":true
+			}
+        },
+        "category": {
+            "name": "category",
+            "defaultLabel": "Category",
+            "labelKey": "EMPLOYMENT_STATUS.CATEGORY",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "PROBATION",
+                    "labelKey": "EMPLOYMENT_STATUS.CATEGORY.PROBATION",
+                    "defaultLabel": "Probation"
+                },
+                {
+                    "value": "CONTRACT",
+                    "labelKey": "EMPLOYMENT_STATUS.CATEGORY.CONTRACT",
+                    "defaultLabel": "Contract"
+                },
+                {
+                    "value": "PERMANENT",
+                    "labelKey": "EMPLOYMENT_STATUS.CATEGORY.PERMANENT",
+                    "defaultLabel": "Permanent"
+                }
+            ],
+            "validations": {
+				"isRequired": true
+            }
+        },
+        "allowEmploymentPeriod": {
+            "name": "allowEmploymentPeriod",
+            "defaultLabel": "Allow Employment Period",
+            "labelKey": "EMPLOYMENT_STATUS.ALLOW_EMPLYMENT_PERIOD",
+            "type": "boolean",
+            "defaultValue": true
+        },
+        "period": {
+            "name": "period",
+            "defaultLabel": "Period",
+            "labelKey": "EMPLOYMENT_STATUS.PERIOD",
+            "type": "number"
+        },
+        "periodUnit": {
+            "name": "periodUnit",
+            "defaultLabel": "Period Unit",
+            "labelKey": "EMPLOYMENT_STATUS.PERIOD_UNIT",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "YEARS",
+                    "labelKey": "EMPLOYMENT_STATUS.PERIOD_UNIT.YEARS",
+                    "defaultLabel": "Years"
+                },
+                {
+                    "value": "MONTHS",
+                    "labelKey": "EMPLOYMENT_STATUS.PERIOD_UNIT.MONTHS",
+                    "defaultLabel": "Months"
+                },
+                {
+                    "value": "DAYS",
+                    "labelKey": "EMPLOYMENT_STATUS.PERIOD_UNIT.DAYS",
+                    "defaultLabel": "Days"
+                }
+            ],
+            "defaultValue": "Years"
+        },
+        "enableEmailNotification": {
+            "name": "enableEmailNotification",
+            "defaultLabel": "Enable Email Notification",
+            "labelKey": "EMPLOYMENT_STATUS.ENABLE_EMAIL_NOTIFICATION",
+            "type": "boolean",
+            "defaultValue": false
+        },
+        "notificationPeriod": {
+            "name": "notificationPeriod",
+            "defaultLabel": "Notification Period",
+            "labelKey": "EMPLOYMENT_STATUS.NOTIFICATION_PERIOD",
+            "type": "number"
+        },
+        "notificationPeriodUnit": {
+            "name": "notificationPeriodUnit",
+            "defaultLabel": "Notification Period Unit",
+            "labelKey": "EMPLOYMENT_STATUS.NOTIFICATION_PERIOD_UNIT",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "YEARS",
+                    "labelKey": "EMPLOYMENT_STATUS.PERIOD_UNIT.YEARS",
+                    "defaultLabel": "Years"
+                },
+                {
+                    "value": "MONTHS",
+                    "labelKey": "EMPLOYMENT_STATUS.PERIOD_UNIT.MONTHS",
+                    "defaultLabel": "Months"
+                },
+                {
+                    "value": "DAYS",
+                    "labelKey": "EMPLOYMENT_STATUS.PERIOD_UNIT.DAYS",
+                    "defaultLabel": "Days"
+                }
+            ],
+            "defaultValue": "Years"
+        },
+        "employeeEmployment": {
+            "name": "employeeEmployment",
+            "defaultLabel": "employeeEmployment",
+            "labelKey": "EMPLOYMENT.EMPLOYMENT_STATUS",
+			"type": "model",
+            "modelName": "employeeEmployment",
+            "foreignKeyAttribute": "employmentStatus",
+            "isSystemValue": true
+		},
+        "isDelete": {
+            "name": "isDelete",
+            "label": "Is Deleted",
+            "isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "employeeEmployment": "BELONGS_TO"
+    }
+}

@@ -1,0 +1,185 @@
+{
+    "name": "employeeSalary",
+	"path": "/employeeSalaries",
+    "singularDefaultLabel": "Salary",
+    "singularLabelKey": "salary",
+    "pluralDefaultLabel": "Salaries",
+    "pluralLabelKey": "salaries",
+    "hasEffectiveDate":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee ID",
+			"labelKey": "EMPLOYEE_ID",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "salaries",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "effectiveDate": {
+            "name": "effectiveDate",
+            "defaultLabel": "Effective Date",
+			"labelKey": "SALARY.EFFECTIVE_DATE",
+            "type": "timestamp",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        // "basic": {
+        //     "name": "basic",
+        //     "defaultLabel": "Basic",
+        //     "labelKey": "SALARY.BASIC",
+        //     "type": "number",
+        //     "componentType": "basic",
+        //     "isEncripted" : true,
+        //     "validations": {
+        //         "isRequired": true,
+		// 		"max": 15,
+        //         "min": 1,
+        //         "isDecimal":true,
+        //         "precision" : 2
+		// 	}
+        // },
+        // "allowance": {
+        //     "name": "allowance",
+        //     "defaultLabel": "Allowance",
+        //     "componentType": "allowance",
+        //     "isEncripted" : true,
+        //     "labelKey": "SALARY.ALLOWANCE",
+        //     "type": "number",
+        //     "validations": {
+		// 		"max": 15,
+        //         "min": 1,
+        //         "isDecimal":true,
+        //         "precision" : 2
+		// 	}
+        // },
+        // "epfEmployer": {
+        //     "name": "epfEmployer",
+        //     "defaultLabel": "EPF - Employer",
+        //     "componentType": "default",
+        //     "isEncripted" : true,
+        //     "labelKey": "SALARY.EPF_EMPLOYER",
+        //     "type": "number",
+        //     "validations": {
+		// 		"max": 15,
+        //         "min": 1,
+        //         "isDecimal":true,
+        //         "precision" : 2
+		// 	}
+        // },
+        // "epfEmployee": {
+        //     "name": "epfEmployee",
+        //     "defaultLabel": "EPF - Employee",
+        //     "isEncripted" : true,
+        //     "componentType": "default",
+        //     "labelKey": "SALARY.EPF_EMPLOYEE",
+        //     "type": "number",
+        //     "validations": {
+		// 		"max": 15,
+        //         "min": 1,
+        //         "isDecimal":true,
+        //         "precision" : 2
+		// 	}
+        // },
+        // "etf": {
+        //     "name": "etf",
+        //     "defaultLabel": "ETF",
+        //     "isEncripted" : true,
+        //     "componentType": "default",
+        //     "labelKey": "SALARY.ETF",
+        //     "type": "number",
+        //     "validations": {
+		// 		"max": 15,
+        //         "min": 1,
+        //         "isDecimal":true,
+        //         "precision" : 2
+		// 	}
+        // },
+        // "payeeTax": {
+        //     "name": "payeeTax",
+        //     "defaultLabel": "Payee Tax",
+        //     "isEncripted" : true,
+        //     "componentType": "default",
+        //     "labelKey": "SALARY.PAYEE_TAX",
+        //     "type": "number",
+        //     "validations": {
+		// 		"max": 15,
+        //         "min": 1,
+        //         "isDecimal":true,
+        //         "precision" : 2
+		// 	}
+        // },
+        // "ctc": {
+        //     "name": "ctc",
+        //     "defaultLabel": "CTC",
+        //     "componentType": "default",
+        //     "isEncripted" : true,
+        //     "labelKey": "SALARY.CTC",
+        //     "type": "number",
+        //     "validations": {
+	    //         "max": 15,
+        //         "min": 1,
+        //         "isDecimal":true,
+        //         "precision" : 2
+		// 	}
+        // },
+        "salaryDetails": {
+            "name": "salaryDetails",
+            "defaultLabel": "Salary Details",
+            "labelKey": "SALARY.DETAILS",
+            "type": "string"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+     "templateTokens": {
+        "effectiveDate": "salary_effective_date",
+        "basic": "salary_basic",
+        "allowance": "salary_allowance",
+        "epfEmployer": "salary_EPF_employer",
+        "epfEmployee": "salary_EPF_employee",
+        "etf": "salary_etf",
+        "payeeTax": "salary_payee_tax",
+        "ctc": "salary_CTC"
+    },
+    "relations": {
+        "employee": "BELONGS_TO_MANY"
+	}
+}

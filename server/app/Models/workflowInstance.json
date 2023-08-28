@@ -1,0 +1,140 @@
+{
+    "name": "workflowInstance",
+    "path": "/workflowInstance",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        // "actionId": {
+        //     "name": "actionId",
+        //     "defaultLabel": "actionId",
+        //     "labelKey": "WORKFLOW.ACTIONID",
+        //     "type": "number",
+        //     "validations": {
+        //         "isRequired": false,
+        //         "isUnique": false
+        //     }
+        // },
+        "workflowEmployeeId": {
+            "name": "workflowEmployeeId",
+            "defaultLabel": "Workflow Employee Id",
+            "labelKey": "Workflow Employee Id",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "workflowId": {
+            "name": "workflowId",
+            "defaultLabel": "workflowId",
+            "labelKey": "WORKFLOW.WORKFLOWID",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "currentStateId": {
+            "name": "currentStateId",
+            "defaultLabel": "Current State",
+            "labelKey": "WORKFLOW.CURRNETSTATE",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "currentApproveLevelSequence": {
+            "name": "currentApproveLevelSequence",
+            "defaultLabel": "Current Approve Level Sequence",
+            "labelKey": "WORKFLOW.CURRNETAPPROVALLEVELSEQUENCE",
+            "type": "number",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false
+            }
+        },
+        "levelPermittedUserRoles": {
+            "name": "levelPermittedUserRoles",
+            "defaultLabel": "Level Permitted Roles",
+            "labelKey": "WORKFLOW.LEVEL_PERMITTED_ROLES",
+            "type": "json"
+        },
+        "levelPermittedEmployees": {
+            "name": "levelPermittedEmployees",
+            "defaultLabel": "Level Permitted Employees",
+            "labelKey": "WORKFLOW.LEVEL_PERMITTED_EMPLOYEES",
+            "type": "json"
+        },
+        "levelPermittedDesignations": {
+            "name": "levelPermittedDesignations",
+            "defaultLabel": "Level Permitted Designations",
+            "labelKey": "WORKFLOW.LEVEL_PERMITTED_DESIGNATIONS",
+            "type": "json"
+        },
+        "levelPermittedCommonOptions": {
+            "name": "levelPermittedCommonOptions",
+            "defaultLabel": "Level Permitted Common Options",
+            "labelKey": "WORKFLOW.LEVEL_PERMITTED_COMMON_OPTIONS",
+            "type": "json"
+        },
+        "levelPermittedJobCategories": {
+            "name": "levelPermittedJobCategories",
+            "defaultLabel": "Level Permitted Job Categories",
+            "labelKey": "WORKFLOW.LEVEL_PERMITTED_JOB_CATEGORIES",
+            "type": "json"
+        },
+        // "postState": {
+        //     "name": "postState",
+        //     "defaultLabel": "postState",
+        //     "labelKey": "WORKFLOW.POSTSTATE",
+        //     "type": "number",
+        //     "validations": {
+        //         "isRequired": false,
+        //         "isUnique": false
+        //     }
+        // },
+        // "contextId":{
+        //     "name": "contextId",
+        //     "defaultLabel": "contextId",
+        //     "labelKey": "WORKFLOW.CONTEXT",
+        //     "type": "number",
+        //     "validations": {
+        //         "isRequired": false,
+        //         "isUnique": false
+        //     }
+        // },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

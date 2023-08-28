@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+class CreateDocumentTemplateTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('documentTemplate', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->nullable()->default(null);
+            $table->string('description')->nullable()->default(null);
+            $table->json('pageSettings')->default("{}");
+            $table->boolean('isDelete')->default(false);
+            $table->integer('createdBy')->nullable()->default(null);
+            $table->integer('updatedBy')->nullable()->default(null);
+            $table->timestamp('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+        });
+        // add content column with MEDIUMBLOB data type
+        DB::statement("ALTER TABLE documentTemplate ADD content MEDIUMBLOB DEFAULT NULL AFTER description");
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('documentTemplate');
+    }
+}

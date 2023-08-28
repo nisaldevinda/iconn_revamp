@@ -1,0 +1,4 @@
+.color-input .ant-btn:not([disabled]):hover {
+    text-decoration: none !important;
+    border-color: #86C129 !important;
+}

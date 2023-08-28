@@ -1,0 +1,111 @@
+{
+    "name": "formTemplate",
+    "path": "/form-templates",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "name",
+            "labelKey": "TEMPLATE.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true
+			}
+        },
+        "status": {
+            "name": "status",
+            "defaultLabel": "Status",
+            "labelKey": "TEMPLATE.STATUS",
+            "type": "enum",
+            "defaultValue": "Unpublished",
+			"validations": {
+				"isRequired": true
+			},
+            "values": [
+                {
+                    "value": "Unpublished",
+                    "labelKey": "UNPUBLISHED",
+                    "defaultLabel": "Unpublished"
+                },
+                {
+                    "value": "Published",
+                    "labelKey": "PUBLISHED",
+                    "defaultLabel": "Published"
+                }
+            ]
+        },
+        "type": {
+            "name": "type",
+            "defaultLabel": "Type",
+            "labelKey": "TEMPLATE.TYPE",
+            "type": "enum",
+            "defaultValue": "COMPANY_NOTICES",
+			"validations": {
+				"isRequired": true
+			},
+            "values": [
+                {
+                    "value": "FEEDBACK",
+                    "labelKey": "TEMPLATE.TYPE.FEEDBACK",
+                    "defaultLabel": "Feedback"
+                },
+                {
+                    "value": "EVALUATION",
+                    "labelKey": "TEMPLATE.TYPE.EVALUATION",
+                    "defaultLabel": "Evaluation"
+                }
+            ]
+        },
+        "formContent": {
+            "name": "formContent",
+            "defaultLabel": "Form Content",
+            "labelKey": "TEMPLATE.FORM_CONTENT",
+            "type": "string",
+			"validations": {
+				"isRequired": true
+			}
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        
+    }
+}

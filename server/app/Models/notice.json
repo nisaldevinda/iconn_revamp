@@ -1,0 +1,203 @@
+{
+    "name": "notice",
+    "path": "/notices",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "topic": {
+            "name": "topic",
+            "defaultLabel": "Topic",
+            "labelKey": "NOTICE.TOPIC",
+            "type": "string",
+			"validations": {
+				"isRequired": true
+			}
+        },
+        "noticeCategory": {
+            "name": "noticeCategory",
+            "defaultLabel": "Category",
+            "labelKey": "NOTICE.CATEGORY",
+            "type": "model",
+            "modelName": "noticeCategory",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "description": {
+            "name": "description",
+            "defaultLabel": "Description",
+            "labelKey": "NOTICE.DESCRIPTION",
+            "type": "WYSIWYG",
+			"validations": {
+				"isRequired": true
+			}
+        },
+        "attachmentId": {
+            "name": "attachmentId",
+            "defaultLabel": "Attachment ID",
+            "labelKey": "NOTICE.ATTACHMENT_ID",
+            "type": "number"
+        },
+        "status": {
+            "name": "status",
+            "defaultLabel": "Status",
+            "labelKey": "NOTICE.STATUS",
+            "type": "enum",
+            "defaultValue": "Draft",
+			"validations": {
+				"isRequired": true
+			},
+            "values": [
+                {
+                    "value": "Unpublished",
+                    "labelKey": "UNPUBLISHED",
+                    "defaultLabel": "Unpublished"
+                },
+                {
+                    "value": "Draft",
+                    "labelKey": "DRAFT",
+                    "defaultLabel": "Draft"
+                },
+                {
+                    "value": "Archived",
+                    "labelKey": "ARCHIVED",
+                    "defaultLabel": "Archived"
+                },
+                {
+                    "value": "Published",
+                    "labelKey": "PUBLISHED",
+                    "defaultLabel": "Published"
+                }
+            ]
+        },
+        "type": {
+            "name": "type",
+            "defaultLabel": "Type",
+            "labelKey": "NOTICE.TYPE",
+            "type": "enum",
+            "defaultValue": "COMPANY_NOTICES",
+			"validations": {
+				"isRequired": true
+			},
+            "values": [
+                {
+                    "value": "COMPANY_NOTICES",
+                    "labelKey": "NOTICE.TYPE.COMPANY_NOTICES",
+                    "defaultLabel": "Company Notices"
+                },
+                {
+                    "value": "TEAM_NOTICES",
+                    "labelKey": "NOTICE.TYPE.TEAM_NOTICES",
+                    "defaultLabel": "Team Notices"
+                }
+            ]
+        },
+        "contentType": {
+            "name": "contentType",
+            "defaultLabel": "Content Create Option",
+            "labelKey": "NOTICE.CONTENT_CREATE_OTION",
+            "type": "enum",
+            "defaultValue": "TEXT",
+			"validations": {
+				"isRequired": true
+			},
+            "values": [
+                {
+                    "value": "TEXT",
+                    "labelKey": "NOTICE.CONTENT_CREATE_OTION.TEXT",
+                    "defaultLabel": "Use Text Editor"
+                },
+                {
+                    "value": "ATTACHMENT",
+                    "labelKey": "NOTICE.CONTENT_CREATE_OTION.ATTACHMENT",
+                    "defaultLabel": "Use Attachment"
+                }
+            ]
+        },
+        "audienceMethod": {
+            "name": "audienceMethod",
+            "defaultLabel": "Audience Method",
+            "labelKey": "NOTICE.AUDIENCE_METHOD",
+            "type": "enum",
+            "defaultValue": "ALL",
+			"validations": {
+				"isRequired": true
+			},
+            "values": [
+                {
+                    "value": "ALL",
+                    "labelKey": "NOTICE.AUDIENCE_METHOD.ALL",
+                    "defaultLabel": "All"
+                },
+                {
+                    "value": "ASSIGNED_TO_ME",
+                    "labelKey": "NOTICE.AUDIENCE_METHOD.ASSIGNED_TO_ME",
+                    "defaultLabel": "Assigned To Me"
+                },
+                {
+                    "value": "REPORT_TO",
+                    "labelKey": "NOTICE.AUDIENCE_METHOD.REPORT_TO",
+                    "defaultLabel": "Assign to a Manager"
+                },
+                {
+                    "value": "QUERY",
+                    "labelKey": "NOTICE.AUDIENCE_METHOD.QUERY",
+                    "defaultLabel": "Department And Location"
+                },
+                {
+                    "value": "CUSTOM",
+                    "labelKey": "NOTICE.AUDIENCE_METHOD.CUSTOM",
+                    "defaultLabel": "Custom"
+                }
+            ]
+        },
+        "audienceData": {
+            "name": "audienceData",
+            "defaultLabel": "Audience Data",
+            "labelKey": "NOTICE.AUDIENCE_DATA",
+            "type": "json"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        "noticeCategory": "HAS_ONE"
+    }
+}

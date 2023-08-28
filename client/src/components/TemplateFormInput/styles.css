@@ -1,0 +1,7 @@
+.mobile_input,
+.ant-form-item .ant-picker-calendar-year-select,
+.ant-form-item .ant-picker-calendar-month-select,
+.ant-form-item .ant-input-group .ant-select,
+.ant-form-item .ant-input-group .ant-cascader-picker {
+  width: 102px;
+}

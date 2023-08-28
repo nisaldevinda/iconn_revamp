@@ -1,0 +1,160 @@
+{
+    "name": "leaveEntitlement",
+	"path": "/leave-entitlement",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee",
+			"labelKey": "EMPLOYEE",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "leaveEntitlement",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "leaveType": {
+            "name": "leaveType",
+            "defaultLabel": "Leave Type",
+			"labelKey": "LEAVE_TYPE",
+			"type": "model",
+            "modelName": "leaveType",
+            "foreignKeyAttribute": "leaveEmployeeGroups",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "leavePeriodFrom": {
+            "name": "leavePeriodFrom",
+            "defaultLabel": "Leave Period From",
+			"labelKey": "LEAVE_ENTITLEMENT.LEAVE_PERIOD_FROM",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        "leavePeriodTo": {
+            "name": "leavePeriodTo",
+            "defaultLabel": "Leave Period To",
+			"labelKey": "LEAVE_ENTITLEMENT.LEAVE_PERIOD_TO",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        "validFrom": {
+            "name": "validFrom",
+            "defaultLabel": "Valid From",
+			"labelKey": "LEAVE_ENTITLEMENT.VALID_FROM",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        "validTo": {
+            "name": "validTo",
+            "defaultLabel": "Valid To",
+			"labelKey": "LEAVE_ENTITLEMENT.VALID_TO",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        "type": {
+            "name": "type",
+            "defaultLabel": "Type",
+            "labelKey": "LEAVE_ENTITLEMENT.TYPE",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "CARRY_FORWARD",
+                    "labelKey": "LEAVE_ENTITLEMENT.TYPE.CARRY_FORWARD",
+                    "defaultLabel": "Carry Forward"
+                },
+                {
+                    "value": "MANUAL",
+                    "labelKey": "LEAVE_ENTITLEMENT.TYPE.MANUAL",
+                    "defaultLabel": "Manual"
+                },
+                {
+                    "value": "ACCRUAL",
+                    "labelKey": "LEAVE_ENTITLEMENT.TYPE.ACCRUAL",
+                    "defaultLabel": "Accrual"
+                }
+            ],
+            "defaultValue": "MANUAL"
+        },
+        "entilementCount": {
+            "name": "entilementCount",
+            "defaultLabel": "Entilement Count",
+            "labelKey": "LEAVE_ENTITLEMENT.ENTILEMNET_COUNT",
+            "type": "number",
+            "validations": {
+				"max": 365,
+                "min": 1
+			}
+        },
+        "pendingCount": {
+            "name": "pendingCount",
+            "defaultLabel": "Pending Count",
+            "labelKey": "LEAVE_ENTITLEMENT.PENDING_COUNT",
+            "type": "number",
+            "validations": {
+				"max": 365,
+                "min": 0
+			},
+            "defaultValue": 0
+        },
+        "usedCount": {
+            "name": "usedCount",
+            "defaultLabel": "Used Count",
+            "labelKey": "LEAVE_ENTITLEMENT.USED_COUNT",
+            "type": "number",
+            "validations": {
+				"max": 365,
+                "min": 0
+			},
+            "defaultValue": 0
+        },
+        "comment": {
+            "name": "comment",
+            "defaultLabel": "Comment",
+			"labelKey": "LEAVE_ENTITLEMENT.COMMENT",
+            "type": "textArea",
+            "validations": {
+                "max": 200
+            }
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        "leaveType": "HAS_ONE",
+        "employee": "HAS_ONE"
+	}
+}

@@ -1,0 +1,22 @@
+// how to setup cron
+
+docker exec -it -u root iconn2-app bash
+
+vim /etc/cron.d/crontab
+
+add following content & save
+* * * * * root sh /var/www/start.sh
+
+service cron restart
+
+log file
+/var/www/storage/logs/cron.log
+
+/////////////////////////
+check status: service cron status
+check process: ps aux
+kill process: kill <pross num>
+/////////////////////////
+
+Run queue
+php artisan queue:work --queue=high,default

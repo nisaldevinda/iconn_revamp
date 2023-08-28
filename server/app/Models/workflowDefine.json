@@ -1,0 +1,148 @@
+{
+    "name": "workflowDefine",
+    "path": "/workflowDefine",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "workflowName": {
+            "name": "workflowName",
+            "defaultLabel": "Workflow Name",
+            "labelKey": "WORKFLOWDEFINE.WORKFLOWNAME",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true,
+                "max": 100,
+                "min": 1
+            }
+        },
+        "description": {
+            "name": "description",
+            "defaultLabel": "Description",
+            "labelKey": "WORKFLOWDEFINE.DESCRIPTION",
+            "type": "string",
+            "validations": {
+                "isRequired": false,
+                "isUnique": false,
+                "max": 100,
+                "min": 1
+            }
+        },
+        "context": {
+            "name": "context",
+            "defaultLabel": "Context Name",
+            "labelKey": "WORKFLOWDEFINE.CONTEXTID",
+            "type": "model",
+            "modelName": "workflowContext",
+            "enumValueKey": "id",
+            "enumLabelKey": "contextName",
+            "defaultValue": null,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "employeeGroup": {
+            "name": "employeeGroup",
+            "defaultLabel": "Employee Group",
+            "labelKey": "BANK_ACCOUNT.BRANCH",
+            "type": "model",
+            "modelName": "workflowEmployeeGroup",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "dependOn": [
+                {
+                    "filterKey": "contextId",
+                    "modelKey": "contextId"
+                }
+            ]
+        },
+        "isAllowToCancelRequestByRequester": {
+            "name": "isAllowToCancelRequestByRequester",
+            "defaultLabel": "Is Allow to Cancel By Requested Employee",
+            "labelKey": "WORKFLOWDEFINE.IS_ALLOW_TO_CANCEL_REQUEST",
+            "type": "checkbox" 
+        },
+        "isProcedureDefined": {
+            "name": "isProcedureDefined",
+            "defaultLabel": "Is Procedure Defined",
+            "labelKey": "WORKFLOWDEFINE.IS_ALLOW_TO_CANCEL_REQUEST",
+            "type": "boolean",
+            "isSystemValue": true
+        },
+        "numOfApprovalLevels": {
+            "name": "numOfApprovalLevels",
+            "defaultLabel": "Number Of Approval Level",
+            "labelKey": "WORKFLOWDEFINE.NUM_OF_APPROVAL_LEVELS",
+            "type": "number",
+            "isSystemValue": true
+        },
+        
+        // "sucessStates": {
+        //     "name": "sucessStates",
+        //     "defaultLabel": "End Sucess States",
+        //     "labelKey": "WORKFLOWDEFINE.SUCESSSTATES",
+        //     "type": "tag", 
+        //     "modelName": "workflowState",
+        //     "enumValueKey": "id",
+        //     "enumLabelKey": "stateName",
+        //     "defaultValue": null,
+        //     "validations": {
+        //         "isRequired": true
+                
+        //     }
+        // },
+        // "failureStates": {
+        //     "name": "failureStates",
+        //     "defaultLabel": "End Failure States",
+        //     "labelKey": "WORKFLOWDEFINE.FAILURE",
+        //     "type": "tag", 
+        //     "modelName": "workflowState",
+        //     "enumValueKey": "id",
+        //     "enumLabelKey": "stateName",
+        //     "defaultValue": null,
+        //     "validations": {
+        //         "isRequired": true
+                
+        //     }
+        // },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        "context": "HAS_ONE",
+        "employeeGroup": "HAS_ONE"
+        
+    }
+}

@@ -1,0 +1,153 @@
+{
+    "name": "workflowStateTransitions",
+    "path": "/workflowStateTransitions",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "workflow": {
+            "name": "workflow",
+            "defaultLabel": "Workflow Name",
+            "labelKey": "WORKFLOWSTATETRABSITION.ACTIONID",
+            "type": "model",   
+            "modelName": "workflowDefine",
+            "enumValueKey": "id",
+            "enumLabelKey": "workflowName",
+            "defaultValue": null,
+            "isSystemValue": false,
+            "validations": {
+                "isRequired": true
+              
+            }
+
+
+          
+        },
+        "action": {
+            "name": "action",
+            "defaultLabel": "Action Name",
+            "labelKey": "WORKFLOWSTATETRABSITION.ACTIONID",
+            "type": "model",
+            "modelName": "workflowAction",
+            "enumValueKey": "id",
+            "enumLabelKey": "actionName",
+            "defaultValue": null,
+            "isSystemValue": false,
+            "validations": {
+                "isRequired": true
+              
+            }
+
+
+          
+        },
+        "priorState": {
+            "name": "priorState",
+            "defaultLabel": "Prior State Name",
+            "labelKey": "WORKFLOWSTATETRABSITION.PRIORSTATEID",
+            "type": "model", 
+            "modelName": "workflowState",
+            "enumValueKey": "id",
+            "enumLabelKey": "stateName",
+            "defaultValue": null,
+            "isSystemValue": false,
+            "validations": {
+                "isRequired": true
+              
+            }
+        },
+        "postState": {
+            "name": "postState",
+            "defaultLabel": "Post State Name",
+            "labelKey": "WORKFLOWSTATETRABSITION.POSTSTATEID",
+            "type": "model",
+            "modelName": "workflowState",
+            "enumValueKey": "id",
+            "enumLabelKey": "stateName",
+            "defaultValue": null,
+            "isSystemValue": false,
+            "validations": {
+                "isRequired": true
+              
+            }
+
+          
+        },
+        "permittedRoles": {
+            "name": "permittedRoles",
+            "defaultLabel": "Permitted Roles",
+            "labelKey": "WORKFLOWSTATETRABSITION.PERMITTED_ROLES",
+            "type": "tag"
+        },
+        "permittedEmployees": {
+            "name": "permittedEmployees",
+            "defaultLabel": "Permitted Employees",
+            "labelKey": "WORKFLOWSTATETRABSITION.PERMITTED_ROLES",
+            "type": "tag"
+        },
+        "permissionType": {
+            "name": "permissionType",
+            "defaultLabel": "Permission Type",
+            "type": "enum",
+            "enumValueKey": "value",
+			"values": [
+				{
+					"value": "ROLE_BASE",
+					"labelKey": "User Role Base",
+                    "defaultLabel": "User Role Base"
+				},
+				{
+					"value": "EMPLOYEE_BASE",
+					"labelKey": "Employee Base",
+                    "defaultLabel": "Employee Base"
+				}],
+            "validations": {
+                "isRequired": true,
+                "isUnique": false
+            }
+			
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {
+        "workflow":"HAS_ONE",
+        "action":  "HAS_ONE",
+        "postState":  "HAS_ONE",
+        "priorState":  "HAS_ONE"
+
+       
+        
+    }
+}

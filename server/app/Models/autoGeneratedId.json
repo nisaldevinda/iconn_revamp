@@ -1,0 +1,29 @@
+{
+    "name": "prefixCode",
+    "fields": {
+        "id": {
+            "name": "id",
+            "label": "ID"
+        },
+        "modelType": {
+            "name": "modelType",
+            "label": "modelType"
+        },
+        "prefix": {
+            "name": "prefix",
+            "label": "Prefix"
+        },
+        "length": {
+            "name": "length",
+            "label": "Length"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "label": "Created At"
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "label": "Updated At"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "user_refresh_token",
+    "fields": {
+        "id": {
+            "name": "id",
+            "label": "ID"
+        },
+        "userId": {
+            "name": "userId",
+            "label": "User ID"
+        },
+        "accessTokenId": {
+            "name": "accessTokenId",
+            "label": "Access Token ID"
+        },
+        "refreshToken": {
+            "name": "refreshToken",
+            "label": "Refresh Token"
+        },
+        "refreshTokenExpireAt": {
+            "name": "refreshTokenExpireAt",
+            "label": "Refresh Token Expire At"
+        }
+    }
+}

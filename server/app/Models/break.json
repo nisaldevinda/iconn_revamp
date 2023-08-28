@@ -1,0 +1,52 @@
+{
+    "name": "break",
+    "path": "/attendances",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "attendanceId": {
+            "name": "attendanceId",
+            "defaultLabel": "Attendance Id",
+            "labelKey": "BREAK.ATTENDANCE_ID",
+            "type": "number"
+        },
+        "in": {
+            "name": "in",
+            "defaultLabel": "In",
+            "labelKey": "BREAK.IN",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "out": {
+            "name": "out",
+            "defaultLabel": "out",
+            "labelKey": "BREAK.OUT",
+            "type": "string"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "diff": {
+            "name": "diff",
+            "defaultLabel": "Break Diff",
+            "labelKey": "BREAK.DIFF",
+            "type": "number"
+        }
+    },
+    "relations": {}
+}

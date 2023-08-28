@@ -1,0 +1,70 @@
+.ant-form-item {
+    border-radius: 6px;
+}
+
+.apply_leave_card {
+    height: '100vh';
+}
+
+.ant-input {
+    border-radius: 6px;
+}
+
+.ant-picker-range {
+    border-radius: 6px;
+}
+
+.ant-select .ant-select-selector {
+    border-radius: 6px !important;
+}
+
+.leaveAssignForm .ant-form-item {
+    margin-bottom:  5px;
+}
+    
+.upload-btn{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-available {
+    font-weight: 400;
+    font-size: 40px;
+    color: #474747;
+    line-height: 1;
+}
+
+.card-widget-title {
+    font-size: 16px;
+    text-align: center;
+    color: #272D3B;
+    line-height: 19px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card-available-title {
+    font-weight: 400;
+    font-size: 14px;
+    color: #474747;  
+}
+.card-taken-txt{
+    font-weight: 400;
+    font-size: 12px;
+    color: #959595;   
+}
+.card-used-txt{
+    font-weight: 400;
+    font-size: 12px;
+    color: #959595; 
+    text-align: end;  
+}
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+    background-color: transparent !important;
+}
+
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+    background: white !important;
+}

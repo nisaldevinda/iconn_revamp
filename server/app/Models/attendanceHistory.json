@@ -1,0 +1,109 @@
+{
+    "name": "attendance_history",
+    "path": "/attendance_history",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "date": {
+            "name": "date",
+            "defaultLabel": "Date",
+            "labelKey": "ATTENDANCE_HISTORY.DATE",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "timeZone": {
+            "name": "timeZone",
+            "defaultLabel": "Time Zone",
+            "labelKey": "ATTENDANCE.TIMEZONE",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "in": {
+            "name": "in",
+            "defaultLabel": "In",
+            "labelKey": "ATTENDANCE_HISTORY.IN",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "out": {
+            "name": "out",
+            "defaultLabel": "Out",
+            "labelKey": "ATTENDANCE_HISTORY.OUT",
+            "type": "string"
+        },
+        "inUTC": {
+            "name": "inUTC",
+            "defaultLabel": "In UTC",
+            "labelKey": "ATTENDANCE_HISTORY.INUTC",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "outUTC": {
+            "name": "outUTC",
+            "defaultLabel": "Out UTC",
+            "labelKey": "ATTENDANCE_HISTORY.OUTUTC",
+            "type": "string"
+        },
+        "typeId": {
+            "name": "typeId",
+            "defaultLabel": "Type Id",
+            "labelKey": "ATTENDANCE_HISTORY.TYPE_ID",
+            "type": "number"
+        },
+        "attendanceId": {
+            "name": "attendanceId",
+            "defaultLabel": "Attendance Id",
+            "labelKey": "ATTENDANCE_HISTORY.ATTENDANCE_ID",
+            "type": "number"
+        },
+        "earlyOut": {
+            "name": "earlyOut",
+            "defaultLabel": "Early Out Hours",
+            "labelKey": "ATTENDANCE_HISTORY.EARLY_OUT",
+            "type": "number"
+        },
+        "lateIn": {
+            "name": "lateIn",
+            "defaultLabel": "Late In Hours",
+            "labelKey": "ATTENDANCE_HISTORY.LATE_IN",
+            "type": "number"
+        },
+        "workedHours": {
+            "name": "workedHours",
+            "defaultLabel": "Worked Hours",
+            "labelKey": "ATTENDANCE_HISTORY.WORKED_HOURS",
+            "type": "number"
+        },
+        "breakHours": {
+            "name": "breakHours",
+            "defaultLabel": "Break Hours",
+            "labelKey": "ATTENDANCE_HISTORY.BREAK_HOURS",
+            "type": "number"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {}
+}

@@ -1,0 +1,40 @@
+{
+    "name": "workPatternLocation",
+    "path": "/work-patterns",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+       "workPatternId":{
+          "name": "workPatternId",
+          "defaultLabel": "workPatternId",
+          "labelKey": "WORKPATTERNLOCATION.WORKPATTERNID",
+           "type":"string"
+       },
+       "locationId":{
+           "name": "locationId",
+           "defaultLabel": "LocationId",
+           "labelKey": "WORKPATTERNLOCATION.LOCATIONID",
+           "type":"string"
+       },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    }
+}

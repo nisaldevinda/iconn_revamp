@@ -1,0 +1,344 @@
+{
+    "name": "user",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "email": {
+            "name": "email",
+            "defaultLabel": "Email",
+            "labelKey": "USER.EMAIL",
+            "type": "email",
+            "isSensitiveData": true,
+            "validations": {
+                "isRequired": true,
+                "isUnique": true
+            }
+        },
+        "emailVerified": {
+            "name": "emailVerified",
+            "defaultLabel": "Email Verified",
+            "labelKey": "USER.EMAIL_VERFIED",
+            "type": "boolean",
+            "isSystemValue": true,
+            "defaultValue": false
+        },
+        "firstName": {
+            "name": "firstName",
+            "defaultLabel": "First Name",
+            "labelKey": "USER.FIRST_NAME",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "min": 2,
+                "max": 60
+            }
+        },
+        "middleName": {
+            "name": "middleName",
+            "defaultLabel": "Middle Name",
+            "labelKey": "USER.MIDDLE_NAME",
+            "type": "string",
+            "validations": {
+                // "min": 2,
+                "max": 60
+            },
+            "defaultValue": null
+        },
+        "lastName": {
+            "name": "lastName",
+            "defaultLabel": "Last Name",
+            "labelKey": "USER.LAST_NAME",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "min": 2,
+                "max": 60
+            }
+        },
+        "employeeName": {
+            "name": "employeeName",
+            "defaultLabel": "Employee Name",
+            "labelKey": "USER.EMPLOYEE_NAME",
+            "type": "string",
+            "isComputedProperty": true,
+            "concatFields": [
+                "firstName",
+                "middleName",
+                "lastName"
+            ],
+            "validations": {
+                "isRequired": true,
+                "min": 2,
+                "max": 200
+            }
+        },
+        "password": {
+            "name": "password",
+            "defaultLabel": "Password",
+            "labelKey": "USER.PASSWORD",
+            "type": "password",
+            "isSystemValue": true,
+            "isSensitiveData": true,
+            "validations": {
+                "min": 6,
+                "max": 30
+            }
+        },
+        "blocked": {
+            "name": "blocked",
+            "defaultLabel": "Blocked",
+            "labelKey": "USER.BLOCKED",
+            "type": "boolean",
+            "isSystemValue": true,
+            "defaultValue": false
+        },
+        "expired": {
+            "name": "expired",
+            "defaultLabel": "Expired",
+            "labelKey": "USER.EXPIRED",
+            "type": "boolean",
+            "isSystemValue": true,
+            "defaultValue": false
+        },
+        "lastIp": {
+            "name": "lastIp",
+            "defaultLabel": "Last IP",
+            "labelKey": "USER.LAST_IP",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "lastLogin": {
+            "name": "lastLogin",
+            "defaultLabel": "Last Login",
+            "labelKey": "USER.LAST_LOGIN",
+            "type": "timestamp",
+            "isSystemValue": true
+        },
+        "lastFailedLogin": {
+            "name": "lastFailedLogin",
+            "defaultLabel": "Last Failed Login",
+            "labelKey": "USER.LAST_FAILED_LOGIN",
+            "type": "timestamp",
+            "isSystemValue": true
+        },
+        "lastPasswordReset": {
+            "name": "lastPasswordReset",
+            "defaultLabel": "Last Password Reset",
+            "labelKey": "USER.LAST_PASSWORD_RESET",
+            "type": "timestamp",
+            "isSystemValue": true
+        },
+        "loginsCount": {
+            "name": "loginsCount",
+            "defaultLabel": "Logins Count",
+            "labelKey": "USER.LOGINS_COUNT",
+            "type": "number",
+            "isSystemValue": true,
+            "defaultValue": 0
+        },
+        "failedLoginsCount": {
+            "name": "failedLoginsCount",
+            "defaultLabel": "Failed Logins Count",
+            "labelKey": "USER.FAILED_LOGINS_COUNT",
+            "type": "number",
+            "isSystemValue": true,
+            "defaultValue": 0
+        },
+        "multifactor": {
+            "name": "multifactor",
+            "defaultLabel": "Multifactor",
+            "labelKey": "USER.MULTIFACTOR",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "phoneNumber": {
+            "name": "phoneNumber",
+            "defaultLabel": "Phone Number",
+            "labelKey": "USER.PHONE_NUMBER",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "verificationToken": {
+            "name": "verificationToken",
+            "defaultLabel": "Verification Token",
+            "labelKey": "USER.VERIFICATION_TOKEN",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "verificationTokenTime": {
+            "name": "verificationTokenTime",
+            "defaultLabel": "Verification Token Time",
+            "labelKey": "USER.VERIFICATION_TOKEN_TIME",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "isTokenActive": {
+            "name": "isTokenActive",
+            "defaultLabel": "IsTokenActive",
+            "labelKey": "USER.IS_TOKEN_ACTIVE",
+            "type": "boolean",
+            "isSystemValue": true,
+            "defaultValue": false
+        },
+        "phoneVerified": {
+            "name": "phoneVerified",
+            "defaultLabel": "Phone Verified",
+            "labelKey": "USER.PHONE_VERIFIED",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "picture": {
+            "name": "picture",
+            "defaultLabel": "Picture",
+            "labelKey": "USER.PICTURE",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "identities": {
+            "name": "identities",
+            "defaultLabel": "Identities",
+            "labelKey": "USER.IDENTITIES",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "userMetadata": {
+            "name": "userMetadata",
+            "defaultLabel": "User Metadata",
+            "labelKey": "USER.USER_METADATA",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee",
+            "labelKey": "USER.EMPLOYEE",
+            "type": "model",
+            "route": "/api/get-unassigned-employees-list",
+            "modelName": "employee",
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName",
+            "defaultValue": null,
+            "modelFilters": {
+                "isActive": [
+                    true
+                ]
+            }
+        },
+        "employeeRole": {
+            "name": "employeeRole",
+            "defaultLabel": "Employee Role",
+            "labelKey": "USER.EMPLOYEE_ROLE",
+            "type": "model",
+            "modelName": "userRole",
+            "modelFilters": {
+                "type": [
+                    "EMPLOYEE"
+                ]
+            },
+            "showOn": [
+                {
+                    "dependentFieldName": "employeeId",
+                    "operator": "not_null"
+                }
+            ],
+            "enumValueKey": "id",
+            "enumLabelKey": "title",
+            "defaultValue": null
+        },
+        "managerRole": {
+            "name": "managerRole",
+            "defaultLabel": "Manager Role",
+            "labelKey": "USER.MANAGER_ROLE",
+            "type": "model",
+            "modelName": "userRole",
+            "modelFilters": {
+                "type": [
+                    "MANAGER"
+                ]
+            },
+            "showOn": [
+                {
+                    "dependentFieldName": "employeeId",
+                    "operator": "not_null"
+                }
+            ],
+            "enumValueKey": "id",
+            "enumLabelKey": "title",
+            "defaultValue": null
+        },
+        "adminRole": {
+            "name": "adminRole",
+            "defaultLabel": "Admin Role",
+            "labelKey": "USER.ADMIN_ROLE",
+            "type": "model",
+            "modelName": "userRole",
+            "modelFilters": {
+                "type": [
+                    "ADMIN"
+                ]
+            },
+            "enumValueKey": "id",
+            "enumLabelKey": "title",
+            "defaultValue": null
+        },
+        "inactive": {
+            "name": "inactive",
+            "defaultLabel": "Status",
+            "labelKey": "USER.STATUS",
+            "type": "enum",
+            "isSystemValue": false,
+            "values": [
+                {
+                    "value": 1,
+                    "labelKey": "Inactive",
+                    "defaultLabel": "Inactive"
+                },
+                {
+                    "value": 0,
+                    "labelKey": "Active",
+                    "defaultLabel": "Active"
+                }
+            ]
+        }
+    },
+    "relations": {
+        "employee": "HAS_ONE",
+        "employeeRole": "HAS_ONE",
+        "managerRole": "HAS_ONE",
+        "adminRole": "HAS_ONE"
+    }
+}

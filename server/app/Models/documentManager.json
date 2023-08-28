@@ -1,0 +1,112 @@
+{
+    "name": "documentManager",
+    "path":"/",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "fileName": {
+            "name": "fileName",
+            "defaultLabel": "File Name",
+            "labelKey": "DOCUMENTMANAGER.FILE_NAME",
+            "type": "string",
+            "validations": {
+				"isRequired": true,
+				"max": 30
+			}
+        },
+        "bucket": {
+            "name": "bucket",
+            "defaultLabel": "bucket",
+            "labelKey": "DOCUMENTMANAGER.BUCKET",
+            "type": "string",
+            "validations": {
+				"isRequired": true,
+				"max": 30
+			}
+        },
+        "objectKey": {
+            "name": "objectKey",
+            "defaultLabel": "objectKey",
+            "labelKey": "DOCUMENTMANAGER.OBJECT_KEY",
+            "type": "string",
+            "validations": {
+				"isRequired": true,
+				"max": 30
+			}
+        },
+        "size": {
+            "name": "size",
+            "defaultLabel": "Size",
+            "labelKey": "DOCUMENTMANAGER.SIZE",
+            "type": "string",
+            "validations": {
+				"isRequired": true,
+				"max": 30
+			}
+        },
+        "userId": {
+            "name": "userId",
+            "defaultLabel": "User Id",
+            "labelKey": "DOCUMENTMANAGER.USER_ID",
+            "type": "string"
+            //,
+            // "validations": {
+			// 	"isRequired": true,
+			// 	"min": 2,
+			// 	"max": 30
+			// }
+        },
+        "parentId": {
+            "name": "parentId",
+            "defaultLabel": "Parent Id",
+            "labelKey": "DOCUMENTMANAGER.PARENT_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true,
+				"max": 30
+			}
+        },
+       
+        "isDelete": {
+            "name": "isDelete",
+            "defaultLabel": "isDelete",
+            "labelKey": "IS_DELETE",
+            "type": "boolean",
+			"isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    }
+}

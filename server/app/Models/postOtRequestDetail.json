@@ -1,0 +1,104 @@
+{
+    "name": "postOtRequestDetail",
+	"path": "/postOtRequestDetail",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "postOtRequestId": {
+            "name": "postOtRequestId",
+            "defaultLabel": "Post OT Request Id",
+            "labelKey": "POST_OT_REQUEST_DETAIL.POST_OT_REQUEST_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "summaryId": {
+            "name": "summaryId",
+            "defaultLabel": "Summary Id",
+            "labelKey": "POST_OT_REQUEST_DETAIL.SUMMARY_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "shiftId": {
+            "name": "shiftId",
+            "defaultLabel": "Shift Id",
+            "labelKey": "POST_OT_REQUEST_DETAIL.SHIFT_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "actualIn":{
+            "name":"actualIn",
+            "defaultLabel":"actualIn",
+            "labelKey":"POST_OT_REQUEST_DETAIL.ACTUALIN",
+            "type":"string"
+        },
+        "actualOut":{
+            "name":"actualOut",
+            "defaultLabel":"actualOut",
+            "labelKey":"POST_OT_REQUEST_DETAIL.ACTUALOUT",
+            "type":"string"
+        },
+        "workTime": {
+            "name": "workTime",
+            "defaultLabel": "Work Time",
+            "labelKey": "POST_OT_REQUEST_DETAIL.EORK_TIME",
+            "type": "number"
+        },
+        "totalActualOt": {
+            "name": "totalActualOt",
+            "defaultLabel": "Total Actual Ot",
+            "labelKey": "POST_OT_REQUEST_DETAIL.TOTAL_ACTUAL_OT",
+            "type": "number"
+        },
+        "totalRequestedOt": {
+            "name": "totalRequestedOt",
+            "defaultLabel": "Total Requested Ot",
+            "labelKey": "POST_OT_REQUEST_DETAIL.TOTAL_REQUESTED_OT",
+            "type": "number"
+        },
+        "totalApprovedOt": {
+            "name": "totalApprovedOt",
+            "defaultLabel": "Total Approved Ot",
+            "labelKey": "POST_OT_REQUEST_DETAIL.TOTAL_APPROVED_OT",
+            "type": "number"
+        },
+        "status":{
+            "name":"status",
+            "defaultLabel":"Status",
+            "labelKey":"STATUS",
+            "type":"string"
+        },
+        "otDetails": {
+            "name": "otDetails",
+            "defaultLabel": "OT Details",
+            "labelKey": "DETAILS",
+            "type": "string"
+        },
+        "approveUserComment":{
+            "name":"approveUserComment",
+            "defaultLabel":"Approve User Comment",
+            "labelKey":"POST_OT_REQUEST_DETAIL.APPROVE_USER_COMMENT",
+            "type":"string"
+        },
+        "requestedEmployeeComment":{
+            "name":"requestedEmployeeComment",
+            "defaultLabel":"Requested Employee Comment",
+            "labelKey":"POST_OT_REQUEST_DETAIL.REQUESTED_EMPLOYEE_COMMENT",
+            "type":"string"
+        }
+    },
+    "relations": {
+        
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "name": "employeeExperience",
+	"path": "/employeeExperiences",
+    "singularDefaultLabel": "Work Experience",
+    "singularLabelKey": "workExperience",
+    "pluralDefaultLabel": "Work Experiences",
+    "pluralLabelKey": "workExperiences",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee ID",
+			"labelKey": "EMPLOYEE_ID",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "experiences",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "company": {
+            "name": "company",
+            "defaultLabel": "Company",
+			"labelKey": "EXPERIENCE.COMPANY",
+            "type": "string",
+            "validations": {
+				"isRequired": true,
+                "max":100
+			}
+        },
+        "jobTitle": {
+            "name": "jobTitle",
+            "defaultLabel": "Job Title",
+            "labelKey": "EXPERIENCE.JOB_TITLE",
+            "type": "model",
+            "modelName": "jobTitle",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+				"isRequired": true,
+                "max":100
+			}
+        },
+        "from": {
+            "name": "from",
+            "defaultLabel": "From",
+            "labelKey": "EXPERIENCE.FORM",
+            "type": "timestamp",
+            "defaultValue": null,
+            "validations": {
+				"maxDependentOn": "experiences_to"
+			}
+        },
+        "to": {
+            "name": "to",
+            "defaultLabel": "To",
+            "labelKey": "EXPERIENCE.TO",
+            "type": "timestamp",
+            "defaultValue": null,
+            "validations": {
+				"minDependentOn": "experiences_from"
+			}
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+		"jobTitle": "HAS_ONE",
+        "employee": "BELONGS_TO_MANY"
+	}
+}

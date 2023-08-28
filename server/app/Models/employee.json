@@ -1,0 +1,1019 @@
+{
+    "name": "employee",
+    "path": "/employees",
+    "isDynamicModel": true,
+    "hasDynamicModelDefinition": true,
+    "hasFrontEndDefinition": true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        // Personal
+        // Basic Information
+        "profilePicture": {
+            "name": "profilePicture",
+            "defaultLabel": "Profile Picture",
+            "labelKey": "EMPLOYEE.PROFILE_PICTURE",
+            "type": "avatar",
+            "modelName": "fileStoreObject",
+            "actionRoute": "/api/employees/{id}/profilePicture",
+            "validations": {
+                "fileType": ["image/jpeg", "image/png"],
+                "isUnique": true,
+                "maxFileSize": 2
+            }
+        },
+        "employeeNumber": {
+            "name": "employeeNumber",
+            "defaultLabel": "Employee Number",
+            "labelKey": "EMPLOYEE.EMPLOYEE_NUMBER",
+            "type": "employeeNumber",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true
+            }
+        },
+        "attendanceId": {
+            "name": "attendanceId",
+            "defaultLabel": "Attendance ID",
+            "labelKey": "EMPLOYEE.ATTENDANCE_ID",
+            "type": "number",
+            "validations": {
+                // "isRequired": true,
+                "isUnique": true
+            }
+        },
+        "epfNumber": {
+            "name": "epfNumber",
+            "defaultLabel": "EPF Number",
+            "labelKey": "EMPLOYEE.EPF_NUMBER",
+            "type": "string"
+        },
+        "etfNumber": {
+            "name": "etfNumber",
+            "defaultLabel": "ETF Number",
+            "labelKey": "EMPLOYEE.ETF_NUMBER",
+            "type": "string"
+        },
+        "title": {
+            "name": "title",
+            "defaultLabel": "Title",
+            "labelKey": "EMPLOYEE.TITLE",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "Mr",
+                    "labelKey": "Mr.",
+                    "defaultLabel": "Mr."
+                },
+                {
+                    "value": "Mrs",
+                    "labelKey": "Mrs.",
+                    "defaultLabel": "Mrs."
+                },
+                {
+                    "value": "Ms",
+                    "labelKey": "Ms.",
+                    "defaultLabel": "Ms."
+                }
+            ],
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "initials": {
+            "name": "initials",
+            "defaultLabel": "Initials",
+            "labelKey": "EMPLOYEE.INITIALS",
+            "type": "string",
+            "validations": {
+                "max": 6
+            },
+            "defaultValue": null
+        },
+        "firstName": {
+            "name": "firstName",
+            "defaultLabel": "First Name",
+            "labelKey": "EMPLOYEE.FIRST_NAME",
+            "type": "string",
+            "isReportField": true,
+            "validations": {
+                "isRequired": true,
+                "max": 50
+            }
+        },
+        "middleName": {
+            "name": "middleName",
+            "defaultLabel": "Middle Name",
+            "labelKey": "EMPLOYEE.MIDDLE_NAME",
+            "type": "string",
+            "isReportField": true,
+            "validations": {
+                "max": 50,
+                "isOneWord": true
+            },
+            "defaultValue": null
+        },
+        "lastName": {
+            "name": "lastName",
+            "defaultLabel": "Last Name",
+            "labelKey": "EMPLOYEE.LAST_NAME",
+            "type": "string",
+            "isReportField": true,
+            "validations": {
+                "isRequired": true,
+                "max": 50
+            }
+        },
+        "fullName": {
+            "name": "fullName",
+            "defaultLabel": "Full Name",
+            "labelKey": "EMPLOYEE.FULL_NAME ",
+            "type": "string",
+            "isReportField": true,
+            "validations": {
+                "max": 255
+            }
+        },
+        "employeeName": {
+            "name": "employeeName",
+            "defaultLabel": "Employee Name",
+            "labelKey": "EMPLOYEE.EMPLOYEE_NAME",
+            "type": "string",
+            "isComputedProperty": true,
+            "isNonRecordableField": true,
+            "concatFields": [
+                "firstName",
+                "middleName",
+                "lastName"
+            ],
+            "validations": {
+                "isRequired": true,
+                "max": 200
+            }
+        },
+        "noticePeriod": {
+            "name": "noticePeriod",
+            "defaultLabel": "Resignation Notice Period is",
+            "labelKey": "EMPLOYEE.NOTICE_PERIOD",
+            "type": "label",
+            "icon": "ResignationNoticePeriod",
+            "isComputedProperty": true,
+            "isNonRecordableField": true,
+            "sqlFuntion": "noticePeriodCalculation(currentJobsId)"
+        },
+        "contractRenewalDate": {
+            "name": "contractRenewalDate",
+            "defaultLabel": "Confirmation Due Date",
+            "labelKey": "EMPLOYEE.CONFIRMATION_DUE_DATE",
+            "type": "label",
+            "icon": "ConfirmationDueDate",
+            "isDynamicLabel": true,
+            "dynamicLabelCondition": [
+                {
+                    "dependentFieldName": "currentJobs.employmentStatus.category",
+                    "operator": "eq",
+                    "value": "PROBATION",
+                    "labelKey": "EMPLOYEE.PROBATION_DUE_DATE",
+                    "defaultLabel": "Probation Due Date"
+                },
+                {
+                    "dependentFieldName": "currentJobs.employmentStatus.category",
+                    "operator": "eq",
+                    "value": "CONTRACT",
+                    "labelKey": "EMPLOYEE.CONTRACT_DUE_DATE",
+                    "defaultLabel": "Contract Due Date"
+                },
+                {
+                    "dependentFieldName": "currentJobs.employmentStatus.category",
+                    "operator": "eq",
+                    "value": "PERMANENT",
+                    "labelKey": "EMPLOYEE.CONFIRMATION_DUE_DATE",
+                    "defaultLabel": "Confirmation Due Date"
+                }
+            ],
+            "isComputedProperty": true,
+            "isNonRecordableField": true,
+            "sqlFuntion": "contractRenewalDateCalculate(currentJobsId)"
+        },
+        "status": {
+            "name": "status",
+            "defaultLabel": "Status",
+            "labelKey": "EMPLOYEE.STATUS",
+            "type": "label",
+            "icon": "Status",
+            "isComputedProperty": true,
+            "isNonRecordableField": true,
+            "sqlFuntion": "genarateStatus(isActive)",
+            "reportField": "isActive"
+        },
+        // TODO: need to implement with new requirement change
+        // "servicePeriod": {
+        //     "name": "servicePeriod",
+        //     "defaultLabel": "Service Period",
+        //     "labelKey": "EMPLOYEE.SERVICE_PERIOD",
+        //     "type": "duration",
+        //     "isComputedProperty": true,
+        //     "isNonRecordableField": true,
+        //     "duration": {
+        //         "unit": "MONTH",
+        //         "expr1Field": "currentEmployments.effectiveDate",
+        //         "expr2Statement": "NOW"
+        //     },
+        //     "condition": {
+        //         "field": "currentEmployments.employmentStatusId",
+        //         "expression": "= 1",
+        //         "then": 0
+        //     }
+        // },
+        // "permanencyPeriod": {
+        //     "name": "permanencyPeriod",
+        //     "defaultLabel": "Permanency Period",
+        //     "labelKey": "EMPLOYEE.PERMANENCY_PERIOD",
+        //     "type": "duration",
+        //     "isComputedProperty": true,
+        //     "isNonRecordableField": true,
+        //     "duration": {
+        //         "unit": "MONTH",
+        //         "expr1Field": "currentEmployments.probationEndDate",
+        //         "expr2Statement": "NOW"
+        //     },
+        //     "condition": {
+        //         "field": "currentEmployments.employmentStatusId",
+        //         "expression": "= 1",
+        //         "then": 0
+        //     }
+        // },
+        "retirementDate": {
+            "name": "retirementDate",
+            "defaultLabel": "Retirement Date",
+            "labelKey": "EMPLOYEE.RETIREMENT_DATE",
+            "type": "label",
+            "icon": "RetirementDate",
+            "isComputedProperty": true,
+            "isNonRecordableField": true,
+            "sqlFuntion": "retirementDateCalculate(dateOfBirth, hireDate)"
+        },
+        "maidenName": {
+            "name": "maidenName",
+            "defaultLabel": "Maiden Name",
+            "labelKey": "EMPLOYEE.MAIDEN_NAME",
+            "type": "string",
+            "validations": {
+                "max": 30
+            }
+        },
+        "dateOfBirth": {
+            "name": "dateOfBirth",
+            "defaultLabel": "Date of Birth",
+            "labelKey": "EMPLOYEE.DATE_OF_BIRTH",
+            "type": "timestamp",
+            "isReportField": true,
+            "disableTodayOption":true,
+            "validations": {
+                "isRequired": true,
+                "maxDate": "today"
+            }
+        },
+        "maritalStatus": {
+            "name": "maritalStatus",
+            "defaultLabel": "Marital Status",
+            "labelKey": "EMPLOYEE.MARITAL_STATUS",
+            "type": "model",
+            "modelName": "maritalStatus",
+            "enumValueKey": "id",
+            "enumLabelKey": "name"
+        },
+        "gender": {
+            "name": "gender",
+            "defaultLabel": "Gender",
+            "labelKey": "EMPLOYEE.GENDER",
+            "type": "model",
+            "modelName": "gender",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "bloodGroup": {
+            "name": "bloodGroup",
+            "defaultLabel": "Blood Group",
+            "labelKey": "EMPLOYEE.BLOOD_GROUP",
+            "type": "enum",
+            "values": [
+                {
+                    "value": "A-",
+                    "labelKey": "A_NEGATIVE",
+                    "defaultLabel": "A-"
+                },
+                {
+                    "value": "A+",
+                    "labelKey": "A_POSITIVE",
+                    "defaultLabel": "A+"
+                },
+                {
+                    "value": "B-",
+                    "labelKey": "B_NEGATIVE",
+                    "defaultLabel": "B-"
+                },
+                {
+                    "value": "B+",
+                    "labelKey": "B_POSITIVE",
+                    "defaultLabel": "B+"
+                },
+                {
+                    "value": "AB-",
+                    "labelKey": "AB_NEGATIVE",
+                    "defaultLabel": "AB-"
+                },
+                {
+                    "value": "AB+",
+                    "labelKey": "AB_POSITIVE",
+                    "defaultLabel": "AB+"
+                },
+                {
+                    "value": "O-",
+                    "labelKey": "O_NEGATIVE",
+                    "defaultLabel": "O-"
+                },
+                {
+                    "value": "O+",
+                    "labelKey": "O_POSITIVE",
+                    "defaultLabel": "O+"
+                }
+            ]
+        },
+        // Identification Information
+        "nicNumber": {
+            "name": "nicNumber",
+            "defaultLabel": "NIC Number",
+            "labelKey": "EMPLOYEE.NIC",
+            "type": "string",
+            "validations": {
+                "regex": "/^([0-9]{9}[vV]|[0-9]{12})$/", // TODO: regax
+                "max":"12"
+        },
+            "defaultValue": null
+        },
+        "passportNumber": {
+            "name": "passportNumber",
+            "defaultLabel": "Passport Number",
+            "labelKey": "EMPLOYEE.PASSPORT_NUMBER",
+            "type": "number",
+            "isReportField": true,
+            "validations": {
+                "max": 12
+            },
+            "defaultValue": null
+        },
+        "passportExpiryDate": {
+            "name": "passportExpiryDate",
+            "defaultLabel": "Passport Expiry Date",
+            "labelKey": "EMPLOYEE.PASSPORT_EXPIRY_DATE",
+            "type": "timestamp",
+            "isReportField": true,
+            "defaultValue": null
+        },
+        "drivingLicenceNumber": {
+            "name": "drivingLicenceNumber",
+            "defaultLabel": "Driving License Number",
+            "labelKey": "EMPLOYEE.DRIVING_LICENCE_NUMBER",
+            "type": "number",
+            "isReportField": true,
+            "validations": {
+                "max": 12
+            },
+            "defaultValue": null
+        },
+        // Ethnic Information
+        "religion": {
+            "name": "religion",
+            "defaultLabel": "Religion",
+            "labelKey": "EMPLOYEE.RELIGION",
+            "type": "model",
+            "modelName": "religion",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "nationality": {
+            "name": "nationality",
+            "defaultLabel": "Nationality",
+            "labelKey": "EMPLOYEE.NATIONALITY",
+            "type": "model",
+            "modelName": "nationality",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "race": {
+            "name": "race",
+            "defaultLabel": "Race",
+            "labelKey": "EMPLOYEE.RACE",
+            "type": "model",
+            "modelName": "race", // TODO: srs not clear
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        // Residential Address
+        "residentialAddressStreet1": {
+            "name": "residentialAddressStreet1",
+            "defaultLabel": "Street 1",
+            "labelKey": "EMPLOYEE.STREET_1",
+            "type": "string",
+            "validations": {
+                "max": 50
+            },
+            "defaultValue": null
+        },
+        "residentialAddressStreet2": {
+            "name": "residentialAddressStreet2",
+            "defaultLabel": "Street 2",
+            "labelKey": "EMPLOYEE.STREET_2",
+            "type": "string",
+            "validations": {
+                "max": 50
+            },
+            "defaultValue": null
+        },
+        "residentialAddressCity": {
+            "name": "residentialAddressCity",
+            "defaultLabel": "City",
+            "labelKey": "EMPLOYEE.CITY",
+            "type": "string",
+            "validations": {
+                "max": 30
+            },
+            "defaultValue": null
+        },
+        "residentialAddressState": {
+            "name": "residentialAddressState",
+            "defaultLabel": "State/Province",
+            "labelKey": "EMPLOYEE.STATE",
+            "type": "model",
+            "modelName": "state",
+            "dependOn": [
+                {
+                    "paramKey": "country",
+                    "modelKey": "residentialAddressCountryId"
+                }
+            ],
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "residentialAddressZip": {
+            "name": "residentialAddressZip",
+            "defaultLabel": "Zip Code",
+            "labelKey": "EMPLOYEE.ZIP_CODE",
+            "type": "number",
+            "validations": {
+                "max": 10,
+                "min": 1
+            },
+            "defaultValue": null
+        },
+        "residentialAddressCountry": {
+            "name": "residentialAddressCountry",
+            "defaultLabel": "Country",
+            "labelKey": "EMPLOYEE.COUNTRY",
+            "type": "model",
+            "modelName": "country",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "imageUrl": {
+            "name": "imageUrl",
+            "defaultLabel": "imageUrl",
+            "labelKey": "EMPLOYEE.IMAMGEURL",
+            "type": "string",
+            "validations": {
+                "max": 200
+            },
+            "defaultValue": null
+        },
+        // Permanent Address
+        "permanentAddressStreet1": {
+            "name": "permanentAddressStreet1",
+            "defaultLabel": "Street 1",
+            "labelKey": "EMPLOYEE.STREET_1",
+            "type": "string",
+            "validations": {
+                "max": 50
+            },
+            "defaultValue": null
+        },
+        "permanentAddressStreet2": {
+            "name": "permanentAddressStreet2",
+            "defaultLabel": "Street 2",
+            "labelKey": "EMPLOYEE.STREET_2",
+            "type": "string",
+            "validations": {
+                "max": 50
+            },
+            "defaultValue": null
+        },
+        "permanentAddressCity": {
+            "name": "permanentAddressCity",
+            "defaultLabel": "City",
+            "labelKey": "EMPLOYEE.CITY",
+            "type": "string",
+            "validations": {
+                "max": 30
+            },
+            "defaultValue": null
+        },
+        "permanentAddressState": {
+            "name": "permanentAddressState",
+            "defaultLabel": "State/Province",
+            "labelKey": "EMPLOYEE.STATE",
+            "type": "model",
+            "modelName": "state",
+            "dependOn": [
+                {
+                    "paramKey": "country",
+                    "modelKey": "permanentAddressCountryId"
+                }
+            ],
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        "permanentAddressZip": {
+            "name": "permanentAddressZip",
+            "defaultLabel": "Zip Code",
+            "labelKey": "EMPLOYEE.ZIP_CODE",
+            "type": "number",
+            "validations": {
+                "min": 1,
+                "max": 200
+            },
+            "defaultValue": null
+        },
+        "permanentAddressCountry": {
+            "name": "permanentAddressCountry",
+            "defaultLabel": "Country",
+            "labelKey": "EMPLOYEE.COUNTRY",
+            "type": "model",
+            "modelName": "country",
+            "enumValueKey": "id",
+            "enumLabelKey": "name",
+            "defaultValue": null
+        },
+        // Contact
+        "workEmail": {
+            "name": "workEmail",
+            "defaultLabel": "Work Email",
+            "labelKey": "EMPLOYEE.WORK_EMAIL",
+            "type": "email",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true
+            }
+        },
+        "personalEmail": {
+            "name": "personalEmail",
+            "defaultLabel": "Personal Email",
+            "labelKey": "EMPLOYEE.PERSONAL_EMAIL",
+            "type": "email",
+            "defaultValue": null
+        },
+        "workPhone": {
+            "name": "workPhone",
+            "defaultLabel": "Work-phone",
+            "labelKey": "EMPLOYEE.WORK_PHONE",
+            "type": "phone",
+            "isReportField": true,
+            "defaultValue": null
+        },
+        "mobilePhone": {
+            "name": "mobilePhone",
+            "defaultLabel": "Mobile-phone",
+            "labelKey": "EMPLOYEE.MOBILE_PHONE",
+            "type": "phone",
+            "isReportField": true,
+            "validations": {
+                "isRequired": true
+            },
+            "defaultValue": null
+        },
+        "homePhone": {
+            "name": "homePhone",
+            "defaultLabel": "Home-phone",
+            "labelKey": "EMPLOYEE.HOME_PHONE",
+            "type": "phone",
+            "defaultValue": null
+        },
+        // Social
+        "facebookLink": {
+            "name": "facebookLink",
+            "defaultLabel": "Facebook",
+            "labelKey": "EMPLOYEE.FACEBOOK",
+            "type": "url",
+            "validations": {
+                "max": 256
+            },
+            "defaultValue": null
+        },
+        "linkedIn": {
+            "name": "linkedIn",
+            "defaultLabel": "LinkedIn",
+            "labelKey": "EMPLOYEE.LINKEDIN",
+            "type": "url",
+            "validations": {
+                "max": 256
+            },
+            "defaultValue": null
+        },
+        "twitter": {
+            "name": "twitter",
+            "defaultLabel": "Twitter",
+            "labelKey": "EMPLOYEE.TWITTER",
+            "type": "url",
+            "validations": {
+                "max": 256
+            },
+            "defaultValue": null
+        },
+        "instagram": {
+            "name": "instagram",
+            "defaultLabel": "Instagram",
+            "labelKey": "EMPLOYEE.INSTAGRAM",
+            "type": "url",
+            "validations": {
+                "max": 256
+            },
+            "defaultValue": null
+        },
+        "pinterest": {
+            "name": "pinterest",
+            "defaultLabel": "Pinterest",
+            "labelKey": "EMPLOYEE.PINTEREST",
+            "type": "url",
+            "validations": {
+                "max": 256
+            },
+            "defaultValue": null
+        },
+        // Employment
+        // Basic
+        "hireDate": {
+            "name": "hireDate",
+            "defaultLabel": "Hire Date",
+            "labelKey": "EMPLOYEE.HIRE_DATE",
+            "type": "timestamp",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "recentHireDate": {
+            "name": "recentHireDate",
+            "defaultLabel": "Original Hire date",
+            "labelKey": "EMPLOYEE.ORIGINAL_HIRE_DATE",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        // Jobs (Multi-record)
+        "jobs": {
+            "name": "jobs",
+            "defaultLabel": "Jobs",
+            "labelKey": "EMPLOYEE.JOBS",
+            "type": "model",
+            "modelName": "employeeJob",
+            "isEffectiveDateConsiderable": true,
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "employeeJourney": {
+            "name": "employeeJourney",
+            "defaultLabel": "Jobs",
+            "labelKey": "EMPLOYEE.JOBS",
+            "type": "jobSection",
+            "isNonRecordableField": true,
+            "reportField": "jobs"
+        },
+        // Compensation
+        // Basic
+        "isOTAllowed": {
+            "name": "isOTAllowed",
+            "defaultLabel": "Allow OT",
+            "labelKey": "EMPLOYEE.ALLOW_OT",
+            "type": "switch",
+            "defaultValue": false
+        },
+        // document
+        "documents": {
+            "name": "documents",
+            "defaultLabel": "Documents",
+            "labelKey": "EMPLOYEE.DOCUMENTS",
+            // "type": "document"
+            "type": "listView",
+            "isNonRecordableField": true
+        },
+        // Salaries (Multi-record)
+        "salaries": {
+            "name": "salaries",
+            "defaultLabel": "Salaries",
+            "labelKey": "EMPLOYEE.SALARIES",
+            "type": "model",
+            "modelName": "employeeSalary",
+            "isEffectiveDateConsiderable": true
+        },
+        "employeeSalarySection": {
+            "name": "employeeSalarySection",
+            "defaultLabel": "Salaries",
+            "labelKey": "EMPLOYEE.SALARIES",
+            "type": "salarySection",
+            "isNonRecordableField": true,
+            "reportField": "salaries"
+        },
+        // Bank Accounts (Multi-record)
+        "bankAccounts": {
+            "name": "bankAccounts",
+            "defaultLabel": "Bank Accounts",
+            "labelKey": "EMPLOYEE.BANK_ACCOUNTS",
+            "type": "model",
+            "modelName": "employeeBankAccount",
+            "isEffectiveDateConsiderable": true
+        },
+        // Dependents (Multi-record)
+        "dependents": {
+            "name": "dependents",
+            "defaultLabel": "Dependents",
+            "labelKey": "EMPLOYEE.DEPENDENTS",
+            "type": "model",
+            "modelName": "employeeDependent"
+        },
+        // Spouse details
+        "dateOfRegistration": {
+            "name": "dateOfRegistration",
+            "defaultLabel": "Date of Registration",
+            "labelKey": "EMPLOYEE.DATE_OF_REGISTRATION",
+            "type": "timestamp",
+            "defaultValue": null
+        },
+        "certificateNumber": {
+            "name": "certificateNumber",
+            "defaultLabel": "Certificate number",
+            "labelKey": "EMPLOYEE.CERTIFICATE_NUMBER",
+            "type": "number",
+            "defaultValue": null
+        },
+        // Experiences (Multi-record)
+        "experiences": {
+            "name": "experiences",
+            "defaultLabel": "Experiences",
+            "labelKey": "EMPLOYEE.EXPERIENCES",
+            "type": "model",
+            "modelName": "employeeExperience"
+        },
+        // Educations (Multi-record)
+        "educations": {
+            "name": "educations",
+            "defaultLabel": "Educations",
+            "labelKey": "EMPLOYEE.EDUCATIONS",
+            "type": "model",
+            "modelName": "employeeEducation"
+        },
+        // Competencies (Multi-record)
+        "competencies": {
+            "name": "competencies",
+            "defaultLabel": "Competencies",
+            "labelKey": "EMPLOYEE.COMPENTENCIES",
+            "type": "model",
+            "modelName": "employeeCompetency"
+        },
+        // Emergency Contacts (Multi-record)
+        "emergencyContacts": {
+            "name": "emergencyContacts",
+            "defaultLabel": "Emergency Contacts",
+            "labelKey": "EMPLOYEE.EMERGENCY_CONTACTS",
+            "type": "model",
+            "modelName": "employeeEmergencyContact"
+        },
+        "documentTemplates": {
+            "name": "documentTemplates",
+            "defaultLabel": "Document Template",
+            "labelKey": "EMPLOYEE.DOCUMENT_TEMPLATES",
+            "type": "listView",
+            "dataMap": {
+                "id": "id",
+                "title": "name",
+                "subTitle": "description"
+            },
+            "dataSourcs": "/api/document-templates",
+            "disableLink": false,
+            "linkRoute": "document-templates",
+            "actions": [
+                "view"
+            ],
+            "isNonRecordableField": true
+        },
+        //workscheduleCalender
+        "workSchedule": {
+            "name": "workSchedule",
+            "defaultLabel": "Work Schedule",
+            "labelKey": "EMPLOYEE.WORKSCHEDULE",
+            // "type": "document"
+            "type": "workSchedule",
+            "isNonRecordableField": true
+        },
+        // Self service Access
+        "user": {
+            "name": "user",
+            "defaultLabel": "User",
+            "labelKey": "EMPLOYEE.USER",
+            "type": "model",
+            "modelName": "user",
+            "foreignKeyAttribute": "employee",
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName"
+        },
+        "allowAccess": {
+            "name": "allowAccess",
+            "defaultLabel": "Allow Access",
+            "labelKey": "EMPLOYEE.ALLOW_ACCESS",
+            "type": "switch",
+            "defaultValue": false,
+            "isSystemValue": true,
+            "isNonRecordableField": true
+        },
+        "employeeRole": {
+            "name": "employeeRole",
+            "defaultLabel": "Employee Role",
+            "labelKey": "USER.EMPLOYEE_ROLE",
+            "type": "model",
+            "displayCol": "title",
+            "tableColumnName": "userRoleId",
+            "modelName": "userRole",
+            "validations": {
+                "isRequiredIf": {
+                    "dependentFieldName": "allowAccess",
+                    "operator": "==",
+                    "value": true
+                }
+            },
+            "modelFilters": {
+                "type": [
+                    "EMPLOYEE"
+                ]
+            },
+            "showOn": [
+                {
+                    "dependentFieldName": "allowAccess",
+                    "operator": "eq",
+                    "value": true
+                }
+            ],
+            "enumValueKey": "id",
+            "enumLabelKey": "title",
+            "defaultValue": null,
+            "isSystemValue": true,
+            "isNonRecordableField": true
+        },
+        "managerRole": {
+            "name": "managerRole",
+            "defaultLabel": "Manager Role",
+            "labelKey": "USER.MANAGER_ROLE",
+            "type": "model",
+            "modelName": "userRole",
+            "modelFilters": {
+                "type": [
+                    "MANAGER"
+                ]
+            },
+            "showOn": [
+                {
+                    "dependentFieldName": "allowAccess",
+                    "operator": "eq",
+                    "value": true
+                }
+            ],
+            "enumValueKey": "id",
+            "enumLabelKey": "title",
+            "defaultValue": null,
+            "isSystemValue": true,
+            "isNonRecordableField": true
+        },
+        "isActive": {
+            "name": "isActive",
+            "defaultLabel": "Status",
+            "labelKey": "USER.STATUS",
+            "type": "boolean",
+            "isSystemValue": true,
+            "defaultValue": false
+        },
+        "currentJobs": {
+            "name": "currentJobs",
+            "defaultLabel": "Current Job",
+            "labelKey": "CURRENT_JOB_ID",
+            "type": "model",
+            "modelName": "employeeJob",
+            "enumValueKey": "id",
+            "enumLabelKey": "effectiveDate",
+            "isSystemValue": true
+        },
+        "currentSalaries": {
+            "name": "currentSalaries",
+            "defaultLabel": "Current Salary",
+            "labelKey": "CURRENT_SALARY_ID",
+            "type": "model",
+            "modelName": "employeeSalary",
+            "enumValueKey": "id",
+            "enumLabelKey": "effectiveDate",
+            "isSystemValue": true
+        },
+        "currentBankAccounts": {
+            "name": "currentBankAccounts",
+            "defaultLabel": "Current Bank Account",
+            "labelKey": "CURRENT_ACCOUNT_ID",
+            "type": "model",
+            "modelName": "employeeBankAccount",
+            "enumValueKey": "id",
+            "enumLabelKey": "effectiveDate",
+            "isSystemValue": true
+        },
+        "isDelete": {
+            "name": "isDelete",
+            "defaultLabel": "Is Deleted",
+            "labelKey": "IS_DELETE",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+            "labelKey": "CREATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+            "labelKey": "UPDATED_BY",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+            "labelKey": "UPDATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "templateTokens": {
+        "employeeNumber": "employee_number",
+        "initials": "employee_initials",
+        "firstName": "employee_first_name",
+        "middleName": "employee_middle_name",
+        "lastName": "employee_last_name",
+        "fullName": "employee_full_name",
+        "employeeName": "employee_employee_name",
+        "maidenName": "employee_maiden_name",
+        "dateOfBirth": "employee_date_of_birth",
+        "nicNumber": "employee_NIC",
+        "hireDate": "employee_hire_date"
+    },
+    "relations": {
+        "maritalStatus": "HAS_ONE",
+        "gender": "HAS_ONE",
+        "religion": "HAS_ONE",
+        "nationality": "HAS_ONE",
+        "race": "HAS_ONE",
+        "residentialAddressState": "HAS_ONE",
+        "residentialAddressCountry": "HAS_ONE",
+        "permanentAddressState": "HAS_ONE",
+        "permanentAddressCountry": "HAS_ONE",
+        "jobs": "HAS_MANY",
+        "salaries": "HAS_MANY",
+        "bankAccounts": "HAS_MANY",
+        "dependents": "HAS_MANY",
+        "experiences": "HAS_MANY",
+        "educations": "HAS_MANY",
+        "user": "BELONGS_TO",
+        "competencies": "HAS_MANY",
+        "emergencyContacts": "HAS_MANY",
+        "employeeRole": "HAS_ONE",
+        "managerRole": "HAS_ONE",
+        "currentJobs": "HAS_ONE",
+        "currentSalaries": "HAS_ONE",
+        "currentBankAccounts": "HAS_ONE"
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "name": "break_history",
+    "path": "/attendances_history",
+    "isDynamicModel": false,
+    "hasDynamicModelDefinition": false,
+    "hasFrontEndDefinition": false,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+            "labelKey": "ID",
+            "type": "number",
+            "isEditable": false,
+            "isSystemValue": true
+        },
+        "attendanceHistoryId": {
+            "name": "attendanceHistoryId",
+            "defaultLabel": "Attendance Id",
+            "labelKey": "BREAK_HISTORY.ATTENDANCE_ID",
+            "type": "number"
+        },
+        "in": {
+            "name": "in",
+            "defaultLabel": "In",
+            "labelKey": "BREAK_HISTORY.IN",
+            "type": "string",
+            "validations": {
+                "isRequired": true
+            }
+        },
+        "out": {
+            "name": "out",
+            "defaultLabel": "out",
+            "labelKey": "BREAK_HISTORY.OUT",
+            "type": "string"
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+            "labelKey": "CREATED_AT",
+            "type": "string",
+            "isSystemValue": true
+        }
+    },
+    "relations": {}
+}

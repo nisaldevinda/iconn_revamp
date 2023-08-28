@@ -1,0 +1,261 @@
+.ant-form-item {
+    border-radius: 6px;
+}
+
+.apply_leave_card {
+    height: '100vh';
+}
+
+.ant-input {
+    border-radius: 6px;
+}
+
+.ant-picker-range {
+    border-radius: 6px;
+}
+
+.ant-select .ant-select-selector {
+    border-radius: 6px !important;
+}
+
+.leaveAssignForm .ant-form-item {
+    margin-bottom:  5px;
+}
+    
+.upload-btn{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-available {
+    font-weight: 400;
+    font-size: 40px;
+    color: #474747;
+    line-height: 1;
+}
+
+.card-widget-title {
+    font-size: 16px;
+    text-align: center;
+    color: #272D3B;
+    line-height: 19px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card-available-title {
+    font-weight: 400;
+    font-size: 14px;
+    color: #474747;  
+}
+.card-taken-txt{
+    font-weight: 400;
+    font-size: 12px;
+    color: #959595;   
+}
+.card-used-txt{
+    font-weight: 400;
+    font-size: 12px;
+    color: #959595; 
+    text-align: end;  
+}
+.leaveCard .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.leaveCard .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+    background: white !important;
+}
+
+.leaveCard .ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
+    margin: 0 0 3px 0 !important;
+}
+
+.leaveCard .ant-card-bordered { 
+    border-color: white !important;
+}
+
+.tharindu > .ant-picker-footer {
+    display: contents;
+}
+
+.dayType {
+    margin: auto;
+    vertical-align: middle;
+    padding-left: 20px;
+    gap: 0
+}
+
+.dayTypeIcon {
+    height: 20;
+    margin: auto;
+}
+
+.dayTypeContent {
+    height: 20;
+    margin: auto;
+    padding-top: 0;
+    font-size: 11px;
+}
+
+.entitlmentSummery .ant-card-body {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
+
+.card-widget-bottom {
+    font-size: 10px;
+    text-align: center;
+    color: #272D3B;
+    line-height: 19px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.card-single-chart-bottom {
+    font-size: 18px;
+    text-align: center;
+    color: #272D3B;
+    line-height: 19px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+::-webkit-scrollbar {background: transparent;}
+
+.individual-chart-widget-title {
+    font-size: 16px;
+    padding-left: 20px;
+    text-align: left;
+    color: #272D3B;
+    line-height: 19px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.single-chart-div {
+    width: 100%;
+    height: 510px;
+}
+
+.single-chart-section {
+    margin-bottom: 20px;
+    background-color: #f2fced;
+    border-radius: 6px;
+}
+
+.single-chart-header {
+    background-color: #74b425;
+    width: 100%;
+    height: 10px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.single-chart-title-section {
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.single-chart-details-section {
+    width: 100%;
+    margin-top: 35px;
+}
+
+.single-chart-details-section-col {
+    width: 25%;
+    font-size: 14px;
+    text-align: center;
+}
+.single-chart-body {
+    margin-top: -60px;
+}
+.single-chart-body-col {
+    width: 100%;
+}
+.single-chart-footer-section {
+    padding-bottom: 30px;
+    margin-top: -50px;
+}
+.single-chart-footer-section-col {
+    width: 100%;
+}
+
+.entitlement-chart-widget-with-scroll {
+    width: 100%;
+    overflow-y: auto;
+    height: 520px;
+}
+
+.entitlement-chart-widget-without-scroll {
+    width: 100%;
+    overflow-y: hidden;
+    height: 520px;
+}
+
+.entitlement-chart-widget-div {
+    margin-bottom: 20;
+    background-color: #f2fced;
+    border-radius: 6px;
+}
+
+.entitlement-chart-widget-header {
+    width: 100%;
+    height: 10px;
+    background-color: #74b425;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.entitlement-chart-widget-title-section {
+    width: 30%;
+    margin-top: 10px;
+}
+.entitlement-chart-section {
+    margin-top: -15px;
+}
+
+.entitlement-chart-section-col {
+    width: 30%;
+}
+.entitlement-chart-details-section {
+    margin-top: 35px;
+    width: 70%;
+}
+.entitlement-chart-details-col {
+    width: 25%;
+    text-align: center;
+    font-size: 12px;
+}
+.entitlement-chart-footer-section {
+    margin-top: -20px;
+    margin-bottom: 12px;
+}
+.entitlement-chart-footer-section-col {
+    width: 30%;
+}
+
+.entitlement-chart-exceeded-col {
+    width: 50%;
+    text-align: center;
+    font-size: 12px;
+    color: #FF4D4F;
+}
+
+.entitlement-chart-exceeded-details-col {
+    width: 25%;
+    padding-left: 5px;
+    text-align: left;
+    font-size: 12px;
+    color: #FF4D4F;
+}

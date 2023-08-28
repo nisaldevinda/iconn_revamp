@@ -1,0 +1,72 @@
+{
+    "name": "gender",
+    "path": "/genders",
+    "hasSoftDelete":true,
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "name": {
+            "name": "name",
+            "defaultLabel": "Name",
+			"labelKey": "GENDER.NAME",
+            "type": "string",
+			"validations": {
+				"isRequired": true,
+                "isUnique": true,
+                "max": 100,
+                "isWhitespace":true
+			}
+        },
+        "employee": {
+            "name": "employee",
+            "defaultLabel": "Employee",
+            "labelKey": "GENDER.EMPLOYEE",
+			"type": "model",
+            "modelName": "employee",
+            "foreignKeyAttribute": "gender",
+            "enumValueKey": "id",
+            "enumLabelKey": "employeeName",
+            "isSystemValue": true
+		},
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+	"relations": {
+        "employee": "BELONGS_TO"
+    },
+    "templateTokens": {
+        "name": "employee_gender"
+    }
+}

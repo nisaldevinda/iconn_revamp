@@ -1,0 +1,90 @@
+{
+    "name": "claimAllocationDetail",
+	"path": "/expense-management/claimAllocationDetail",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "employeeId": {
+            "name": "employeeId",
+            "defaultLabel": "Employee Id",
+            "labelKey": "CLAIM_ALLOCATION_DETAIL.EMPLOYEE_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "financialYearId": {
+            "name": "financialYearId",
+            "defaultLabel": "Financial Year Id",
+            "labelKey": "CLAIM_ALLOCATION_DETAIL.FINANCIAL_YEAR_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "claimTypeId": {
+            "name": "claimTypeId",
+            "defaultLabel": "Claim Type Id",
+            "labelKey": "CLAIM_ALLOCATION_DETAIL.CLAIM_TYPE_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "allocatedAmount": {
+            "name": "allocatedAmount",
+            "defaultLabel": "Allocated Amount",
+            "labelKey": "CLAIM_ALLOCATION_DETAIL.ALLOCATED_AMOUNT",
+            "type": "number"
+        },
+        "usedAmount": {
+            "name": "usedAmount",
+            "defaultLabel": "Used Amount",
+            "labelKey": "CLAIM_ALLOCATION_DETAIL.USED_AMOUNT",
+            "type": "number"
+        },
+        "pendingAmount": {
+            "name": "pendingAmount",
+            "defaultLabel": "Pending Amount",
+            "labelKey": "CLAIM_ALLOCATION_DETAIL.Pending_AMOUNT",
+            "type": "number"
+        },
+        "createdBy": {
+            "name": "createdBy",
+            "defaultLabel": "Created By",
+			"labelKey": "CREATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedBy": {
+            "name": "updatedBy",
+            "defaultLabel": "Updated By",
+			"labelKey": "UPDATED_BY",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "createdAt": {
+            "name": "createdAt",
+            "defaultLabel": "Created At",
+			"labelKey": "CREATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        },
+        "updatedAt": {
+            "name": "updatedAt",
+            "defaultLabel": "Updated At",
+			"labelKey": "UPDATED_AT",
+            "type": "string",
+			"isSystemValue": true
+        }
+    },
+    "relations": {
+        
+    }
+}

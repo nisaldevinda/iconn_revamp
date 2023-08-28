@@ -1,0 +1,57 @@
+{
+    "name": "claimRequestReceiptDetails",
+	"path": "/expense-management/claimRequestReceiptDetails",
+    "fields": {
+        "id": {
+            "name": "id",
+            "defaultLabel": "ID",
+			"labelKey": "ID",
+			"type": "number",
+			"isEditable": false,
+			"isSystemValue": true
+        },
+        "claimRequestId": {
+            "name": "claimRequestId",
+            "defaultLabel": "Claim Request Id",
+            "labelKey": "CLAIM_REQUEST_RECEIPT_DETAILS.CLAIM_REQUEST_ID",
+            "type": "number",
+            "validations": {
+				"isRequired": true
+			}
+        },
+        "receiptNumber": {
+            "name": "receiptNumber",
+            "defaultLabel": "Receipt Number",
+            "labelKey": "CLAIM_REQUEST_RECEIPT_DETAILS.RECEIPT_NUMBER",
+            "type": "string",
+            "validations": {
+                "isRequired": true,
+                "isUnique": true,
+                "max": 100,
+                "min": 1
+            }
+        },
+        "receiptAmount": {
+            "name": "receiptAmount",
+            "defaultLabel": "Receipt Amount",
+            "labelKey": "CLAIM_REQUEST_RECEIPT_DETAILS.RECEIPT_AMOUNT",
+            "type": "number"
+        },
+        "receiptDate":{
+            "name":"receiptDate",
+            "defaultLabel":"Receipt Date",
+            "labelKey":"CLAIM_REQUEST_RECEIPT_DETAILS.RECEIPT_DATE",
+            "type":"timestamp",
+            "defaultValue":null
+        },
+        "fileAttachementId": {
+            "name": "fileAttachementId",
+            "defaultLabel": "File Attachment Id",
+            "labelKey": "CLAIM_REQUEST_RECEIPT_DETAILS.FILE_ATTACHMENT_ID",
+            "type": "number"
+        }
+    },
+    "relations": {
+        
+    }
+}

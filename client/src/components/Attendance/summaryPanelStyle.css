@@ -1,0 +1,11 @@
+.site-collapse-custom-collapse .site-collapse-custom-panel,
+.site-collapse-custom-collapse .attendanceSummaryPanel {
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: 0px;
+  border-radius: 2px;
+}
+
+.attendanceSummaryPanel .ant-collapse-header {
+  background: #ececec;
+}

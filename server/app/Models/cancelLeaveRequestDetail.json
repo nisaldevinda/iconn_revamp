@@ -1,0 +1,45 @@
+{
+    "name":"cancelLeaveRequestDetail",
+    "path":"/cancelLeaveRequestDetail",
+    "hasSoftDelete":false,
+    "fields":{
+       "id":{
+          "name":"id",
+          "defaultLabel":"ID",
+          "labelKey":"ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "cancelLeaveRequestId":{
+          "name":"cancelLeaveRequestId",
+          "defaultLabel":"Cancel Leave Request ID",
+          "labelKey":"CANCEL_LEAVE_REQUEST_ID",
+          "type":"number",
+          "isEditable":false,
+          "isSystemValue":true
+       },
+       "cancelLeaveDate":{
+          "name":"cancelLeaveDate",
+          "defaultLabel":"Cancel Leave Date",
+          "labelKey":"CANCEL_LEAVE_DATE",
+          "type":"timestamp",
+          "defaultValue":null
+       },
+       "leavePeriodType":{
+          "name":"leavePeriodType",
+          "defaultLabel":"Period",
+          "labelKey":"LEAVE_PERIOD",
+          "type":"string"
+       },
+       "status":{
+          "name":"status",
+          "defaultLabel":"Status",
+          "labelKey":"STATUS",
+          "type":"string"
+       }
+    },
+    "relations":{
+       
+    }
+ }

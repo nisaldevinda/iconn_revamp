@@ -1,0 +1,30 @@
+<?php
+return [
+
+    'basic' => [
+        'SUCC_GET_FILE' => 'Excel template downloaded successfully.',
+        'SUCC_UPLOAD_FILE' => 'Excel dataset uploaded successfully',
+        'SUCC_SAVE_UPLOAD_DATA' => 'Uploaded data successfully save',
+        'ERR_UPLOAD_FILE' => 'Failed to upload dataset',
+        'ERR_SAVE_UPLOAD_FILE' => 'Failed to save uploaded dataset',
+        'ERR_INVALID_FILE_TYPE' => 'Invalid file type.',
+        'VAL_ERR_UPLOAD_FILE' => 'Validation errors',
+        'ERR_ALL_RETRIVE' => 'Failed to retrive teams .',
+        'ERR_NONEXISTENT_NATIONALITY' => 'Teams does not exist',
+        'ERR_NO_TEAMS' => 'No available teams for the logged in employee',
+        'ERR_BULK_UPLOAD_HIST_LIST' => 'Failed to load bulk upload history data.',
+        'SUCC_BULK_UPLOAD_HIST_LIST' => 'Bulk upload history data retrieved successfully.',
+        'ERR_BULK_UPLOAD_HIST_FILE_OBJ_ID_NULL' => 'File id is invalid.',
+        'ERR_BULK_UPLOAD_HIST_FILE_OBJ' => 'Failed to load bulk upload file object data.',
+        'SUCC_BULK_UPLOAD_HIST_FILE_OBJ' => 'File object retrieved successfully.',
+        'ERR_GET_FILE' => 'Error downloading template successfully.',
+        'ERR_NO_ANY_UPLOADABLE_LEAVE_TYPE_EXSIST' => 'No any uploadable leave types exist in system.',
+        'SUCC_SALARY_INCREMENT_BULK_UPLOAD' => 'Salary increment bulk upload completed successfully',
+        'SUCC_ALL_SALARY_INCREMENT_UPLOAD_HISTORY_RETRIVE' => 'All salary increment upload history retrieved successfully.',
+        'ERR_ALL_SALARY_INCREMENT_UPLOAD_HISTORY_RETRIVE' => 'Failed to retrieve salary increment upload history.',
+        'ERR_NONEXISTENT_SALARY_INCREMENT_UPLOAD' => 'Salary increment upload record does not exist.',
+        'ERR_DEPENDENT_SALARY_INCREMENT_UPLOAD_ROLLBACK' => 'Affected salary increment upload record already used.',
+        'SUCC_ROLLBACK' => 'Salary increment upload has been rollbacked successfully.',
+        'ERR_ROLLBACK' => 'Failed to rollback salary increment upload.',
+    ],
+];

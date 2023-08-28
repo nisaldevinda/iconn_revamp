@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         verbose="true"
+         stopOnFailure="true"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+            <log type="coverage-html" target="build/coverage"/>
+            <log type="testdox-html" target="build/requirements.html"/>
+        </logging>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="DB_CONNECTION" value="app"/>
+        <env name="DB_HOST" value="iconn2-db"/>
+        <env name="DB_PORT" value="3306"/>
+        <env name="DB_DATABASE" value="SampleDB"/>
+        <env name="DB_USERNAME" value="root"/>
+        <env name="DB_PASSWORD" value="Password@123"/>
+    </php>
+</phpunit>
