@@ -28,9 +28,9 @@
 
 .editBtn {
   margin-left: 10px !important;
-  color: #7dc014 !important;
+  color: #002B98 !important;
   background-color: #ffffff !important;
-  border: 1px solid #7dc014 !important;
+  border: 1px solid #002B98 !important;
   border-radius: 6px !important;
 }
 
@@ -41,13 +41,13 @@ pre {
 }
 
 .drop-over-downward {
-  border-bottom: 2px dashed #7dc014;
+  border-bottom: 2px dashed #002B98;
   padding-bottom: 10px;
   background: #d3e9cf;
 }
 
 .drop-over-upward {
-  border-top: 2px dashed #7dc014;
+  border-top: 2px dashed #002B98;
   padding-top: 10px;
   background: #d3e9cf;
 }

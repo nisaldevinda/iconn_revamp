@@ -386,7 +386,7 @@ const WorkflowBuilder: React.FC = () => {
                   cancelText="No"
                 >
                   <span style={{ marginLeft: 20, paddingTop: 3 }}>
-                    <DeleteOutlined style={{ fontSize: 18, color: '#86C129' }} />
+                    <DeleteOutlined style={{ fontSize: 18, color: '#002B98' }} />
                   </span>
                 </Popconfirm>
               </>

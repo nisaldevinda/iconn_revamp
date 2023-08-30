@@ -200,7 +200,7 @@ const DrawerView: React.FC<DrawerViewProps> = (props) => {
 
     switch (punchedStatus) {
         case 'CLOCK IN':
-            circleColor = '#86C129';
+            circleColor = '#002B98';
             playWorkIcon = PlayIcon;
             circleIcon = <Image src={HandIcon} style={{ width: 50, height: 65 }} preview={false} />
             break;
