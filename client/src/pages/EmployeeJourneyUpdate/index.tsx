@@ -305,7 +305,7 @@ const EmployeeJourneyUpdate: React.FC = () => {
       tabList={[
         {
           tab: <>
-            <Icon component={() => <img src={PromotionIcon} height={24} width={24} />} />
+            {/* <Icon component={() => <img src={PromotionIcon} height={24} width={24} />} /> */}
             {intl.formatMessage({
               id: 'employee_journey_update.promotions',
               defaultMessage: "Promotions",
@@ -315,7 +315,7 @@ const EmployeeJourneyUpdate: React.FC = () => {
         },
         {
           tab: <>
-            <Icon component={() => <img src={ConfirmationContractIcon} height={24} width={24} />} />
+            {/* <Icon component={() => <img src={ConfirmationContractIcon} height={24} width={24} />} /> */}
             {intl.formatMessage({
               id: 'employee_journey_update.confirmation_contracts',
               defaultMessage: "Confirmation/Contracts",
@@ -325,7 +325,7 @@ const EmployeeJourneyUpdate: React.FC = () => {
         },
         {
           tab: <>
-            <Icon component={() => <img src={TransferIcon} height={24} width={24} />} />
+            {/* <Icon component={() => <img src={TransferIcon} height={24} width={24} />} /> */}
             {intl.formatMessage({
               id: 'employee_journey_update.transfers',
               defaultMessage: "Transfers",
@@ -335,7 +335,7 @@ const EmployeeJourneyUpdate: React.FC = () => {
         },
         {
           tab: <>
-            <Icon component={() => <img src={ResignationIcon} height={24} width={24} />} />
+            {/* <Icon component={() => <img src={ResignationIcon} height={24} width={24} />} /> */}
             {intl.formatMessage({
               id: 'employee_journey_update.resignations',
               defaultMessage: "Resignations",

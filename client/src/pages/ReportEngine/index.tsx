@@ -46,7 +46,7 @@ const ReportData: React.FC = () => {
                   key="viewRecordTooltip"
                   onClick={() => history.push(`/report-engine/get-report/${record.id}`)}
                 >
-                  <EyeOutlined />
+                  <EyeOutlined style={{ color: '#2D68FE' }} />
                 </a>
               </Tooltip>
             </div>
@@ -61,11 +61,12 @@ const ReportData: React.FC = () => {
                     defaultMessage: 'Edit',
                   })}
                 >
-                  <EditOutlined 
-                   style= {{ 
-                    background:  '#fff',
-                    color: '#ccc'
-                  }}  />
+                  <EditOutlined
+                    style={{
+                      background: '#fff',
+                      color: '#ccc',
+                    }}
+                  />
                 </Tooltip>
               </div>
             ) : (
@@ -81,7 +82,7 @@ const ReportData: React.FC = () => {
                   key="editRecordButton"
                   onClick={() => history.push(`/report-engine/report-wizard/${record.id}`)}
                 >
-                  <EditOutlined />
+                  <EditOutlined style={{ color: '#2D68FE' }} />
                 </a>
               </Tooltip>
             )}
@@ -95,11 +96,12 @@ const ReportData: React.FC = () => {
                     defaultMessage: 'Delete',
                   })}
                 >
-                  <DeleteOutlined 
-                    style= {{ 
-                      background:  '#fff',
-                      color: '#ccc'
-                    }}  />
+                  <DeleteOutlined
+                    style={{
+                      background: '#fff',
+                      color: '#ccc',
+                    }}
+                  />
                 </Tooltip>
               </div>
             ) : (
@@ -169,7 +171,7 @@ const ReportData: React.FC = () => {
                     })}
                   >
                     <a key="deleteRecordButton">
-                      <DeleteOutlined />
+                      <DeleteOutlined style={{ color: '#2D68FE' }} />
                     </a>
                   </Tooltip>
                 </Popconfirm>

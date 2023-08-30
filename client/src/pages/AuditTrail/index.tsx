@@ -93,143 +93,177 @@ const AuditTrail: React.FC = () => {
     ];
 
     return (
-        <Access
-            accessible={hasPermitted('reports-read-write')}
-            fallback={<PermissionDeniedPage />}
-        >
-            <PageContainer loading={loading}>
-                <Card style={{ marginBottom: 24 }}>
-                    <Row gutter={24}>
-                        <OrgSelector
-                            span={8}
-                            value={orgStructureEntityId}
-                            setValue={(value: number) => setOrgStructureEntityId(value)}
-                        />
-                    </Row>
-                    <Row gutter={24}>
-                        <Col span={12}>
-                            <ProFormItem label={intl.formatMessage({
-                                id: 'audit_trail.date_range',
-                                defaultMessage: "Date",
-                            })}>
-                                <RangePicker onChange={(value) => setDateRange(value)} />
-                            </ProFormItem>
-                        </Col>
-                    </Row>
-                    <Space style={{ float: 'right' }}>
-                        <Button type='primary' onClick={() => actionRef.current?.reload()}>
-                            <FormattedMessage id="audit_trail.filter" defaultMessage="Filter" />
-                        </Button>
-                    </Space>
-                </Card>
-                <ProTable
-                    actionRef={actionRef}
-                    search={false}
-                    options={{
-                        reload: () => {
-                            actionRef.current?.reset();
-                            actionRef.current?.reload();
-                        }
-                    }}
-                    columns={columns}
-                    request={async (params, filter) => {
-                        const queryParams = {
-                            ...params,
-                            ...filter,
-                            orgStructureEntityId,
-                            startDate: (!_.isEmpty(dateRange) && dateRange[0]) ? dateRange[0].format("YYYY-MM-DD") : undefined,
-                            endDate: (!_.isEmpty(dateRange) && dateRange[1]) ? dateRange[1].format("YYYY-MM-DD") : undefined
-                        };
+      <Access accessible={hasPermitted('reports-read-write')} fallback={<PermissionDeniedPage />}>
+        <PageContainer loading={loading}>
+          <Card style={{ marginBottom: 24 }}>
+            <Row gutter={36}>
+              <OrgSelector
+                span={8}
+                value={orgStructureEntityId}
+                setValue={(value: number) => setOrgStructureEntityId(value)}
+              />
+              {/* <Col span={12}> */}
+                <ProFormItem
+                  label={intl.formatMessage({
+                    id: 'audit_trail.date_range',
+                    defaultMessage: 'Date',
+                  })}
+                >
+                  <RangePicker onChange={(value) => setDateRange(value)} />
+                </ProFormItem>
+              {/* </Col> */}
+              <Button type="primary" onClick={() => actionRef.current?.reload()} style={{marginLeft:"10px"}}>
+                <FormattedMessage id="audit_trail.filter" defaultMessage="Filter" />
+              </Button>
+            </Row>
+            {/* <Row gutter={24}></Row>
+            <Space style={{ float: 'right' }}></Space> */}
+          </Card>
+          <ProTable
+            actionRef={actionRef}
+            search={false}
+            options={{
+              reload: () => {
+                actionRef.current?.reset();
+                actionRef.current?.reload();
+              },
+            }}
+            columns={columns}
+            request={async (params, filter) => {
+              const queryParams = {
+                ...params,
+                ...filter,
+                orgStructureEntityId,
+                startDate:
+                  !_.isEmpty(dateRange) && dateRange[0]
+                    ? dateRange[0].format('YYYY-MM-DD')
+                    : undefined,
+                endDate:
+                  !_.isEmpty(dateRange) && dateRange[1]
+                    ? dateRange[1].format('YYYY-MM-DD')
+                    : undefined,
+              };
 
-                        const response = await getAllAuditTrail(queryParams);
+              const response = await getAllAuditTrail(queryParams);
 
-                        const ignoreModels = ['dashboardLayout'];
-                        let _data: any[] = [];
-                        for (let i = 0; i < response?.data?.data?.length; i++) {
-                            let model;
-                            let record = response?.data?.data[i];
-                            record.modelTitle = record.modelName
-                                .replace(/([A-Z])/g, ' $1')
-                                .replace(/^./, function (str) { return str.toUpperCase(); });
-                            record.actionDescription = [];
+              const ignoreModels = ['dashboardLayout'];
+              let _data: any[] = [];
+              for (let i = 0; i < response?.data?.data?.length; i++) {
+                let model;
+                let record = response?.data?.data[i];
+                record.modelTitle = record.modelName
+                  .replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, function (str) {
+                    return str.toUpperCase();
+                  });
+                record.actionDescription = [];
 
-                            if (!ignoreModels.includes(record.modelName) && record.modelName && modelList[record.modelName]) {
-                                model = modelList[record.modelName];
-                            } else if (!ignoreModels.includes(record.modelName) && record.modelName) {
-                                const modelRes = await getModel(record.modelName);
-                                let _modelList = { ...modelList };
-                                _modelList[record.modelName] = modelRes?.data?.modelDataDefinition;
-                                setModelList(_modelList);
-                                model = modelRes?.data?.modelDataDefinition;
-                            }
+                if (
+                  !ignoreModels.includes(record.modelName) &&
+                  record.modelName &&
+                  modelList[record.modelName]
+                ) {
+                  model = modelList[record.modelName];
+                } else if (!ignoreModels.includes(record.modelName) && record.modelName) {
+                  const modelRes = await getModel(record.modelName);
+                  let _modelList = { ...modelList };
+                  _modelList[record.modelName] = modelRes?.data?.modelDataDefinition;
+                  setModelList(_modelList);
+                  model = modelRes?.data?.modelDataDefinition;
+                }
 
-                            if (model && record.action != 'DELETE') {
-                                const currentState = JSON.parse(record.currentState);
-                                const previousState = JSON.parse(record.previousState);
+                if (model && record.action != 'DELETE') {
+                  const currentState = JSON.parse(record.currentState);
+                  const previousState = JSON.parse(record.previousState);
 
-                                for (const filedName in currentState) {
-                                    const hasFieldInPreviousState = _.has(previousState, filedName);
-                                    const hasFieldInCurrentState = _.has(currentState, filedName);
-                                    const fieldDetails = model?.fields?.[filedName];
+                  for (const filedName in currentState) {
+                    const hasFieldInPreviousState = _.has(previousState, filedName);
+                    const hasFieldInCurrentState = _.has(currentState, filedName);
+                    const fieldDetails = model?.fields?.[filedName];
 
-                                    if ((!hasFieldInPreviousState && !hasFieldInCurrentState) || !hasFieldInCurrentState) continue;
-                                    if (_.isEmpty(fieldDetails)) continue;
+                    if (
+                      (!hasFieldInPreviousState && !hasFieldInCurrentState) ||
+                      !hasFieldInCurrentState
+                    )
+                      continue;
+                    if (_.isEmpty(fieldDetails)) continue;
 
-                                    if (!hasFieldInPreviousState || currentState[filedName] !== previousState[filedName]) {
-                                        let attributeName = _.has(fieldDetails, 'defaultLabel') ? fieldDetails.defaultLabel : filedName;
-                                        if (_.has(fieldDetails, 'isSystemValue') && fieldDetails?.isSystemValue) continue;
+                    if (
+                      !hasFieldInPreviousState ||
+                      currentState[filedName] !== previousState[filedName]
+                    ) {
+                      let attributeName = _.has(fieldDetails, 'defaultLabel')
+                        ? fieldDetails.defaultLabel
+                        : filedName;
+                      if (_.has(fieldDetails, 'isSystemValue') && fieldDetails?.isSystemValue)
+                        continue;
 
-                                        let previousValue = _.has(previousState, filedName) ? previousState[filedName] : undefined;
-                                        let currentValue = _.has(currentState, filedName) ? currentState[filedName] : undefined;
+                      let previousValue = _.has(previousState, filedName)
+                        ? previousState[filedName]
+                        : undefined;
+                      let currentValue = _.has(currentState, filedName)
+                        ? currentState[filedName]
+                        : undefined;
 
-                                        switch (fieldDetails?.type) {
-                                            case 'boolean':
-                                                previousValue = hasFieldInPreviousState ? previousValue == 1 ? 'True' : 'False' : undefined;
-                                                currentValue = currentValue == 1 ? 'True' : 'False';
-                                                break;
-                                            case 'switch':
-                                                previousValue = hasFieldInPreviousState ? previousValue == 1 ? 'Switch On' : 'Switch Off' : undefined;
-                                                currentValue = currentValue == 1 ? 'Switch On' : 'Switch Off';
-                                                break;
-                                            case 'enum':
-                                                previousValue = previousValue
-                                                    ? fieldDetails.values?.find((option: any) => option.value == previousValue)?.defaultLabel
-                                                    : undefined;
-                                                currentValue = currentValue
-                                                    ? fieldDetails.values?.find((option: any) => option.value == currentValue)?.defaultLabel
-                                                    : undefined;
-                                                break;
-                                        }
+                      switch (fieldDetails?.type) {
+                        case 'boolean':
+                          previousValue = hasFieldInPreviousState
+                            ? previousValue == 1
+                              ? 'True'
+                              : 'False'
+                            : undefined;
+                          currentValue = currentValue == 1 ? 'True' : 'False';
+                          break;
+                        case 'switch':
+                          previousValue = hasFieldInPreviousState
+                            ? previousValue == 1
+                              ? 'Switch On'
+                              : 'Switch Off'
+                            : undefined;
+                          currentValue = currentValue == 1 ? 'Switch On' : 'Switch Off';
+                          break;
+                        case 'enum':
+                          previousValue = previousValue
+                            ? fieldDetails.values?.find(
+                                (option: any) => option.value == previousValue,
+                              )?.defaultLabel
+                            : undefined;
+                          currentValue = currentValue
+                            ? fieldDetails.values?.find(
+                                (option: any) => option.value == currentValue,
+                              )?.defaultLabel
+                            : undefined;
+                          break;
+                      }
 
-                                        if (fieldDetails?.isSensitiveData) {
-                                            currentValue = 'private_data';
-                                            previousValue = null;
-                                        }
+                      if (fieldDetails?.isSensitiveData) {
+                        currentValue = 'private_data';
+                        previousValue = null;
+                      }
 
-                                        if (record.action == 'CREATE' && !currentValue && !previousValue) continue;
+                      if (record.action == 'CREATE' && !currentValue && !previousValue) continue;
 
-                                        record.actionDescription.push({
-                                            attributeName,
-                                            currentValue,
-                                            previousValue
-                                        });
-                                    }
-                                }
-                            }
-
-                            _data.push(record);
-                        }
-
-                        return {
-                            data: _data,
-                            success: true,
-                            total: response.data.total
-                        }
+                      record.actionDescription.push({
+                        attributeName,
+                        currentValue,
+                        previousValue,
+                      });
                     }
-                    }
-                />
-            </PageContainer>
-        </Access>
+                  }
+                }
+
+                _data.push(record);
+              }
+
+              return {
+                data: _data,
+                success: true,
+                total: response.data.total,
+              };
+            }}
+          />
+        </PageContainer>
+      </Access>
     );
 };
 
