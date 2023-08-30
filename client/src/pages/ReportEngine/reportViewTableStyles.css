@@ -9,7 +9,7 @@
   margin-left: 4px;
   color: #ff4d4f;
   font-size: 14px;
-  font-family: SimSun, sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1;
   content: '*';
 }
@@ -41,13 +41,13 @@ pre {
 }
 
 .drop-over-downward {
-  border-bottom: 2px dashed #7dc014;
   padding-bottom: 10px;
   background: #d3e9cf;
+  border-bottom: 2px dashed #7dc014;
 }
 
 .drop-over-upward {
-  border-top: 2px dashed #7dc014;
   padding-top: 10px;
   background: #d3e9cf;
+  border-top: 2px dashed #7dc014;
 }
