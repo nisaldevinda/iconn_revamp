@@ -11,22 +11,22 @@ const EmployeeInvalidAttendance: React.FC = () => {
     const { hasPermitted } = access;
 
     return (
-        <>
-            <Access
-                accessible={hasPermitted('invalid-attendance-update-admin-access')}
-                fallback={<PermissionDeniedPage />}
+      <>
+        <Access
+          accessible={hasPermitted('invalid-attendance-update-admin-access')}
+          fallback={<PermissionDeniedPage />}
+        >
+          <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+            <PageContainer
+              header={{
+                ghost: true,
+              }}
             >
-                <div>
-                    <PageContainer
-                        header={{
-                            ghost: true,
-                        }}
-                    >
-                        <InvalidAttendanceTableView adminView={true} others={true} accessLevel={'admin'}/>
-                    </PageContainer>
-                </div>
-            </Access>
-        </>
+              <InvalidAttendanceTableView adminView={true} others={true} accessLevel={'admin'} />
+            </PageContainer>
+          </div>
+        </Access>
+      </>
     );
 };
 

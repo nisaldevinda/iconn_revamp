@@ -926,562 +926,596 @@ const AttendanceReports: React.FC = () => {
       accessible={hasPermitted('leave-entitlement-report-access')}
       fallback={<PermissionDeniedPage />}
     >
-      <PageContainer>
-        <Space direction="vertical" size={25} style={{ width: '100%' }}>
-          <div
-            style={{
-              borderRadius: '10px',
-              background: '#FFFFFF',
-              padding: '32px',
-              width: '100%',
-            }}
-          >
-            <Form form={form} autoComplete="off" layout="vertical">
-              <Row>
-                <Col
-                  style={{
-                    //   height: 35,
-                    width: 250,
-                    paddingLeft: 20,
-                  }}
-                  span={6}
-                >
-                  <Form.Item
-                    name="reportType"
-                    label={intl.formatMessage({
-                      id: 'reportType',
-                      defaultMessage: 'Report Type',
-                    })}
-                    rules={[
-                      {
-                        required: true,
-                        message: intl.formatMessage({
-                          id: 'leaveEntitlementReport.reportType',
-                          defaultMessage: 'Required',
-                        }),
-                      },
-                    ]}
+      <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+        <PageContainer>
+          <Space direction="vertical" size={25} style={{ width: '100%' }}>
+            <div
+              style={{
+                borderRadius: '10px',
+                background: '#FFFFFF',
+                padding: '32px',
+                width: '100%',
+              }}
+            >
+              <Form form={form} autoComplete="off" layout="vertical">
+                <Row>
+                  <Col
+                    style={{
+                      //   height: 35,
+                      width: 250,
+                      paddingLeft: 20,
+                    }}
+                    span={6}
                   >
-                    <Select
-                      placeholder={intl.formatMessage({
-                        id: 'selectField',
-                        defaultMessage: 'Select Field',
+                    <Form.Item
+                      name="reportType"
+                      label={intl.formatMessage({
+                        id: 'reportType',
+                        defaultMessage: 'Report Type',
                       })}
-                      onChange={(value) => {
-                        setEmployeeAttendanceRecords([]);
-                        form.setFieldsValue({
-                          leaveType: value == 'leaveEntitlement' ? [] : null,
-                          leavePeriod: 'current',
-                        });
-                        setEntityId(1);
-                        setReportType(value);
+                      rules={[
+                        {
+                          required: true,
+                          message: intl.formatMessage({
+                            id: 'leaveEntitlementReport.reportType',
+                            defaultMessage: 'Required',
+                          }),
+                        },
+                      ]}
+                    >
+                      <Select
+                        placeholder={intl.formatMessage({
+                          id: 'selectField',
+                          defaultMessage: 'Select Field',
+                        })}
+                        onChange={(value) => {
+                          setEmployeeAttendanceRecords([]);
+                          form.setFieldsValue({
+                            leaveType: value == 'leaveEntitlement' ? [] : null,
+                            leavePeriod: 'current',
+                          });
+                          setEntityId(1);
+                          setReportType(value);
 
-                        //change the columns according to the report type
-                        let reportCat = [];
-                        switch (value) {
-                          case 'dailyAttendance':
-                            reportCat = [
-                              {
-                                name: 'Employee Number',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeNumber',
-                              },
-                              {
-                                name: 'Employee Name',
-                                isShowColumn: true,
-                                mappedDataIndex: 'name',
-                              },
-                              { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
-                              {
-                                name: 'Leave Type',
-                                isShowColumn: true,
-                                mappedDataIndex: 'leaveDetailString',
-                              },
-                              { name: 'In Date', isShowColumn: true, mappedDataIndex: 'inDate' },
-                              { name: 'In Time', isShowColumn: true, mappedDataIndex: 'inTime' },
-                              { name: 'Out Date', isShowColumn: true, mappedDataIndex: 'outDate' },
-                              { name: 'Out Time', isShowColumn: true, mappedDataIndex: 'outTime' },
-                              {
+                          //change the columns according to the report type
+                          let reportCat = [];
+                          switch (value) {
+                            case 'dailyAttendance':
+                              reportCat = [
+                                {
+                                  name: 'Employee Number',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeNumber',
+                                },
+                                {
+                                  name: 'Employee Name',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'name',
+                                },
+                                { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
+                                {
+                                  name: 'Leave Type',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'leaveDetailString',
+                                },
+                                { name: 'In Date', isShowColumn: true, mappedDataIndex: 'inDate' },
+                                { name: 'In Time', isShowColumn: true, mappedDataIndex: 'inTime' },
+                                {
+                                  name: 'Out Date',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outDate',
+                                },
+                                {
+                                  name: 'Out Time',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outTime',
+                                },
+                                {
+                                  name: 'Total OT',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'totalOtHours',
+                                },
+                                {
+                                  name: 'Total Approved OT',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'totalApprovedOtHours',
+                                },
+                                { name: 'In Late', isShowColumn: true, mappedDataIndex: 'inLate' },
+                                {
+                                  name: 'Early Departure',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outEarly',
+                                },
+                                {
+                                  name: 'Total Late',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'totalLate',
+                                },
+                                {
+                                  name: 'Work Hours',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'workedHours',
+                                },
+                              ];
+
+                              break;
+                            case 'dailyLateHours':
+                              reportCat = [
+                                {
+                                  name: 'Employee Number',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeNumber',
+                                },
+                                {
+                                  name: 'Employee Name',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'name',
+                                },
+                                { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
+                                { name: 'In Date', isShowColumn: true, mappedDataIndex: 'inDate' },
+                                { name: 'In Time', isShowColumn: true, mappedDataIndex: 'inTime' },
+                                {
+                                  name: 'Out Date',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outDate',
+                                },
+                                {
+                                  name: 'Out Time',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outTime',
+                                },
+                                { name: 'In Late', isShowColumn: true, mappedDataIndex: 'inLate' },
+                                {
+                                  name: 'Early Departure',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outEarly',
+                                },
+                                {
+                                  name: 'Total Late',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'totalLate',
+                                },
+                              ];
+
+                              break;
+                            case 'dailyAbsentWithoutLeave':
+                              reportCat = [
+                                {
+                                  name: 'Employee Number',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeNumber',
+                                },
+                                {
+                                  name: 'Employee Name',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'name',
+                                },
+                                { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
+                                {
+                                  name: 'Day Type',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'dayType',
+                                },
+                                {
+                                  name: 'Expected To Present',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'expectedToPresent',
+                                },
+                                {
+                                  name: 'Is Present',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'isPresentLabel',
+                                },
+                              ];
+                              break;
+                            case 'dailyAbsentWithLeave':
+                              reportCat = [
+                                {
+                                  name: 'Employee Number',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeNumber',
+                                },
+                                {
+                                  name: 'Employee Name',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'name',
+                                },
+                                { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
+                                {
+                                  name: 'Expected To Present',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'expectedToPresent',
+                                },
+                                {
+                                  name: 'Leave Type',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'leaveDetailString',
+                                },
+                              ];
+
+                              break;
+                            case 'dailyInvalidAttendance':
+                              reportCat = [
+                                {
+                                  name: 'Employee Number',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeNumber',
+                                },
+                                {
+                                  name: 'Employee Name',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'name',
+                                },
+                                { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
+                                {
+                                  name: 'Leave Type',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'leaveDetailString',
+                                },
+                                {
+                                  name: 'In Date & In Time 1',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'inDateAndTimeSlot1',
+                                },
+                                {
+                                  name: 'Out Date & Out Time 1',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outDateAndTimeSlot1',
+                                },
+                                {
+                                  name: 'In Date & In Time 2',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'inDateAndTimeSlot2',
+                                },
+                                {
+                                  name: 'Out Date & Out Time 2',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'outDateAndTimeSlot2',
+                                },
+                              ];
+                              break;
+                            case 'dailyOT':
+                              reportCat = [
+                                {
+                                  name: 'Employee Number',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeNumber',
+                                },
+                                {
+                                  name: 'Employee Name',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'name',
+                                },
+                              ];
+
+                              payTypes.forEach((payType) => {
+                                console.log(payType);
+                                let tempCol = {
+                                  name: payType.name,
+                                  isShowColumn: true,
+                                  mappedDataIndex: payType.code + '-' + 'count',
+                                };
+
+                                reportCat.push(tempCol);
+
+                                //approved column obj
+                                let tempApprovedOtCol = {
+                                  name: 'Approved ' + payType.name,
+                                  isShowColumn: true,
+                                  mappedDataIndex: payType.code + '-approved-count',
+                                };
+
+                                reportCat.push(tempApprovedOtCol);
+                              });
+
+                              //set total ot Column
+                              let totalOtCol = {
                                 name: 'Total OT',
                                 isShowColumn: true,
                                 mappedDataIndex: 'totalOtHours',
-                              },
-                              {
-                                name: 'Total Approved OT',
+                              };
+
+                              reportCat.push(totalOtCol);
+
+                              //set total approved ot Column
+                              let totalApprovedOtCol = {
+                                name: 'Final Total OT',
                                 isShowColumn: true,
                                 mappedDataIndex: 'totalApprovedOtHours',
-                              },
-                              { name: 'In Late', isShowColumn: true, mappedDataIndex: 'inLate' },
-                              {
-                                name: 'Early Departure',
-                                isShowColumn: true,
-                                mappedDataIndex: 'outEarly',
-                              },
-                              {
-                                name: 'Total Late',
-                                isShowColumn: true,
-                                mappedDataIndex: 'totalLate',
-                              },
-                              {
-                                name: 'Work Hours',
-                                isShowColumn: true,
-                                mappedDataIndex: 'workedHours',
-                              },
-                            ];
-
-                            break;
-                          case 'dailyLateHours':
-                            reportCat = [
-                              {
-                                name: 'Employee Number',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeNumber',
-                              },
-                              {
-                                name: 'Employee Name',
-                                isShowColumn: true,
-                                mappedDataIndex: 'name',
-                              },
-                              { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
-                              { name: 'In Date', isShowColumn: true, mappedDataIndex: 'inDate' },
-                              { name: 'In Time', isShowColumn: true, mappedDataIndex: 'inTime' },
-                              { name: 'Out Date', isShowColumn: true, mappedDataIndex: 'outDate' },
-                              { name: 'Out Time', isShowColumn: true, mappedDataIndex: 'outTime' },
-                              { name: 'In Late', isShowColumn: true, mappedDataIndex: 'inLate' },
-                              {
-                                name: 'Early Departure',
-                                isShowColumn: true,
-                                mappedDataIndex: 'outEarly',
-                              },
-                              {
-                                name: 'Total Late',
-                                isShowColumn: true,
-                                mappedDataIndex: 'totalLate',
-                              },
-                            ];
-
-                            break;
-                          case 'dailyAbsentWithoutLeave':
-                            reportCat = [
-                              {
-                                name: 'Employee Number',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeNumber',
-                              },
-                              {
-                                name: 'Employee Name',
-                                isShowColumn: true,
-                                mappedDataIndex: 'name',
-                              },
-                              { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
-                              { name: 'Day Type', isShowColumn: true, mappedDataIndex: 'dayType' },
-                              {
-                                name: 'Expected To Present',
-                                isShowColumn: true,
-                                mappedDataIndex: 'expectedToPresent',
-                              },
-                              {
-                                name: 'Is Present',
-                                isShowColumn: true,
-                                mappedDataIndex: 'isPresentLabel',
-                              },
-                            ];
-                            break;
-                          case 'dailyAbsentWithLeave':
-                            reportCat = [
-                              {
-                                name: 'Employee Number',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeNumber',
-                              },
-                              {
-                                name: 'Employee Name',
-                                isShowColumn: true,
-                                mappedDataIndex: 'name',
-                              },
-                              { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
-                              {
-                                name: 'Expected To Present',
-                                isShowColumn: true,
-                                mappedDataIndex: 'expectedToPresent',
-                              },
-                              {
-                                name: 'Leave Type',
-                                isShowColumn: true,
-                                mappedDataIndex: 'leaveDetailString',
-                              },
-                            ];
-
-                            break;
-                          case 'dailyInvalidAttendance':
-                            reportCat = [
-                              {
-                                name: 'Employee Number',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeNumber',
-                              },
-                              {
-                                name: 'Employee Name',
-                                isShowColumn: true,
-                                mappedDataIndex: 'name',
-                              },
-                              { name: 'Shift', isShowColumn: true, mappedDataIndex: 'shift' },
-                              {
-                                name: 'Leave Type',
-                                isShowColumn: true,
-                                mappedDataIndex: 'leaveDetailString',
-                              },
-                              {
-                                name: 'In Date & In Time 1',
-                                isShowColumn: true,
-                                mappedDataIndex: 'inDateAndTimeSlot1',
-                              },
-                              {
-                                name: 'Out Date & Out Time 1',
-                                isShowColumn: true,
-                                mappedDataIndex: 'outDateAndTimeSlot1',
-                              },
-                              {
-                                name: 'In Date & In Time 2',
-                                isShowColumn: true,
-                                mappedDataIndex: 'inDateAndTimeSlot2',
-                              },
-                              {
-                                name: 'Out Date & Out Time 2',
-                                isShowColumn: true,
-                                mappedDataIndex: 'outDateAndTimeSlot2',
-                              },
-                            ];
-                            break;
-                          case 'dailyOT':
-                            reportCat = [
-                              {
-                                name: 'Employee Number',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeNumber',
-                              },
-                              {
-                                name: 'Employee Name',
-                                isShowColumn: true,
-                                mappedDataIndex: 'name',
-                              },
-                            ];
-
-                            payTypes.forEach((payType) => {
-                              console.log(payType);
-                              let tempCol = {
-                                name: payType.name,
-                                isShowColumn: true,
-                                mappedDataIndex: payType.code + '-' + 'count',
                               };
 
-                              reportCat.push(tempCol);
-
-                              //approved column obj
-                              let tempApprovedOtCol = {
-                                name: 'Approved ' + payType.name,
-                                isShowColumn: true,
-                                mappedDataIndex: payType.code + '-approved-count',
-                              };
-
-                              reportCat.push(tempApprovedOtCol);
-                            });
-
-                            //set total ot Column
-                            let totalOtCol = {
-                              name: 'Total OT',
-                              isShowColumn: true,
-                              mappedDataIndex: 'totalOtHours',
-                            };
-
-                            reportCat.push(totalOtCol);
-
-                            //set total approved ot Column
-                            let totalApprovedOtCol = {
-                              name: 'Final Total OT',
-                              isShowColumn: true,
-                              mappedDataIndex: 'totalApprovedOtHours',
-                            };
-
-                            reportCat.push(totalApprovedOtCol);
-                            break;
-                          default:
-                            break;
-                        }
-
-                        setColumnKeys(reportCat);
-                        setAttendanceTableColumns([]);
-                        setDataCount(0);
-                      }}
-                      style={{
-                        borderRadius: 6,
-                        width: '100%',
-                      }}
-                      allowClear={true}
-                    >
-                      <Option value="dailyAttendance">Daily Attendance Report</Option>
-                      <Option value="dailyAbsentWithoutLeave">
-                        Daily Absent (Without Leave) Report
-                      </Option>
-                      <Option value="dailyAbsentWithLeave">Daily Absent (With Leave) Report</Option>
-                      <Option value="dailyInvalidAttendance">
-                        Daily Invalid Attendance Report
-                      </Option>
-
-                      {isMaintainOt ? <Option value="dailyOT">Daily OT Report</Option> : <></>}
-                      <Option value="dailyLateHours">Daily Late Hours Report</Option>
-                      {/* <Option value="leaveType">Leave Type</Option>
-                        <Option value="leaveEntitlement">Leave Entitlement Report</Option> */}
-                    </Select>
-                  </Form.Item>
-                </Col>
-                {(reportType === 'dailyAttendance' ||
-                  reportType === 'dailyAbsentWithoutLeave' ||
-                  reportType === 'dailyAbsentWithLeave' ||
-                  reportType === 'dailyInvalidAttendance' ||
-                  reportType === 'dailyOT' ||
-                  reportType === 'dailyLateHours') && (
-                  <>
-                    <Col
-                      span={3}
-                      style={{
-                        //   height: 35,
-                        width: 250,
-                        paddingLeft: 20,
-                      }}
-                    >
-                      <Form.Item
-                        name="reportDate"
-                        label={intl.formatMessage({
-                          id: 'reportDate',
-                          defaultMessage: 'Report Date',
-                        })}
-                        rules={[
-                          {
-                            required: true,
-                            message: intl.formatMessage({
-                              id: 'leaveEntitlementReport.reportDate',
-                              defaultMessage: 'Required',
-                            }),
-                          },
-                        ]}
-                      >
-                        <DatePicker
-                          onChange={(date, dateString) => {
-                            if (date) {
-                              setReportDate(date);
-                            }
-                          }}
-                          format="DD-MM-YYYY"
-                          value={reportDate}
-                          style={{ borderRadius: 6, width: '100%' }}
-                        />
-                      </Form.Item>
-                    </Col>
-                    <Col
-                      span={15}
-                      style={{
-                        //   height: 35,
-                        width: 250,
-                        paddingLeft: 20,
-                      }}
-                    >
-                      <Popover
-                        placement="rightTop"
-                        style={{ width: 150 }}
-                        title={<h2>Customize Columns</h2>}
-                        content={
-                          <>
-                            <DndProvider backend={HTML5Backend}>
-                              {columnKeys.map((columnData, index) => {
-                                return (
-                                  <DraggableItem
-                                    // index={targetKeys.findIndex((key) => key === item.key)}
-                                    index={index}
-                                    data={columnData}
-                                    moveRow={handleDragAndDrop}
-                                  />
-                                );
-                              })}
-                            </DndProvider>
-                          </>
-                        }
-                        trigger="click"
-                      >
-                        <Tooltip title={'Customize Columns'}>
-                          <Button style={{ marginTop: 30, borderRadius: 6 }} type="default">
-                            <SettingOutlined
-                              style={{ fontSize: 18, marginTop: 2 }}
-                            ></SettingOutlined>
-                          </Button>
-                        </Tooltip>
-                      </Popover>
-                    </Col>
-
-                    <OrgSelector
-                      value={entityId}
-                      setValue={(value: number) => setEntityId(value)}
-                      span={6}
-                      colStyle={{
-                        height: 35,
-                        width: 250,
-                        paddingLeft: 20,
-                        paddingTop: 20,
-                        paddingBottom: 65,
-                      }}
-                    />
-                  </>
-                )}
-
-                {(reportType === 'dailyAttendance' ||
-                  reportType === 'dailyAbsentWithoutLeave' ||
-                  reportType === 'dailyAbsentWithLeave' ||
-                  reportType === 'dailyInvalidAttendance' ||
-                  reportType === 'dailyOT' ||
-                  reportType === 'dailyLateHours') && (
-                  <>
-                    <Col
-                      span={4}
-                      style={{
-                        height: 35,
-                        paddingLeft: 20,
-                        paddingTop: 48,
-                        paddingBottom: 35,
-                      }}
-                    >
-                      <Space>
-                        <Button onClick={reset} type="default">
-                          <FormattedMessage id="REPORTRESET" defaultMessage="Reset" />
-                        </Button>
-                        <Button
-                          disabled={isGenerateButtonDisable}
-                          onClick={() => {
-                            setCurrentPage(1);
-                            onFinish(tableState.current, tableState.pageSize);
-                          }}
-                          type="primary"
-                        >
-                          <FormattedMessage id="GENERATEREPORT" defaultMessage="Generate Report" />
-                        </Button>
-                      </Space>
-                    </Col>
-                  </>
-                )}
-              </Row>
-            </Form>
-            <br />
-          </div>
-          <br />
-
-          <Spin size="large" spinning={loading}>
-            {employeeAttendanceRecords.length >= 0 ? (
-              <Card>
-                <Row>
-                  {employeeAttendanceRecords.length > 0 ? (
-                    <Col span={24} style={{ textAlign: 'right', paddingRight: 25 }}>
-                      <Button
-                        htmlType="button"
-                        style={{
-                          background: '#FFFFFF',
-                          border: '1px solid #B8B7B7',
-                          boxSizing: 'border-box',
-                          borderRadius: '6px',
-                        }}
-                        icon={<Image src={ExportIcon} preview={false} />}
-                        onClick={async () => {
-                          const excelData = reportData;
-                          excelData.dataType = '';
-                          excelData.columnHeaders = JSON.stringify(columnKeys);
-                          setLoading(true);
-                          const { data } = await getAttendanceReportsData(excelData);
-                          let reportName = 'attendance_Reprt.xlsx';
-                          switch (reportType) {
-                            case 'dailyAttendance':
-                              reportName =
-                                'Daily_Attendance_Report-' + excelData.reportDate + '.xlsx';
+                              reportCat.push(totalApprovedOtCol);
                               break;
-                            case 'dailyAbsentWithoutLeave':
-                              reportName =
-                                'Daily_Absent_Report(Without_Leave)-' +
-                                excelData.reportDate +
-                                '.xlsx';
-                              break;
-                            case 'dailyAbsentWithLeave':
-                              reportName =
-                                'Daily_Absent_Report(With_Leave)-' + excelData.reportDate + '.xlsx';
-                              break;
-                            case 'dailyInvalidAttendance':
-                              reportName =
-                                'Daily_Invalid_Attendance_Report-' + excelData.reportDate + '.xlsx';
-                              break;
-                            case 'dailyOT':
-                              reportName = 'Daily_OT_Report-' + excelData.reportDate + '.xlsx';
-                              break;
-                            case 'dailyLateHours':
-                              reportName =
-                                'Daily_Late_Hours_Report-' + excelData.reportDate + '.xlsx';
-                              break;
-
                             default:
                               break;
                           }
 
-                          if (data) {
-                            downloadBase64File(
-                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                              data,
-                              reportName,
-                            );
-                          }
-                          setLoading(false);
+                          setColumnKeys(reportCat);
+                          setAttendanceTableColumns([]);
+                          setDataCount(0);
+                        }}
+                        style={{
+                          borderRadius: 6,
+                          width: '100%',
+                        }}
+                        allowClear={true}
+                      >
+                        <Option value="dailyAttendance">Daily Attendance Report</Option>
+                        <Option value="dailyAbsentWithoutLeave">
+                          Daily Absent (Without Leave) Report
+                        </Option>
+                        <Option value="dailyAbsentWithLeave">
+                          Daily Absent (With Leave) Report
+                        </Option>
+                        <Option value="dailyInvalidAttendance">
+                          Daily Invalid Attendance Report
+                        </Option>
+
+                        {isMaintainOt ? <Option value="dailyOT">Daily OT Report</Option> : <></>}
+                        <Option value="dailyLateHours">Daily Late Hours Report</Option>
+                        {/* <Option value="leaveType">Leave Type</Option>
+                        <Option value="leaveEntitlement">Leave Entitlement Report</Option> */}
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                  {(reportType === 'dailyAttendance' ||
+                    reportType === 'dailyAbsentWithoutLeave' ||
+                    reportType === 'dailyAbsentWithLeave' ||
+                    reportType === 'dailyInvalidAttendance' ||
+                    reportType === 'dailyOT' ||
+                    reportType === 'dailyLateHours') && (
+                    <>
+                      <Col
+                        span={3}
+                        style={{
+                          //   height: 35,
+                          width: 250,
+                          paddingLeft: 20,
                         }}
                       >
-                        <span style={{ verticalAlign: 'top', paddingLeft: '4px' }}> Export</span>
-                      </Button>
-                    </Col>
-                  ) : (
-                    <></>
+                        <Form.Item
+                          name="reportDate"
+                          label={intl.formatMessage({
+                            id: 'reportDate',
+                            defaultMessage: 'Report Date',
+                          })}
+                          rules={[
+                            {
+                              required: true,
+                              message: intl.formatMessage({
+                                id: 'leaveEntitlementReport.reportDate',
+                                defaultMessage: 'Required',
+                              }),
+                            },
+                          ]}
+                        >
+                          <DatePicker
+                            onChange={(date, dateString) => {
+                              if (date) {
+                                setReportDate(date);
+                              }
+                            }}
+                            format="DD-MM-YYYY"
+                            value={reportDate}
+                            style={{ borderRadius: 6, width: '100%' }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col
+                        span={15}
+                        style={{
+                          //   height: 35,
+                          width: 250,
+                          paddingLeft: 20,
+                        }}
+                      >
+                        <Popover
+                          placement="rightTop"
+                          style={{ width: 150 }}
+                          title={<h2>Customize Columns</h2>}
+                          content={
+                            <>
+                              <DndProvider backend={HTML5Backend}>
+                                {columnKeys.map((columnData, index) => {
+                                  return (
+                                    <DraggableItem
+                                      // index={targetKeys.findIndex((key) => key === item.key)}
+                                      index={index}
+                                      data={columnData}
+                                      moveRow={handleDragAndDrop}
+                                    />
+                                  );
+                                })}
+                              </DndProvider>
+                            </>
+                          }
+                          trigger="click"
+                        >
+                          <Tooltip title={'Customize Columns'}>
+                            <Button
+                              style={{ marginTop: 30, borderRadius: 6, backgroundColor: '#0232AC', color:"white"}}
+                              type="default"
+                            >
+                              <SettingOutlined
+                                style={{ fontSize: 18, marginTop: 2, color:"white" }}
+                              ></SettingOutlined>
+                            </Button>
+                          </Tooltip>
+                        </Popover>
+                      </Col>
+
+                      <OrgSelector
+                        value={entityId}
+                        setValue={(value: number) => setEntityId(value)}
+                        span={6}
+                        colStyle={{
+                          height: 35,
+                          width: 250,
+                          paddingLeft: 20,
+                          paddingTop: 20,
+                          paddingBottom: 65,
+                        }}
+                      />
+                    </>
+                  )}
+
+                  {(reportType === 'dailyAttendance' ||
+                    reportType === 'dailyAbsentWithoutLeave' ||
+                    reportType === 'dailyAbsentWithLeave' ||
+                    reportType === 'dailyInvalidAttendance' ||
+                    reportType === 'dailyOT' ||
+                    reportType === 'dailyLateHours') && (
+                    <>
+                      <Col
+                        span={4}
+                        style={{
+                          height: 35,
+                          paddingLeft: 20,
+                          paddingTop: 48,
+                          paddingBottom: 35,
+                        }}
+                      >
+                        <Space>
+                          <Button onClick={reset} type="default">
+                            <FormattedMessage id="REPORTRESET" defaultMessage="Reset" />
+                          </Button>
+                          <Button
+                            disabled={isGenerateButtonDisable}
+                            onClick={() => {
+                              setCurrentPage(1);
+                              onFinish(tableState.current, tableState.pageSize);
+                            }}
+                            type="primary"
+                          >
+                            <FormattedMessage
+                              id="GENERATEREPORT"
+                              defaultMessage="Generate Report"
+                            />
+                          </Button>
+                        </Space>
+                      </Col>
+                    </>
                   )}
                 </Row>
-                <br />
-                <ProTable<any>
-                  actionRef={actionRef}
-                  rowKey="id"
-                  scroll={selectedLeaveTypes.length > 3 ? { x: '130vw' } : {}}
-                  search={false}
-                  options={false}
-                  request={async (params = { current: 1, pageSize: 100 }, sort, filter) => {
-                    if (reportType != '' && reportType) {
-                      const tableParams = {
-                        current: params?.current,
-                        pageSize: params?.pageSize,
-                      };
-                      setTableState(tableParams);
-                      await onFinish(params?.current, params?.pageSize);
-                      return employeeAttendanceRecords;
-                    } else {
-                      return [];
-                    }
-                  }}
-                  pagination={{
-                    pageSize: 100,
-                    current: currentPage,
-                    total: dataCount,
-                    hideOnSinglePage: true,
-                  }}
-                  columns={attendanceTableColumns}
-                  dataSource={employeeAttendanceRecords}
-                  className="custom-table"
-                />
-              </Card>
-            ) : reportType ? (
-              <Card>
-                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-              </Card>
-            ) : null}
-          </Spin>
-        </Space>
-      </PageContainer>
+              </Form>
+              <br />
+            </div>
+            <br />
+
+            <Spin size="large" spinning={loading}>
+              {employeeAttendanceRecords.length >= 0 ? (
+                <Card>
+                  <Row>
+                    {employeeAttendanceRecords.length > 0 ? (
+                      <Col span={24} style={{ textAlign: 'right', paddingRight: 25 }}>
+                        <Button
+                          htmlType="button"
+                          style={{
+                            background: '#FFFFFF',
+                            border: '1px solid #B8B7B7',
+                            boxSizing: 'border-box',
+                            borderRadius: '6px',
+                          }}
+                          icon={<Image src={ExportIcon} preview={false} />}
+                          onClick={async () => {
+                            const excelData = reportData;
+                            excelData.dataType = '';
+                            excelData.columnHeaders = JSON.stringify(columnKeys);
+                            setLoading(true);
+                            const { data } = await getAttendanceReportsData(excelData);
+                            let reportName = 'attendance_Reprt.xlsx';
+                            switch (reportType) {
+                              case 'dailyAttendance':
+                                reportName =
+                                  'Daily_Attendance_Report-' + excelData.reportDate + '.xlsx';
+                                break;
+                              case 'dailyAbsentWithoutLeave':
+                                reportName =
+                                  'Daily_Absent_Report(Without_Leave)-' +
+                                  excelData.reportDate +
+                                  '.xlsx';
+                                break;
+                              case 'dailyAbsentWithLeave':
+                                reportName =
+                                  'Daily_Absent_Report(With_Leave)-' +
+                                  excelData.reportDate +
+                                  '.xlsx';
+                                break;
+                              case 'dailyInvalidAttendance':
+                                reportName =
+                                  'Daily_Invalid_Attendance_Report-' +
+                                  excelData.reportDate +
+                                  '.xlsx';
+                                break;
+                              case 'dailyOT':
+                                reportName = 'Daily_OT_Report-' + excelData.reportDate + '.xlsx';
+                                break;
+                              case 'dailyLateHours':
+                                reportName =
+                                  'Daily_Late_Hours_Report-' + excelData.reportDate + '.xlsx';
+                                break;
+
+                              default:
+                                break;
+                            }
+
+                            if (data) {
+                              downloadBase64File(
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                data,
+                                reportName,
+                              );
+                            }
+                            setLoading(false);
+                          }}
+                        >
+                          <span style={{ verticalAlign: 'top', paddingLeft: '4px' }}> Export</span>
+                        </Button>
+                      </Col>
+                    ) : (
+                      <></>
+                    )}
+                  </Row>
+                  <br />
+                  <ProTable<any>
+                    actionRef={actionRef}
+                    rowKey="id"
+                    scroll={selectedLeaveTypes.length > 3 ? { x: '130vw' } : {}}
+                    search={false}
+                    options={false}
+                    request={async (params = { current: 1, pageSize: 100 }, sort, filter) => {
+                      if (reportType != '' && reportType) {
+                        const tableParams = {
+                          current: params?.current,
+                          pageSize: params?.pageSize,
+                        };
+                        setTableState(tableParams);
+                        await onFinish(params?.current, params?.pageSize);
+                        return employeeAttendanceRecords;
+                      } else {
+                        return [];
+                      }
+                    }}
+                    pagination={{
+                      pageSize: 100,
+                      current: currentPage,
+                      total: dataCount,
+                      hideOnSinglePage: true,
+                    }}
+                    columns={attendanceTableColumns}
+                    dataSource={employeeAttendanceRecords}
+                    className="custom-table"
+                  />
+                </Card>
+              ) : reportType ? (
+                <Card>
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                </Card>
+              ) : null}
+            </Spin>
+          </Space>
+        </PageContainer>
+      </div>
     </Access>
   );
 };

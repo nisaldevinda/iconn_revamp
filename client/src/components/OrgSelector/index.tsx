@@ -35,7 +35,6 @@ const OrgSelector: React.FC<OrgSelectorProps> = ({
   colStyle,
   allowClear = false,
 }) => {
-
   const defaultLevelState = {
     level1: null,
     level2: null,
@@ -176,8 +175,14 @@ const OrgSelector: React.FC<OrgSelectorProps> = ({
           hidden={key !== 'level1' && levelState[getParentLevel(key)] === null}
           style={colStyle ?? {}}
         >
-          <Form.Item label={obj.levelLabel}>
+          <Form.Item>
+            <label
+              style={{ color: '#324054', fontSize: '13px', fontWeight: 500}}
+            >
+              {obj.levelLabel} :
+            </label>
             <Select
+            style={{marginTop:"10px"}}
               className={className}
               onChange={(value: number) => {
                 onChangeHandler(key, value);
@@ -189,6 +194,7 @@ const OrgSelector: React.FC<OrgSelectorProps> = ({
               value={levelState[key]}
               disabled={readOnly}
               allowClear={allowClear && index !== 0}
+              placeholder={index === 0 ? 'Select' : ''}
             />
           </Form.Item>
         </Col>

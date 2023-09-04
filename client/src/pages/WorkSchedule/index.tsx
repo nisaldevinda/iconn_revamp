@@ -15,13 +15,13 @@ const WorkSchedule: React.FC = () => {
       accessible={hasPermitted('work-schedule-read-write')}
       fallback={<PermissionDeniedPage />}
     >
-      <PageContainer>
-        <WorkScheduleComponent
-          monthlyView={false}
-          service={workSchedule} />
-      </PageContainer>
+      <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+        <PageContainer>
+          <WorkScheduleComponent monthlyView={false} service={workSchedule} />
+        </PageContainer>
+      </div>
     </Access>
-  )
+  );
 };
 
 

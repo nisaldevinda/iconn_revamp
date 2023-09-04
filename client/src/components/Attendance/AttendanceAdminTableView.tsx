@@ -23,7 +23,7 @@ import {
   Result,
   Table,
   Input,
-  Badge
+  Badge,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -204,7 +204,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
       if (record.isApprovedOtAttendance) {
         let key = 'Error';
         message.error({
-          content: 'Can not change values ,because this attendance record has pending or approved post ot request',
+          content:
+            'Can not change values ,because this attendance record has pending or approved post ot request',
           key,
         });
         setCurrentEditingRow(null);
@@ -463,15 +464,15 @@ const EditableCell: React.FC<EditableCellProps> = ({
               <DatePicker
                 onChange={(date, dateString) => {}}
                 format="DD-MM-YYYY HH:mm"
-                placeholder='DD-MM-YYYY HH:mm'
+                placeholder="DD-MM-YYYY HH:mm"
                 showTime
                 onKeyDown={(e) => {
                   console.log(e.target.value);
                 }}
                 ref={inputRef}
-                onSelect= {(value) => {
+                onSelect={(value) => {
                   if (dataIndex == 'outDateAndTime') {
-                      form.setFieldsValue({ ['outDateAndTime']: value });
+                    form.setFieldsValue({ ['outDateAndTime']: value });
                   }
                 }}
                 onOk={(value) => {
@@ -497,34 +498,31 @@ const EditableCell: React.FC<EditableCellProps> = ({
                 }}
                 onBlur={(value) => {
                   if (value.target.value != '') {
-                    let dateTime = moment(value.target.value, 'DD-MM-YYYY hh:mm A')
+                    let dateTime = moment(value.target.value, 'DD-MM-YYYY hh:mm A');
                     if (dataIndex == 'outDateAndTime') {
-
-                      let isValid =  checkOutDateIsValid(moment(value.target.value, 'DD-MM-YYYY'));
+                      let isValid = checkOutDateIsValid(moment(value.target.value, 'DD-MM-YYYY'));
                       if (!isValid) {
-                          let key = 'Error';
-                          message.error({
+                        let key = 'Error';
+                        message.error({
                           content: 'Invalid Date',
                           key,
-                          });
+                        });
 
-                          if (dataIndex == 'outDateAndTime') {
-                              form.setFieldsValue({ outDateAndTime: null });
-                          }
+                        if (dataIndex == 'outDateAndTime') {
+                          form.setFieldsValue({ outDateAndTime: null });
+                        }
 
-                          inputRef.current!.focus();
-                          return;
+                        inputRef.current!.focus();
+                        return;
                       }
-
 
                       if (record.in.time) {
                         let inDateTime = moment(
                           record.date + ' ' + record.in.time,
                           'YYYY-MM-DD hh:mm A',
                         );
-  
+
                         if (!dateTime.isAfter(inDateTime)) {
-                          
                           let key = 'Error';
                           message.error({
                             content: 'Out date time must be greater than in date time',
@@ -535,7 +533,6 @@ const EditableCell: React.FC<EditableCellProps> = ({
                           return;
                         }
                       }
-
                     }
                   }
                   save();
@@ -546,21 +543,20 @@ const EditableCell: React.FC<EditableCellProps> = ({
               <DatePicker
                 onChange={(date, dateString) => {}}
                 format="DD-MM-YYYY HH:mm"
-                placeholder='DD-MM-YYYY HH:mm'
+                placeholder="DD-MM-YYYY HH:mm"
                 showTime
                 onKeyDown={(e) => {
                   console.log(e.target.value);
                 }}
                 ref={inputRef}
-                onSelect= {(value) => {
+                onSelect={(value) => {
                   if (dataIndex == 'inDateAndTime') {
-                      form.setFieldsValue({ ['inDateAndTime']: value });
+                    form.setFieldsValue({ ['inDateAndTime']: value });
                   }
                 }}
                 onOk={(value) => {
                   if (dataIndex == 'inDateAndTime') {
                     if (record.out.time && record.outDate && value) {
-
                       let outTimeObj = moment(
                         record.outDate + ' ' + record.out.time,
                         'YYYY-MM-DD hh:mm A',
@@ -588,7 +584,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
                           record.outDate + ' ' + record.out.time,
                           'YYYY-MM-DD hh:mm A',
                         );
-  
+
                         if (!outTimeObj.isAfter(time)) {
                           let key = 'Error';
                           message.error({
@@ -610,7 +606,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
               <TimePicker
                 // use24Hours
                 format="HH:mm"
-                placeholder='HH:mm'
+                placeholder="HH:mm"
                 ref={inputRef}
                 onBlur={(value) => {
                   if (value.target.value != '') {
@@ -618,7 +614,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
                     if (dataIndex == 'in') {
                       if (record.out.time && time) {
                         let outTimeObj = moment(record.out.time, 'hh:mm A');
-  
+
                         if (!outTimeObj.isAfter(time)) {
                           let key = 'Error';
                           message.error({
@@ -634,9 +630,9 @@ const EditableCell: React.FC<EditableCellProps> = ({
                   }
                   save();
                 }}
-                onSelect= {(value) => {
+                onSelect={(value) => {
                   if (dataIndex == 'in') {
-                      form.setFieldsValue({ ['in']: value });
+                    form.setFieldsValue({ ['in']: value });
                   }
                 }}
                 onOk={(value) => {
@@ -910,29 +906,40 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                 : {},
           },
           children: (
-            <div className='iconSpace'>
-              {
-                <Badge style={{marginRight: 8}} color={record.day.dayTypeColor}/>
-              }
-              {
-                record.shiftId != null && record.isExpectedToPresent &&
-                  record.day.isWorked === 0 &&
-                  record.leave.length == 0 ? (
-                    <Badge color="#44A4ED"/>
-                ) :  (record.shiftId != null && record.isExpectedToPresent && record.day.isWorked === 1 && record.in.late || record.shiftId != null && record.isExpectedToPresent && record.day.isWorked === 1 && record.out.early) ? (
-                    <Badge color="#ED4444"/>
-                ) : <></>
-              }
+            <div className="iconSpace">
+              {<Badge style={{ marginRight: 8 }} color={record.day.dayTypeColor} />}
+              {record.shiftId != null &&
+              record.isExpectedToPresent &&
+              record.day.isWorked === 0 &&
+              record.leave.length == 0 ? (
+                <Badge color="#44A4ED" />
+              ) : (record.shiftId != null &&
+                  record.isExpectedToPresent &&
+                  record.day.isWorked === 1 &&
+                  record.in.late) ||
+                (record.shiftId != null &&
+                  record.isExpectedToPresent &&
+                  record.day.isWorked === 1 &&
+                  record.out.early) ? (
+                <Badge color="#ED4444" />
+              ) : (
+                <></>
+              )}
             </div>
           ),
         };
       },
     },
     {
-      title: <FormattedMessage id="Attendance.date" defaultMessage={intl.formatMessage({
-        id: 'date',
-        defaultMessage: 'Date',
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.date"
+          defaultMessage={intl.formatMessage({
+            id: 'date',
+            defaultMessage: 'Date',
+          })}
+        />
+      ),
       dataIndex: 'date',
       fixed: 'left',
       width: 80,
@@ -977,8 +984,7 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                 <Space>
                   {moment(record.date, 'YYYY-MM-DD').isValid()
                     ? moment(record.date).format('DD-MM-YYYY')
-                    : null
-                  }
+                    : null}
                 </Space>
               </Row>
             </>
@@ -987,10 +993,15 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.shift" defaultMessage= {intl.formatMessage({
-        id: 'shiftName',
-        defaultMessage: "Shift Name",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.shift"
+          defaultMessage={intl.formatMessage({
+            id: 'shiftName',
+            defaultMessage: 'Shift Name',
+          })}
+        />
+      ),
       dataIndex: 'shift',
       width: 150,
       editable: true,
@@ -1023,10 +1034,15 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.inTime" defaultMessage={intl.formatMessage({
-        id: 'inTime',
-        defaultMessage: "In",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.inTime"
+          defaultMessage={intl.formatMessage({
+            id: 'inTime',
+            defaultMessage: 'In',
+          })}
+        />
+      ),
       dataIndex: 'inDateAndTime',
       search: false,
       fixed: 'left',
@@ -1049,9 +1065,16 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
               <Space className={styles.dayTypeTable}>
                 <div>
                   <Row style={{ display: 'flex' }}>
-                    <p className={styles.time}>{
-                    moment(record.in.date, 'YYYY-MM-DD').isValid() && moment(record.in.time, 'hh:mm A').isValid()  ? moment(record.in.date + ' ' +  moment(record.in.time, 'hh:mm A').format('HH:mm')).format('DD-MM-YYYY  HH:mm:ss') : '-'
-                    }</p>
+                    <p className={styles.time}>
+                      {moment(record.in.date, 'YYYY-MM-DD').isValid() &&
+                      moment(record.in.time, 'hh:mm A').isValid()
+                        ? moment(
+                            record.in.date +
+                              ' ' +
+                              moment(record.in.time, 'hh:mm A').format('HH:mm'),
+                          ).format('DD-MM-YYYY  HH:mm:ss')
+                        : '-'}
+                    </p>
                     {record.in.late ? (
                       <p className={styles.dayTypeTableIcon}>
                         <Image src={LateIcon} preview={false} />
@@ -1068,10 +1091,15 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.date" defaultMessage={intl.formatMessage({
-        id: 'outDateTime',
-        defaultMessage: "Out",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.date"
+          defaultMessage={intl.formatMessage({
+            id: 'outDateTime',
+            defaultMessage: 'Out',
+          })}
+        />
+      ),
       dataIndex: 'outDateAndTime',
       fixed: 'left',
       editable: true,
@@ -1094,10 +1122,16 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
               <Space className={styles.dayTypeTable}>
                 <div>
                   <Row style={{ display: 'flex' }}>
-                    <p className={styles.time}>{moment(record.outDate, 'YYYY-MM-DD').isValid() &&
-              moment(record.out.time, 'hh:mm A').isValid()
-                ? moment(record.outDate + ' ' +  moment(record.out.time, 'hh:mm A').format('HH:mm')).format('DD-MM-YYYY  HH:mm:ss')
-                : '-'}</p>
+                    <p className={styles.time}>
+                      {moment(record.outDate, 'YYYY-MM-DD').isValid() &&
+                      moment(record.out.time, 'hh:mm A').isValid()
+                        ? moment(
+                            record.outDate +
+                              ' ' +
+                              moment(record.out.time, 'hh:mm A').format('HH:mm'),
+                          ).format('DD-MM-YYYY  HH:mm:ss')
+                        : '-'}
+                    </p>
                     {record.out.early ? (
                       <p className={styles.dayTypeTableIcon}>
                         <Image src={EarlyIcon} preview={false} />
@@ -1114,14 +1148,19 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.OtHours" defaultMessage={intl.formatMessage({
-        id: 'inLate',
-        defaultMessage: "In Late",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.OtHours"
+          defaultMessage={intl.formatMessage({
+            id: 'inLate',
+            defaultMessage: 'In Late',
+          })}
+        />
+      ),
       dataIndex: 'inLate',
-      width : !isMaintainOt ? 'auto' : undefined,
-      fixed : !isMaintainOt ? 'left' : false,
-      hideInTable:  false,
+      width: !isMaintainOt ? 'auto' : undefined,
+      fixed: !isMaintainOt ? 'left' : false,
+      hideInTable: false,
       search: false,
       render: (_, record) => {
         return {
@@ -1150,13 +1189,18 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.OtHours" defaultMessage={intl.formatMessage({
-        id: 'earlyDepature',
-        defaultMessage: "Early Depature",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.OtHours"
+          defaultMessage={intl.formatMessage({
+            id: 'earlyDepature',
+            defaultMessage: 'Early Depature',
+          })}
+        />
+      ),
       dataIndex: 'earlyDepature',
-      width : !isMaintainOt ? 'auto' : undefined,
-      fixed : !isMaintainOt ? 'left' : false,
+      width: !isMaintainOt ? 'auto' : undefined,
+      fixed: !isMaintainOt ? 'left' : false,
       search: false,
       render: (_, record) => {
         return {
@@ -1185,13 +1229,18 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.OtHours" defaultMessage={intl.formatMessage({
-        id: 'totalLate',
-        defaultMessage: "Total Late",
-      })}/>,
+      title: (
+        <FormattedMessage
+          id="Attendance.OtHours"
+          defaultMessage={intl.formatMessage({
+            id: 'totalLate',
+            defaultMessage: 'Total Late',
+          })}
+        />
+      ),
       dataIndex: 'totalLate',
-      width : !isMaintainOt ? 'auto' : undefined,
-      fixed : !isMaintainOt ? 'left' : false,
+      width: !isMaintainOt ? 'auto' : undefined,
+      fixed: !isMaintainOt ? 'left' : false,
       search: false,
       render: (_, record) => {
         return {
@@ -1220,10 +1269,15 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.OtHours" defaultMessage={intl.formatMessage({
-        id: 'totalOt',
-        defaultMessage: "Total OT",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.OtHours"
+          defaultMessage={intl.formatMessage({
+            id: 'totalOt',
+            defaultMessage: 'Total OT',
+          })}
+        />
+      ),
       dataIndex: 'totalOT',
       hideInTable: !isMaintainOt ? true : false,
       search: false,
@@ -1256,10 +1310,15 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     },
     {
-      title: <FormattedMessage id="Attendance.OtHours" defaultMessage={intl.formatMessage({
-        id: 'totalApprovedOt',
-        defaultMessage: "Total Approved OT",
-      })}  />,
+      title: (
+        <FormattedMessage
+          id="Attendance.OtHours"
+          defaultMessage={intl.formatMessage({
+            id: 'totalApprovedOt',
+            defaultMessage: 'Total Approved OT',
+          })}
+        />
+      ),
       dataIndex: 'totalApproveOt',
       hideInTable: !isMaintainOt ? true : false,
       search: false,
@@ -1281,7 +1340,9 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                 <Row>
                   <Space>
                     <p className={styles.time}>
-                      {record.otData.totalApprovedOtHours ? record.otData.totalApprovedOtHours : '00:00'}
+                      {record.otData.totalApprovedOtHours
+                        ? record.otData.totalApprovedOtHours
+                        : '00:00'}
                     </p>
                   </Space>
                 </Row>
@@ -1341,9 +1402,7 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
   const processedCols = () => {
     let colSet = columns;
 
-
     if (isMaintainOt) {
-
       payTypes.forEach((payType) => {
         let colName = payType.name;
         let approvedcolName = 'Approved' + ' ' + payType.name;
@@ -1381,10 +1440,10 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
             };
           },
         };
-  
+
         let tempOTApprovedCol = {
           title: <FormattedMessage id={approvedcolName} defaultMessage={approvedcolName} />,
-          dataIndex: 'approved'+payType.code,
+          dataIndex: 'approved' + payType.code,
           search: false,
           render: (_, record) => {
             return {
@@ -1416,17 +1475,22 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
             };
           },
         };
-  
+
         colSet.push(tempOTCol);
         colSet.push(tempOTApprovedCol);
       });
     }
 
     let workedHours = {
-      title: <FormattedMessage id="Attendance.workHours" defaultMessage={intl.formatMessage({
-        id: 'workedHours',
-        defaultMessage: "Worked Hours",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.workHours"
+          defaultMessage={intl.formatMessage({
+            id: 'workedHours',
+            defaultMessage: 'Worked Hours',
+          })}
+        />
+      ),
       dataIndex: 'workedHours',
       fixed: 'right',
       width: 70,
@@ -1460,10 +1524,15 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       },
     };
     let breakeTimeCol = {
-      title: <FormattedMessage id="Attendance.workHours" defaultMessage={intl.formatMessage({
-        id: 'totalBreakTime',
-        defaultMessage: "Total Breake Time",
-      })} />,
+      title: (
+        <FormattedMessage
+          id="Attendance.workHours"
+          defaultMessage={intl.formatMessage({
+            id: 'totalBreakTime',
+            defaultMessage: 'Total Breake Time',
+          })}
+        />
+      ),
       dataIndex: 'breakDuration',
       fixed: 'right',
       width: 70,
@@ -1630,7 +1699,7 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
       const { data } = response;
       const selectorEmployees = data.map((employee: any) => {
         return {
-          label: employee.employeeNumber+' | '+employee.employeeName,
+          label: employee.employeeNumber + ' | ' + employee.employeeName,
           value: employee.id,
         };
       });
@@ -2182,7 +2251,7 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
             shift: response.data.shift,
           };
           handleIntialData({ ...tempObj });
-          
+
           message.success({
             content: intl.formatMessage({
               id: 'updatedTimeChange',
@@ -2190,7 +2259,6 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
             }),
             key,
           });
-        
         }
 
         if (response.error) {
@@ -2320,7 +2388,7 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
         <Col className={'attendanceSearchArea'} style={{ width: '100%' }}>
           <ProForm
             id={'searchForm'}
-            style={{marginTop: 10 }}
+            style={{ marginTop: 10, background: 'white', borderRadius: '15px', padding: '30px' }}
             layout="inline"
             form={searchForm}
             submitter={{
@@ -2332,7 +2400,7 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
               render: (props, doms) => {
                 return [
                   <>
-                    <Col style={{marginLeft: 10}}>
+                    <Col style={{ marginLeft: 10,  marginTop:"30px"}}>
                       <Tooltip
                         title={intl.formatMessage({
                           id: 'tooltip.search',
@@ -2363,7 +2431,7 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                         othersView
                       }
                     >
-                      <Col className={styles.excelCol}>
+                      <Col className={styles.excelCol} style={{marginTop:"30px"}}>
                         <Tooltip
                           title={intl.formatMessage({
                             id: 'tooltip.excel',
@@ -2383,43 +2451,12 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                         </Tooltip>
                       </Col>
                     </Access>
-                  </>
+                  </>,
                 ];
               },
             }}
           >
-            <Row >
-              <Col span={12}>
-                <ProFormDateRangePicker
-                  name="searchDateRange"
-                  className={styles.rangePicker}
-                  ranges={{
-                    Today: [moment(), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                  }}
-                  format="DD-MM-YYYY"
-                  onChange={onChange}
-                  placeholder={[intl.formatMessage({
-                    id :'attendance.startDate',
-                    defaultMessage :'Start Date'
-                  }), intl.formatMessage({
-                    id :'attendance.endDate',
-                    defaultMessage :'End Date'
-                  })]}
-                  rules={
-                    [
-                      {
-                        required: true,
-                        message: intl.formatMessage({
-                          id: 'employee.attendance.search.dateRange.required',
-                          defaultMessage: 'Required',
-                        })
-                      }
-                    ]
-                  }
-                />
-              </Col>
-
+            <Row>
               <Access
                 accessible={
                   (hasPermitted('attendance-manager-access') ||
@@ -2428,6 +2465,10 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                 }
               >
                 <Col className={styles.employeeCol} span={12}>
+                  <span style={{ color: '#324054', fontSize: '13px', fontWeight: 500 }}>
+                    Employee
+                  </span>
+                  <div style={{ height: '10px' }} />
                   <ProFormSelect
                     name="select"
                     placeholder={intl.formatMessage({
@@ -2445,23 +2486,54 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                         setAttendanceSheetData([]);
                       },
                     }}
-                    rules={
-                      [
-                        {
-                          required: true,
-                          message: intl.formatMessage({
-                            id: 'employee.attendance.search.employee.required',
-                            defaultMessage: 'Required',
-                          })
-                        }
-                      ]
-                    }
+                    rules={[
+                      {
+                        required: true,
+                        message: intl.formatMessage({
+                          id: 'employee.attendance.search.employee.required',
+                          defaultMessage: 'Required',
+                        }),
+                      },
+                    ]}
                   />
                 </Col>
               </Access>
+              <Col span={12}>
+                <span style={{ color: '#324054', fontSize: '13px', fontWeight: 500 }}>Date</span>
+                <div style={{ height: '10px' }} />
+                <ProFormDateRangePicker
+                  name="searchDateRange"
+                  className={styles.rangePicker}
+                  ranges={{
+                    Today: [moment(), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                  }}
+                  format="DD-MM-YYYY"
+                  onChange={onChange}
+                  placeholder={[
+                    intl.formatMessage({
+                      id: 'attendance.startDate',
+                      defaultMessage: 'Start Date',
+                    }),
+                    intl.formatMessage({
+                      id: 'attendance.endDate',
+                      defaultMessage: 'End Date',
+                    }),
+                  ]}
+                  rules={[
+                    {
+                      required: true,
+                      message: intl.formatMessage({
+                        id: 'employee.attendance.search.dateRange.required',
+                        defaultMessage: 'Required',
+                      }),
+                    },
+                  ]}
+                />
+              </Col>
             </Row>
           </ProForm>
-          <Card style={{ marginTop: 20 ,width: '100%', height: showDataTable ? 690 : 575 }}>
+          <Card style={{ marginTop: 20, width: '100%', height: showDataTable ? 690 : 575 }}>
             <ConfigProvider locale={en_US}>
               <Space direction="vertical" size={25} style={{ width: '100%' }}>
                 {showDataTable ? (
@@ -2474,28 +2546,52 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                               <Row className={'adminAttendanceTable'}>
                                 <ProTable<AttendanceItem>
                                   columns={cols as ColumnTypes}
-                                  scroll={ !isMaintainOt && attendanceSheetData.length > 10 ?  {y: 500 } : !isMaintainOt && attendanceSheetData.length < 10 ? undefined : isMaintainOt && attendanceSheetData.length > 10 ? { x: '100vw', y: 500 } : isMaintainOt && attendanceSheetData.length < 10 ? { x: '100vw'} : undefined}
+                                  scroll={
+                                    !isMaintainOt && attendanceSheetData.length > 10
+                                      ? { y: 500 }
+                                      : !isMaintainOt && attendanceSheetData.length < 10
+                                      ? undefined
+                                      : isMaintainOt && attendanceSheetData.length > 10
+                                      ? { x: '100vw', y: 500 }
+                                      : isMaintainOt && attendanceSheetData.length < 10
+                                      ? { x: '100vw' }
+                                      : undefined
+                                  }
                                   components={components}
                                   rowClassName={() => 'editableRow'}
                                   actionRef={actionRef}
                                   dataSource={attendanceSheetData}
-                                  request={async (params = { current: 1, pageSize: 100 }, sort, filter) => {
+                                  request={async (
+                                    params = { current: 1, pageSize: 100 },
+                                    sort,
+                                    filter,
+                                  ) => {
                                     const sortValue = sort?.name
-                                      ? { name: 'name', order: sort?.name === 'ascend' ? 'ASC' : 'DESC' }
-                                      : { name: 'date', order: sort?.date === 'ascend' ? 'ASC' : 'DESC' };
-                    
+                                      ? {
+                                          name: 'name',
+                                          order: sort?.name === 'ascend' ? 'ASC' : 'DESC',
+                                        }
+                                      : {
+                                          name: 'date',
+                                          order: sort?.date === 'ascend' ? 'ASC' : 'DESC',
+                                        };
+
                                     const tableParams = {
                                       current: params?.current,
                                       pageSize: params?.pageSize,
                                       sortValue: sortValue,
                                     };
                                     setTableState(tableParams);
-                    
-                                    await callGetAttendanceSheetData(params?.current, params?.pageSize, sortValue);
+
+                                    await callGetAttendanceSheetData(
+                                      params?.current,
+                                      params?.pageSize,
+                                      sortValue,
+                                    );
                                     return attendanceSheetData;
                                   }}
                                   headerTitle={
-                                    <Row className='attendanceHeaderTitle'>
+                                    <Row className="attendanceHeaderTitle">
                                       <Space size={[8, 16]} wrap>
                                         <>
                                           <p className={styles.dayTypeIcon}>
@@ -2510,15 +2606,15 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                                           <p className={styles.dayTypeContent}>Early Departure</p>
                                         </>
                                         <>
-                                          <Badge color="#44A4ED" text={'Absent'}/>
+                                          <Badge color="#44A4ED" text={'Absent'} />
                                         </>
                                         <>
-                                          <Badge color="#ED4444" text={'Late'}/>
+                                          <Badge color="#ED4444" text={'Late'} />
                                         </>
 
                                         {dayTypesData.map((item) => (
                                           <>
-                                            <Badge color={item.typeColor} text={item.name}/>
+                                            <Badge color={item.typeColor} text={item.name} />
                                           </>
                                         ))}
                                       </Space>
@@ -2722,16 +2818,19 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                                                           },
                                                         ]);
 
-                                                        if (breakArr[key]['breakOutDate'] != undefined &&
-                                                        breakArr[key]['breakOutTime'] != undefined) {
+                                                        if (
+                                                          breakArr[key]['breakOutDate'] !=
+                                                            undefined &&
+                                                          breakArr[key]['breakOutTime'] != undefined
+                                                        ) {
                                                           let compareOutDateTime =
-                                                          breakArr[key]['breakOutDate']?.format(
-                                                            'YYYY-MM-DD',
-                                                          ) +
-                                                          ' ' +
-                                                          breakArr[key]['breakOutTime']?.format(
-                                                            'HH:mm:ss',
-                                                          );
+                                                            breakArr[key]['breakOutDate']?.format(
+                                                              'YYYY-MM-DD',
+                                                            ) +
+                                                            ' ' +
+                                                            breakArr[key]['breakOutTime']?.format(
+                                                              'HH:mm:ss',
+                                                            );
 
                                                           let compareOutDate = moment(
                                                             compareOutDateTime,
@@ -2761,7 +2860,6 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                                                               },
                                                             ]);
                                                           }
-
                                                         }
                                                       } else {
                                                         form.setFields([
@@ -2914,23 +3012,28 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                                                           },
                                                         ]);
 
-                                                        if (breakArr[key]['breakInDate'] != undefined &&
-                                                        breakArr[key]['breakInTime'] != undefined) {
+                                                        if (
+                                                          breakArr[key]['breakInDate'] !=
+                                                            undefined &&
+                                                          breakArr[key]['breakInTime'] != undefined
+                                                        ) {
                                                           let compareInDateTime =
-                                                          breakArr[key]['breakInDate']?.format(
-                                                            'YYYY-MM-DD',
-                                                          ) +
-                                                          ' ' +
-                                                          breakArr[key]['breakInTime']?.format(
-                                                            'HH:mm:ss',
-                                                          );
+                                                            breakArr[key]['breakInDate']?.format(
+                                                              'YYYY-MM-DD',
+                                                            ) +
+                                                            ' ' +
+                                                            breakArr[key]['breakInTime']?.format(
+                                                              'HH:mm:ss',
+                                                            );
 
                                                           let compareInDate = moment(
                                                             compareInDateTime,
                                                             'YYYY-MM-DD hh:mm:ss A',
                                                           );
 
-                                                          if (compareDate.isAfter(compareInDateTime)) {
+                                                          if (
+                                                            compareDate.isAfter(compareInDateTime)
+                                                          ) {
                                                             form.setFields([
                                                               {
                                                                 name: [
@@ -2953,7 +3056,6 @@ const AttendanceAdminTableView: React.FC<TableViewProps> = (props) => {
                                                               },
                                                             ]);
                                                           }
-
                                                         }
                                                       } else {
                                                         form.setFields([

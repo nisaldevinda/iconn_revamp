@@ -21,6 +21,7 @@ const MemberList: React.FC = () => {
   }, []);
 
   return (
+    
     <PageContainer>
       <BasicContainer
         rowId="id"
@@ -75,6 +76,7 @@ const MemberList: React.FC = () => {
         }}
       />
     </PageContainer>
+    
   );
 };
 

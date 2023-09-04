@@ -11,22 +11,22 @@ const AttendanceAdmin: React.FC = () => {
     const { hasPermitted } = access;
 
     return (
-        <>
-            <Access
-                accessible={hasPermitted('attendance-admin-access')}
-                fallback={<PermissionDeniedPage />}
+      <>
+        <Access
+          accessible={hasPermitted('attendance-admin-access')}
+          fallback={<PermissionDeniedPage />}
+        >
+          <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+            <PageContainer
+              header={{
+                ghost: true,
+              }}
             >
-                <div>
-                    <PageContainer
-                        header={{
-                            ghost: true,
-                        }}
-                    >
-                        <AttendanceAdminTableView adminView={true} others={true} accessLevel={'admin'}/>
-                    </PageContainer>
-                </div>
-            </Access>
-        </>
+              <AttendanceAdminTableView adminView={true} others={true} accessLevel={'admin'} />
+            </PageContainer>
+          </div>
+        </Access>
+      </>
     );
 };
 

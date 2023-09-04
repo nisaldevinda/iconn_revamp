@@ -291,68 +291,78 @@ const EmployeeJourneyUpdate: React.FC = () => {
   }
 
   return (
-    <PageContainer
-      loading={loading}
-      className='employee-journey-container'
-      ghost
-      header={{
-        title: intl.formatMessage({
-          id: 'employee_journey_update',
-          defaultMessage: "Employee Journey Update",
-        }),
-        breadcrumb: {},
-      }}
-      tabList={[
-        {
-          tab: <>
-            {/* <Icon component={() => <img src={PromotionIcon} height={24} width={24} />} /> */}
-            {intl.formatMessage({
-              id: 'employee_journey_update.promotions',
-              defaultMessage: "Promotions",
-            })}
-          </>,
-          key: 'promotions',
-        },
-        {
-          tab: <>
-            {/* <Icon component={() => <img src={ConfirmationContractIcon} height={24} width={24} />} /> */}
-            {intl.formatMessage({
-              id: 'employee_journey_update.confirmation_contracts',
-              defaultMessage: "Confirmation/Contracts",
-            })}
-          </>,
-          key: 'confirmation_contracts',
-        },
-        {
-          tab: <>
-            {/* <Icon component={() => <img src={TransferIcon} height={24} width={24} />} /> */}
-            {intl.formatMessage({
-              id: 'employee_journey_update.transfers',
-              defaultMessage: "Transfers",
-            })}
-          </>,
-          key: 'transfers',
-        },
-        {
-          tab: <>
-            {/* <Icon component={() => <img src={ResignationIcon} height={24} width={24} />} /> */}
-            {intl.formatMessage({
-              id: 'employee_journey_update.resignations',
-              defaultMessage: "Resignations",
-            })}
-          </>,
-          key: 'resignations',
-        }
-      ]}
-      tabProps={{
-        type: 'card',
-        hideAdd: true,
-        activeKey: activeTab,
-        onChange: setActiveTab
-      }}
-    >
-      {contentRender()}
-    </PageContainer>
+    <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+      <PageContainer
+        loading={loading}
+        className="employee-journey-container"
+        ghost
+        header={{
+          title: intl.formatMessage({
+            id: 'employee_journey_update',
+            defaultMessage: 'Employee Journey Update',
+          }),
+          breadcrumb: {},
+        }}
+        tabList={[
+          {
+            tab: (
+              <>
+                {/* <Icon component={() => <img src={PromotionIcon} height={24} width={24} />} /> */}
+                {intl.formatMessage({
+                  id: 'employee_journey_update.promotions',
+                  defaultMessage: 'Promotions',
+                })}
+              </>
+            ),
+            key: 'promotions',
+          },
+          {
+            tab: (
+              <>
+                {/* <Icon component={() => <img src={ConfirmationContractIcon} height={24} width={24} />} /> */}
+                {intl.formatMessage({
+                  id: 'employee_journey_update.confirmation_contracts',
+                  defaultMessage: 'Confirmation/Contracts',
+                })}
+              </>
+            ),
+            key: 'confirmation_contracts',
+          },
+          {
+            tab: (
+              <>
+                {/* <Icon component={() => <img src={TransferIcon} height={24} width={24} />} /> */}
+                {intl.formatMessage({
+                  id: 'employee_journey_update.transfers',
+                  defaultMessage: 'Transfers',
+                })}
+              </>
+            ),
+            key: 'transfers',
+          },
+          {
+            tab: (
+              <>
+                {/* <Icon component={() => <img src={ResignationIcon} height={24} width={24} />} /> */}
+                {intl.formatMessage({
+                  id: 'employee_journey_update.resignations',
+                  defaultMessage: 'Resignations',
+                })}
+              </>
+            ),
+            key: 'resignations',
+          },
+        ]}
+        tabProps={{
+          type: 'card',
+          hideAdd: true,
+          activeKey: activeTab,
+          onChange: setActiveTab,
+        }}
+      >
+        {contentRender()}
+      </PageContainer>
+    </div>
   );
 };
 

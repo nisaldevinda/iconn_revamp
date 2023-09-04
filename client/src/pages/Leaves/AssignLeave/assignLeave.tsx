@@ -832,70 +832,77 @@ const AssignLeave: React.FC = () => {
                             },
                           ]}
                         >
-                         {
-                           isEnableInactiveEmployees ? 
-                           <ProFormSelect
-                           name="employeeSelect"
-                           showSearch
-                           // options={selectorEmployees}
-                           fieldProps={{
-                             optionItemRender(item) {
-                               return item.label;
-                             },
-                             onChange: async (value) => {
-                               form.setFieldsValue({ leaveType: null, date: null });
-                               setShowCount(false);
-                               if (value) {
-                                 let params = { employee: value, 'access-level': 'Assign-Leave' };
-                                 const res = await getEntitlementCountByEmployeeId(params);
-                                 setEntitlementCount(res.data);
+                          {isEnableInactiveEmployees ? (
+                            <ProFormSelect
+                              name="employeeSelect"
+                              showSearch
+                              // options={selectorEmployees}
+                              fieldProps={{
+                                optionItemRender(item) {
+                                  return item.label;
+                                },
+                                onChange: async (value) => {
+                                  form.setFieldsValue({ leaveType: null, date: null });
+                                  setShowCount(false);
+                                  if (value) {
+                                    let params = {
+                                      employee: value,
+                                      'access-level': 'Assign-Leave',
+                                    };
+                                    const res = await getEntitlementCountByEmployeeId(params);
+                                    setEntitlementCount(res.data);
 
-                                 setSelectedEmployee(value);
-                                 getLeaveTypes(value);
-                               } else {
-                                 setRelatedLeaveTypes([]);
-                                 setSelectedLeaveType(null);
-                                 setSelectedEmployee(null);
-                                 setShowCount(false);
-                               }
-                             },
-                           }}
-                           // request={getRelatedEmployees}
-                           options={relatedEmployeesWithInactiveEmps}
-                           placeholder="Select Employee"
-                           style={{ marginBottom: 0 }}
-                         /> :  <ProFormSelect
-                         name="employeeSelect"
-                         showSearch
-                         // options={selectorEmployees}
-                         fieldProps={{
-                           optionItemRender(item) {
-                             return item.label;
-                           },
-                           onChange: async (value) => {
-                             form.setFieldsValue({ leaveType: null, date: null });
-                             setShowCount(false);
-                             if (value) {
-                               let params = { employee: value, 'access-level': 'Assign-Leave' };
-                               const res = await getEntitlementCountByEmployeeId(params);
-                               setEntitlementCount(res.data);
+                                    setSelectedEmployee(value);
+                                    getLeaveTypes(value);
+                                  } else {
+                                    setRelatedLeaveTypes([]);
+                                    setSelectedLeaveType(null);
+                                    setSelectedEmployee(null);
+                                    setShowCount(false);
+                                  }
+                                },
+                              }}
+                              // request={getRelatedEmployees}
+                              options={relatedEmployeesWithInactiveEmps}
+                              placeholder="Select Employee"
+                              style={{ marginBottom: 0 }}
+                            />
+                          ) : (
+                            <ProFormSelect
+                              name="employeeSelect"
+                              showSearch
+                              // options={selectorEmployees}
+                              fieldProps={{
+                                optionItemRender(item) {
+                                  return item.label;
+                                },
+                                onChange: async (value) => {
+                                  form.setFieldsValue({ leaveType: null, date: null });
+                                  setShowCount(false);
+                                  if (value) {
+                                    let params = {
+                                      employee: value,
+                                      'access-level': 'Assign-Leave',
+                                    };
+                                    const res = await getEntitlementCountByEmployeeId(params);
+                                    setEntitlementCount(res.data);
 
-                               setSelectedEmployee(value);
-                               getLeaveTypes(value);
-                             } else {
-                               setRelatedLeaveTypes([]);
-                               setSelectedLeaveType(null);
-                               setSelectedEmployee(null);
-                               setShowCount(false);
-                             }
-                           },
-                         }}
-                         // request={getRelatedEmployees}
-                         options={relatedEmployees}
-                         placeholder="Select Employee"
-                         style={{ marginBottom: 0 }}
-                       />
-                         }
+                                    setSelectedEmployee(value);
+                                    getLeaveTypes(value);
+                                  } else {
+                                    setRelatedLeaveTypes([]);
+                                    setSelectedLeaveType(null);
+                                    setSelectedEmployee(null);
+                                    setShowCount(false);
+                                  }
+                                },
+                              }}
+                              // request={getRelatedEmployees}
+                              options={relatedEmployees}
+                              placeholder="Select Employee"
+                              style={{ marginBottom: 0 }}
+                            />
+                          )}
                         </Form.Item>
                       </Col>
                       <Col span={9} style={{ backgroundColor: '' }}>
@@ -1018,8 +1025,7 @@ const AssignLeave: React.FC = () => {
                         </Form.Item>
                       </Col>
                     </Row>
-                    <Row>
-                    </Row>
+                    <Row></Row>
                     <Row justify="start">
                       <Col span={16}>
                         <Row>
@@ -1309,47 +1315,45 @@ const AssignLeave: React.FC = () => {
                         )}
                       </Col>
                       <Col span={3}>
-                        
-                        {
-                        fromDateLeavePeriodType !== 'IN_SHORT_LEAVE' &&
+                        {fromDateLeavePeriodType !== 'IN_SHORT_LEAVE' &&
                         fromDateLeavePeriodType !== 'OUT_SHORT_LEAVE' ? (
                           <Row
-                          style={{
-                            backgroundColor: '#f2fced',
-                            width: 140,
-                            height: 130,
-                            marginTop: 30,
-                            borderRadius: 6,
-                          }}
-                        >
-                          <div style={{ marginTop: 28, marginLeft: 20 }}>
-                            <Text style={{ color: '#626D6C', fontSize: 14 }}>{
-                                    intl.formatMessage({
-                                      id: 'leaveDays',
-                                      defaultMessage: 'Leave days',
-                                    })
-                                  }</Text>
-                            <br></br>
-                            <Text
-                              style={{
-                                fontWeight: 400,
-                                color: '#74b425',
-                                fontSize: 26,
-                              }}
-                            >
-                              {workingDaysCount}{' '}
-                              {Number(workingDaysCount) > 1 || Number(workingDaysCount) == 0
-                                ? intl.formatMessage({
-                                    id: 'days',
-                                    defaultMessage: 'Days',
-                                  })
-                                : intl.formatMessage({
-                                  id: 'day',
-                                  defaultMessage: 'Day',
+                            style={{
+                              backgroundColor: '#CDE7FF',
+                              width: 140,
+                              height: 130,
+                              marginTop: 30,
+                              borderRadius: 6,
+                            }}
+                          >
+                            <div style={{ marginTop: 28, marginLeft: 20 }}>
+                              <Text style={{ color: '#626D6C', fontSize: 14 }}>
+                                {intl.formatMessage({
+                                  id: 'leaveDays',
+                                  defaultMessage: 'Leave days',
                                 })}
-                            </Text>
-                          </div>
-                        </Row>
+                              </Text>
+                              <br></br>
+                              <Text
+                                style={{
+                                  fontWeight: 400,
+                                  color: '#71839B',
+                                  fontSize: 26,
+                                }}
+                              >
+                                {workingDaysCount}{' '}
+                                {Number(workingDaysCount) > 1 || Number(workingDaysCount) == 0
+                                  ? intl.formatMessage({
+                                      id: 'days',
+                                      defaultMessage: 'Days',
+                                    })
+                                  : intl.formatMessage({
+                                      id: 'day',
+                                      defaultMessage: 'Day',
+                                    })}
+                              </Text>
+                            </div>
+                          </Row>
                         ) : (
                           <></>
                         )}
@@ -1397,17 +1401,17 @@ const AssignLeave: React.FC = () => {
                           >
                             <Upload {...uploaderProps} className="upload-btn">
                               <Button style={{ borderRadius: 6 }} icon={<UploadOutlined />}>
-                                {
-                                  intl.formatMessage({
-                                    id: 'upload',
-                                    defaultMessage: 'Upload',
-                                  })
-                                }
+                                {intl.formatMessage({
+                                  id: 'upload',
+                                  defaultMessage: 'Upload',
+                                })}
                               </Button>
-                              <span style={{ paddingLeft: 8, color: '#AAAAAA' }}>{intl.formatMessage({
-                                    id: 'jpgOrPdf',
-                                    defaultMessage: 'JPG or PDF',
-                                  })}</span>
+                              <span style={{ paddingLeft: 8, color: '#AAAAAA' }}>
+                                {intl.formatMessage({
+                                  id: 'jpgOrPdf',
+                                  defaultMessage: 'JPG or PDF',
+                                })}
+                              </span>
                             </Upload>
                             {fileFormatError && (
                               <Row style={{ color: '#ff4d4f' }}>
@@ -1459,7 +1463,12 @@ const AssignLeave: React.FC = () => {
                               })}
                             </Button>
                           </Popconfirm>
-                          <Button disabled={disableButton} type="primary" onClick={applyLeave} style={{ marginLeft: 15 }}>
+                          <Button
+                            disabled={disableButton}
+                            type="primary"
+                            onClick={applyLeave}
+                            style={{ marginLeft: 15 }}
+                          >
                             {intl.formatMessage({
                               id: 'SUBMIT',
                               defaultMessage: 'Add Leave Entry',
@@ -1486,28 +1495,34 @@ const AssignLeave: React.FC = () => {
                             <p className={'dayTypeIcon'}>
                               <Image src={UsedIcon} preview={false} height={15} />
                             </p>
-                            <p className={'dayTypeContent'}>{intl.formatMessage({
+                            <p className={'dayTypeContent'}>
+                              {intl.formatMessage({
                                 id: 'used',
                                 defaultMessage: 'Used',
-                              })}</p>
+                              })}
+                            </p>
                           </Space>
                           <Space className={'dayType'}>
                             <p className={'dayTypeIcon'}>
                               <Image src={PendingIcon} preview={false} height={15} />
                             </p>
-                            <p className={'dayTypeContent'}>{intl.formatMessage({
+                            <p className={'dayTypeContent'}>
+                              {intl.formatMessage({
                                 id: 'pending',
                                 defaultMessage: 'Pending',
-                              })}</p>
+                              })}
+                            </p>
                           </Space>
                           <Space className={'dayType'}>
                             <p className={'dayTypeIcon'}>
                               <Image src={BalanceIcon} preview={false} height={15} />
                             </p>
-                            <p className={'dayTypeContent'}>{intl.formatMessage({
+                            <p className={'dayTypeContent'}>
+                              {intl.formatMessage({
                                 id: 'balanceAvailable',
                                 defaultMessage: 'Balance/Available',
-                              })}</p>
+                              })}
+                            </p>
                           </Space>
                         </>
                       }
@@ -1526,22 +1541,30 @@ const AssignLeave: React.FC = () => {
                             <Row>
                               <Col className="single-chart-details-section">
                                 <Row>
-                                  <Col className="single-chart-details-section-col">{intl.formatMessage({
-                                    id: 'allocated',
-                                    defaultMessage: 'Allocated',
-                                  })}</Col>
-                                  <Col className="single-chart-details-section-col">{intl.formatMessage({
-                                    id: 'used',
-                                    defaultMessage: 'Used',
-                                  })}</Col>
-                                  <Col className="single-chart-details-section-col">{intl.formatMessage({
-                                    id: 'pending',
-                                    defaultMessage: 'Pending',
-                                  })}</Col>
-                                  <Col className="single-chart-details-section-col">{intl.formatMessage({
-                                    id: 'balance',
-                                    defaultMessage: 'Balance',
-                                  })}</Col>
+                                  <Col className="single-chart-details-section-col">
+                                    {intl.formatMessage({
+                                      id: 'allocated',
+                                      defaultMessage: 'Allocated',
+                                    })}
+                                  </Col>
+                                  <Col className="single-chart-details-section-col">
+                                    {intl.formatMessage({
+                                      id: 'used',
+                                      defaultMessage: 'Used',
+                                    })}
+                                  </Col>
+                                  <Col className="single-chart-details-section-col">
+                                    {intl.formatMessage({
+                                      id: 'pending',
+                                      defaultMessage: 'Pending',
+                                    })}
+                                  </Col>
+                                  <Col className="single-chart-details-section-col">
+                                    {intl.formatMessage({
+                                      id: 'balance',
+                                      defaultMessage: 'Balance',
+                                    })}
+                                  </Col>
                                 </Row>
                                 <Row style={{ paddingTop: 10 }}>
                                   <Col className="single-chart-details-section-col">
@@ -1554,26 +1577,25 @@ const AssignLeave: React.FC = () => {
                                     {currentLeaveAllocationDetail.pending}
                                   </Col>
                                   <Col className="single-chart-details-section-col">
-                                    {(
-                                      currentLeaveAllocationDetail.total -
+                                    {currentLeaveAllocationDetail.total -
                                       (currentLeaveAllocationDetail.used +
-                                      currentLeaveAllocationDetail.pending)
-                                    )}
+                                        currentLeaveAllocationDetail.pending)}
                                   </Col>
                                 </Row>
-                                {currentLeaveAllocationDetail.exceeding && currentLeaveAllocationDetail.exceeding !== 0 &&
-                                  <Row style={{ paddingTop : 10 }}>
-                                   <Col className="entitlement-chart-exceeded-col">
-                                     {intl.formatMessage({
-                                      id: 'exceededLeaves',
-                                      defaultMessage: 'Exceeded Leaves',
-                                    })}
-                                  </Col>
-                                   <Col className="entitlement-chart-exceeded-details-col">
-                                    { currentLeaveAllocationDetail.exceeding }
-                                  </Col>
-                                </Row>
-                                }
+                                {currentLeaveAllocationDetail.exceeding &&
+                                  currentLeaveAllocationDetail.exceeding !== 0 && (
+                                    <Row style={{ paddingTop: 10 }}>
+                                      <Col className="entitlement-chart-exceeded-col">
+                                        {intl.formatMessage({
+                                          id: 'exceededLeaves',
+                                          defaultMessage: 'Exceeded Leaves',
+                                        })}
+                                      </Col>
+                                      <Col className="entitlement-chart-exceeded-details-col">
+                                        {currentLeaveAllocationDetail.exceeding}
+                                      </Col>
+                                    </Row>
+                                  )}
                               </Col>
                             </Row>
                             <Row className="single-chart-body">
@@ -1633,9 +1655,9 @@ const AssignLeave: React.FC = () => {
                                           (entitlement.used + entitlement.pending),
                                       },
                                       {
-                                        type:'Exceeded Leaves',
-                                        value: Number(entitlement.exceeding)
-                                      }
+                                        type: 'Exceeded Leaves',
+                                        value: Number(entitlement.exceeding),
+                                      },
                                     ]}
                                     statistic={getStats(entitlement)}
                                     {...config}
@@ -1643,22 +1665,30 @@ const AssignLeave: React.FC = () => {
                                 </Col>
                                 <Col className="entitlement-chart-details-section">
                                   <Row>
-                                    <Col className="entitlement-chart-details-col">{intl.formatMessage({
-                                      id: 'allocated',
-                                      defaultMessage: 'Allocated',
-                                    })}</Col>
-                                    <Col className="entitlement-chart-details-col">{intl.formatMessage({
-                                      id: 'used',
-                                      defaultMessage: 'Used',
-                                    })}</Col>
-                                    <Col className="entitlement-chart-details-col">{intl.formatMessage({
-                                      id: 'pending',
-                                      defaultMessage: 'Pending',
-                                    })}</Col>
-                                    <Col className="entitlement-chart-details-col">{intl.formatMessage({
-                                      id: 'balance',
-                                      defaultMessage: 'Balance',
-                                    })}</Col>
+                                    <Col className="entitlement-chart-details-col">
+                                      {intl.formatMessage({
+                                        id: 'allocated',
+                                        defaultMessage: 'Allocated',
+                                      })}
+                                    </Col>
+                                    <Col className="entitlement-chart-details-col">
+                                      {intl.formatMessage({
+                                        id: 'used',
+                                        defaultMessage: 'Used',
+                                      })}
+                                    </Col>
+                                    <Col className="entitlement-chart-details-col">
+                                      {intl.formatMessage({
+                                        id: 'pending',
+                                        defaultMessage: 'Pending',
+                                      })}
+                                    </Col>
+                                    <Col className="entitlement-chart-details-col">
+                                      {intl.formatMessage({
+                                        id: 'balance',
+                                        defaultMessage: 'Balance',
+                                      })}
+                                    </Col>
                                   </Row>
                                   <Row style={{ paddingTop: 10 }}>
                                     <Col className="entitlement-chart-details-col">
@@ -1674,19 +1704,19 @@ const AssignLeave: React.FC = () => {
                                       {entitlement.total - (entitlement.used + entitlement.pending)}
                                     </Col>
                                   </Row>
-                                  {entitlement.exceeding && entitlement.exceeding !== 0 &&
-                                  <Row style={{ paddingTop : 10 }}>
-                                   <Col className="entitlement-chart-exceeded-col">
-                                     {intl.formatMessage({
-                                      id: 'exceededLeaves',
-                                      defaultMessage: 'Exceeded Leaves',
-                                    })}
-                                  </Col>
-                                   <Col className="entitlement-chart-exceeded-details-col">
-                                    { entitlement.exceeding }
-                                  </Col>
-                                </Row>
-                                }
+                                  {entitlement.exceeding && entitlement.exceeding !== 0 && (
+                                    <Row style={{ paddingTop: 10 }}>
+                                      <Col className="entitlement-chart-exceeded-col">
+                                        {intl.formatMessage({
+                                          id: 'exceededLeaves',
+                                          defaultMessage: 'Exceeded Leaves',
+                                        })}
+                                      </Col>
+                                      <Col className="entitlement-chart-exceeded-details-col">
+                                        {entitlement.exceeding}
+                                      </Col>
+                                    </Row>
+                                  )}
                                 </Col>
                               </Row>
                               <Row className="entitlement-chart-footer-section">
@@ -1716,7 +1746,7 @@ const AssignLeave: React.FC = () => {
         })}
         modalProps={{
           destroyOnClose: true,
-          bodyStyle: {height: 700}
+          bodyStyle: { height: 700 },
         }}
         onFinish={async (values: any) => {}}
         visible={listModalVisible}

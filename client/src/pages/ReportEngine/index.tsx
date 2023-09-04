@@ -199,7 +199,8 @@ const ReportData: React.FC = () => {
 
   return (
     <Access accessible={hasPermitted('reports-read-write')} fallback={<PermissionDeniedPage />}>
-      <PageContainer>
+      <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+        <PageContainer>
         <ProTable
           actionRef={actionRef}
           rowKey="id"
@@ -243,14 +244,15 @@ const ReportData: React.FC = () => {
             return {
               onClick: async () => {
                 const { id } = record;
-                  if (! record.isSystemReport ) {
-                    history.push(`/report-engine/report-wizard/${id}`);
-                  }
+                if (!record.isSystemReport) {
+                  history.push(`/report-engine/report-wizard/${id}`);
+                }
               },
             };
           }}
         />
-      </PageContainer>
+        </PageContainer>
+      </div>
     </Access>
   );
 };
