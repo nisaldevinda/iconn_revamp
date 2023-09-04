@@ -435,275 +435,332 @@ const LeaveEntitlement: React.FC = (props) => {
 
     }
     return (
-        <Access accessible={hasPermitted('leave-entitlement-write')} fallback={<PermissionDeniedPage />}>
-            <PageContainer>
-                <Card>
-                    <Spin size="large" spinning={loading}>
-                    <Col offset={1} span={12}>
-                        <ProForm
-                            id={'NewTemplate'}
-                            form={form}
-                            initialValues={{
-                                leaveEntitlementFor: "individual"
-                            }}
-                            onFinish={formOnFinish}
-                            onValuesChange={onFormChange}
-                            submitter={{
-                                searchConfig: {
-                                    resetText: 'reset',
-                                    submitText: 'submit',
+      <Access
+        accessible={hasPermitted('leave-entitlement-write')}
+        fallback={<PermissionDeniedPage />}
+      >
+        <div
+          style={{
+            backgroundColor: 'white',
+            borderTopLeftRadius: '30px',
+            paddingLeft: '50px',
+            paddingTop: '50px',
+            paddingBottom: '50px',
+            width: '100%',
+            paddingRight: '0px',
+          }}
+        >
+          <PageContainer>
+            <Card>
+              <Spin size="large" spinning={loading}>
+                <Col offset={1} span={12}>
+                  <ProForm
+                    id={'NewTemplate'}
+                    form={form}
+                    initialValues={{
+                      leaveEntitlementFor: 'individual',
+                    }}
+                    onFinish={formOnFinish}
+                    onValuesChange={onFormChange}
+                    submitter={{
+                      searchConfig: {
+                        resetText: 'reset',
+                        submitText: 'submit',
+                      },
+                      render: (props, doms) => {
+                        return [
+                          <Row justify="end" gutter={[16, 16]}>
+                            <Col span={4}>
+                              <Button
+                                block
+                                type="default"
+                                key="rest"
+                                size="middle"
+                                onClick={() => props.form?.resetFields()}
+                                className={styles.resetBtn}
+                              >
+                                Reset
+                              </Button>
+                            </Col>
+                            <Col span={4}>
+                              <Button
+                                block
+                                type="primary"
+                                key="submit"
+                                size="middle"
+                                onClick={() => props.form?.submit()}
+                              >
+                                Save
+                              </Button>
+                            </Col>
+                          </Row>,
+                        ];
+                      },
+                    }}
+                  >
+                    <ProFormSelect
+                      width={330}
+                      name="leaveTypeId"
+                      label={intl.formatMessage({
+                        id: ' leaveType',
+                        defaultMessage: 'Leave Type',
+                      })}
+                      // request={async () => getOptions("leaveType")}
+                      options={relatedLeaveTypes}
+                      showSearch
+                      placeholder="Select Leave Type"
+                      rules={[
+                        {
+                          required: true,
+                          message: intl.formatMessage({
+                            id: 'leaveEntitlemen.add.leaveType',
+                            defaultMessage: 'Required',
+                          }),
+                        },
+                      ]}
+                    />
 
-                                },
-                                render: (props, doms) => {
-                                    return [
-                                        <Row justify='end' gutter={[16, 16]}>
-                                            <Col span={4}>
-                                                <Button block type="default" key="rest" size="middle" onClick={() => props.form?.resetFields()} className={styles.resetBtn}>
-                                                    Reset
-                                                </Button>
-                                            </Col>
-                                            <Col span={4}>
-                                                <Button block type="primary" key="submit" size="middle" onClick={() => props.form?.submit()}>
-                                                    Save
-                                                </Button>
-                                            </Col>
-                                        </Row>
+                    <ProFormRadio.Group
+                      name="leaveEntitlementFor"
+                      label="Leave Entitlement For"
+                      radioType="button"
+                      className={styles.btnGroupLeaveEntitlement}
+                      options={[
+                        {
+                          label: 'Individual',
+                          value: 'individual',
+                          style: {
+                            borderTopLeftRadius: 6,
+                            borderBottomLeftRadius: 6,
+                          },
+                        },
+                        {
+                          label: 'Multiple Employees',
+                          value: 'multiple',
+                          disabled: selectedLeavePeriodType !== 'STANDARD',
+                          style: {
+                            borderTopRightRadius: 6,
+                            borderBottomRightRadius: 6,
+                          },
+                        },
+                      ]}
+                    />
+                    {formComponents()}
+                    <ProFormSelect
+                      width={330}
+                      name="leavePeriod"
+                      label="Leave Period"
+                      placeholder="Select Leave Period"
+                      rules={[
+                        {
+                          required: true,
+                          message: intl.formatMessage({
+                            id: 'leaveEntitlemen.add.leavePeriod',
+                            defaultMessage: 'Required',
+                          }),
+                        },
+                      ]}
+                      showSearch
+                      valueEnum={leavePeriodEnum}
+                      disabled={isLeavePeriodDisabled}
+                      onChange={(val: any) => {
+                        setSelectedLeavePeriod(val);
+                      }}
+                    />
+                    <Row gutter={[32, 16]}>
+                      <Col span={8}>
+                        <ProFormDatePicker
+                          width={'100%'}
+                          name="effectiveDate"
+                          label="Effective Date"
+                          placeholder="Select Date"
+                          format={'DD-MM-YYYY'}
+                          rules={[
+                            {
+                              required: true,
+                              message: intl.formatMessage({
+                                id: 'leaveEntitlemen.add.effectiveDate',
+                                defaultMessage: 'Required',
+                              }),
+                            },
+                          ]}
+                          onChange={(value) => {
+                            if (selectedLeavePeriod && value) {
+                              var isSameOrAfterStartDate = value.isSameOrAfter(
+                                moment(
+                                  leavePeriodArray[selectedLeavePeriod].leavePeriodStartDate,
+                                  'DD-MM-YYYY',
+                                ).format('YYYY-MM-DD'),
+                                'day',
+                              );
+                              var isSameOrAfterEndDate = value.isSameOrBefore(
+                                moment(
+                                  leavePeriodArray[selectedLeavePeriod].leavePeriodEndate,
+                                  'DD-MM-YYYY',
+                                ).format('YYYY-MM-DD'),
+                                'day',
+                              );
 
-                                    ];
-                                },
-                            }}
-                        >
-                            <ProFormSelect
-                                width={330}
-                                name="leaveTypeId"
-                                label={
-                                    intl.formatMessage({
-                                        id: ' leaveType',
-                                        defaultMessage: 'Leave Type',
-                                    })
-                                }
-                                // request={async () => getOptions("leaveType")}
-                                options={relatedLeaveTypes}
-                                showSearch
+                              if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
+                                form.setFieldsValue({
+                                  effectiveDate: value.format('YYYY-MM-DD'),
+                                });
+                              } else {
+                                form.setFieldsValue({
+                                  effectiveDate: moment(
+                                    leavePeriodArray[selectedLeavePeriod].leavePeriodStartDate,
+                                    'DD-MM-YYYY',
+                                  ),
+                                });
+                              }
+                            }
+                          }}
+                        />
+                      </Col>
+                      <Col span={8}>
+                        <ProFormDatePicker
+                          width={'100%'}
+                          name="expiryDate"
+                          label="Expiry Date"
+                          placeholder="Select Date"
+                          format={'DD-MM-YYYY'}
+                          rules={[
+                            {
+                              required: true,
+                              message: intl.formatMessage({
+                                id: 'leaveEntitlemen.add.expiryDate',
+                                defaultMessage: 'Required',
+                              }),
+                            },
+                          ]}
+                          onChange={(value) => {
+                            if (selectedLeavePeriod && value) {
+                              var isSameOrAfterStartDate = value.isSameOrAfter(
+                                moment(
+                                  leavePeriodArray[selectedLeavePeriod].leavePeriodStartDate,
+                                  'DD-MM-YYYY',
+                                ).format('YYYY-MM-DD'),
+                                'day',
+                              );
+                              var isSameOrAfterEndDate = value.isSameOrBefore(
+                                moment(
+                                  leavePeriodArray[selectedLeavePeriod].leavePeriodEndate,
+                                  'DD-MM-YYYY',
+                                ).format('YYYY-MM-DD'),
+                                'day',
+                              );
 
-                                placeholder="Select Leave Type"
-                                rules={
-                                    [
-                                        {
-                                            required: true,
-                                            message: intl.formatMessage({
-                                                id: 'leaveEntitlemen.add.leaveType',
-                                                defaultMessage: 'Required',
-                                            })
-                                        }
-                                    ]
-                                }
-                            />
-
-                            <ProFormRadio.Group
-                                name="leaveEntitlementFor"
-                                label="Leave Entitlement For"
-                                radioType="button"
-                                className={styles.btnGroupLeaveEntitlement}
-                                options={[
-                                    {
-                                        label: 'Individual',
-                                        value: 'individual',
-                                        style: {
-                                            borderTopLeftRadius: 6,
-                                            borderBottomLeftRadius: 6,
-                                        }
-                                    },
-                                    {
-                                        label: 'Multiple Employees',
-                                        value: 'multiple',
-                                        disabled: selectedLeavePeriodType !== "STANDARD",
-                                        style: {
-                                            borderTopRightRadius: 6,
-                                            borderBottomRightRadius: 6,
-                                        }
-
-                                    },
-                                ]}
-                            />
-                            {formComponents()}
-                            <ProFormSelect
-                                width={330}
-                                name="leavePeriod"
-                                label="Leave Period"
-                                placeholder="Select Leave Period"
-                                rules={
-                                    [
-                                        {
-                                            required: true,
-                                            message: intl.formatMessage({
-                                                id: 'leaveEntitlemen.add.leavePeriod',
-                                                defaultMessage: 'Required',
-                                            })
-                                        }
-                                    ]
-                                }
-                                showSearch
-                                valueEnum={leavePeriodEnum}
-                                disabled={isLeavePeriodDisabled}
-                                onChange = {(val: any) => {
-                                    setSelectedLeavePeriod(val);
-                                }}
-                            />
-                            <Row gutter={[32, 16]}>
-                                <Col span={8}>
-                                    <ProFormDatePicker
-                                        width={"100%"}
-                                        name="effectiveDate"
-                                        label="Effective Date"
-                                        placeholder="Select Date"
-                                        format={"DD-MM-YYYY"}
-                                        rules={
-                                            [
-                                                {
-                                                    required: true,
-                                                    message: intl.formatMessage({
-                                                        id: 'leaveEntitlemen.add.effectiveDate',
-                                                        defaultMessage: 'Required',
-                                                    })
-                                                }
-                                            ]
-                                        }
-                                        onChange= {(value) => {
-                                            if (selectedLeavePeriod && value) {
-                                                var isSameOrAfterStartDate = value.isSameOrAfter( moment(leavePeriodArray[selectedLeavePeriod].leavePeriodStartDate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
-                                                var isSameOrAfterEndDate = value.isSameOrBefore( moment(leavePeriodArray[selectedLeavePeriod].leavePeriodEndate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
-
-                                                if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
-                                                    form.setFieldsValue({
-                                                        effectiveDate: value.format("YYYY-MM-DD")
-                                                    })
-                                                } else {
-                                                    form.setFieldsValue({
-                                                        effectiveDate: moment(leavePeriodArray[selectedLeavePeriod].leavePeriodStartDate, "DD-MM-YYYY"),
-                                                    })
-                                                }
-                                            }
-
-                                        }}
-
-                                    />
-                                </Col>
-                                <Col span={8}>
-                                    <ProFormDatePicker
-                                        width={"100%"}
-                                        name="expiryDate"
-                                        label="Expiry Date"
-                                        placeholder="Select Date"
-                                        format={"DD-MM-YYYY"}
-                                        rules={
-                                            [
-                                                {
-                                                    required: true,
-                                                    message: intl.formatMessage({
-                                                        id: 'leaveEntitlemen.add.expiryDate',
-                                                        defaultMessage: 'Required',
-                                                    })
-                                                }
-                                            ]
-                                        }
-                                        onChange={(value) => {
-                                            if (selectedLeavePeriod && value) {
-                                                
-                                                var isSameOrAfterStartDate = value.isSameOrAfter( moment(leavePeriodArray[selectedLeavePeriod].leavePeriodStartDate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
-                                                var isSameOrAfterEndDate = value.isSameOrBefore( moment(leavePeriodArray[selectedLeavePeriod].leavePeriodEndate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
-
-                                                if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
-                                                    form.setFieldsValue({
-                                                        expiryDate: value.format("YYYY-MM-DD")
-                                                    })
-                                                } else {
-                                                    form.setFieldsValue({
-                                                        expiryDate: moment(leavePeriodArray[selectedLeavePeriod].leavePeriodEndate, "DD-MM-YYYY")
-                                                    })
-                                                }
-                                            }
-                                        }}
-
-                                    />
-                                </Col>
-                                <Col span={8}>
-                                    <ProFormDigit
-                                        fieldProps={{
-                                            type: "number",
-                                            precision: 2
-                                        }}
-                                        width={"100%"}
-                                        name="numberOfDays"
-                                        label="Number of Days"
-                                        // max={365}
-                                        rules={
-                                            [
-                                                {
-                                                    required: true,
-                                                    message: intl.formatMessage({
-                                                        id: 'leaveEntitlemen.add.numberOfDays',
-                                                        defaultMessage: 'Required',
-                                                    })
-                                                },
-                                                () => ({
-                                                    validator(type, value) {
-                                                        const numStr = String(value);
-                                                        // String Contains Decimal
-                                                        if (numStr.includes('.')) {
-                                                            if (numStr.split('.')[1].length > 2) {
-                                                                return Promise.reject(new Error(intl.formatMessage({
-                                                                    id: 'leaveEntitlemen.add.max.numberOfDays',
-                                                                    defaultMessage: 'Only up to two decimal places',
-                                                                })));
-                                                            }
-                                                        };
-                                                        if (value > 365) {
-                                                            return Promise.reject(new Error(intl.formatMessage({
-                                                                id: 'leaveEntitlemen.add.max.numberOfDays',
-                                                                defaultMessage: 'Should be less than 365',
-                                                            })));
-                                                        }
-                                                        return Promise.resolve();
-
-                                                    },
-                                                })
-                                            ]
-                                        }
-                                    />
-                                </Col>
-                            </Row>
-
-                            <ProFormTextArea
-                                name="comment"
-                                label="Comment "
-                                placeholder=""
-                                rules={[
-                                    {
-                                        max: 200,
-                                        message: intl.formatMessage({
-                                            id: 'leaveEntitlemen.add.comment',
-                                            defaultMessage: 'Maximum length is 200 characters.',
+                              if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
+                                form.setFieldsValue({
+                                  expiryDate: value.format('YYYY-MM-DD'),
+                                });
+                              } else {
+                                form.setFieldsValue({
+                                  expiryDate: moment(
+                                    leavePeriodArray[selectedLeavePeriod].leavePeriodEndate,
+                                    'DD-MM-YYYY',
+                                  ),
+                                });
+                              }
+                            }
+                          }}
+                        />
+                      </Col>
+                      <Col span={8}>
+                        <ProFormDigit
+                          fieldProps={{
+                            type: 'number',
+                            precision: 2,
+                          }}
+                          width={'100%'}
+                          name="numberOfDays"
+                          label="Number of Days"
+                          // max={365}
+                          rules={[
+                            {
+                              required: true,
+                              message: intl.formatMessage({
+                                id: 'leaveEntitlemen.add.numberOfDays',
+                                defaultMessage: 'Required',
+                              }),
+                            },
+                            () => ({
+                              validator(type, value) {
+                                const numStr = String(value);
+                                // String Contains Decimal
+                                if (numStr.includes('.')) {
+                                  if (numStr.split('.')[1].length > 2) {
+                                    return Promise.reject(
+                                      new Error(
+                                        intl.formatMessage({
+                                          id: 'leaveEntitlemen.add.max.numberOfDays',
+                                          defaultMessage: 'Only up to two decimal places',
                                         }),
-                                    }
-                                ]}
-                            />
-                            <Row>
-                                <Col >
-                                    <Form.Item name="type" label="Entitlement Type" initialValue="MANUAL" >
-                                    </Form.Item>
-                                </Col>
-                                <Col offset={1}>
-                                    <Tag style={{ borderRadius: "18px", background: "#F3FEE2", color: "#7EBC1C", fontSize: "12px" }}>Manually</Tag>
-                                </Col>
-                            </Row>
-                        </ProForm>
-                    </Col>
-                    </Spin>
-                </Card>
-            </PageContainer>
-        </Access>
-    )
+                                      ),
+                                    );
+                                  }
+                                }
+                                if (value > 365) {
+                                  return Promise.reject(
+                                    new Error(
+                                      intl.formatMessage({
+                                        id: 'leaveEntitlemen.add.max.numberOfDays',
+                                        defaultMessage: 'Should be less than 365',
+                                      }),
+                                    ),
+                                  );
+                                }
+                                return Promise.resolve();
+                              },
+                            }),
+                          ]}
+                        />
+                      </Col>
+                    </Row>
+
+                    <ProFormTextArea
+                      name="comment"
+                      label="Comment "
+                      placeholder=""
+                      rules={[
+                        {
+                          max: 200,
+                          message: intl.formatMessage({
+                            id: 'leaveEntitlemen.add.comment',
+                            defaultMessage: 'Maximum length is 200 characters.',
+                          }),
+                        },
+                      ]}
+                    />
+                    <Row>
+                      <Col>
+                        <Form.Item
+                          name="type"
+                          label="Entitlement Type"
+                          initialValue="MANUAL"
+                        ></Form.Item>
+                      </Col>
+                      <Col offset={1}>
+                        <Tag
+                          style={{
+                            borderRadius: '18px',
+                            background: '#C0FFC7',
+                            color: '#3E8D47',
+                            fontSize: '12px',
+                          }}
+                        >
+                          Manually
+                        </Tag>
+                      </Col>
+                    </Row>
+                  </ProForm>
+                </Col>
+              </Spin>
+            </Card>
+          </PageContainer>
+        </div>
+      </Access>
+    );
 }
 
 export default LeaveEntitlement;

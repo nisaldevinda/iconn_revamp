@@ -9,22 +9,29 @@ const AttendanceManager: React.FC = () => {
     const { hasPermitted } = access;
 
     return (
-        <>
-            <Access
-                accessible={hasPermitted('my-attendance')}
-                fallback={<PermissionDeniedPage />}
+      <>
+        <Access accessible={hasPermitted('my-attendance')} fallback={<PermissionDeniedPage />}>
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderTopLeftRadius: '30px',
+              paddingLeft: '50px',
+              paddingTop: '50px',
+              paddingBottom: '50px',
+              width: '100%',
+              paddingRight: '0px',
+            }}
+          >
+            <PageContainer
+              header={{
+                ghost: true,
+              }}
             >
-                <div>
-                    <PageContainer
-                        header={{
-                            ghost: true,
-                        }}
-                    >
-                        <AttendanceEmployeeTableView others={false} accessLevel={'employee'} />
-                    </PageContainer>
-                </div>
-            </Access>
-        </>
+              <AttendanceEmployeeTableView others={false} accessLevel={'employee'} />
+            </PageContainer>
+          </div>
+        </Access>
+      </>
     );
 };
 

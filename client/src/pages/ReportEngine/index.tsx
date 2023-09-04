@@ -199,58 +199,67 @@ const ReportData: React.FC = () => {
 
   return (
     <Access accessible={hasPermitted('reports-read-write')} fallback={<PermissionDeniedPage />}>
-      <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderTopLeftRadius: '30px',
+          paddingLeft: '50px',
+          paddingTop: '50px',
+          width: '100%',
+          paddingRight: '0px',
+        }}
+      >
         <PageContainer>
-        <ProTable
-          actionRef={actionRef}
-          rowKey="id"
-          search={false}
-          columns={columns}
-          options={{
-            reload: () => {
-              actionRef.current?.reset();
-              actionRef.current?.reload();
-              setSearchText('');
-            },
-            search: true,
-          }}
-          toolbar={{
-            search: handleSearch(),
-          }}
-          pagination={{ pageSize: 10, defaultPageSize: 10 }}
-          request={async (params, filter) => {
-            const response = await getAllReports({ ...params }, privilege);
-
-            return {
-              data: response.data.data,
-              success: true,
-              total: response.data.total,
-            };
-          }}
-          toolBarRender={() => [
-            <Access accessible={hasPermitted('reports-read-write')}>
-              <Button
-                type="primary"
-                key="primary"
-                onClick={() => {
-                  history.push('/report-engine/report-wizard/new');
-                }}
-              >
-                <PlusOutlined /> New
-              </Button>
-            </Access>,
-          ]}
-          onRow={(record, rowIndex) => {
-            return {
-              onClick: async () => {
-                const { id } = record;
-                if (!record.isSystemReport) {
-                  history.push(`/report-engine/report-wizard/${id}`);
-                }
+          <ProTable
+            actionRef={actionRef}
+            rowKey="id"
+            search={false}
+            columns={columns}
+            options={{
+              reload: () => {
+                actionRef.current?.reset();
+                actionRef.current?.reload();
+                setSearchText('');
               },
-            };
-          }}
-        />
+              search: true,
+            }}
+            toolbar={{
+              search: handleSearch(),
+            }}
+            pagination={{ pageSize: 10, defaultPageSize: 10 }}
+            request={async (params, filter) => {
+              const response = await getAllReports({ ...params }, privilege);
+
+              return {
+                data: response.data.data,
+                success: true,
+                total: response.data.total,
+              };
+            }}
+            toolBarRender={() => [
+              <Access accessible={hasPermitted('reports-read-write')}>
+                <Button
+                  type="primary"
+                  key="primary"
+                  onClick={() => {
+                    history.push('/report-engine/report-wizard/new');
+                  }}
+                >
+                  <PlusOutlined /> New
+                </Button>
+              </Access>,
+            ]}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: async () => {
+                  const { id } = record;
+                  if (!record.isSystemReport) {
+                    history.push(`/report-engine/report-wizard/${id}`);
+                  }
+                },
+              };
+            }}
+          />
         </PageContainer>
       </div>
     </Access>

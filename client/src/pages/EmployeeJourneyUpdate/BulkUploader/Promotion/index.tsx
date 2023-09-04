@@ -103,139 +103,162 @@ const EmployeePromotionBulkUpload: React.FC = () => {
   }
 
   return (
-    <PageContainer loading={loading}>
-      <Row>
-        <Col span={24}>
-          {!loading && <Validator
-            cardTitleRender={[
-              <Row
-                style={{
-                  marginTop: 8,
-                  float: 'right',
-                  display: 'flex',
-                  marginRight: '2vh',
-                }}
-              >
-                <Col span={15}>
-                  <Button
-                    type="primary"
-                    key="bulk-upload-download-template"
-                    onClick={downloadTemplate}
-                  >
-                    <FormattedMessage id="bulk" defaultMessage="Download Template" />
-                  </Button>
-                </Col>
-                <Col span={9}>
-                  <Button
-                    type="primary"
-                    key="bulk-upload-history"
-                    onClick={async () => {
-                      setIsHistoryModalVisible(true);
-                      setHistoryModalLoading(true);
-                      const response = await getEmployeePromotionUploadHistory();
-                      const data = !response.error ? response.data ?? [] : [];
-                      setHistoryData(data);
-                      setHistoryModalLoading(false);
+    <div
+      style={{
+        backgroundColor: 'white',
+        borderTopLeftRadius: '30px',
+        paddingLeft: '50px',
+        paddingTop: '50px',
+        paddingBottom: '50px',
+        width: '100%',
+        paddingRight: '0px',
+      }}
+    >
+      <PageContainer loading={loading}>
+        <Row>
+          <Col span={24}>
+            {!loading && (
+              <Validator
+                cardTitleRender={[
+                  <Row
+                    style={{
+                      marginTop: 8,
+                      float: 'right',
+                      display: 'flex',
+                      marginRight: '2vh',
                     }}
                   >
-                    <FormattedMessage id="bulk-upload-view-history" defaultMessage="View History" />
-                  </Button>
-                </Col>
-              </Row>,
-            ]}
-            onFileUpload={uploadEmployeePromotionSheet}
-            onFinish={completeEmployeePromotionProcess}
-            intl={intl}
-            supportData={supportData}
-          />}
-        </Col>
-      </Row>
-      <Modal
-        title={intl.formatMessage({
-          id: 'salary_increment_upload_history',
-          defaultMessage: 'Employee Promotion Upload History',
-        })}
-        centered
-        visible={isHistoryModalVisible}
-        onOk={() => setIsHistoryModalVisible(false)}
-        onCancel={() => setIsHistoryModalVisible(false)}
-        footer={null}
-        width='80vw'
-      >
-        {historyModalLoading
-          ? <Skeleton active />
-          : <List
-            itemLayout="horizontal"
-            dataSource={historyData}
-            renderItem={(item, index) => (
-              <List.Item
-                actions={[
-                  <a
-                    key="history-rollback"
-                    onClick={async () => {
-                      const key = 'rollbacking';
-                      message.loading({
-                        content: intl.formatMessage({
-                          id: 'rollbacking',
-                          defaultMessage: 'Rollbacking...',
-                        }),
-                        key,
-                      });
+                    <Col span={15}>
+                      <Button
+                        type="primary"
+                        key="bulk-upload-download-template"
+                        onClick={downloadTemplate}
+                      >
+                        <FormattedMessage id="bulk" defaultMessage="Download Template" />
+                      </Button>
+                    </Col>
+                    <Col span={9}>
+                      <Button
+                        type="primary"
+                        key="bulk-upload-history"
+                        onClick={async () => {
+                          setIsHistoryModalVisible(true);
+                          setHistoryModalLoading(true);
+                          const response = await getEmployeePromotionUploadHistory();
+                          const data = !response.error ? response.data ?? [] : [];
+                          setHistoryData(data);
+                          setHistoryModalLoading(false);
+                        }}
+                      >
+                        <FormattedMessage
+                          id="bulk-upload-view-history"
+                          defaultMessage="View History"
+                        />
+                      </Button>
+                    </Col>
+                  </Row>,
+                ]}
+                onFileUpload={uploadEmployeePromotionSheet}
+                onFinish={completeEmployeePromotionProcess}
+                intl={intl}
+                supportData={supportData}
+              />
+            )}
+          </Col>
+        </Row>
+        <Modal
+          title={intl.formatMessage({
+            id: 'salary_increment_upload_history',
+            defaultMessage: 'Employee Promotion Upload History',
+          })}
+          centered
+          visible={isHistoryModalVisible}
+          onOk={() => setIsHistoryModalVisible(false)}
+          onCancel={() => setIsHistoryModalVisible(false)}
+          footer={null}
+          width="80vw"
+        >
+          {historyModalLoading ? (
+            <Skeleton active />
+          ) : (
+            <List
+              itemLayout="horizontal"
+              dataSource={historyData}
+              renderItem={(item, index) => (
+                <List.Item
+                  actions={[
+                    <a
+                      key="history-rollback"
+                      onClick={async () => {
+                        const key = 'rollbacking';
+                        message.loading({
+                          content: intl.formatMessage({
+                            id: 'rollbacking',
+                            defaultMessage: 'Rollbacking...',
+                          }),
+                          key,
+                        });
 
-                      await rollbackEmployeePromotionUpload(item.id)
-                        .then((response: APIResponse) => {
-                          if (response.error) {
-                            message.error({
+                        await rollbackEmployeePromotionUpload(item.id)
+                          .then((response: APIResponse) => {
+                            if (response.error) {
+                              message.error({
+                                content:
+                                  response.message ??
+                                  intl.formatMessage({
+                                    id: 'failedToRollback',
+                                    defaultMessage: 'Failed to rollback',
+                                  }),
+                                key,
+                              });
+                              return;
+                            }
+
+                            setIsHistoryModalVisible(false);
+
+                            message.success({
                               content:
                                 response.message ??
+                                intl.formatMessage({
+                                  id: 'successfullyRollbacked',
+                                  defaultMessage: 'Successfully rollbacked',
+                                }),
+                              key,
+                            });
+                          })
+                          .catch((error: APIResponse) => {
+                            message.error({
+                              content:
+                                error.message ??
                                 intl.formatMessage({
                                   id: 'failedToRollback',
                                   defaultMessage: 'Failed to rollback',
                                 }),
                               key,
                             });
-                            return;
-                          }
-
-                          setIsHistoryModalVisible(false);
-
-                          message.success({
-                            content:
-                              response.message ??
-                              intl.formatMessage({
-                                id: 'successfullyRollbacked',
-                                defaultMessage: 'Successfully rollbacked',
-                              }),
-                            key,
                           });
-                        })
-                        .catch((error: APIResponse) => {
-                          message.error({
-                            content:
-                              error.message ??
-                              intl.formatMessage({
-                                id: 'failedToRollback',
-                                defaultMessage: 'Failed to rollback',
-                              }),
-                            key,
-                          });
-                        });
-                    }}
-                  >
-                    <FormattedMessage id="salary-increment-upload-history-rollback" defaultMessage="Rollback" />
-                  </a>
-                ]}
-              >
-                <List.Item.Meta
-                  title={item.createdAt}
-                  description={`${JSON.parse(item.affectedIds).length} number of records has been created`}
-                />
-              </List.Item>
-            )}
-          />
-        }
-      </Modal>
-    </PageContainer>
+                      }}
+                    >
+                      <FormattedMessage
+                        id="salary-increment-upload-history-rollback"
+                        defaultMessage="Rollback"
+                      />
+                    </a>,
+                  ]}
+                >
+                  <List.Item.Meta
+                    title={item.createdAt}
+                    description={`${
+                      JSON.parse(item.affectedIds).length
+                    } number of records has been created`}
+                  />
+                </List.Item>
+              )}
+            />
+          )}
+        </Modal>
+      </PageContainer>
+    </div>
   );
 };
 

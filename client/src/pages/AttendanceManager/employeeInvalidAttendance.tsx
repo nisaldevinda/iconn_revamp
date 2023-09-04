@@ -16,7 +16,17 @@ const EmployeeInvalidAttendance: React.FC = () => {
           accessible={hasPermitted('invalid-attendance-update-admin-access')}
           fallback={<PermissionDeniedPage />}
         >
-          <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderTopLeftRadius: '30px',
+              paddingLeft: '50px',
+              paddingTop: '50px',
+              paddingBottom: '50px',
+              width: '100%',
+              paddingRight: '0px',
+            }}
+          >
             <PageContainer
               header={{
                 ghost: true,

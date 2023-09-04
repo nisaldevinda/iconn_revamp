@@ -12,27 +12,36 @@ const EmployeeLeaveRequest: React.FC = () => {
 
   return (
     <>
-      <Access
-        accessible={hasPermitted('my-leaves')}
-        fallback={<PermissionDeniedPage />}
-      >
-        <div>
-          <PageContainer extra={[
-            <Button
-              key="3"
-              onClick={(e) => {
-                history.push('/ess/apply-leave');
-              }}
-              style={{
-                background: '#FFFFFF',
-                border: '1px solid #7DC014',
-                color: '#7DC014',
-              }}
-            >
-              {' '}
-              <PlusOutlined /> Apply Leave
-            </Button>,
-          ]}>
+      <Access accessible={hasPermitted('my-leaves')} fallback={<PermissionDeniedPage />}>
+        <div
+          style={{
+            backgroundColor: 'white',
+            borderTopLeftRadius: '30px',
+            paddingLeft: '50px',
+            paddingTop: '50px',
+            paddingBottom: '50px',
+            width: '100%',
+            paddingRight: '0px',
+          }}
+        >
+          <PageContainer
+            extra={[
+              <Button
+                key="3"
+                onClick={(e) => {
+                  history.push('/ess/apply-leave');
+                }}
+                style={{
+                  background: '#FFFFFF',
+                  border: '1px solid #7DC014',
+                  color: '#7DC014',
+                }}
+              >
+                {' '}
+                <PlusOutlined /> Apply Leave
+              </Button>,
+            ]}
+          >
             <TableView employeeId={1} others={false} accessLevel={'employee'} />
           </PageContainer>
         </div>

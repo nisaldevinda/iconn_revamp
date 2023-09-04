@@ -561,500 +561,537 @@ const existingLeaveArr=await getLeaveTypes()
       accessible={hasPermitted('leave-entitlement-write')}
       fallback={<PermissionDeniedPage />}
     >
-      <PageContainer
-        extra={[
-          <Button
-            key="3"
-            onClick={(e) => {
-              history.push('/leave/leave-entitlements/new');
-            }}
-            style={{
-              background: '#FFFFFF',
-              border: '1px solid #7DC014',
-              color: '#7DC014',
-            }}
-          >
-            {' '}
-            <PlusOutlined /> Add Entitlement
-          </Button>,
-        ]}
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderTopLeftRadius: '30px',
+          paddingLeft: '50px',
+          paddingTop: '50px',
+          paddingBottom: '50px',
+          width: '100%',
+          paddingRight: '0px',
+        }}
       >
-        <Row style={{ marginBottom: '32px' }}>
-          <div style={{ background: '#FFFFFF', padding: '32px', width: '100%', borderRadius: 10 }}>
-            <ProForm
-              id={'searchForm'}
-              layout="inline"
-              form={searchForm}
-              initialValues={{
-                leaveEntitlementFor: 'individual',
+        <PageContainer
+          extra={[
+            <Button
+              key="3"
+              onClick={(e) => {
+                history.push('/leave/leave-entitlements/new');
               }}
-              onFinish={searchFormOnFinish}
-              onValuesChange={searchFormOnChange}
-              submitter={{
-                resetButtonProps: {
-                  style: {
-                    display: 'none',
-                  },
-                },
-                render: (props, doms) => {
-                  return [
-                    <Col span={8}>
-                      <Row align="bottom" style={{ paddingTop: '36px' }}>
-                        <Button
-                          type="primary"
-                          key="submit"
-                          size="middle"
-                          onClick={() => props.form?.submit()}
-                        >
-                          Search
-                        </Button>
-                      </Row>
-                    </Col>,
-                  ];
-                },
+              style={{
+                background: '#002B98',
+                border: '1px solid #002B98',
+                color: '#FFFFFF',
               }}
             >
-              <Row>
-                <Col>
-                  <Row style={{ marginBottom: '16px' }}>
-                    <label>{intl.formatMessage({
-                        id: 'leaveEntitlement.label.employee',
-                        defaultMessage: 'Employee',
-                      })} </label>{' '}
-                    <div style={{ color: 'red', marginLeft: '6px' }}> *</div>
-                  </Row>
-                  <Row>
-                    {
-                      isEnableInactiveEmployees ? 
+              {' '}
+              <PlusOutlined /> Add Entitlement
+            </Button>,
+          ]}
+        >
+          <Row style={{ marginBottom: '32px' }}>
+            <div
+              style={{ background: '#FFFFFF', padding: '32px', width: '100%', borderRadius: 10 }}
+            >
+              <ProForm
+                id={'searchForm'}
+                layout="inline"
+                form={searchForm}
+                initialValues={{
+                  leaveEntitlementFor: 'individual',
+                }}
+                onFinish={searchFormOnFinish}
+                onValuesChange={searchFormOnChange}
+                submitter={{
+                  resetButtonProps: {
+                    style: {
+                      display: 'none',
+                    },
+                  },
+                  render: (props, doms) => {
+                    return [
+                      <Col span={8}>
+                        <Row align="bottom" style={{ paddingTop: '36px' }}>
+                          <Button
+                            type="primary"
+                            key="submit"
+                            size="middle"
+                            onClick={() => props.form?.submit()}
+                          >
+                            Search
+                          </Button>
+                        </Row>
+                      </Col>,
+                    ];
+                  },
+                }}
+              >
+                <Row>
+                  <Col>
+                    <Row style={{ marginBottom: '16px' }}>
+                      <label>
+                        {intl.formatMessage({
+                          id: 'leaveEntitlement.label.employee',
+                          defaultMessage: 'Employee',
+                        })}{' '}
+                      </label>{' '}
+                      <div style={{ color: 'red', marginLeft: '6px' }}> *</div>
+                    </Row>
+                    <Row>
+                      {isEnableInactiveEmployees ? (
                         <ProFormSelect
                           width={230}
                           name="employeeId"
-                          placeholder= {intl.formatMessage({
+                          placeholder={intl.formatMessage({
                             id: 'leaveEntitlement.employee',
                             defaultMessage: 'Select Employee',
                           })}
-                          rules={
-                            [
-                              {
-                                required: true,
-                                message: intl.formatMessage({
-                                  id: 'leaveEntitlement.edit.employeeName',
-                                  defaultMessage: 'Required',
-                                })
-                              }
-                            ]
-                          }
-                          options={availableEmployeesWithInactive}
-                          showSearch
-                        /> : <ProFormSelect
-                        width={230}
-                        name="employeeId"
-                        placeholder= {intl.formatMessage({
-                          id: 'leaveEntitlement.employee',
-                          defaultMessage: 'Select Employee',
-                        })}
-                        rules={
-                          [
+                          rules={[
                             {
                               required: true,
                               message: intl.formatMessage({
                                 id: 'leaveEntitlement.edit.employeeName',
                                 defaultMessage: 'Required',
-                              })
-                            }
-                          ]
-                        }
-                        options={availableEmployeesWithoutInactive}
-                        showSearch
-                      />
-                    }
-                  </Row>
-                </Col>
-                <Col>
-                  <Row style={{ marginBottom: '16px' }}>
-                    <label>Leave Type</label>
-                  </Row>
-                  <Row>
-                    <ProFormSelect
-                      width={230}
-                      name="leaveTypeId"
-                      disabled={!selectedEmployee}
-                      placeholder="Select Leave Type"
-                      options= {leaveTypes}
-                      showSearch
-                      // request={async () => {
-                      //   const response = await getExistingLeaveTypes();
-                      //   return response.data;
-                      // }}
-                    />
-                  </Row>
-                </Col>
-                {selectedLeaveType && selectedEmployee ? (
-                  <>
-                    <Col>
-                      <Row style={{ marginBottom: '16px' }}>
-                        <label>Leave Period</label>
-                      </Row>
-                      <Row>
+                              }),
+                            },
+                          ]}
+                          options={availableEmployeesWithInactive}
+                          showSearch
+                        />
+                      ) : (
                         <ProFormSelect
                           width={230}
-                          name="id"
-                          placeholder="Select Leave Period"
-                          options={leavePeriodArray}
+                          name="employeeId"
+                          placeholder={intl.formatMessage({
+                            id: 'leaveEntitlement.employee',
+                            defaultMessage: 'Select Employee',
+                          })}
+                          rules={[
+                            {
+                              required: true,
+                              message: intl.formatMessage({
+                                id: 'leaveEntitlement.edit.employeeName',
+                                defaultMessage: 'Required',
+                              }),
+                            },
+                          ]}
+                          options={availableEmployeesWithoutInactive}
+                          showSearch
                         />
-                      </Row>
-                    </Col>
-                  </>
-                ) : (
-                  <></>
-                )}
+                      )}
+                    </Row>
+                  </Col>
+                  <Col>
+                    <Row style={{ marginBottom: '16px' }}>
+                      <label>Leave Type</label>
+                    </Row>
+                    <Row>
+                      <ProFormSelect
+                        width={230}
+                        name="leaveTypeId"
+                        disabled={!selectedEmployee}
+                        placeholder="Select Leave Type"
+                        options={leaveTypes}
+                        showSearch
+                        // request={async () => {
+                        //   const response = await getExistingLeaveTypes();
+                        //   return response.data;
+                        // }}
+                      />
+                    </Row>
+                  </Col>
+                  {selectedLeaveType && selectedEmployee ? (
+                    <>
+                      <Col>
+                        <Row style={{ marginBottom: '16px' }}>
+                          <label>Leave Period</label>
+                        </Row>
+                        <Row>
+                          <ProFormSelect
+                            width={230}
+                            name="id"
+                            placeholder="Select Leave Period"
+                            options={leavePeriodArray}
+                          />
+                        </Row>
+                      </Col>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
-                <Col
-                  style={{
-                    width: 350,
-                    height: 35,
-                    paddingLeft: 20,
-                    textAlign: 'left',
-                    marginTop: 45,
-                  }}
-                >
-                  <Text
+                  <Col
                     style={{
-                      marginRight: 30,
-                      verticalAlign: 'bottom',
+                      width: 350,
+                      height: 35,
+                      paddingLeft: 20,
+                      textAlign: 'left',
+                      marginTop: 45,
                     }}
                   >
-                    {intl.formatMessage({
-                      id: 'includeInactive',
-                      defaultMessage: 'Enable Inactive Employees',
-                    })}
-                  </Text>
-                  <Switch
-                    onChange={(checked: boolean, event: Event) => {
-                      setIsEnableInactiveEmployees(checked);
-                      searchForm.setFieldsValue({
-                        'employeeId' : null
-                      })
-                    }}
-                    checkedChildren="Yes"
-                    unCheckedChildren="No"
-                  />
-                </Col>
-              </Row>
-            </ProForm>
-          </div>
-        </Row>
-        {allEntitlements.length !== 0 ? (
-          <Row>
-            <ProTable
-              actionRef={actionRef}
-              rowKey="id"
-              search={false}
-              columns={columns}
-              style={{ width: '100%' }}
-              scroll={{ x: '200px' }}
-              pagination={{ pageSize: 10, defaultPageSize: 10 }}
-              dataSource={allEntitlements}
-            />
+                    <Text
+                      style={{
+                        marginRight: 30,
+                        verticalAlign: 'bottom',
+                      }}
+                    >
+                      {intl.formatMessage({
+                        id: 'includeInactive',
+                        defaultMessage: 'Enable Inactive Employees',
+                      })}
+                    </Text>
+                    <Switch
+                      onChange={(checked: boolean, event: Event) => {
+                        setIsEnableInactiveEmployees(checked);
+                        searchForm.setFieldsValue({
+                          employeeId: null,
+                        });
+                      }}
+                      checkedChildren="Yes"
+                      unCheckedChildren="No"
+                    />
+                  </Col>
+                </Row>
+              </ProForm>
+            </div>
           </Row>
-        ) : (
-          <></>
-        )}
-        <DrawerForm
-          onVisibleChange={setDrawerVisit}
-          visible={drawerVisit}
-          id={'NewTemplate'}
-          form={form}
-          onFinish={formOnFinish}
-          onValuesChange={onFormChange}
-          submitter={{
-            searchConfig: {
-              resetText: 'reset',
-              submitText: 'submit',
-            },
-            render: (props, doms) => {
-              if(!adminsCanAdjust){
-                return[<></>]
-              }
-              return [
-                <Row justify="end" gutter={[16, 16]}>
-                  <Col span={12}>
-                    <Button
-                      block
-                      type="default"
-                      key="rest"
-                      size="middle"
-                      onClick={() => props.form?.resetFields()}
-                      className={"reset-btn"}
-                    >
-                      Reset
-                    </Button>
-                  </Col>
-                  <Col span={12}>
-                    <Button
-                      block
-                      type="primary"
-                      key="submit"
-                      size="middle"
-                      onClick={() => props.form?.submit()}
-                    >
-                      Save
-                    </Button>
-                  </Col>
-                </Row>,
-              ];
-            },
-          }}
-        >
-          <ProFormSelect
-            width={330}
-            name="leaveTypeId"
-            label={intl.formatMessage({
-              id: ' leaveType',
-              defaultMessage: 'Leave Type',
-            })}
-            showSearch
-            // request={async () => getOptions('leaveType')}
-            options={relatedLeaveTypes}
-            placeholder= {intl.formatMessage({
-              id: 'leaveEntitlement. leaveType',
-              defaultMessage: 'Select Leave Type',
-            })}
-
-            disabled={!adminsCanAdjust}
-            rules={
-              [
+          {allEntitlements.length !== 0 ? (
+            <Row>
+              <ProTable
+                actionRef={actionRef}
+                rowKey="id"
+                search={false}
+                columns={columns}
+                style={{ width: '100%' }}
+                scroll={{ x: '200px' }}
+                pagination={{ pageSize: 10, defaultPageSize: 10 }}
+                dataSource={allEntitlements}
+              />
+            </Row>
+          ) : (
+            <></>
+          )}
+          <DrawerForm
+            onVisibleChange={setDrawerVisit}
+            visible={drawerVisit}
+            id={'NewTemplate'}
+            form={form}
+            onFinish={formOnFinish}
+            onValuesChange={onFormChange}
+            submitter={{
+              searchConfig: {
+                resetText: 'reset',
+                submitText: 'submit',
+              },
+              render: (props, doms) => {
+                if (!adminsCanAdjust) {
+                  return [<></>];
+                }
+                return [
+                  <Row justify="end" gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Button
+                        block
+                        type="default"
+                        key="rest"
+                        size="middle"
+                        onClick={() => props.form?.resetFields()}
+                        className={'reset-btn'}
+                      >
+                        Reset
+                      </Button>
+                    </Col>
+                    <Col span={12}>
+                      <Button
+                        block
+                        type="primary"
+                        key="submit"
+                        size="middle"
+                        onClick={() => props.form?.submit()}
+                      >
+                        Save
+                      </Button>
+                    </Col>
+                  </Row>,
+                ];
+              },
+            }}
+          >
+            <ProFormSelect
+              width={330}
+              name="leaveTypeId"
+              label={intl.formatMessage({
+                id: ' leaveType',
+                defaultMessage: 'Leave Type',
+              })}
+              showSearch
+              // request={async () => getOptions('leaveType')}
+              options={relatedLeaveTypes}
+              placeholder={intl.formatMessage({
+                id: 'leaveEntitlement. leaveType',
+                defaultMessage: 'Select Leave Type',
+              })}
+              disabled={!adminsCanAdjust}
+              rules={[
                 {
                   required: true,
                   message: intl.formatMessage({
                     id: 'leaveEntitlement.edit.leaveType',
                     defaultMessage: 'Required',
-                  })
-                }
-              ]
-            }
-          />
-          <ProFormSelect
-            width={330}
-            name="leavePeriod"
-            label={intl.formatMessage({
-              id: 'leavePeriod',
-              defaultMessage: 'Leave Period',
-            })}
-            placeholder= {intl.formatMessage({
-              id: 'leaveEntitlement.leavePeriod',
-              defaultMessage: 'Select Leave Period',
-            })}
-            rules={
-              [
+                  }),
+                },
+              ]}
+            />
+            <ProFormSelect
+              width={330}
+              name="leavePeriod"
+              label={intl.formatMessage({
+                id: 'leavePeriod',
+                defaultMessage: 'Leave Period',
+              })}
+              placeholder={intl.formatMessage({
+                id: 'leaveEntitlement.leavePeriod',
+                defaultMessage: 'Select Leave Period',
+              })}
+              rules={[
                 {
                   required: true,
                   message: intl.formatMessage({
                     id: 'leaveEntitlement.edit.leavePeriod',
                     defaultMessage: 'Required',
-                  })
-                }
-              ]
-            }
-            valueEnum={leavePeriodEnum}
-            value= {selectedLeavePeriod}
-            disabled={isLeavePeriodDisabled || !adminsCanAdjust}
-          
-            onChange = {(val: any)=> {
-              setSelectedLeavePeriod(val);
-              form.setFieldsValue({
-                leavePeriod: val
-              })
-            }}
-          // request={async () => getOptions("leavePeriod")}
-          />
-          <Row gutter={[32, 16]}>
-            <Col span={8}>
-              <ProFormDatePicker
-                disabled={!adminsCanAdjust}
-
-                width={'100%'}
-                name="effectiveDate"
-                label={intl.formatMessage({
-                  id: 'effectiveDate',
-                  defaultMessage: 'Effective Date',
-                })}
-                placeholder= {intl.formatMessage({
-                  id: 'leaveEntitlement.effectiveDate',
-                  defaultMessage: 'Select Date',
-                })}
-                format={'DD-MM-YYYY'}
-                rules={
-                  [
+                  }),
+                },
+              ]}
+              valueEnum={leavePeriodEnum}
+              value={selectedLeavePeriod}
+              disabled={isLeavePeriodDisabled || !adminsCanAdjust}
+              onChange={(val: any) => {
+                setSelectedLeavePeriod(val);
+                form.setFieldsValue({
+                  leavePeriod: val,
+                });
+              }}
+              // request={async () => getOptions("leavePeriod")}
+            />
+            <Row gutter={[32, 16]}>
+              <Col span={8}>
+                <ProFormDatePicker
+                  disabled={!adminsCanAdjust}
+                  width={'100%'}
+                  name="effectiveDate"
+                  label={intl.formatMessage({
+                    id: 'effectiveDate',
+                    defaultMessage: 'Effective Date',
+                  })}
+                  placeholder={intl.formatMessage({
+                    id: 'leaveEntitlement.effectiveDate',
+                    defaultMessage: 'Select Date',
+                  })}
+                  format={'DD-MM-YYYY'}
+                  rules={[
                     {
                       required: true,
                       message: intl.formatMessage({
                         id: 'leaveEntitlement.edit.effectiveDate',
                         defaultMessage: 'Required',
-                      })
-                    }
-                  ]
-                }
-                onChange= {(value)=>{
-                  if (selectedLeavePeriod && value) {
-                    var isSameOrAfterStartDate = value.isSameOrAfter( moment(leavePeriodArrayForm[selectedLeavePeriod].leavePeriodStartDate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
-                    var isSameOrAfterEndDate = value.isSameOrBefore( moment(leavePeriodArrayForm[selectedLeavePeriod].leavePeriodEndate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
+                      }),
+                    },
+                  ]}
+                  onChange={(value) => {
+                    if (selectedLeavePeriod && value) {
+                      var isSameOrAfterStartDate = value.isSameOrAfter(
+                        moment(
+                          leavePeriodArrayForm[selectedLeavePeriod].leavePeriodStartDate,
+                          'DD-MM-YYYY',
+                        ).format('YYYY-MM-DD'),
+                        'day',
+                      );
+                      var isSameOrAfterEndDate = value.isSameOrBefore(
+                        moment(
+                          leavePeriodArrayForm[selectedLeavePeriod].leavePeriodEndate,
+                          'DD-MM-YYYY',
+                        ).format('YYYY-MM-DD'),
+                        'day',
+                      );
 
-                    if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
+                      if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
                         form.setFieldsValue({
-                            effectiveDate: value.format("YYYY-MM-DD")
-                        })
-                    } else {
+                          effectiveDate: value.format('YYYY-MM-DD'),
+                        });
+                      } else {
                         form.setFieldsValue({
-                            effectiveDate: moment(leavePeriodArrayForm[selectedLeavePeriod].leavePeriodStartDate, "DD-MM-YYYY"),
-                        })
+                          effectiveDate: moment(
+                            leavePeriodArrayForm[selectedLeavePeriod].leavePeriodStartDate,
+                            'DD-MM-YYYY',
+                          ),
+                        });
+                      }
                     }
-                }
-
-                }}
-              />
-            </Col>
-            <Col span={8}>
-              <ProFormDatePicker
-                width={'100%'}
-                name="expiryDate"
-                label={intl.formatMessage({
-                  id: 'expiryDate',
-                  defaultMessage: 'Expiry Date',
-                })}
-                placeholder= {intl.formatMessage({
-                  id: 'leaveEntitlement.expiryDate',
-                  defaultMessage: 'Select Date',
-                })} 
-                format={'DD-MM-YYYY'}
-                disabled={!adminsCanAdjust}
-
-                rules={
-                  [
+                  }}
+                />
+              </Col>
+              <Col span={8}>
+                <ProFormDatePicker
+                  width={'100%'}
+                  name="expiryDate"
+                  label={intl.formatMessage({
+                    id: 'expiryDate',
+                    defaultMessage: 'Expiry Date',
+                  })}
+                  placeholder={intl.formatMessage({
+                    id: 'leaveEntitlement.expiryDate',
+                    defaultMessage: 'Select Date',
+                  })}
+                  format={'DD-MM-YYYY'}
+                  disabled={!adminsCanAdjust}
+                  rules={[
                     {
                       required: true,
                       message: intl.formatMessage({
                         id: 'leaveEntitlement.edit.expiryDate',
                         defaultMessage: 'Required',
-                      })
-                    }
-                  ]
-                }
-                onChange= {(value)=>{
-                  if (selectedLeavePeriod && value) {                      
-                    var isSameOrAfterStartDate = value.isSameOrAfter( moment(leavePeriodArrayForm[selectedLeavePeriod].leavePeriodStartDate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
-                    var isSameOrAfterEndDate = value.isSameOrBefore( moment(leavePeriodArrayForm[selectedLeavePeriod].leavePeriodEndate, "DD-MM-YYYY").format("YYYY-MM-DD"), 'day');
+                      }),
+                    },
+                  ]}
+                  onChange={(value) => {
+                    if (selectedLeavePeriod && value) {
+                      var isSameOrAfterStartDate = value.isSameOrAfter(
+                        moment(
+                          leavePeriodArrayForm[selectedLeavePeriod].leavePeriodStartDate,
+                          'DD-MM-YYYY',
+                        ).format('YYYY-MM-DD'),
+                        'day',
+                      );
+                      var isSameOrAfterEndDate = value.isSameOrBefore(
+                        moment(
+                          leavePeriodArrayForm[selectedLeavePeriod].leavePeriodEndate,
+                          'DD-MM-YYYY',
+                        ).format('YYYY-MM-DD'),
+                        'day',
+                      );
 
-                    if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
+                      if (isSameOrAfterStartDate && isSameOrAfterEndDate) {
                         form.setFieldsValue({
-                            expiryDate: value.format("YYYY-MM-DD")
-                        })
-                    } else {
+                          expiryDate: value.format('YYYY-MM-DD'),
+                        });
+                      } else {
                         form.setFieldsValue({
-                            expiryDate: moment(leavePeriodArrayForm[selectedLeavePeriod].leavePeriodEndate, "DD-MM-YYYY")
-                        })
+                          expiryDate: moment(
+                            leavePeriodArrayForm[selectedLeavePeriod].leavePeriodEndate,
+                            'DD-MM-YYYY',
+                          ),
+                        });
+                      }
                     }
-                  }
-                }}
+                  }}
                 />
               </Col>
               <Col span={8}>
-              <ProFormDigit
-              disabled={!adminsCanAdjust}
-
-              fieldProps={{
-                  precision: 2,
-              }}
-             
-              width={"100%"}
-              name="entilementCount"
-              label= {intl.formatMessage({
-                id: 'numberofDays',
-                defaultMessage: 'Number of Days',
-              })}
-              // formatter={value => `${value}%`}
-              //min={utilizedCount}
-              rules={
-                  [
-                      {
-                          required: true,
-                          message: intl.formatMessage({
-                              id: 'leaveEntitlemen.add.numberOfDays',
-                              defaultMessage: 'Required',
-                          })
-                      },
-                      () => ({
-                          validator(type, value) {
-                              const numStr = String(value);
-                              // String Contains Decimal
-                              if (numStr.includes('.')) {
-                                  if (numStr.split('.')[1].length > 2) {
-                                      return Promise.reject(new Error(intl.formatMessage({
-                                          id: 'leaveEntitlemen.add.max.decimals',
-                                          defaultMessage: 'Only up to two decimal places',
-                                      })));
-                                  }
-                              };
-                              if (value > 365) {
-                                  return Promise.reject(new Error(intl.formatMessage({
-                                      id: 'leaveEntitlemen.add.max.numberOfDays',
-                                      defaultMessage: 'Should be less than 365',
-                                  })));
-                              }
-                          if (value < utilizedCount) {
-                            return Promise.reject(new Error(intl.formatMessage({
-                              id: 'leaveEntitlemen.add.error.utilizedAmount',
-                              defaultMessage: `Cannot be less than ${utilizedCount} (utilized amount) `,
-                            })));
+                <ProFormDigit
+                  disabled={!adminsCanAdjust}
+                  fieldProps={{
+                    precision: 2,
+                  }}
+                  width={'100%'}
+                  name="entilementCount"
+                  label={intl.formatMessage({
+                    id: 'numberofDays',
+                    defaultMessage: 'Number of Days',
+                  })}
+                  // formatter={value => `${value}%`}
+                  //min={utilizedCount}
+                  rules={[
+                    {
+                      required: true,
+                      message: intl.formatMessage({
+                        id: 'leaveEntitlemen.add.numberOfDays',
+                        defaultMessage: 'Required',
+                      }),
+                    },
+                    () => ({
+                      validator(type, value) {
+                        const numStr = String(value);
+                        // String Contains Decimal
+                        if (numStr.includes('.')) {
+                          if (numStr.split('.')[1].length > 2) {
+                            return Promise.reject(
+                              new Error(
+                                intl.formatMessage({
+                                  id: 'leaveEntitlemen.add.max.decimals',
+                                  defaultMessage: 'Only up to two decimal places',
+                                }),
+                              ),
+                            );
                           }
-                              return Promise.resolve();
-
-                          },
-                      })
-                  ]
-              }
-          />
+                        }
+                        if (value > 365) {
+                          return Promise.reject(
+                            new Error(
+                              intl.formatMessage({
+                                id: 'leaveEntitlemen.add.max.numberOfDays',
+                                defaultMessage: 'Should be less than 365',
+                              }),
+                            ),
+                          );
+                        }
+                        if (value < utilizedCount) {
+                          return Promise.reject(
+                            new Error(
+                              intl.formatMessage({
+                                id: 'leaveEntitlemen.add.error.utilizedAmount',
+                                defaultMessage: `Cannot be less than ${utilizedCount} (utilized amount) `,
+                              }),
+                            ),
+                          );
+                        }
+                        return Promise.resolve();
+                      },
+                    }),
+                  ]}
+                />
               </Col>
             </Row>
             <Col span={24}>
-            <ProFormTextArea 
-             disabled={!adminsCanAdjust}
-              name="comment" 
-              label= {intl.formatMessage({
-                id: 'leaveEntitlement.Comment',
-                defaultMessage: 'Comment',
-              })} 
-              placeholder="" 
-              rules={[
-                {
-                  max: 200,
-                  message: intl.formatMessage({
-                    id: 'leaveEntitlement.edit.comment',
-                    defaultMessage: 'Maximum length is 200 characters.',
-                  }),
-                }
-              ]}
-            />
-          </Col>
-          <Row>
-            <Col span={4}>
-              <Form.Item name="type" label="Entitlement Type" initialValue="MANUAL"></Form.Item>
+              <ProFormTextArea
+                disabled={!adminsCanAdjust}
+                name="comment"
+                label={intl.formatMessage({
+                  id: 'leaveEntitlement.Comment',
+                  defaultMessage: 'Comment',
+                })}
+                placeholder=""
+                rules={[
+                  {
+                    max: 200,
+                    message: intl.formatMessage({
+                      id: 'leaveEntitlement.edit.comment',
+                      defaultMessage: 'Maximum length is 200 characters.',
+                    }),
+                  },
+                ]}
+              />
             </Col>
-            <Col span={8}>
-              <Tag
-                style={{
-                  borderRadius: '18px',
-                  background: '#F3FEE2',
-                  color: '#7EBC1C',
-                  fontSize: '12px',
-                }}
-              >
-                { selectedEntitlementType == 'ACCRUAL' ? 'Accrual' : 'Manual' }
-              </Tag>
-            </Col>
-          </Row>
-        </DrawerForm>
-      </PageContainer>
+            <Row>
+              <Col span={4}>
+                <Form.Item name="type" label="Entitlement Type" initialValue="MANUAL"></Form.Item>
+              </Col>
+              <Col span={8}>
+                <Tag
+                  style={{
+                    borderRadius: '18px',
+                    background: '#F3FEE2',
+                    color: '#7EBC1C',
+                    fontSize: '12px',
+                  }}
+                >
+                  {selectedEntitlementType == 'ACCRUAL' ? 'Accrual' : 'Manual'}
+                </Tag>
+              </Col>
+            </Row>
+          </DrawerForm>
+        </PageContainer>
+      </div>
     </Access>
   );
 };

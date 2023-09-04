@@ -4,9 +4,21 @@ import WorkflowRequests from '@/components/WorkflowRequests';
 
 const WorkflowInstance: React.FC = () => {
   return (
-    <PageContainer>
-      <WorkflowRequests pageType={'allRequests'} />
-    </PageContainer>
+    <div
+      style={{
+        backgroundColor: 'white',
+        borderTopLeftRadius: '30px',
+        paddingLeft: '50px',
+        paddingTop: '50px',
+        paddingBottom: '50px',
+        width: '100%',
+        paddingRight: '0px',
+      }}
+    >
+      <PageContainer>
+        <WorkflowRequests pageType={'allRequests'} />
+      </PageContainer>
+    </div>
   );
 };
 

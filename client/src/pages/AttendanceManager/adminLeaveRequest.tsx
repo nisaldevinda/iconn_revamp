@@ -14,9 +14,21 @@ const ManagerLeaveRequest: React.FC = () => {
         accessible={hasPermitted('admin-leave-request-access')}
         fallback={<PermissionDeniedPage />}
       >
-        <PageContainer>
-          <TableView others={true} nonEditModel={true} accessLevel={'admin'} />
-        </PageContainer>
+        <div
+          style={{
+            backgroundColor: 'white',
+            borderTopLeftRadius: '30px',
+            paddingLeft: '50px',
+            paddingTop: '50px',
+            paddingBottom: '50px',
+            width: '100%',
+            paddingRight: '0px',
+          }}
+        >
+          <PageContainer>
+            <TableView others={true} nonEditModel={true} accessLevel={'admin'} />
+          </PageContainer>
+        </div>
       </Access>
     </>
   );

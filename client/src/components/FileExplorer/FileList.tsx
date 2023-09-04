@@ -185,11 +185,15 @@ const FileList: React.FC<FileListProps> = (props) => {
 
   const actionColumnRender = (record: any) => [
     <div onClick={(e) => e.stopPropagation()}>
-      <Tooltip key="download-tool-tip" title={intl.formatMessage({
-        id: 'pages.document.download_tooltip',
-        defaultMessage: 'Download',
-      })}>
+      <Tooltip
+        key="download-tool-tip"
+        title={intl.formatMessage({
+          id: 'pages.document.download_tooltip',
+          defaultMessage: 'Download',
+        })}
+      >
         <a
+          style={{ color: '#002B98' }}
           key="download-btn"
           onClick={async (item) => {
             const messageKey = 'downloading';
@@ -203,9 +207,8 @@ const FileList: React.FC<FileListProps> = (props) => {
 
             try {
               const result = await props.downloadFile(record.id);
-              var anchor = document.createElement("a");
-              anchor.href = result?.data,
-                anchor.download = result?.name;
+              var anchor = document.createElement('a');
+              (anchor.href = result?.data), (anchor.download = result?.name);
               anchor.click();
 
               message.success({
@@ -225,10 +228,9 @@ const FileList: React.FC<FileListProps> = (props) => {
                 key: messageKey,
               });
             }
-
           }}
         >
-          <DownloadOutlined height={15} />
+          <DownloadOutlined height={15} style={{ color: '#002B98' }} />
         </a>
       </Tooltip>
     </div>,
@@ -241,52 +243,51 @@ const FileList: React.FC<FileListProps> = (props) => {
         })}
       >
         <a
-          onClick={
-            (e) => {
-              // for share letter by HR
-              if (record.audienceMethod !== null) {
-                e.stopPropagation();
-                return;
-              }
-              let type = record.type;
-              let fileType = type.substring(0, type.indexOf(';'));
-              let format = fileType.substring(fileType.indexOf(":") + 1);
-              let fileData = [
-                {
-                  name: record.name,
-                  size: record.size,
-                  type: format,
-                  existing: true
-                }
-              ];
-              const audienceData = JSON.parse(record.audienceData);
-
-              getManagerSubordinatesList(audienceData?.reportTo);
-              setAudienceType(record.audienceMethod)
-              setFileList(fileData);
-              setFormInitialValues({
-                id: record.id,
-                documentName: record.documentName,
-                documentDescription: record.documentDescription,
-                initialValue: !_.isNull(record.deadline) && moment(record.deadline, 'YYYY-MM-DD').format('DD-MM-YYYY'),
-                hasRequestAcknowledgement: record.hasRequestAcknowledgement ? true : false,
-                hasFilePermission: record.hasFilePermission ? true : false,
-                systemAlertNotification: record.systemAlertNotification ? true : false,
-                emailNotification: record.emailNotification ? true : false,
-                upload: fileData,
-                audienceMethod: record.audienceMethod,
-                reportToManager: audienceData ? audienceData?.reportTo : null,
-                queryLocation: audienceData ? audienceData?.locationId : null,
-                targetKeys: setTargetKeys(audienceData?.employeeIds),
-                deadline: record.deadline
-              });
-              if (subFolder !== "acknowledge document") {
-                setEditModalVisible(true);
-              }
-
+          onClick={(e) => {
+            // for share letter by HR
+            if (record.audienceMethod !== null) {
+              e.stopPropagation();
+              return;
             }
-          }
-          disabled={subFolder === "acknowledge document" || record.audienceMethod !== null}
+            let type = record.type;
+            let fileType = type.substring(0, type.indexOf(';'));
+            let format = fileType.substring(fileType.indexOf(':') + 1);
+            let fileData = [
+              {
+                name: record.name,
+                size: record.size,
+                type: format,
+                existing: true,
+              },
+            ];
+            const audienceData = JSON.parse(record.audienceData);
+
+            getManagerSubordinatesList(audienceData?.reportTo);
+            setAudienceType(record.audienceMethod);
+            setFileList(fileData);
+            setFormInitialValues({
+              id: record.id,
+              documentName: record.documentName,
+              documentDescription: record.documentDescription,
+              initialValue:
+                !_.isNull(record.deadline) &&
+                moment(record.deadline, 'YYYY-MM-DD').format('DD-MM-YYYY'),
+              hasRequestAcknowledgement: record.hasRequestAcknowledgement ? true : false,
+              hasFilePermission: record.hasFilePermission ? true : false,
+              systemAlertNotification: record.systemAlertNotification ? true : false,
+              emailNotification: record.emailNotification ? true : false,
+              upload: fileData,
+              audienceMethod: record.audienceMethod,
+              reportToManager: audienceData ? audienceData?.reportTo : null,
+              queryLocation: audienceData ? audienceData?.locationId : null,
+              targetKeys: setTargetKeys(audienceData?.employeeIds),
+              deadline: record.deadline,
+            });
+            if (subFolder !== 'acknowledge document') {
+              setEditModalVisible(true);
+            }
+          }}
+          disabled={subFolder === 'acknowledge document' || record.audienceMethod !== null}
         >
           <Edit height={16} />
         </a>
@@ -308,7 +309,7 @@ const FileList: React.FC<FileListProps> = (props) => {
           id: 'pages.document.no',
           defaultMessage: 'No',
         })}
-        disabled={subFolder === "acknowledge document"}
+        disabled={subFolder === 'acknowledge document'}
         onConfirm={async () => {
           const messageKey = 'deleting';
           message.loading({
@@ -343,14 +344,17 @@ const FileList: React.FC<FileListProps> = (props) => {
           }
         }}
       >
-        <Tooltip key="delete-tool-tip" title={intl.formatMessage({
-          id: 'pages.document.delete_tooltip',
-          defaultMessage: 'Delete',
-        })}>
+        <Tooltip
+          key="delete-tool-tip"
+          title={intl.formatMessage({
+            id: 'pages.document.delete_tooltip',
+            defaultMessage: 'Delete',
+          })}
+        >
           <a
             key="delete-btn"
             onClick={(e) => e.stopPropagation()}
-            disabled={subFolder === "acknowledge document"}
+            disabled={subFolder === 'acknowledge document'}
           >
             <DeleteOutlined />
           </a>

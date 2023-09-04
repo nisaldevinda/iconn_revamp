@@ -926,7 +926,17 @@ const AttendanceReports: React.FC = () => {
       accessible={hasPermitted('leave-entitlement-report-access')}
       fallback={<PermissionDeniedPage />}
     >
-      <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px', padding: '50px' }}>
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderTopLeftRadius: '30px',
+          paddingLeft: '50px',
+          paddingTop: '50px',
+          paddingBottom: '50px',
+          width: '100%',
+          paddingRight: '0px',
+        }}
+      >
         <PageContainer>
           <Space direction="vertical" size={25} style={{ width: '100%' }}>
             <div
@@ -1333,11 +1343,16 @@ const AttendanceReports: React.FC = () => {
                         >
                           <Tooltip title={'Customize Columns'}>
                             <Button
-                              style={{ marginTop: 30, borderRadius: 6, backgroundColor: '#0232AC', color:"white"}}
+                              style={{
+                                marginTop: 30,
+                                borderRadius: 6,
+                                backgroundColor: '#0232AC',
+                                color: 'white',
+                              }}
                               type="default"
                             >
                               <SettingOutlined
-                                style={{ fontSize: 18, marginTop: 2, color:"white" }}
+                                style={{ fontSize: 18, marginTop: 2, color: 'white' }}
                               ></SettingOutlined>
                             </Button>
                           </Tooltip>

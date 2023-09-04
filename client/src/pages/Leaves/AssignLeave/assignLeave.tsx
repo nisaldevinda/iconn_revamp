@@ -755,7 +755,7 @@ const AssignLeave: React.FC = () => {
                     <Button
                       type="primary"
                       danger={true}
-                      style={{ backgroundColor: '#FFA500', borderColor: '#FFA500' }}
+                      style={{ backgroundColor: '#FFB141', borderColor: '#FFB141' }}
                       icon={<FieldTimeOutlined />}
                       disabled={isEmpSelected}
                       onClick={showListModal}

@@ -211,205 +211,238 @@ const Notice: React.FC = () => {
   }
 
   return (
-    <Access accessible={hasPermitted('company-notice-read-write') || hasPermitted('team-notice-read-write')} fallback={<PermissionDeniedPage />}>
-      <PageContainer>
-        <Tabs
-          defaultActiveKey="my-notices"
-          activeKey={tabActiveKey}
-          onChange={tabOnChange}
-          tabBarExtraContent={
-            <Button
-              key="addNotice"
-              onClick={(e) => {
-                history.push('/notices/create');
-              }}
-              type='primary'
-            >
-              <PlusOutlined /> Add Notice
-            </Button>
-          }
-        >
-          {hasPermitted('company-notice-read-write') &&
-            <TabPane
-              key="company-notices"
-              tab={intl.formatMessage({
-                id: 'COMPANY_NOTICES',
-                defaultMessage: 'Company Notices',
-              })}
-            />
-          }
+    <Access
+      accessible={
+        hasPermitted('company-notice-read-write') || hasPermitted('team-notice-read-write')
+      }
+      fallback={<PermissionDeniedPage />}
+    >
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderTopLeftRadius: '30px',
+          paddingLeft: '50px',
+          paddingRight:'50px',
+          paddingTop: '50px',
+          width: '100%',
+        }}
+      >
+        <PageContainer>
+          <Tabs
+            defaultActiveKey="my-notices"
+            activeKey={tabActiveKey}
+            onChange={tabOnChange}
+            tabBarExtraContent={
+              <Button
+                key="addNotice"
+                onClick={(e) => {
+                  history.push('/notices/create');
+                }}
+                type="primary"
+              >
+                <PlusOutlined /> Add Notice
+              </Button>
+            }
+          >
+            {hasPermitted('company-notice-read-write') && (
+              <TabPane
+                key="company-notices"
+                tab={intl.formatMessage({
+                  id: 'COMPANY_NOTICES',
+                  defaultMessage: 'Company Notices',
+                })}
+              />
+            )}
 
-          {hasPermitted('team-notice-read-write') &&
-            <TabPane
-              key="team-notices"
-              tab={intl.formatMessage({
-                id: 'TEAM_NOTICES',
-                defaultMessage: 'Team Notices',
-              })}
-            />
-          }
-        </Tabs>
+            {hasPermitted('team-notice-read-write') && (
+              <TabPane
+                key="team-notices"
+                tab={intl.formatMessage({
+                  id: 'TEAM_NOTICES',
+                  defaultMessage: 'Team Notices',
+                })}
+              />
+            )}
+          </Tabs>
 
-        <Card>
-          <Space direction="vertical" size={25} style={{ width: '100%' }}>
-            <div
-              style={{ borderRadius: '5px', background: '#FFFFFF', padding: '20px', width: '100%', marginBottom: '20px' }}
-            >
-              <Form form={form} onFinish={getFilteredNotices} autoComplete="off" layout="vertical" >
-                <Row>
-                  <Col
-                    style={{
-                      height: 35,
-                      width: 250,
-
-                    }}
-                    span={6}
-                  >
-                    <Form.Item
-                      name="topic"
-                      label={intl.formatMessage({
-                        id: 'topic',
-                        defaultMessage: 'Topic',
-                      })}
+          <Card>
+            <Space direction="vertical" size={25} style={{ width: '100%' }}>
+              <div
+                style={{
+                  borderRadius: '5px',
+                  background: '#FFFFFF',
+                  padding: '20px',
+                  width: '100%',
+                  marginBottom: '20px',
+                }}
+              >
+                <Form
+                  form={form}
+                  onFinish={getFilteredNotices}
+                  autoComplete="off"
+                  layout="vertical"
+                >
+                  <Row>
+                    <Col
+                      style={{
+                        height: 35,
+                        width: 250,
+                      }}
+                      span={6}
                     >
-                      <Input
-                        allowClear={true}
-                        style={{
-                          width: '100%'
-                        }}
-                        placeholder={intl.formatMessage({
-                          id: 'notices.topic-input-placeholder',
-                          defaultMessage: 'Enter Topic',
+                      <Form.Item
+                        name="topic"
+                        label={intl.formatMessage({
+                          id: 'topic',
+                          defaultMessage: 'Topic',
                         })}
-                      />
-                    </Form.Item>
-                  </Col>
-
-                  <Col
-                    style={{
-                      height: 35,
-                      width: 250,
-                      paddingLeft: 20,
-                    }}
-                    span={6}
-                  >
-                    <Form.Item
-                      name="createdBy"
-                      label={intl.formatMessage({
-                        id: 'notices.createdBy.label',
-                        defaultMessage: 'Creator',
-                      })}
-                    >
-                      <Select
-                        showSearch
-                        style={{
-                          width: '100%'
-                        }}
-                        placeholder={intl.formatMessage({
-                          id: 'notices.createdBy',
-                          defaultMessage: 'Select Creator',
-                        })}
-                        optionFilterProp="children"
-                        allowClear={true}
                       >
-                        {users.map((employee) => {
-                          return (
-                            <Option key={employee.id} value={employee.id}>
-                              {employee.name}
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                    </Form.Item>
-                  </Col>
+                        <Input
+                          allowClear={true}
+                          style={{
+                            width: '100%',
+                          }}
+                          placeholder={intl.formatMessage({
+                            id: 'notices.topic-input-placeholder',
+                            defaultMessage: 'Enter Topic',
+                          })}
+                        />
+                      </Form.Item>
+                    </Col>
 
-                  <Col
-                    style={{
-                      height: 35,
-                      width: 250,
-                      paddingLeft: 20,
-                    }}
-                    span={6}
-                  >
-                    <Form.Item
-                      name="status"
-                      label={intl.formatMessage({
-                        id: 'notices.status.label',
-                        defaultMessage: 'Status',
-                      })}
+                    <Col
+                      style={{
+                        height: 35,
+                        width: 250,
+                        paddingLeft: 20,
+                      }}
+                      span={6}
                     >
-                      <Select
-                        showSearch
-                        style={{
-                          width: '100%'
-                        }}
-                        placeholder={intl.formatMessage({
-                          id: 'notices.status',
-                          defaultMessage: 'Select Status',
+                      <Form.Item
+                        name="createdBy"
+                        label={intl.formatMessage({
+                          id: 'notices.createdBy.label',
+                          defaultMessage: 'Creator',
                         })}
-                        optionFilterProp="children"
-                        allowClear={true}
                       >
-                        {noticesStatus.map((status) => {
-                          return (
-                            <Option key={status.defaultLabel} value={status.value}>
-                              {status.defaultLabel}
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                    </Form.Item>
-                  </Col>
-                  <Col
-                    style={{
-                      height: 35,
-                      width: 250,
-                      paddingLeft: 20,
-                      paddingTop: 30,
-                    }}
-                    span={6}
-                  >
-                    <Button htmlType="submit" type="primary">
-                      <FormattedMessage id="SEARCH" defaultMessage="Search" />
-                    </Button>
-                  </Col>
-                </Row>
-              </Form>
-            </div>
-          </Space>
-        </Card>
-        <br />
-        <Spin spinning={initializing}>
-          {!initializing &&
-            <ProTable<any>
-              actionRef={tableRef}
-              rowKey="id"
-              search={false}
-              options={true}
-              request={async ({ pageSize, current }, sort) => {
-                setRefreshing(true);
+                        <Select
+                          showSearch
+                          style={{
+                            width: '100%',
+                          }}
+                          placeholder={intl.formatMessage({
+                            id: 'notices.createdBy',
+                            defaultMessage: 'Select Creator',
+                          })}
+                          optionFilterProp="children"
+                          allowClear={true}
+                        >
+                          {users.map((employee) => {
+                            return (
+                              <Option key={employee.id} value={employee.id}>
+                                {employee.name}
+                              </Option>
+                            );
+                          })}
+                        </Select>
+                      </Form.Item>
+                    </Col>
 
-                let sorter = sort;
-                const { data } = await getAllNotices({ pageSize, current, sorter, filterBy: filterData });
-                setNoticesData(data);
-                
-                setRefreshing(false);
-              }}
-              columns={noticesColumns}
-              dataSource={tabActiveKey == 'company-notices' ? companyNoticesData : teamNoticesData}
-              pagination={{ pageSize: 10, defaultPageSize: 10, hideOnSinglePage: true }}
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: async () => {
-                    const { id } = record;
-                    history.push(`/notices/${id}`);
-                  },
-                };
-              }}
-            />
-          }
-        </Spin>
-      </PageContainer>
+                    <Col
+                      style={{
+                        height: 35,
+                        width: 250,
+                        paddingLeft: 20,
+                      }}
+                      span={6}
+                    >
+                      <Form.Item
+                        name="status"
+                        label={intl.formatMessage({
+                          id: 'notices.status.label',
+                          defaultMessage: 'Status',
+                        })}
+                      >
+                        <Select
+                          showSearch
+                          style={{
+                            width: '100%',
+                          }}
+                          placeholder={intl.formatMessage({
+                            id: 'notices.status',
+                            defaultMessage: 'Select Status',
+                          })}
+                          optionFilterProp="children"
+                          allowClear={true}
+                        >
+                          {noticesStatus.map((status) => {
+                            return (
+                              <Option key={status.defaultLabel} value={status.value}>
+                                {status.defaultLabel}
+                              </Option>
+                            );
+                          })}
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col
+                      style={{
+                        height: 35,
+                        width: 250,
+                        paddingLeft: 20,
+                        paddingTop: 30,
+                      }}
+                      span={6}
+                    >
+                      <Button htmlType="submit" type="primary">
+                        <FormattedMessage id="SEARCH" defaultMessage="Search" />
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+              </div>
+            </Space>
+          </Card>
+          <br />
+          <Spin spinning={initializing}>
+            {!initializing && (
+              <ProTable<any>
+                actionRef={tableRef}
+                rowKey="id"
+                search={false}
+                options={true}
+                request={async ({ pageSize, current }, sort) => {
+                  setRefreshing(true);
+
+                  let sorter = sort;
+                  const { data } = await getAllNotices({
+                    pageSize,
+                    current,
+                    sorter,
+                    filterBy: filterData,
+                  });
+                  setNoticesData(data);
+
+                  setRefreshing(false);
+                }}
+                columns={noticesColumns}
+                dataSource={
+                  tabActiveKey == 'company-notices' ? companyNoticesData : teamNoticesData
+                }
+                pagination={{ pageSize: 10, defaultPageSize: 10, hideOnSinglePage: true }}
+                onRow={(record, rowIndex) => {
+                  return {
+                    onClick: async () => {
+                      const { id } = record;
+                      history.push(`/notices/${id}`);
+                    },
+                  };
+                }}
+              />
+            )}
+          </Spin>
+        </PageContainer>
+      </div>
     </Access>
   );
 };
