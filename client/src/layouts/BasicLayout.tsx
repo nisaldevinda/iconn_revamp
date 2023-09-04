@@ -53,38 +53,42 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map((item) => {
     const localItem = {
       ...item,
-    icon:<SidebarIcons icon={item.svgIcon} />,
-    children: item.children ? menuDataRender(item.children) : undefined,
+      icon: <SidebarIcons icon={item.svgIcon} />,
+      children: item.children ? menuDataRender(item.children) : undefined,
     };
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
-const version = VERSION ? ' | ' .concat(VERSION) : '';
+const version = VERSION ? ' | '.concat(VERSION) : '';
 
-const defaultFooterDom = (
-  <DefaultFooter
-    copyright={`${new Date().getFullYear()} ICONN Labs Pvt Ltd.All rights reserved. `.concat(`${version}`)}
-    links={[
-      // {
-      //   key: 'Ant Design Pro',
-      //   title: 'Ant Design Pro',
-      //   href: 'https://pro.ant.design',
-      //   blankTarget: true,
-      // },
-      // {
-      //   key: 'github',
-      //   title: <GithubOutlined />,
-      //   href: 'https://github.com/ant-design/ant-design-pro',
-      //   blankTarget: true,
-      // },
-      // {
-      //   key: 'Ant Design',
-      //   title: 'Ant Design',
-      //   href: 'https://ant.design',
-      //   blankTarget: true,
-      // },
-    ]}
-  />
-);
+// const defaultFooterDom = (
+//   <DefaultFooter
+//     copyright={`${new Date().getFullYear()} ICONN Labs Pvt Ltd.All rights reserved. `.concat(
+//       `${version}`,
+//     )}
+//     links={
+//       [
+//         // {
+//         //   key: 'Ant Design Pro',
+//         //   title: 'Ant Design Pro',
+//         //   href: 'https://pro.ant.design',
+//         //   blankTarget: true,
+//         // },
+//         // {
+//         //   key: 'github',
+//         //   title: <GithubOutlined />,
+//         //   href: 'https://github.com/ant-design/ant-design-pro',
+//         //   blankTarget: true,
+//         // },
+//         // {
+//         //   key: 'Ant Design',
+//         //   title: 'Ant Design',
+//         //   href: 'https://ant.design',
+//         //   blankTarget: true,
+//         // },
+//       ]
+//     }
+//   />
+// );
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const {
@@ -167,7 +171,15 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     <ProLayout
       siderWidth={260}
       // logo={collapsed ? logoCollapsed : logo}
-      logo={collapsed && iconImg ? iconImg : !collapsed && iconImg ? iconImg : !collapsed && !iconImg ? logo : logoCollapsed}
+      logo={
+        collapsed && iconImg
+          ? iconImg
+          : !collapsed && iconImg
+          ? iconImg
+          : !collapsed && !iconImg
+          ? logo
+          : logoCollapsed
+      }
       // logo={iconImg}
       formatMessage={formatMessage}
       {...props}
@@ -183,7 +195,12 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         ) {
           return defaultDom;
         }
-        return <Link data-key={`nav-${menuItemProps.dataKey}`} to={menuItemProps.path} > {defaultDom}</Link>;
+        return (
+          <Link data-key={`nav-${menuItemProps.dataKey}`} to={menuItemProps.path}>
+            {' '}
+            {defaultDom}
+          </Link>
+        );
       }}
       breadcrumbRender={(routers = []) => [
         {
@@ -196,19 +213,19 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         const first = routes.indexOf(route) === 0;
         const last = paths[paths.length - 1];
         if (first) {
-          return <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+          return <Link to={paths.join('/')}>{route.breadcrumbName}</Link>;
         }
         if (!route.component) {
-          return <span> {route.breadcrumbName}</span>
+          return <span> {route.breadcrumbName}</span>;
         }
-        return <Link to={`/${last}`}>{route.breadcrumbName}</Link>
+        return <Link to={`/${last}`}>{route.breadcrumbName}</Link>;
       }}
-      footerRender={() => {
-        if (settings.footerRender || settings.footerRender === undefined) {
-          return defaultFooterDom;
-        }
-        return null;
-      }}
+      // footerRender={() => {
+      //   if (settings.footerRender || settings.footerRender === undefined) {
+      //     return defaultFooterDom;
+      //   }
+      //   return null;
+      // }}
       menuDataRender={menuDataRender}
       rightContentRender={() => <RightContent />}
       postMenuData={(menuData) => {
@@ -216,15 +233,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         return menuData || [];
       }}
       menuHeaderRender={(_logo, _title) => (
-        <Row justify='center'  className={ getClassName()}>
+        <Row justify="center" className={getClassName()}>
           {_logo}
         </Row>
       )}
     >
       <Authorized authority={authorized!.authority} noMatch={noMatch}>
-        <ConfigProvider locale={en_US}>
-          {children}
-        </ConfigProvider>
+        <ConfigProvider locale={en_US}>{children}</ConfigProvider>
       </Authorized>
     </ProLayout>
   );

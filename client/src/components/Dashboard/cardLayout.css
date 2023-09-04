@@ -17,3 +17,54 @@
 .testCss::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.ant-card-meta-title {
+  color: #324054;
+  font-weight: 600;
+  font-size: 24px;
+  font-family: Inter;
+}
+
+.ant-select-selection-search-input {
+  color: #71839b;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: Inter;
+  line-height: 24px;
+}
+
+.ant-typography {
+  color: #324054;
+  font-weight: 500;
+  font-size: 18px;
+  font-family: Inter;
+}
+
+.ant-card {
+  /* height: 85vh !important; */
+}
+
+.primary___Q_ydk {
+  margin-left: -23px !important;
+  color: #324054 !important;
+  font-weight: 700;
+  font-size: 14px !important;
+  font-family: Inter;
+}
+
+.secondary___3vTFZ {
+  color: #777777 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  font-family: Inter;
+}
+
+.ant-btn {
+  background: #2d68fe !important;
+  border: none !important;
+  border-radius: 5px !important;
+}
+
+.buttonText___2nXwz {
+  font-size: 14px !important;
+}
