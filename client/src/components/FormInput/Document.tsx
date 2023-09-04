@@ -1,40 +1,45 @@
-import React, { useEffect, useRef, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-import ProTable, { ActionType, ProColumns } from "@ant-design/pro-table";
-import { Button, Col, Drawer, FormInstance, Popconfirm, Space, Spin, Tooltip } from "antd";
-import { DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import Modal from "antd/lib/modal/Modal";
-import DynamicForm from "../DynamicForm";
-import { getModel, ModelType } from "@/services/model";
-import _ from "lodash";
-import request from "@/utils/request";
+import React, { useEffect, useRef, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
+import { Button, Col, Drawer, FormInstance, Popconfirm, Space, Spin, Tooltip } from 'antd';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
+import Modal from 'antd/lib/modal/Modal';
+import DynamicForm from '../DynamicForm';
+import { getModel, ModelType } from '@/services/model';
+import _ from 'lodash';
+import request from '@/utils/request';
 
 export type MultiRecordTableProps = {
-  fieldName: string,
+  fieldName: string;
   fieldNamePrefix?: string;
   fieldDefinition: {
-    labelKey: string,
-    defaultLabel: string,
-    type: string,
-    modelName: string,
-    enumValueKey: string,
-    enumLabelKey: string,
-    dependOn: Array<any>,
-    isEditable: string,
-    isSystemValue: string,
+    labelKey: string;
+    defaultLabel: string;
+    type: string;
+    modelName: string;
+    enumValueKey: string;
+    enumLabelKey: string;
+    dependOn: Array<any>;
+    isEditable: string;
+    isSystemValue: string;
     validations: {
-      required: boolean,
-      min: number,
-      max: number
-    },
-    defaultValue: string,
-  },
-  parentModelName: string,
+      required: boolean;
+      min: number;
+      max: number;
+    };
+    defaultValue: string;
+  };
+  parentModelName: string;
   readOnly: boolean;
   values: {};
   setValues: (values: any) => void;
   form: FormInstance;
-  recentlyChangedValue: any
+  recentlyChangedValue: any;
 };
 
 const Document: React.FC<MultiRecordTableProps> = (props) => {
@@ -69,9 +74,9 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
             field.values.map((value) => {
               valueEnum[value.value] = intl.formatMessage({
                 id: `model.${modelName}.${field.name}.${value.labelKey}`,
-                defaultMessage: value.defaultLabel
+                defaultMessage: value.defaultLabel,
               });
-            })
+            });
           }
           column['valueEnum'] = valueEnum;
         }
@@ -83,13 +88,13 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
             if (!_.isEmpty(response.data)) {
               path = `/api${response.data.modelDataDefinition.path}`;
             }
-          })
+          });
 
           await request(path).then(function (response) {
             if (response && response.data && Array.isArray(response.data)) {
               let valueEnum = {};
 
-              response.data.map(data => {
+              response.data.map((data) => {
                 valueEnum[data[field.enumValueKey]] = data[field.enumLabelKey];
               });
 
@@ -113,48 +118,50 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
         fixed: 'right',
         width: 80,
         render: (text, record, index, action) => [
-          <Tooltip title={
-            intl.formatMessage({
+          <Tooltip
+            title={intl.formatMessage({
               id: 'edit',
               defaultMessage: 'Edit',
-            })
-          }>
-            <a onClick={() => {
-              setCurrentIndex(index);
+            })}
+          >
+            <a
+              onClick={() => {
+                setCurrentIndex(index);
 
-              let modifiedRecord = {};
-              for (let fieldName in record) {
-                modifiedRecord[`${fieldNamePrefix}${fieldName}`] = record[fieldName];
-              }
+                let modifiedRecord = {};
+                for (let fieldName in record) {
+                  modifiedRecord[`${fieldNamePrefix}${fieldName}`] = record[fieldName];
+                }
 
-              setCurrentRecord(modifiedRecord);
-              setModalVisible(true);
-            }}>
+                setCurrentRecord(modifiedRecord);
+                setModalVisible(true);
+              }}
+            >
               <EditOutlined />
             </a>
           </Tooltip>,
           <Popconfirm
             title={intl.formatMessage({
               id: 'are_you_sure',
-              defaultMessage: 'Are you sure?'
+              defaultMessage: 'Are you sure?',
             })}
             onConfirm={() => removeRecord(index)}
             okText="Yes"
             cancelText="No"
           >
-            <Tooltip title={
-              intl.formatMessage({
+            <Tooltip
+              title={intl.formatMessage({
                 id: 'delete',
                 defaultMessage: 'Delete',
-              })
-            }>
+              })}
+            >
               <a>
                 <DeleteOutlined />
               </a>
             </Tooltip>
-          </Popconfirm>
-        ]
-      })
+          </Popconfirm>,
+        ],
+      });
       setColumns(columnSet);
     }
   }
@@ -179,9 +186,10 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
     }
 
     if (!columns) {
-      const fields = nestedModel && nestedModel.modelDataDefinition
-        ? nestedModel.modelDataDefinition.fields
-        : [];
+      const fields =
+        nestedModel && nestedModel.modelDataDefinition
+          ? nestedModel.modelDataDefinition.fields
+          : [];
       setupTableColumns(fields);
     }
   }, [nestedModel]);
@@ -201,7 +209,7 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
     props.setValues(currentValues);
 
     setLoading(false);
-  }
+  };
 
   const updateRecord = (index: number, values: any) => {
     setLoading(true);
@@ -221,7 +229,7 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
     props.setValues(currentValues);
 
     setLoading(false);
-  }
+  };
 
   const removeRecord = (index: number) => {
     setLoading(true);
@@ -235,18 +243,17 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
     props.setValues(currentValues);
 
     setLoading(false);
-  }
+  };
 
   const fieldName = props.fieldNamePrefix
     ? props.fieldNamePrefix.concat(props.fieldName)
     : props.fieldName;
   const fieldNamePrefix = fieldName.concat('_');
 
-
   return !_.isEmpty(columns) ? (
     <Col data-key={fieldName} span={24}>
       <ProTable
-        pagination={{ pageSize: 20, defaultPageSize: 20, hideOnSinglePage: true}}
+        pagination={{ pageSize: 20, defaultPageSize: 20, hideOnSinglePage: true }}
         id={fieldName}
         rowKey="id"
         columns={columns}
@@ -265,11 +272,12 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
             }}
           >
             <PlusOutlined /> <FormattedMessage id="pages.user.new" defaultMessage="New" />
-          </Button>]}
+          </Button>,
+        ]}
       />
 
-      {_.isEmpty(currentIndex) && _.isEmpty(currentRecord)
-        ? <Modal
+      {_.isEmpty(currentIndex) && _.isEmpty(currentRecord) ? (
+        <Modal
           key={fieldName.concat('Modal')}
           title={`Add ${modelName}`}
           centered
@@ -277,21 +285,21 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
           visible={modalVisible}
           okButtonProps={{
             form: `${props.fieldNamePrefix}${props.fieldName}-form`,
-            htmlType: "submit"
+            htmlType: 'submit',
           }}
           onCancel={() => setModalVisible(false)}
           width="60vw"
           bodyStyle={{
-            maxHeight: "60vh",
-            overflowY: "auto"
+            maxHeight: '60vh',
+            overflowY: 'auto',
           }}
           okText={intl.formatMessage({
             id: 'ADD',
-            defaultMessage: 'Add'
+            defaultMessage: 'Add',
           })}
           cancelText={intl.formatMessage({
             id: 'CANCEL',
-            defaultMessage: 'Cancel'
+            defaultMessage: 'Cancel',
           })}
         >
           <DynamicForm
@@ -311,27 +319,35 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
             submitterType="none"
             submitbuttonLabel={intl.formatMessage({
               id: 'ADD',
-              defaultMessage: 'Add'
+              defaultMessage: 'Add',
             })}
             resetbuttonLabel={intl.formatMessage({
               id: 'RESET',
-              defaultMessage: 'Reset'
+              defaultMessage: 'Reset',
             })}
           />
         </Modal>
-        : <Drawer
+      ) : (
+        <Drawer
           key={fieldName.concat('Modal')}
           title={`Edit ${modelName}`}
           destroyOnClose={true}
           visible={modalVisible}
-          footer={<Space style={{ float: "right" }}>
-            <Button onClick={() => setModalVisible(false)}>
-              <FormattedMessage id="CANCEL" defaultMessage="Cancel" />
-            </Button>
-            <Button form={`${props.fieldNamePrefix}${props.fieldName}-form`} type="primary" key="submit" htmlType="submit">
-              <FormattedMessage id="UPDATE" defaultMessage="Update" />
-            </Button>
-          </Space>}
+          footer={
+            <Space style={{ float: 'right' }}>
+              <Button onClick={() => setModalVisible(false)}>
+                <FormattedMessage id="CANCEL" defaultMessage="Cancel" />
+              </Button>
+              <Button
+                form={`${props.fieldNamePrefix}${props.fieldName}-form`}
+                type="primary"
+                key="submit"
+                htmlType="submit"
+              >
+                <FormattedMessage id="UPDATE" defaultMessage="Update" />
+              </Button>
+            </Space>
+          }
           onClose={() => setModalVisible(false)}
           width="40vw"
         >
@@ -352,16 +368,19 @@ const Document: React.FC<MultiRecordTableProps> = (props) => {
             submitterType="none"
             submitbuttonLabel={intl.formatMessage({
               id: 'ADD',
-              defaultMessage: 'Add'
+              defaultMessage: 'Add',
             })}
             resetbuttonLabel={intl.formatMessage({
               id: 'RESET',
-              defaultMessage: 'Reset'
+              defaultMessage: 'Reset',
             })}
           />
         </Drawer>
-      }
-    </Col>) : (<Spin />)
+      )}
+    </Col>
+  ) : (
+    <Spin />
+  );
 };
 
 export default Document;

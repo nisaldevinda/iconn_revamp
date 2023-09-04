@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { history } from 'umi';
 import { useIntl } from 'react-intl';
 import { PageContainer } from '@ant-design/pro-layout';
+import './employee.css';
 
 const MemberList: React.FC = () => {
   const intl = useIntl();
@@ -21,7 +22,6 @@ const MemberList: React.FC = () => {
   }, []);
 
   return (
-    
     <PageContainer>
       <BasicContainer
         rowId="id"
@@ -76,7 +76,6 @@ const MemberList: React.FC = () => {
         }}
       />
     </PageContainer>
-    
   );
 };
 

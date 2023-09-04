@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.ant-input-search-button {
+  border-radius: 0 !important;
+}
+
+.ant-pagination {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.ant-space {
+  gap: 0 !important;
+}
+
+.ant-card-head-title {
+  color: #2d68fe;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif !important;
+  line-height: 16px;
+  word-wrap: break-word;
+}
+
+.ant-card-bordered {
+  background-color: #ffffff;
+}
+
+.ant-form-item-label {
+  color: #324054;
+  font-weight: 500;
+  font-size: 13px;
+  font-family: Inter;
+  line-height: 24px;
+  word-wrap: break-word;
+}
+
+.ant-pro-footer-bar {
+  padding: 12px 24px;
+}

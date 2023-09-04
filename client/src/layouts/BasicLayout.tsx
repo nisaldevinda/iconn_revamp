@@ -90,7 +90,6 @@ const version = VERSION ? ' | '.concat(VERSION) : '';
 //   />
 // );
 
-
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const {
     dispatch,
@@ -220,13 +219,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         //   return <span> {route.breadcrumbName}</span>;
         // }
         // return <Link to={`/${last}`}>{route.breadcrumbName}</Link>;
-      }}
-      footerRender={() => {
-        if (settings.footerRender || settings.footerRender === undefined) {
-          return defaultFooterDom;
-        }
-        return null;
-
       }}
       // footerRender={() => {
       //   if (settings.footerRender || settings.footerRender === undefined) {
