@@ -47,13 +47,15 @@ const OrgNode: React.FC<OrgNodeProps> = ({ nodeData, showModal, employeeList }) 
       className={'orgStructureNode'}
       headStyle={{
         background: '#002B98',
-        borderTopLeftRadius: 6,
-        borderTopRightRadius: 6,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
       }}
       bodyStyle={{
-        border: '1px solid #18aeef',
-        borderBottomRightRadius: 6,
-        borderBottomLeftRadius: 6,
+        border: '1px solid #002B98',
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        backgroundColor: '#D9E4FF',
+        color: '#324054',
       }}
       extra={
         <Space>

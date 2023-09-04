@@ -13,32 +13,37 @@ import {
   Divider,
   message as Message,
   Typography,
-  Transfer
+  Transfer,
 } from 'antd';
-import { useParams, history, useAccess, Access , useIntl } from 'umi';
+import { useParams, history, useAccess, Access, useIntl } from 'umi';
 import { Editor } from '@tinymce/tinymce-react';
 import { getTemplateTokens } from '@/services/model';
 import {
   getDocumentCategories,
   getDocumentsList,
   getEmployeeDocument,
-  addBulkLetter
+  addBulkLetter,
 } from '@/services/documentTemplate';
-import ProForm, { ProFormSelect } from "@ant-design/pro-form";
+import ProForm, { ProFormSelect } from '@ant-design/pro-form';
 import { ITokenOption, IDocumentTemplateForm, IParams } from './data';
 import { apiKey, tokenizeEditorObj, getPageSize } from './editorHelper';
 import PermissionDeniedPage from './../403';
-import { getEmployeeList ,getManagerList , getSubordinatesList ,getEmployeeListForLocation } from '@/services/dropdown';
+import {
+  getEmployeeList,
+  getManagerList,
+  getSubordinatesList,
+  getEmployeeListForLocation,
+} from '@/services/dropdown';
 import { getAllLocations } from '@/services/location';
-import { LeftOutlined , RightOutlined, TransactionOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined, TransactionOutlined } from '@ant-design/icons';
 import './styles.css';
 import styles from './styles.less';
 export default (): React.ReactNode => {
   const { Option } = Select;
   const intl = useIntl();
-  const { Title,Text } = Typography;
+  const { Title, Text } = Typography;
   const { id } = useParams<IParams>();
-  
+
   const templateLayout = {
     labelCol: { span: 20 },
     wrapperCol: { span: 20 },
@@ -54,8 +59,8 @@ export default (): React.ReactNode => {
   const [selectedToken, setSelectedToken] = useState(null);
   const [buttonText, setButtonText] = useState<string>('Save & Share');
   const [modalVisible, setModalVisible] = useState(false);
-  const [categories , setCategories] = useState([]);
-  const [templates , setTemplates] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [templates, setTemplates] = useState([]);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const [initializing, setInitializing] = useState(false);
   const [audienceMethod, setAudienceMethod] = useState([]);
@@ -65,11 +70,11 @@ export default (): React.ReactNode => {
   const [locations, setLocations] = useState([]);
   const [targetKeys, setTargetKeys] = useState<string[]>([]);
   const [managerEmployees, setManagerEmployees] = useState([]);
-  const [templateID , setTemplateID] = useState('');
-  const [employeesList , setEmployeesList] = useState([]);
+  const [templateID, setTemplateID] = useState('');
+  const [employeesList, setEmployeesList] = useState([]);
   const [templateName, setTemplateName] = useState('');
   const [index, setIndex] = useState(0);
-  const [contentArray , setContentArray] = useState([]);
+  const [contentArray, setContentArray] = useState([]);
   const [editorInit, setEditorInit] = useState<EditorProps>({
     ...tokenizeEditorObj,
     setup: function (editor) {
@@ -117,38 +122,36 @@ export default (): React.ReactNode => {
     setIsTokenModalVisible(false);
   };
 
-  const onFinish = async (formData:any) => {
-   
-    const { templateId, documentCategory} = formData;
-      let audience = { ...selectedEmployees};
-    
-      if ( audienceType === 'QUERY' || audienceType === 'ALL') {
-         let empIds = employeesList.map((emp) => {
-            return emp.id
-         })
-        audience = {
-          employeeIds: empIds
-        };
-      } else if (audienceType === 'CUSTOM' || audienceType === 'REPORT_TO') {
-        audience = {
-          employeeIds: targetKeys
-        };
-      } else {
-        audience = {};
-      }
-    
+  const onFinish = async (formData: any) => {
+    const { templateId, documentCategory } = formData;
+    let audience = { ...selectedEmployees };
+
+    if (audienceType === 'QUERY' || audienceType === 'ALL') {
+      let empIds = employeesList.map((emp) => {
+        return emp.id;
+      });
+      audience = {
+        employeeIds: empIds,
+      };
+    } else if (audienceType === 'CUSTOM' || audienceType === 'REPORT_TO') {
+      audience = {
+        employeeIds: targetKeys,
+      };
+    } else {
+      audience = {};
+    }
+
     const requestData = {
       templateId,
-      documentCategoryId :documentCategory,
+      documentCategoryId: documentCategory,
       audienceType: audienceType ? audienceType : null,
-      audienceData : audience,
+      audienceData: audience,
       folderId: 4,
     };
     try {
       const { message, data } = await addBulkLetter(requestData);
       Message.success(message);
-      
-    } catch (err) {   
+    } catch (err) {
       Message.error({
         content: intl.formatMessage({
           id: 'pages.documentTemplate.failedToSave',
@@ -156,7 +159,6 @@ export default (): React.ReactNode => {
         }),
       });
     }
-   
   };
   const fetchEmployeeData = async (templateId: string, employeeId: string) => {
     try {
@@ -170,73 +172,95 @@ export default (): React.ReactNode => {
           defaultMessage: 'Failed to load Employee Data',
         }),
       });
-    }  
+    }
   };
 
-  useEffect( ()=> {
+  useEffect(() => {
     if (templateID != '' && employeesList.length != 0) {
       setTemplateName(employeesList[index]['employeeName']);
-      fetchEmployeeData(templateID,employeesList[index]['id'])
+      fetchEmployeeData(templateID, employeesList[index]['id']);
     }
-  },[employeesList]);
+  }, [employeesList]);
 
-  useEffect( ()=> {
-    if (targetKeys.length !=0) {
-      let employees = employeesList.filter((emp) =>{
+  useEffect(() => {
+    if (targetKeys.length != 0) {
+      let employees = employeesList.filter((emp) => {
         return targetKeys.includes(emp.id);
       });
       setEmployeesList(employees);
     }
-  },[targetKeys.length !=0]);
- 
+  }, [targetKeys.length != 0]);
+
   useEffect(() => {
-      getAllCategories();
-      getEmployees();
-  },[]);
-  
+    getAllCategories();
+    getEmployees();
+  }, []);
+
   const getEmployees = async () => {
     setInitializing(true);
 
-    const adminEmployeesRes = await getEmployeeList("ADMIN");
-    setAdminEmployees(adminEmployeesRes?.data.map(employee => {
-      return {
-        title: employee.employeeNumber+' | '+employee.employeeName,
-        key: employee.id
-      };
-    }));
+    const adminEmployeesRes = await getEmployeeList('ADMIN');
+    setAdminEmployees(
+      adminEmployeesRes?.data.map((employee) => {
+        return {
+          title: employee.employeeNumber + ' | ' + employee.employeeName,
+          key: employee.id,
+        };
+      }),
+    );
     setEmployeesList(adminEmployeesRes.data);
-  
+
     const managerRes = await getManagerList();
-    setManagers(managerRes?.data.map(manager => {
-      return {
-        label: manager.employeeNumber+' | '+manager.employeeName,
-        value: manager.id
-      };
-    }));
+    setManagers(
+      managerRes?.data.map((manager) => {
+        return {
+          label: manager.employeeNumber + ' | ' + manager.employeeName,
+          value: manager.id,
+        };
+      }),
+    );
 
     const locationRes = await getAllLocations();
-    setLocations(Object.values(locationRes?.data.map(location => {
-      return {
-        label: location.name,
-        value: location.id
-      };
-    })));
+    setLocations(
+      Object.values(
+        locationRes?.data.map((location) => {
+          return {
+            label: location.name,
+            value: location.id,
+          };
+        }),
+      ),
+    );
 
     setInitializing(false);
     const _audienceMethod = [];
-    _audienceMethod.push({ label: `${intl.formatMessage({ id: 'ALL', defaultMessage: 'All' })}`, value: 'ALL' });
-    _audienceMethod.push({ label: `${intl.formatMessage({ id: 'ASSIGN_TO_MANAGER', defaultMessage: 'Assign To Manager' })}`, value: 'REPORT_TO' });
-    _audienceMethod.push({ label: `${intl.formatMessage({ id: 'LOCATION', defaultMessage: 'Location' })}`, value: 'QUERY' });
-    _audienceMethod.push({ label: `${intl.formatMessage({ id: 'CUSTOM', defaultMessage: 'Custom' })}`, value: 'CUSTOM' });
+    _audienceMethod.push({
+      label: `${intl.formatMessage({ id: 'ALL', defaultMessage: 'All' })}`,
+      value: 'ALL',
+    });
+    _audienceMethod.push({
+      label: `${intl.formatMessage({
+        id: 'ASSIGN_TO_MANAGER',
+        defaultMessage: 'Assign To Manager',
+      })}`,
+      value: 'REPORT_TO',
+    });
+    _audienceMethod.push({
+      label: `${intl.formatMessage({ id: 'LOCATION', defaultMessage: 'Location' })}`,
+      value: 'QUERY',
+    });
+    _audienceMethod.push({
+      label: `${intl.formatMessage({ id: 'CUSTOM', defaultMessage: 'Custom' })}`,
+      value: 'CUSTOM',
+    });
     setAudienceMethod(_audienceMethod);
-  }
+  };
 
-  const getAllCategories = async() => {
-    const {data} = await getDocumentCategories();
+  const getAllCategories = async () => {
+    const { data } = await getDocumentCategories();
     setCategories(data);
-  }
+  };
 
-  
   return (
     <Access
       accessible={hasPermitted('document-template-read-write')}
@@ -306,7 +330,7 @@ export default (): React.ReactNode => {
                           id: 'documentTemplate.documentCategory.required',
                           defaultMessage: 'Required',
                         }),
-                      }
+                      },
                     ]}
                     style={{ width: 320 }}
                   >
@@ -317,7 +341,7 @@ export default (): React.ReactNode => {
                         defaultMessage: 'Select Document Category.',
                       })}
                       optionFilterProp="children"
-                      onChange={async(value) => {
+                      onChange={async (value) => {
                         const { data } = await getDocumentsList(value);
                         setTemplates(data);
                       }}
@@ -377,7 +401,6 @@ export default (): React.ReactNode => {
                     id: 'pages.documentManagerReport.audience',
                     defaultMessage: 'Share with',
                   })}
-
                 >
                   <Text type="secondary">
                     {intl.formatMessage({
@@ -405,7 +428,7 @@ export default (): React.ReactNode => {
                 />
               </Col>
               <Col span={10}>
-                {!initializing && audienceType == 'REPORT_TO' &&
+                {!initializing && audienceType == 'REPORT_TO' && (
                   <ProFormSelect
                     width="lg"
                     name="reportToManager"
@@ -414,38 +437,39 @@ export default (): React.ReactNode => {
                       defaultMessage: 'Select a Manager',
                     })}
                     options={managers}
-                    rules={
-                      [
-                        {
-                          required: true,
-                          message: intl.formatMessage({
-                            id: 'pages.documentManagerReport.topic',
-                            defaultMessage: 'Required',
-                          })
-                        },
-                      ]
-                    }
+                    rules={[
+                      {
+                        required: true,
+                        message: intl.formatMessage({
+                          id: 'pages.documentManagerReport.topic',
+                          defaultMessage: 'Required',
+                        }),
+                      },
+                    ]}
                     onChange={async (value) => {
-                       const { data } = await getSubordinatesList(value);
-                       setManagerEmployees(data.map(employee => {
-                        return {
-                          title: employee.employeeName,
-                          key: employee.id
-                        }}));
-                        setEmployeesList(data);
-                        if (data.length === 0) {
-                          setContent('');
-                          setTemplateName('');
-                        }
+                      const { data } = await getSubordinatesList(value);
+                      setManagerEmployees(
+                        data.map((employee) => {
+                          return {
+                            title: employee.employeeName,
+                            key: employee.id,
+                          };
+                        }),
+                      );
+                      setEmployeesList(data);
+                      if (data.length === 0) {
+                        setContent('');
+                        setTemplateName('');
+                      }
                     }}
                     placeholder={intl.formatMessage({
                       id: 'pages.document.manager',
                       defaultMessage: 'Select Manager',
                     })}
                   />
-                }
+                )}
 
-                {!initializing && audienceType == 'QUERY' &&
+                {!initializing && audienceType == 'QUERY' && (
                   <ProFormSelect
                     width="lg"
                     name="queryLocation"
@@ -454,17 +478,15 @@ export default (): React.ReactNode => {
                       defaultMessage: 'Select a Location',
                     })}
                     options={locations}
-                    rules={
-                      [
-                        {
-                          required: true,
-                          message: intl.formatMessage({
-                            id: 'topic',
-                            defaultMessage: 'Required',
-                          })
-                        },
-                      ]
-                    }
+                    rules={[
+                      {
+                        required: true,
+                        message: intl.formatMessage({
+                          id: 'topic',
+                          defaultMessage: 'Required',
+                        }),
+                      },
+                    ]}
                     onChange={async (value) => {
                       const { data } = await getEmployeeListForLocation(value);
                       setEmployeesList(data);
@@ -478,27 +500,28 @@ export default (): React.ReactNode => {
                       defaultMessage: 'Select Location',
                     })}
                   />
-                }
+                )}
               </Col>
               <Col span={18}>
-                {!initializing && (audienceType == 'CUSTOM' || audienceType == 'REPORT_TO') &&
+                {!initializing && (audienceType == 'CUSTOM' || audienceType == 'REPORT_TO') && (
                   <Transfer
-                    dataSource={ audienceType == 'CUSTOM' ? adminEmployees : managerEmployees}
+                    dataSource={audienceType == 'CUSTOM' ? adminEmployees : managerEmployees}
                     showSearch
-                    filterOption={(search, item) => { return item.title.toLowerCase().indexOf(search.toLowerCase()) >= 0; }}
+                    filterOption={(search, item) => {
+                      return item.title.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+                    }}
                     targetKeys={targetKeys}
                     onChange={(newTargetKeys: string[]) => {
                       setTargetKeys(newTargetKeys);
                     }}
-                    render={item => item.title}
+                    render={(item) => item.title}
                     listStyle={{
                       width: 300,
                       height: 300,
-                      marginBottom: 20
+                      marginBottom: 20,
                     }}
                   />
-                }
-
+                )}
               </Col>
               <div>
                 <Form.Item
@@ -508,9 +531,9 @@ export default (): React.ReactNode => {
                     defaultMessage: 'Content',
                   })}
                 >
-                  <Card style={{backgroundColor:'#F1F3F6' , width:850}}>
+                  <Card style={{ backgroundColor: '#F1F3F6', width: 850 }}>
                     <Title level={5} style={{ marginBottom: '3%' }}>
-                       {templateName}
+                      {templateName}
                     </Title>
                     <Editor
                       apiKey={TINY_API_KEY}
@@ -518,7 +541,6 @@ export default (): React.ReactNode => {
                       initialValue={content}
                       init={editorInit}
                       disabled={true}
-
                     />
                     <Row style={{ marginRight: 14, paddingTop: 20 }}>
                       <Col span={24} style={{ textAlign: 'right' }}>
@@ -534,10 +556,9 @@ export default (): React.ReactNode => {
                                   fetchEmployeeData(templateID, employeesList[indexVal]['id']);
                                   setTemplateName(employeesList[indexVal]['employeeName']);
                                 }
-                              }
-                              }
+                              }}
                             >
-                              <LeftOutlined  style={{color: '#626D6C'}}/>
+                              <LeftOutlined style={{ color: '#626D6C' }} />
                             </Button>
                             <Button
                               htmlType="button"
@@ -547,11 +568,11 @@ export default (): React.ReactNode => {
                                   let indexVal = index + 1;
                                   setIndex(index + 1);
                                   fetchEmployeeData(templateID, employeesList[indexVal]['id']);
-                                  setTemplateName(employeesList[indexVal]['employeeName'])
+                                  setTemplateName(employeesList[indexVal]['employeeName']);
                                 }
                               }}
                             >
-                              <RightOutlined style={{color: '#626D6C'}}/>
+                              <RightOutlined style={{ color: '#626D6C' }} />
                             </Button>
                           </Space>
                         </Form.Item>
@@ -559,7 +580,6 @@ export default (): React.ReactNode => {
                     </Row>
                   </Card>
                 </Form.Item>
-                
               </div>
               <Row>
                 <Col span={24} style={{ textAlign: 'right' }}>
@@ -578,21 +598,21 @@ export default (): React.ReactNode => {
                         }}
                       >
                         {intl.formatMessage({
-                            id: 'pages.documentTemplate.reset',
-                            defaultMessage: 'Reset',
+                          id: 'pages.documentTemplate.reset',
+                          defaultMessage: 'Reset',
                         })}
                       </Button>
                       <Button type="primary" htmlType="submit">
-                          {intl.formatMessage({
-                            id: 'pages.documentTemplate.reset',
-                            defaultMessage: `${buttonText}`,
+                        {intl.formatMessage({
+                          id: 'pages.documentTemplate.reset',
+                          defaultMessage: `${buttonText}`,
                         })}
                       </Button>
                     </Space>
                   </Form.Item>
                 </Col>
               </Row>
-            </Form> 
+            </Form>
           </Col>
         </Card>
       </PageContainer>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import clsx from 'clsx';
 import { Tree, TreeNode } from 'react-organizational-chart';
-import { Card, Button, Avatar, Col, Row, Divider ,message as Message } from 'antd';
+import { Card, Button, Avatar, Col, Row, Divider, message as Message } from 'antd';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDrop } from 'react-dnd';
@@ -27,7 +27,6 @@ interface TreeNodeProps {
 }
 
 const DetailCard: React.FC<DetailCardProps> = (props) => {
-
   const { Meta } = Card;
   let childrenCount;
   if (props.data.organizationChildRelationship) {
@@ -128,7 +127,7 @@ const Node: React.FC<TreeNodeProps> = (props) => {
   const T = props.parent
     ? TreeNode
     : (treeData: any) => (
-        <Tree {...treeData} lineWidth="2px"  lineColor="#bbc" lineBorderRadius="12px">
+        <Tree {...treeData} lineWidth="2px" lineColor="#bbc" lineBorderRadius="12px">
           {treeData.children}
         </Tree>
       );
@@ -149,9 +148,8 @@ const Node: React.FC<TreeNodeProps> = (props) => {
 };
 
 const OrganizationalChart: React.FC<OrganizationalChartProps> = (props) => {
-
   return (
-    <div>
+    <div className="chart-controls">
       <TransformWrapper initialScale={0.7} centerOnInit={true} minScale={0.1} maxScale={4}>
         {({ zoomIn, zoomOut, resetTransform, centerView, ...rest }) => (
           <>
@@ -177,10 +175,10 @@ const OrganizationalChart: React.FC<OrganizationalChartProps> = (props) => {
             <TransformComponent wrapperStyle={{ width: '100%', height: '86vh' }}>
               <div>
                 <DndProvider backend={HTML5Backend}>
-                      <div style={{ marginBottom: 50, marginTop: 50 }}>
-                        <Node nodeData={props.data} />
-                      </div>
-                      <Divider style={{ width: 1000 }} />  
+                  <div style={{ marginBottom: 50, marginTop: 50 }}>
+                    <Node nodeData={props.data} />
+                  </div>
+                  <Divider style={{ width: 1000 }} />
                 </DndProvider>
               </div>
             </TransformComponent>
