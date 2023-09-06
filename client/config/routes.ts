@@ -51,7 +51,7 @@
                 path: '/dashboard',
                 name: 'Dashboard',
                 svgIcon: 'Dashboard',
-                component: './Dashboard',
+                component: './Dashboard_New',
               },
               {
                 path: '/org-charts',

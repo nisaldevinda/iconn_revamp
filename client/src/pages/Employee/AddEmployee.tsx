@@ -7,6 +7,7 @@ import DynamicForm from '@/components/DynamicForm';
 import { useIntl, history, useAccess, Access } from 'umi';
 import { APIResponse } from '@/utils/request';
 import PermissionDeniedPage from './../403';
+import './employee.css';
 
 const AddEmployee: React.FC = () => {
   const intl = useIntl();
@@ -24,7 +25,7 @@ const AddEmployee: React.FC = () => {
       });
 
       getEmployeeFieldAccessPermission('new').then((permission) => {
-        setEmployeePermission(permission.data)
+        setEmployeePermission(permission.data);
       });
     }
   }, []);
@@ -34,7 +35,7 @@ const AddEmployee: React.FC = () => {
       <PageContainer>
         {employeeModel ? (
           <DynamicForm
-            formType='add'
+            formType="add"
             model={employeeModel}
             permission={employeePermission}
             onFinish={async (values: any) => {
@@ -94,25 +95,26 @@ const AddEmployee: React.FC = () => {
                 .catch((error: APIResponse) => {
                   let errorMessage;
                   let errorMessageInfo;
-                  if (error.message.includes(".")) {
-                    let errorMessageData = error.message.split(".");
+                  if (error.message.includes('.')) {
+                    let errorMessageData = error.message.split('.');
                     errorMessage = errorMessageData.slice(0, 1);
                     errorMessageInfo = errorMessageData.slice(1).join('.');
                   }
                   message.error({
-                    content:
-                      error.message ?
-                        <>
-                          {errorMessage ?? error.message}
-                          <br />
-                          <span style={{ fontWeight: 150, color: '#A9A9A9', fontSize: '14px' }}>
-                            {errorMessageInfo ?? ''}
-                          </span>
-                        </>
-                        : intl.formatMessage({
-                          id: 'failedToSave',
-                          defaultMessage: 'Cannot Save',
-                        }),
+                    content: error.message ? (
+                      <>
+                        {errorMessage ?? error.message}
+                        <br />
+                        <span style={{ fontWeight: 150, color: '#A9A9A9', fontSize: '14px' }}>
+                          {errorMessageInfo ?? ''}
+                        </span>
+                      </>
+                    ) : (
+                      intl.formatMessage({
+                        id: 'failedToSave',
+                        defaultMessage: 'Cannot Save',
+                      })
+                    ),
                     key,
                   });
 

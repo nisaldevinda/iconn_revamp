@@ -52,9 +52,11 @@ const OrgNode: React.FC<OrgNodeProps> = ({ nodeData, showModal, employeeList }) 
         height:'22px',
       }}
       bodyStyle={{
-        border: '1px solid #18aeef',
+        border: '1px solid #002B98',
         borderBottomRightRadius: 6,
         borderBottomLeftRadius: 6,
+        backgroundColor: '#D9E4FF',
+        color: '#324054',
       }}
       extra={
         <Space>

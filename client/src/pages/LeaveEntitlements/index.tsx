@@ -1,19 +1,57 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { getAllReports, printToPdf, removeReport } from '@/services/reportService'
+import { getAllReports, printToPdf, removeReport } from '@/services/reportService';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Space, Select, Divider, Button, Tooltip, Popconfirm, Message, Row, Col, Form, Tag, Typography, Switch } from 'antd';
+import {
+  Space,
+  Select,
+  Divider,
+  Button,
+  Tooltip,
+  Popconfirm,
+  Message,
+  Row,
+  Col,
+  Form,
+  Tag,
+  Typography,
+  Switch,
+} from 'antd';
 import { history, useAccess, Access } from 'umi';
 import PermissionDeniedPage from './../403';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import _, { forEach, reduce } from "lodash";
+import _, { forEach, reduce } from 'lodash';
 import { PageContainer } from '@ant-design/pro-layout';
-import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined, SortAscendingOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  PlusOutlined,
+  SortAscendingOutlined,
+} from '@ant-design/icons';
 import request, { APIResponse } from '@/utils/request';
 import { getPrivileges } from '@/utils/permission';
-import { addLeaveEntitlement, deleteLeaveEntitlement, getAllLeaveEntitlement, getExistingEmployees, getExistingLeavePeriods, getExistingLeaveTypes, getLeaveType, getLeaveTypes, getMyLeaveEntitlement, updateLeaveEntitlement } from '@/services/leaveEntitlment';
+import {
+  addLeaveEntitlement,
+  deleteLeaveEntitlement,
+  getAllLeaveEntitlement,
+  getExistingEmployees,
+  getExistingLeavePeriods,
+  getExistingLeaveTypes,
+  getLeaveType,
+  getLeaveTypes,
+  getMyLeaveEntitlement,
+  updateLeaveEntitlement,
+} from '@/services/leaveEntitlment';
 import { getModel } from '@/services/model';
-import ProForm, { DrawerForm, ProFormDatePicker, ProFormDigit, ProFormRadio, ProFormSelect, ProFormTextArea } from '@ant-design/pro-form';
+import ProForm, {
+  DrawerForm,
+  ProFormDatePicker,
+  ProFormDigit,
+  ProFormRadio,
+  ProFormSelect,
+  ProFormTextArea,
+} from '@ant-design/pro-form';
 import form from 'antd/lib/form';
 import moment from 'moment';
 import { getCompany } from '@/services/company';
@@ -21,40 +59,38 @@ import { getEmployee } from '@/services/employee';
 import styles from './index.less';
 import { getEmployeeList, getLeaveTypesList, getAllEmployeeList } from '@/services/dropdown';
 
-
 const LeaveEntitlements: React.FC = () => {
-
   const access = useAccess();
   const { hasPermitted } = access;
   const intl = useIntl();
   const actionRef = useRef<ActionType>();
   const privilege = getPrivileges();
-  const [leaveTypes, setLeaveTypes] = useState([])
-  const [model, setModel] = useState([])
+  const [leaveTypes, setLeaveTypes] = useState([]);
+  const [model, setModel] = useState([]);
   const [drawerVisit, setDrawerVisit] = useState(false);
   const [form] = Form.useForm();
   const { Text } = Typography;
   const [searchForm] = Form.useForm();
-  const [allEntitlements, setAllEntitlements] = useState([])
-  const [selectedLeaveType, setSelectedLeaveType] = useState("")
-  const [selectedEmployee, setSelectedEmployee] = useState("")
-  const [leavePeriodArray, setLeavePeriodArray] = useState([])
-  const [isLeavePeriodDisabled, setIsLeavePeriodDisabled] = useState(true)
-  const [leavePeriodEnum, setLeavePeriodEnum] = useState({})
-  const [selectedLeavePeriodType, setSelectedLeavePeriodType] = useState("")
-  const [selectedEntitlementType, setSelectedEntitlementType] = useState("")
-  const [selectedLeavePeriod, setSelectedLeavePeriod] = useState<any>(null)
-  const [leavePeriodStartDate, setLeavePeriodStartDate] = useState("")
-  const [leavePeriodEndate, setLeavePeriodEndDate] = useState("")
-  const [leavePeriodArrayForm, setLeavePeriodArrayFrom] = useState([])
-  const [selectedRecordId, setSelectedRecordId] = useState("")
-  const [availableEmployeesWithInactive, setAvailableEmployeesWithInactive] = useState([])
-  const [availableEmployeesWithoutInactive, setAvailableEmployeesWithoutInactive] = useState([])
-  const [existingLeaveTypesArr,setExistingLeaveTypes]=useState([])
-  const [utilizedCount,setUtilizedCount] =useState(0)
+  const [allEntitlements, setAllEntitlements] = useState([]);
+  const [selectedLeaveType, setSelectedLeaveType] = useState('');
+  const [selectedEmployee, setSelectedEmployee] = useState('');
+  const [leavePeriodArray, setLeavePeriodArray] = useState([]);
+  const [isLeavePeriodDisabled, setIsLeavePeriodDisabled] = useState(true);
+  const [leavePeriodEnum, setLeavePeriodEnum] = useState({});
+  const [selectedLeavePeriodType, setSelectedLeavePeriodType] = useState('');
+  const [selectedEntitlementType, setSelectedEntitlementType] = useState('');
+  const [selectedLeavePeriod, setSelectedLeavePeriod] = useState<any>(null);
+  const [leavePeriodStartDate, setLeavePeriodStartDate] = useState('');
+  const [leavePeriodEndate, setLeavePeriodEndDate] = useState('');
+  const [leavePeriodArrayForm, setLeavePeriodArrayFrom] = useState([]);
+  const [selectedRecordId, setSelectedRecordId] = useState('');
+  const [availableEmployeesWithInactive, setAvailableEmployeesWithInactive] = useState([]);
+  const [availableEmployeesWithoutInactive, setAvailableEmployeesWithoutInactive] = useState([]);
+  const [existingLeaveTypesArr, setExistingLeaveTypes] = useState([]);
+  const [utilizedCount, setUtilizedCount] = useState(0);
   const [relatedLeaveTypes, setRelatedLeaveTypes] = useState<any>([]);
-  const [adminsCanAdjust,setAdminsCanAdjust]=useState(false);
-  const [filteredData,setFilteredData] = useState([]);
+  const [adminsCanAdjust, setAdminsCanAdjust] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
   const [isEnableInactiveEmployees, setIsEnableInactiveEmployees] = useState<any>(false);
 
   useEffect(() => {
@@ -62,63 +98,67 @@ const LeaveEntitlements: React.FC = () => {
     fetchEmployees();
     fetchLeaveTypes();
     fetchExistingLeaveTypes();
-  }, [])
+  }, []);
 
   useEffect(() => {
-    getExistingLeavePeriods({ selectedLeaveType: selectedLeaveType, selectedEmployee: selectedEmployee }).then(async (res) => {
-      await setLeavePeriodArray(res.data)
-    })
-    searchForm.resetFields(["id"])
-  }, [selectedLeaveType, selectedEmployee])
+    getExistingLeavePeriods({
+      selectedLeaveType: selectedLeaveType,
+      selectedEmployee: selectedEmployee,
+    }).then(async (res) => {
+      await setLeavePeriodArray(res.data);
+    });
+    searchForm.resetFields(['id']);
+  }, [selectedLeaveType, selectedEmployee]);
 
   useEffect(() => {
-    calculateLeavePeriod()
-  }, [selectedLeavePeriodType])
-
+    calculateLeavePeriod();
+  }, [selectedLeavePeriodType]);
 
   useEffect(() => {
     if (Object.keys(leavePeriodEnum).length > 0) {
-      
       Object.entries(leavePeriodEnum).forEach(([key, value]) => {
-        var label = moment(leavePeriodStartDate, 'YYYY-MM-DD'). format('DD-MM-YYYY')+' to '+moment(leavePeriodEndate, 'YYYY-MM-DD'). format('DD-MM-YYYY');
+        var label =
+          moment(leavePeriodStartDate, 'YYYY-MM-DD').format('DD-MM-YYYY') +
+          ' to ' +
+          moment(leavePeriodEndate, 'YYYY-MM-DD').format('DD-MM-YYYY');
         if (value == label) {
           setSelectedLeavePeriod(key);
           form.setFieldsValue({
-            leavePeriod: key
-          })
-        } 
-      })
+            leavePeriod: key,
+          });
+        }
+      });
     }
-  }, [leavePeriodEnum])
+  }, [leavePeriodEnum]);
 
   const fetchExistingEntitlements = async (filterData) => {
-    const response = await getAllLeaveEntitlement({ filter: { ...filterData } })
+    const response = await getAllLeaveEntitlement({ filter: { ...filterData } });
     setFilteredData(filterData);
-    setAllEntitlements(response.data)
-  }
+    setAllEntitlements(response.data);
+  };
   const fetchMyEntitlements = async () => {
-    const response = await getMyLeaveEntitlement()
-    setAllEntitlements(response.data)
-  }
+    const response = await getMyLeaveEntitlement();
+    setAllEntitlements(response.data);
+  };
   useEffect(() => {
     if (!hasPermitted('leave-entitlement-write')) {
-      fetchMyEntitlements()
+      fetchMyEntitlements();
     }
-  }, [])
+  }, []);
 
   const fetchEmployees = async () => {
     try {
       const { data } = await getAllEmployeeList('ADMIN');
       const employeesWithInactive = data.map((employee: any) => {
         return {
-          label: employee.employeeNumber+' | '+employee.employeeName,
+          label: employee.employeeNumber + ' | ' + employee.employeeName,
           value: employee.id,
         };
       });
       const employeesWithoutInactive = data.map((employee: any) => {
         if (employee.isActive) {
           return {
-            label: employee.employeeNumber+' | '+employee.employeeName,
+            label: employee.employeeNumber + ' | ' + employee.employeeName,
             value: employee.id,
           };
         }
@@ -129,248 +169,272 @@ const LeaveEntitlements: React.FC = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const fetchDropDownData = async () => {
     try {
-        const leaveTypesArr = await getLeaveTypesList("ADMIN");
-        const leaveTypes = leaveTypesArr.data.map((el: any) => {
-            return {
-                label: el.name,
-                value: el.id,
-            };
-        });
-        setRelatedLeaveTypes(leaveTypes)
+      const leaveTypesArr = await getLeaveTypesList('ADMIN');
+      const leaveTypes = leaveTypesArr.data.map((el: any) => {
+        return {
+          label: el.name,
+          value: el.id,
+        };
+      });
+      setRelatedLeaveTypes(leaveTypes);
     } catch (err) {
-        console.log(err);
+      console.log(err);
     }
-}
+  };
 
-
-  const onFormChange = async (val,oth) => {
+  const onFormChange = async (val, oth) => {
     for (const [key, value] of Object.entries(val)) {
-      if (key === "leaveTypeId") {
-        const leaveTypeResponse = getLeaveType(value)
-        await setSelectedLeavePeriodType((await leaveTypeResponse).data.leavePeriod)
+      if (key === 'leaveTypeId') {
+        const leaveTypeResponse = getLeaveType(value);
+        await setSelectedLeavePeriodType((await leaveTypeResponse).data.leavePeriod);
       }
-      if (key === "leavePeriod") {
-        setLeavePeriodStartDate(moment(leavePeriodArrayForm[value].leavePeriodStartDate, "DD-MM-YYYY").format("YYYY-MM-DD"))
-        setLeavePeriodEndDate(moment(leavePeriodArrayForm[value].leavePeriodEndate, "DD-MM-YYYY").format("YYYY-MM-DD"))
-
+      if (key === 'leavePeriod') {
+        setLeavePeriodStartDate(
+          moment(leavePeriodArrayForm[value].leavePeriodStartDate, 'DD-MM-YYYY').format(
+            'YYYY-MM-DD',
+          ),
+        );
+        setLeavePeriodEndDate(
+          moment(leavePeriodArrayForm[value].leavePeriodEndate, 'DD-MM-YYYY').format('YYYY-MM-DD'),
+        );
 
         form.setFieldsValue({
-          effectiveDate: moment(leavePeriodArrayForm[value].leavePeriodStartDate, "DD-MM-YYYY"),
-          expiryDate: moment(leavePeriodArrayForm[value].leavePeriodEndate, "DD-MM-YYYY")
-        })
+          effectiveDate: moment(leavePeriodArrayForm[value].leavePeriodStartDate, 'DD-MM-YYYY'),
+          expiryDate: moment(leavePeriodArrayForm[value].leavePeriodEndate, 'DD-MM-YYYY'),
+        });
       }
     }
-  }
+  };
   const generateLeaveTypeEnum = () => {
-
-    const enumV = {}
+    const enumV = {};
     if (leaveTypes) {
-      leaveTypes.forEach(element => {
-        enumV[element.value] = element.label
-
-      })
+      leaveTypes.forEach((element) => {
+        enumV[element.value] = element.label;
+      });
     }
-    return enumV
-  }
+    return enumV;
+  };
   const fetchLeaveTypes = async () => {
-    const actions = []
-    const response = await getModel("leaveType")
-    const modelResponse = await getModel("leaveEntitlement")
-    setModel(modelResponse.data.modelDataDefinition.fields.type.values)
-    let path: string
+    const actions = [];
+    const response = await getModel('leaveType');
+    const modelResponse = await getModel('leaveEntitlement');
+    setModel(modelResponse.data.modelDataDefinition.fields.type.values);
+    let path: string;
     if (!_.isEmpty(response.data)) {
       path = `/api${response.data.modelDataDefinition.path}`;
     }
-    const res = await request(path,{
+    const res = await request(path, {
       sorter: {
-          name: "ascend"
-      }
-  });
+        name: 'ascend',
+      },
+    });
     await res.data.forEach(async (element: any, i: number) => {
       await actions.push({ value: element['id'], label: element['name'] });
     });
-    setLeaveTypes(actions)
-  }
+    setLeaveTypes(actions);
+  };
 
- const  fetchExistingLeaveTypes=async ()=>{
-
-const existingLeaveArr=await getLeaveTypes()
-    setExistingLeaveTypes(existingLeaveArr.data)
-
-  }
+  const fetchExistingLeaveTypes = async () => {
+    const existingLeaveArr = await getLeaveTypes();
+    setExistingLeaveTypes(existingLeaveArr.data);
+  };
   const searchFormOnFinish = (e) => {
-    fetchExistingEntitlements(e)
-  }
+    fetchExistingEntitlements(e);
+  };
 
   const generateEnum = () => {
-    const valueEnum = {}
+    const valueEnum = {};
     //const enumV=model
-    model.forEach(element => {
+    model.forEach((element) => {
       valueEnum[element.value] = {
-        text: element.defaultLabel
-      }
+        text: element.defaultLabel,
+      };
     });
-    return valueEnum
-  }
+    return valueEnum;
+  };
 
   const getOptions = async (name) => {
-    const actions: any = []
-    const response = await getModel(name)
-    let path: string
+    const actions: any = [];
+    const response = await getModel(name);
+    let path: string;
     if (!_.isEmpty(response.data)) {
       path = `/api${response.data.modelDataDefinition.path}`;
     }
     const res = await request(path);
 
     await res.data.forEach(async (element: any, i: number) => {
-      if (name === "employee") {
-        await actions.push({ value: element['id'], label: `${element['firstName']} ${element["lastName"]}` });
-      }
-      else {
+      if (name === 'employee') {
+        await actions.push({
+          value: element['id'],
+          label: `${element['firstName']} ${element['lastName']}`,
+        });
+      } else {
         await actions.push({ value: element['id'], label: element['name'] });
       }
     });
     return actions;
-  }
+  };
 
   const calculateLeavePeriod = async () => {
-    let currentYearStartDate
-    let currentYearEndDate
-    let nextYearStartDate
-    let nextYearEndDate
-    let lastYearStartDate
-    let lastYearEndDate
+    let currentYearStartDate;
+    let currentYearEndDate;
+    let nextYearStartDate;
+    let nextYearEndDate;
+    let lastYearStartDate;
+    let lastYearEndDate;
 
-    if (selectedLeavePeriodType != '' && selectedLeavePeriodType === "STANDARD") {
-      const companyResponse = await getCompany()
-      let leavePeriodStartingMonth
-      let leavePeriodEndingMonth
+    if (selectedLeavePeriodType != '' && selectedLeavePeriodType === 'STANDARD') {
+      const companyResponse = await getCompany();
+      let leavePeriodStartingMonth;
+      let leavePeriodEndingMonth;
       if (companyResponse) {
-        leavePeriodStartingMonth = companyResponse.data.leavePeriodStartingMonth
-        leavePeriodEndingMonth = companyResponse.data.leavePeriodEndingMonth
+        leavePeriodStartingMonth = companyResponse.data.leavePeriodStartingMonth;
+        leavePeriodEndingMonth = companyResponse.data.leavePeriodEndingMonth;
       }
       // moment(dateFrom).subtract(1,'years').endOf('month').format('DD-MM-YYYY')
-      currentYearStartDate = moment([moment().year(), parseInt(leavePeriodStartingMonth) - 1]).startOf('month').format('DD-MM-YYYY')
-      currentYearEndDate = moment([moment().year(), parseInt(leavePeriodEndingMonth) - 1]).endOf('month').format('DD-MM-YYYY')
-      nextYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY').add(1, 'year').format('DD-MM-YYYY')
-      nextYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY').add(1, 'year').format('DD-MM-YYYY')
-      lastYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY').subtract(1, 'year').format('DD-MM-YYYY')
-      lastYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY').subtract(1, 'year').format('DD-MM-YYYY')
+      currentYearStartDate = moment([moment().year(), parseInt(leavePeriodStartingMonth) - 1])
+        .startOf('month')
+        .format('DD-MM-YYYY');
+      currentYearEndDate = moment([moment().year(), parseInt(leavePeriodEndingMonth) - 1])
+        .endOf('month')
+        .format('DD-MM-YYYY');
+      nextYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY')
+        .add(1, 'year')
+        .format('DD-MM-YYYY');
+      nextYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY')
+        .add(1, 'year')
+        .format('DD-MM-YYYY');
+      lastYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY')
+        .subtract(1, 'year')
+        .format('DD-MM-YYYY');
+      lastYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY')
+        .subtract(1, 'year')
+        .format('DD-MM-YYYY');
       // setIsLeavePeriodDisabled(false)
-      
-    } 
-    else if (selectedLeavePeriodType != '' && selectedLeavePeriodType == 'HIRE_DATE_BASED') {
+    } else if (selectedLeavePeriodType != '' && selectedLeavePeriodType == 'HIRE_DATE_BASED') {
       form.setFieldsValue({
-        leavePeriod: undefined
+        leavePeriod: undefined,
       });
-      const employeeResponce = await getEmployee(selectedEmployee)
+      const employeeResponce = await getEmployee(selectedEmployee);
       if (employeeResponce.data) {
-          const hireDate = employeeResponce.data.hireDate
-          const hireDateObject = moment(hireDate, 'YYYY-MM-DD');
-          if (hireDateObject.isValid()) {
-              currentYearStartDate = moment([moment().year(), hireDateObject.month(), hireDateObject.date()]).format('DD-MM-YYYY')
-              currentYearEndDate = moment([moment().year(), hireDateObject.month(), hireDateObject.date()]).subtract(1, "day").format('DD-MM-YYYY')
-              currentYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY').add(1, 'year').format('DD-MM-YYYY')
-              nextYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY').add(1, 'year').format('DD-MM-YYYY')
-              nextYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY').add(1, 'year').format('DD-MM-YYYY')
-              lastYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY').subtract(1, 'year').format('DD-MM-YYYY')
-              lastYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY').subtract(1, 'year').format('DD-MM-YYYY')
-              form.setFields([
-                  {
-                      name: 'leavePeriod',
-                      errors: [],
-                  },
-              ]);
-          } else {
-              form.setFields([
-                  {
-                      name: 'leavePeriod',
-                      errors: ['Employee does not have a Hire Date'],
-                  },
-              ]);
-              setLeavePeriodArray([]);
-              setLeavePeriodEnum({});
-              return;
-          }
-
+        const hireDate = employeeResponce.data.hireDate;
+        const hireDateObject = moment(hireDate, 'YYYY-MM-DD');
+        if (hireDateObject.isValid()) {
+          currentYearStartDate = moment([
+            moment().year(),
+            hireDateObject.month(),
+            hireDateObject.date(),
+          ]).format('DD-MM-YYYY');
+          currentYearEndDate = moment([
+            moment().year(),
+            hireDateObject.month(),
+            hireDateObject.date(),
+          ])
+            .subtract(1, 'day')
+            .format('DD-MM-YYYY');
+          currentYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY')
+            .add(1, 'year')
+            .format('DD-MM-YYYY');
+          nextYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY')
+            .add(1, 'year')
+            .format('DD-MM-YYYY');
+          nextYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY')
+            .add(1, 'year')
+            .format('DD-MM-YYYY');
+          lastYearStartDate = moment(currentYearStartDate, 'DD-MM-YYYY')
+            .subtract(1, 'year')
+            .format('DD-MM-YYYY');
+          lastYearEndDate = moment(currentYearEndDate, 'DD-MM-YYYY')
+            .subtract(1, 'year')
+            .format('DD-MM-YYYY');
+          form.setFields([
+            {
+              name: 'leavePeriod',
+              errors: [],
+            },
+          ]);
+        } else {
+          form.setFields([
+            {
+              name: 'leavePeriod',
+              errors: ['Employee does not have a Hire Date'],
+            },
+          ]);
+          setLeavePeriodArray([]);
+          setLeavePeriodEnum({});
+          return;
+        }
       }
       // setIsLeavePeriodDisabled(false)
-
     }
     setLeavePeriodArrayFrom([
       {
         leavePeriodStartDate: lastYearStartDate,
-        leavePeriodEndate: lastYearEndDate
+        leavePeriodEndate: lastYearEndDate,
       },
       {
         leavePeriodStartDate: currentYearStartDate,
-        leavePeriodEndate: currentYearEndDate
-
+        leavePeriodEndate: currentYearEndDate,
       },
       {
         leavePeriodStartDate: nextYearStartDate,
-        leavePeriodEndate: nextYearEndDate
-
-      }
-    ])
-    setLeavePeriodEnum(
-      {
-        0: `${lastYearStartDate} to ${lastYearEndDate}`,
-        1: `${currentYearStartDate} to ${currentYearEndDate}`,
-        2: `${nextYearStartDate} to ${nextYearEndDate}`,
+        leavePeriodEndate: nextYearEndDate,
       },
-    )
+    ]);
+    setLeavePeriodEnum({
+      0: `${lastYearStartDate} to ${lastYearEndDate}`,
+      1: `${currentYearStartDate} to ${currentYearEndDate}`,
+      2: `${nextYearStartDate} to ${nextYearEndDate}`,
+    });
+  };
 
-  }
-  
-  const deleteEntitlements = async(id) =>{
-     try{
-       const {message} = await deleteLeaveEntitlement(id);
-       Message.success(message);
-       actionRef.current?.reload();
-   
-       fetchExistingEntitlements(filteredData);
-     } catch (error) {
-       if (!_.isEmpty(error.message)) {
-         let errorMessage;
-         let errorMessageInfo;
-         if (error.message.includes(".")) {
-           let errorMessageData = error.message.split(".");
-           errorMessage = errorMessageData.slice(0, 1);
-           errorMessageInfo = errorMessageData.slice(1).join('.');
-         }
-         Message.error({
-           content:
-             error.message ?
-               <>
-                 {errorMessage ?? error.message}
-                 <br />
-                 <span style={{ fontWeight: 150, color: '#A9A9A9', fontSize: '14px' }}>
-                   {errorMessageInfo ?? ''}
-                 </span>
-               </>
-               : intl.formatMessage({
-                 id: 'failedToDelete',
-                 defaultMessage: 'Cannot Delete.Leave entitlement is used by employee',
-               }),
-         });
-       }
-     }
-  }
-  const searchFormOnChange = (val,oth) => {
+  const deleteEntitlements = async (id) => {
+    try {
+      const { message } = await deleteLeaveEntitlement(id);
+      Message.success(message);
+      actionRef.current?.reload();
 
-    const employeeVal = searchForm.getFieldValue("employeeId")
-    const leaveTypeId = searchForm.getFieldValue("leaveTypeId")
-    setSelectedLeaveType(leaveTypeId)
-    setSelectedEmployee(employeeVal)
-  }
+      fetchExistingEntitlements(filteredData);
+    } catch (error) {
+      if (!_.isEmpty(error.message)) {
+        let errorMessage;
+        let errorMessageInfo;
+        if (error.message.includes('.')) {
+          let errorMessageData = error.message.split('.');
+          errorMessage = errorMessageData.slice(0, 1);
+          errorMessageInfo = errorMessageData.slice(1).join('.');
+        }
+        Message.error({
+          content: error.message ? (
+            <>
+              {errorMessage ?? error.message}
+              <br />
+              <span style={{ fontWeight: 150, color: '#A9A9A9', fontSize: '14px' }}>
+                {errorMessageInfo ?? ''}
+              </span>
+            </>
+          ) : (
+            intl.formatMessage({
+              id: 'failedToDelete',
+              defaultMessage: 'Cannot Delete.Leave entitlement is used by employee',
+            })
+          ),
+        });
+      }
+    }
+  };
+  const searchFormOnChange = (val, oth) => {
+    const employeeVal = searchForm.getFieldValue('employeeId');
+    const leaveTypeId = searchForm.getFieldValue('leaveTypeId');
+    setSelectedLeaveType(leaveTypeId);
+    setSelectedEmployee(employeeVal);
+  };
 
   const columns: ProColumns<any>[] = [
-
     {
       title: 'LeaveType',
       dataIndex: 'leaveTypeId',
@@ -379,7 +443,7 @@ const existingLeaveArr=await getLeaveTypes()
       valueType: 'select',
       defaultSortOrder: 'ascend',
       sorter: (a, b) => a.leaveTypeId - b.leaveTypeId,
-      valueEnum: generateLeaveTypeEnum()
+      valueEnum: generateLeaveTypeEnum(),
     },
     {
       title: 'Entitlement type',
@@ -388,7 +452,7 @@ const existingLeaveArr=await getLeaveTypes()
       filters: true,
       onFilter: true,
       valueType: 'select',
-      valueEnum: generateEnum()
+      valueEnum: generateEnum(),
     },
     {
       title: 'Leave Period',
@@ -396,13 +460,23 @@ const existingLeaveArr=await getLeaveTypes()
       defaultSortOrder: 'descend',
       sorter: (a, b) => moment(a.leavePeriodFrom).unix() - moment(b.leavePeriodFrom).unix(),
       render: (e) => {
-        return <div style={
-          {
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap'
-          }
-        }>{`${moment(e.leavePeriodFrom,"YYYY-MM-DD").isValid() ? moment(e.leavePeriodFrom).format("DD-MM-YYYY") : null} to ${moment(e.leavePeriodTo,"YYYY-MM-DD").isValid() ? moment(e.leavePeriodTo).format("DD-MM-YYYY") : null}`}</div>
-      }
+        return (
+          <div
+            style={{
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >{`${
+            moment(e.leavePeriodFrom, 'YYYY-MM-DD').isValid()
+              ? moment(e.leavePeriodFrom).format('DD-MM-YYYY')
+              : null
+          } to ${
+            moment(e.leavePeriodTo, 'YYYY-MM-DD').isValid()
+              ? moment(e.leavePeriodTo).format('DD-MM-YYYY')
+              : null
+          }`}</div>
+        );
+      },
     },
     {
       title: 'Effective Date',
@@ -411,45 +485,57 @@ const existingLeaveArr=await getLeaveTypes()
       defaultSortOrder: 'ascend',
       sorter: (a, b) => moment(a.validFrom).unix() - moment(b.validFrom).unix(),
       render: (e) => {
-        return <div style={
-          {
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap'
-          }
-        }>{moment(e.validFrom,"YYYY-MM-DD").isValid() ? moment(e.validFrom).format("DD-MM-YYYY") : null }</div>
-      }
+        return (
+          <div
+            style={{
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {moment(e.validFrom, 'YYYY-MM-DD').isValid()
+              ? moment(e.validFrom).format('DD-MM-YYYY')
+              : null}
+          </div>
+        );
+      },
     },
     {
       title: 'Expiry Date ',
       key: 'validTo',
       render: (e) => {
-        return <div style={
-          {
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap'
-          }
-        }>{moment(e.validTo,"YYYY-MM-DD").isValid() ? moment(e.validTo).format("DD-MM-YYYY") : null}</div>
-      }
-
+        return (
+          <div
+            style={{
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {moment(e.validTo, 'YYYY-MM-DD').isValid()
+              ? moment(e.validTo).format('DD-MM-YYYY')
+              : null}
+          </div>
+        );
+      },
     },
     {
       title: ' Number Of Days',
       key: 'entilementCount',
       render: (e) => {
-        return <> {e.entilementCount > 1 ? `${e.entilementCount} days` : `${e.entilementCount} day`}</>
-      }
+        return (
+          <> {e.entilementCount > 1 ? `${e.entilementCount} days` : `${e.entilementCount} day`}</>
+        );
+      },
     },
     {
       title: 'Actions',
       key: 'actions',
-      hideInTable: !hasPermitted("leave-entitlement-write"),
+      hideInTable: !hasPermitted('leave-entitlement-write'),
       width: 200,
       render: (text, record, index) => {
-        const currentLeaveType=_.find(existingLeaveTypesArr,e=> e.id===record.leaveTypeId)
+        const currentLeaveType = _.find(existingLeaveTypesArr, (e) => e.id === record.leaveTypeId);
 
         return (
-          
-          <Space direction='horizontal' style={{ float: "left" }}>
+          <Space direction="horizontal" style={{ float: 'left' }}>
             <Tooltip
               placement={'bottom'}
               key="editRecordTooltip"
@@ -459,43 +545,45 @@ const existingLeaveArr=await getLeaveTypes()
               })}
             >
               <a
-
                 key="editRecordButton"
                 onClick={async () => {
-                  const leaveTypeResponse = getLeaveType(record.leaveTypeId)
-                  await setSelectedLeavePeriodType((await leaveTypeResponse).data.leavePeriod)
+                  const leaveTypeResponse = getLeaveType(record.leaveTypeId);
+                  await setSelectedLeavePeriodType((await leaveTypeResponse).data.leavePeriod);
                   // await calculateLeavePeriod()
-                  setSelectedRecordId(record.id)
+                  setSelectedRecordId(record.id);
                   setSelectedEntitlementType(record.type);
-                  setLeavePeriodStartDate(moment(record.leavePeriodFrom, "YYYY-MM-DD").format("YYYY-MM-DD"))
-                  setLeavePeriodEndDate(moment(record.leavePeriodTo, "YYYY-MM-DD").format("YYYY-MM-DD"))
+                  setLeavePeriodStartDate(
+                    moment(record.leavePeriodFrom, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+                  );
+                  setLeavePeriodEndDate(
+                    moment(record.leavePeriodTo, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+                  );
                   if (record.usedCount == 0 && record.pendingCount == 0) {
                     setIsLeavePeriodDisabled(false);
                   } else {
                     setIsLeavePeriodDisabled(true);
                   }
-                  setUtilizedCount(Number(record.usedCount)+Number(record.pendingCount))
+                  setUtilizedCount(Number(record.usedCount) + Number(record.pendingCount));
                   form.setFieldsValue({
                     leaveTypeId: record.leaveTypeId,
-                   // leavePeriod: `${moment(record.leavePeriodFrom).format("DD-MM-YYYY")} to ${moment(record.leavePeriodTo).format("DD-MM-YYYY")}`,
+                    // leavePeriod: `${moment(record.leavePeriodFrom).format("DD-MM-YYYY")} to ${moment(record.leavePeriodTo).format("DD-MM-YYYY")}`,
                     effectiveDate: record.validFrom,
                     expiryDate: record.validTo,
                     entilementCount: record.entilementCount,
-                    comment: record.comment
-                  })
-                  const selectedLeaveTy = _.find(existingLeaveTypesArr, o => o.id == record.leaveTypeId)
+                    comment: record.comment,
+                  });
+                  const selectedLeaveTy = _.find(
+                    existingLeaveTypesArr,
+                    (o) => o.id == record.leaveTypeId,
+                  );
                   if (selectedLeaveTy) {
-                    setAdminsCanAdjust(selectedLeaveTy.adminCanAdjustEntitlements)
+                    setAdminsCanAdjust(selectedLeaveTy.adminCanAdjustEntitlements);
                   }
-                  
+
                   setDrawerVisit(true);
                 }}
               >
-                {currentLeaveType.adminCanAdjustEntitlements ? 
-                 <EditOutlined />:
-                 <EyeOutlined/>  
-              }
-             
+                {currentLeaveType.adminCanAdjustEntitlements ? <EditOutlined /> : <EyeOutlined />}
               </a>
             </Tooltip>
             <Popconfirm
@@ -516,13 +604,11 @@ const existingLeaveArr=await getLeaveTypes()
                 </a>
               </Tooltip>
             </Popconfirm>
-          </Space> 
-        )
-      }
-    }
-
+          </Space>
+        );
+      },
+    },
   ];
-
 
   const formOnFinish = async (data) => {
     const requestData = {
@@ -534,28 +620,26 @@ const existingLeaveArr=await getLeaveTypes()
       comment: data.comment,
       validFrom: data.effectiveDate,
       validTo: data.expiryDate,
-      entilementCount: data.entilementCount
-    }
+      entilementCount: data.entilementCount,
+    };
     try {
       const { message, data } = await updateLeaveEntitlement(selectedRecordId, requestData);
       history.push(`/leave/leave-entitlements`);
       Message.success(message);
       setDrawerVisit(false);
-      searchForm.submit()
-
-    }  catch (err) {
-      console.log(err)
+      searchForm.submit();
+    } catch (err) {
+      console.log(err);
       message.error({
-        content:
-          err.message 
+        content: err.message,
       });
-    //   const errorArray = []
-    //   for (const i in err.data) {
-    //     errorArray.push({ name: i, errors: err.data[i] })
-    //   }
-    //   form.setFields([...errorArray]);
+      //   const errorArray = []
+      //   for (const i in err.data) {
+      //     errorArray.push({ name: i, errors: err.data[i] })
+      //   }
+      //   form.setFields([...errorArray]);
     }
-  }
+  };
   return (
     <Access
       accessible={hasPermitted('leave-entitlement-write')}

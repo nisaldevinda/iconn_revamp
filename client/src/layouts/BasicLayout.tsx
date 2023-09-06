@@ -60,35 +60,35 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   });
 const version = VERSION ? ' | '.concat(VERSION) : '';
 
-const defaultFooterDom = (
-  <DefaultFooter
-    copyright={`${new Date().getFullYear()} ICONN Labs Pvt Ltd.All rights reserved. `.concat(
-      `${version}`,
-    )}
-    links={
-      [
-        // {
-        //   key: 'Ant Design Pro',
-        //   title: 'Ant Design Pro',
-        //   href: 'https://pro.ant.design',
-        //   blankTarget: true,
-        // },
-        // {
-        //   key: 'github',
-        //   title: <GithubOutlined />,
-        //   href: 'https://github.com/ant-design/ant-design-pro',
-        //   blankTarget: true,
-        // },
-        // {
-        //   key: 'Ant Design',
-        //   title: 'Ant Design',
-        //   href: 'https://ant.design',
-        //   blankTarget: true,
-        // },
-      ]
-    }
-  />
-);
+// const defaultFooterDom = (
+//   <DefaultFooter
+//     copyright={`${new Date().getFullYear()} ICONN Labs Pvt Ltd.All rights reserved. `.concat(
+//       `${version}`,
+//     )}
+//     links={
+//       [
+//         // {
+//         //   key: 'Ant Design Pro',
+//         //   title: 'Ant Design Pro',
+//         //   href: 'https://pro.ant.design',
+//         //   blankTarget: true,
+//         // },
+//         // {
+//         //   key: 'github',
+//         //   title: <GithubOutlined />,
+//         //   href: 'https://github.com/ant-design/ant-design-pro',
+//         //   blankTarget: true,
+//         // },
+//         // {
+//         //   key: 'Ant Design',
+//         //   title: 'Ant Design',
+//         //   href: 'https://ant.design',
+//         //   blankTarget: true,
+//         // },
+//       ]
+//     }
+//   />
+// );
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const {
@@ -220,12 +220,12 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         // }
         // return <Link to={`/${last}`}>{route.breadcrumbName}</Link>;
       }}
-      footerRender={() => {
-        if (settings.footerRender || settings.footerRender === undefined) {
-          return defaultFooterDom;
-        }
-        return null;
-      }}
+      // footerRender={() => {
+      //   if (settings.footerRender || settings.footerRender === undefined) {
+      //     return defaultFooterDom;
+      //   }
+      //   return null;
+      // }}
       menuDataRender={menuDataRender}
       rightContentRender={() => <RightContent />}
       // postMenuData={(menuData) => {
