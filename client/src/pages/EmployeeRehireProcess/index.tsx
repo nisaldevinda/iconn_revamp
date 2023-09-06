@@ -351,277 +351,316 @@ const EmployeeRehireProcess: React.FC = () => {
   }
 
   return (
-    <PageContainer>
-      <Card>
-        <Space direction="vertical">
-          <Typography.Text>
-            <FormattedMessage id="employee_rehire_process.rehire_type" defaultMessage="Rehire Type" />
-          </Typography.Text>
-          <Radio.Group defaultValue="rejoin" onChange={(value) => { setType(value?.target?.value ?? 'rejoin') }}>
-            <Radio.Button value="rejoin">
-              <FormattedMessage id="employee_rehire_process.rejoin" defaultMessage="Rejoin" />
-            </Radio.Button>
-            <Radio.Button value="reactive">
-              <FormattedMessage id="employee_rehire_process.reactive" defaultMessage="Reactive" />
-            </Radio.Button>
-          </Radio.Group>
-          <Typography.Text>
-            <FormattedMessage id="employee_rehire_process.employee_name" defaultMessage="Employee Name" />
-          </Typography.Text>
-        </Space>
-        <ProTable
-          columns={columns}
-          dataSource={type == 'reactive' ? reactiveEligibleList : rejoinEligibleList}
-          loading={loading}
-          rowKey="employee_id"
-          toolBarRender={false}
-          search={false}
-        />
-      </Card>
-      <ModalForm
-        title={type == 'reactive'
-          ? intl.formatMessage({
-            id: `reactive_employee`,
-            defaultMessage: `Reactive Employee`,
-          })
-          : intl.formatMessage({
-            id: `rejoin_employee`,
-            defaultMessage: `Rejoin Employee`,
-          })}
-        key='action_employee'
-        visible={modalVisible}
-        onVisibleChange={setModalVisible}
-        form={formReference}
-        submitter={{
-          render: () => <Space>
-            <Button onClick={() => formReference.resetFields()}>
-              {intl.formatMessage({
-                id: 'reset',
-                defaultMessage: "Reset",
-              })}
-            </Button>
-            <Button
-              type="primary"
-              disabled={employeeLoading}
-              loading={formSubmitting}
-              onClick={() => formReference.submit?.()}>
-              {type == 'reactive'
-                ? intl.formatMessage({
-                  id: 'reactive',
-                  defaultMessage: 'Reactive',
-                })
-                : intl.formatMessage({
-                  id: 'rejoin',
-                  defaultMessage: 'Rejoin',
-                })
-              }
-            </Button>
-          </Space>
-        }}
-        modalProps={{
-          destroyOnClose: true,
-          centered: true
-        }}
-        initialValues={modelEmployee?.currentJob}
-        onFinish={modalOnFinish}
-      >
-        <Skeleton loading={initializing || employeeLoading} active >
-          {modelEmployee && <>
-            <Row>
-              <Space style={{ marginBottom: 24 }}>
-                {modelEmployee.profilePicture
-                  ? <Avatar src={modelEmployee.profilePicture} />
-                  : <Avatar icon={<UserOutlined />} />}
-                <Typography.Title level={5} style={{ margin: 0 }}>{modelEmployee.fullName}</Typography.Title>
-              </Space>
-            </Row>
-            <Row>
-              <Card
-                style={{
-                  backgroundColor: '#FFF0D8',
-                  borderRadius: 6,
-                  marginBottom: 16
-                }}
-                bodyStyle={{
-                  padding: 8
-                }}>
-                <Typography.Text style={{ color: '#AB6A05', margin: 0 }}>
-                  <FormattedMessage
-                    id='old_employee_number'
-                    defaultMessage='Old Employee Number'
-                  />
-                </Typography.Text>
-                <Typography.Title level={3} style={{ color: '#FCAE34', margin: 0 }}>
-                  {modelEmployee.employeeNumber}
-                </Typography.Title>
-              </Card>
-              {type == 'reactive' && <Space direction='horizontal' style={{ marginLeft: 8 }}>
-                <Typography.Text>
-                  {intl.formatMessage({
-                    id: 'do_you_want_to_proceed_with_old_employee_number',
-                    defaultMessage: 'Do you want to proceed with Old Employee Number'
-                  })}
-                </Typography.Text>
-                <Switch checked={isOldEmployeeNumber} onChange={setIsOldEmployeeNumber} />
-              </Space>}
-            </Row>
-            <Row gutter={24}>
-              <OrgSelector
-                span={8}
-                orgEntities={masterData?.orgEntities}
-                value={orgStructureEntityId}
-                setValue={(value: number) => setOrgStructureEntityId(value)}
+    <div
+      style={{
+        backgroundColor: 'white',
+        borderTopLeftRadius: '30px',
+        paddingLeft: '50px',
+        paddingTop: '50px',
+        width: '100%',
+        paddingRight: '0px',
+      }}
+    >
+      <PageContainer>
+        <Card>
+          <Space direction="vertical">
+            <Typography.Text>
+              <FormattedMessage
+                id="employee_rehire_process.rehire_type"
+                defaultMessage="Rehire Type"
               />
-              <Col span={8}>
-                <ProFormSelect
-                  name="locationId"
-                  label={intl.formatMessage({
-                    id: 'employee_journey_update.location',
-                    defaultMessage: "Location",
+            </Typography.Text>
+            <Radio.Group
+              defaultValue="rejoin"
+              onChange={(value) => {
+                setType(value?.target?.value ?? 'rejoin');
+              }}
+            >
+              <Radio.Button value="rejoin">
+                <FormattedMessage id="employee_rehire_process.rejoin" defaultMessage="Rejoin" />
+              </Radio.Button>
+              <Radio.Button value="reactive">
+                <FormattedMessage id="employee_rehire_process.reactive" defaultMessage="Reactive" />
+              </Radio.Button>
+            </Radio.Group>
+            <Typography.Text>
+              <FormattedMessage
+                id="employee_rehire_process.employee_name"
+                defaultMessage="Employee Name"
+              />
+            </Typography.Text>
+          </Space>
+          <ProTable
+            columns={columns}
+            dataSource={type == 'reactive' ? reactiveEligibleList : rejoinEligibleList}
+            loading={loading}
+            rowKey="employee_id"
+            toolBarRender={false}
+            search={false}
+          />
+        </Card>
+        <ModalForm
+          title={
+            type == 'reactive'
+              ? intl.formatMessage({
+                  id: `reactive_employee`,
+                  defaultMessage: `Reactive Employee`,
+                })
+              : intl.formatMessage({
+                  id: `rejoin_employee`,
+                  defaultMessage: `Rejoin Employee`,
+                })
+          }
+          key="action_employee"
+          visible={modalVisible}
+          onVisibleChange={setModalVisible}
+          form={formReference}
+          submitter={{
+            render: () => (
+              <Space>
+                <Button onClick={() => formReference.resetFields()}>
+                  {intl.formatMessage({
+                    id: 'reset',
+                    defaultMessage: 'Reset',
                   })}
-                  showSearch
-                  // disabled={!hasEditPermission()}
-                  options={masterData?.locations}
-                  placeholder={intl.formatMessage({
-                    id: 'employee_journey_update.select_location',
-                    defaultMessage: "Select Location",
-                  })}
-                  rules={[{ required: true, message: 'Required' }]}
-                />
-              </Col>
-              <Col span={8}>
-                <ProFormSelect
-                  name="jobCategoryId"
-                  label={intl.formatMessage({
-                    id: 'employee_journey_update.job_category',
-                    defaultMessage: "Job Category",
-                  })}
-                  showSearch
-                  // disabled={!hasEditPermission()}
-                  options={masterData?.jobCategories}
-                  placeholder={intl.formatMessage({
-                    id: 'employee_journey_update.select_job_category',
-                    defaultMessage: "Select Job Category",
-                  })}
-                  rules={[{ required: true, message: 'Required' }]}
-                />
-              </Col>
-              <Col span={8}>
-                <ProFormSelect
-                  name="jobTitleId"
-                  label={intl.formatMessage({
-                    id: 'employee_journey_update.job_title',
-                    defaultMessage: "Job Title",
-                  })}
-                  showSearch
-                  // disabled={!hasEditPermission()}
-                  options={masterData?.jobTitles}
-                  placeholder={intl.formatMessage({
-                    id: 'employee_journey_update.select_job_title',
-                    defaultMessage: "Select Job Title",
-                  })}
-                  rules={[{ required: true, message: 'Required' }]}
-                />
-              </Col>
-              <Col span={8}>
-                <ProFormSelect
-                  name="reportsToEmployeeId"
-                  label={intl.formatMessage({
-                    id: 'employee_journey_update.reporting_person',
-                    defaultMessage: "Reporting Person",
-                  })}
-                  showSearch
-                  // disabled={!hasEditPermission()}
-                  options={masterData?.managers}
-                  placeholder={intl.formatMessage({
-                    id: 'employee_journey_update.select_reporting_person',
-                    defaultMessage: "Select Reporting Person",
-                  })}
-                  rules={[{ required: true, message: 'Required' }]}
-                />
-              </Col>
-              <Col span={8}>
-                <ProFormSelect
-                  name="functionalReportsToEmployeeId"
-                  label={intl.formatMessage({
-                    id: 'employee_journey_update.functional_reporting_person',
-                    defaultMessage: "Functional Reporting Person",
-                  })}
-                  showSearch
-                  // disabled={!hasEditPermission()}
-                  options={masterData?.managers}
-                  placeholder={intl.formatMessage({
-                    id: 'employee_journey_update.select_functional_reporting_person',
-                    defaultMessage: "Select Functional Reporting Person",
-                  })}
-                  rules={[{ required: true, message: 'Required' }]}
-                />
-              </Col>
-              <Col span={8}>
-                <ProFormSelect
-                  name="schemeId"
-                  label={intl.formatMessage({
-                    id: 'employee_journey_update.scheme',
-                    defaultMessage: "Scheme",
-                  })}
-                  showSearch
-                  // disabled={!hasEditPermission()}
-                  options={masterData?.schemes}
-                  placeholder={intl.formatMessage({
-                    id: 'employee_journey_update.select_scheme',
-                    defaultMessage: "Select Scheme",
-                  })}
-                />
-              </Col>
-              <Col span={8}>
-                <ProFormSelect
-                  name="calendarId"
-                  label={intl.formatMessage({
-                    id: 'employee_journey_update.calendar',
-                    defaultMessage: "Calendar",
-                  })}
-                  showSearch
-                  // disabled={!hasEditPermission()}
-                  options={masterData?.calendars}
-                  placeholder={intl.formatMessage({
-                    id: 'employee_journey_update.select_calendar',
-                    defaultMessage: "Select Calendar",
-                  })}
-                  rules={[{ required: true, message: 'Required' }]}
-                />
-              </Col>
-              <Col span={8}>
-                <ProFormDatePicker
-                  width="lg"
-                  format="DD-MM-YYYY"
-                  name="effectiveDate"
-                  label={type == 'reactive'
+                </Button>
+                <Button
+                  type="primary"
+                  disabled={employeeLoading}
+                  loading={formSubmitting}
+                  onClick={() => formReference.submit?.()}
+                >
+                  {type == 'reactive'
                     ? intl.formatMessage({
-                      id: 'employee_journey_update.reactive_effective_date',
-                      defaultMessage: "Reactive Effective Date",
-                    })
+                        id: 'reactive',
+                        defaultMessage: 'Reactive',
+                      })
                     : intl.formatMessage({
-                      id: 'employee_journey_update.rejoin_effective_date',
-                      defaultMessage: "Rejoin Effective Date",
-                    })}
-                  // disabled={!hasEditPermission()}
-                  placeholder={type == 'reactive'
-                    ? intl.formatMessage({
-                      id: 'employee_journey_update.select_resignation_effective_date',
-                      defaultMessage: "Select Reactive Effective Date",
-                    })
-                    : intl.formatMessage({
-                      id: 'employee_journey_update.select_resignation_effective_date',
-                      defaultMessage: "Select Rejoin Effective Date",
-                    })}
-                  rules={[{ required: true, message: 'Required' }]}
-                />
-              </Col>
-            </Row>
-          </>}
-        </Skeleton>
-      </ModalForm>
-    </PageContainer>
+                        id: 'rejoin',
+                        defaultMessage: 'Rejoin',
+                      })}
+                </Button>
+              </Space>
+            ),
+          }}
+          modalProps={{
+            destroyOnClose: true,
+            centered: true,
+          }}
+          initialValues={modelEmployee?.currentJob}
+          onFinish={modalOnFinish}
+        >
+          <Skeleton loading={initializing || employeeLoading} active>
+            {modelEmployee && (
+              <>
+                <Row>
+                  <Space style={{ marginBottom: 24 }}>
+                    {modelEmployee.profilePicture ? (
+                      <Avatar src={modelEmployee.profilePicture} />
+                    ) : (
+                      <Avatar icon={<UserOutlined />} />
+                    )}
+                    <Typography.Title level={5} style={{ margin: 0 }}>
+                      {modelEmployee.fullName}
+                    </Typography.Title>
+                  </Space>
+                </Row>
+                <Row>
+                  <Card
+                    style={{
+                      backgroundColor: '#FFF0D8',
+                      borderRadius: 6,
+                      marginBottom: 16,
+                    }}
+                    bodyStyle={{
+                      padding: 8,
+                    }}
+                  >
+                    <Typography.Text style={{ color: '#AB6A05', margin: 0 }}>
+                      <FormattedMessage
+                        id="old_employee_number"
+                        defaultMessage="Old Employee Number"
+                      />
+                    </Typography.Text>
+                    <Typography.Title level={3} style={{ color: '#FCAE34', margin: 0 }}>
+                      {modelEmployee.employeeNumber}
+                    </Typography.Title>
+                  </Card>
+                  {type == 'reactive' && (
+                    <Space direction="horizontal" style={{ marginLeft: 8 }}>
+                      <Typography.Text>
+                        {intl.formatMessage({
+                          id: 'do_you_want_to_proceed_with_old_employee_number',
+                          defaultMessage: 'Do you want to proceed with Old Employee Number',
+                        })}
+                      </Typography.Text>
+                      <Switch checked={isOldEmployeeNumber} onChange={setIsOldEmployeeNumber} />
+                    </Space>
+                  )}
+                </Row>
+                <Row gutter={24}>
+                  <OrgSelector
+                    span={8}
+                    orgEntities={masterData?.orgEntities}
+                    value={orgStructureEntityId}
+                    setValue={(value: number) => setOrgStructureEntityId(value)}
+                  />
+                  <Col span={8}>
+                    <ProFormSelect
+                      name="locationId"
+                      label={intl.formatMessage({
+                        id: 'employee_journey_update.location',
+                        defaultMessage: 'Location',
+                      })}
+                      showSearch
+                      // disabled={!hasEditPermission()}
+                      options={masterData?.locations}
+                      placeholder={intl.formatMessage({
+                        id: 'employee_journey_update.select_location',
+                        defaultMessage: 'Select Location',
+                      })}
+                      rules={[{ required: true, message: 'Required' }]}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <ProFormSelect
+                      name="jobCategoryId"
+                      label={intl.formatMessage({
+                        id: 'employee_journey_update.job_category',
+                        defaultMessage: 'Job Category',
+                      })}
+                      showSearch
+                      // disabled={!hasEditPermission()}
+                      options={masterData?.jobCategories}
+                      placeholder={intl.formatMessage({
+                        id: 'employee_journey_update.select_job_category',
+                        defaultMessage: 'Select Job Category',
+                      })}
+                      rules={[{ required: true, message: 'Required' }]}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <ProFormSelect
+                      name="jobTitleId"
+                      label={intl.formatMessage({
+                        id: 'employee_journey_update.job_title',
+                        defaultMessage: 'Job Title',
+                      })}
+                      showSearch
+                      // disabled={!hasEditPermission()}
+                      options={masterData?.jobTitles}
+                      placeholder={intl.formatMessage({
+                        id: 'employee_journey_update.select_job_title',
+                        defaultMessage: 'Select Job Title',
+                      })}
+                      rules={[{ required: true, message: 'Required' }]}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <ProFormSelect
+                      name="reportsToEmployeeId"
+                      label={intl.formatMessage({
+                        id: 'employee_journey_update.reporting_person',
+                        defaultMessage: 'Reporting Person',
+                      })}
+                      showSearch
+                      // disabled={!hasEditPermission()}
+                      options={masterData?.managers}
+                      placeholder={intl.formatMessage({
+                        id: 'employee_journey_update.select_reporting_person',
+                        defaultMessage: 'Select Reporting Person',
+                      })}
+                      rules={[{ required: true, message: 'Required' }]}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <ProFormSelect
+                      name="functionalReportsToEmployeeId"
+                      label={intl.formatMessage({
+                        id: 'employee_journey_update.functional_reporting_person',
+                        defaultMessage: 'Functional Reporting Person',
+                      })}
+                      showSearch
+                      // disabled={!hasEditPermission()}
+                      options={masterData?.managers}
+                      placeholder={intl.formatMessage({
+                        id: 'employee_journey_update.select_functional_reporting_person',
+                        defaultMessage: 'Select Functional Reporting Person',
+                      })}
+                      rules={[{ required: true, message: 'Required' }]}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <ProFormSelect
+                      name="schemeId"
+                      label={intl.formatMessage({
+                        id: 'employee_journey_update.scheme',
+                        defaultMessage: 'Scheme',
+                      })}
+                      showSearch
+                      // disabled={!hasEditPermission()}
+                      options={masterData?.schemes}
+                      placeholder={intl.formatMessage({
+                        id: 'employee_journey_update.select_scheme',
+                        defaultMessage: 'Select Scheme',
+                      })}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <ProFormSelect
+                      name="calendarId"
+                      label={intl.formatMessage({
+                        id: 'employee_journey_update.calendar',
+                        defaultMessage: 'Calendar',
+                      })}
+                      showSearch
+                      // disabled={!hasEditPermission()}
+                      options={masterData?.calendars}
+                      placeholder={intl.formatMessage({
+                        id: 'employee_journey_update.select_calendar',
+                        defaultMessage: 'Select Calendar',
+                      })}
+                      rules={[{ required: true, message: 'Required' }]}
+                    />
+                  </Col>
+                  <Col span={8}>
+                    <ProFormDatePicker
+                      width="lg"
+                      format="DD-MM-YYYY"
+                      name="effectiveDate"
+                      label={
+                        type == 'reactive'
+                          ? intl.formatMessage({
+                              id: 'employee_journey_update.reactive_effective_date',
+                              defaultMessage: 'Reactive Effective Date',
+                            })
+                          : intl.formatMessage({
+                              id: 'employee_journey_update.rejoin_effective_date',
+                              defaultMessage: 'Rejoin Effective Date',
+                            })
+                      }
+                      // disabled={!hasEditPermission()}
+                      placeholder={
+                        type == 'reactive'
+                          ? intl.formatMessage({
+                              id: 'employee_journey_update.select_resignation_effective_date',
+                              defaultMessage: 'Select Reactive Effective Date',
+                            })
+                          : intl.formatMessage({
+                              id: 'employee_journey_update.select_resignation_effective_date',
+                              defaultMessage: 'Select Rejoin Effective Date',
+                            })
+                      }
+                      rules={[{ required: true, message: 'Required' }]}
+                    />
+                  </Col>
+                </Row>
+              </>
+            )}
+          </Skeleton>
+        </ModalForm>
+      </PageContainer>
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@
   margin-left: 4px;
   color: #ff4d4f;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: SimSun, sans-serif;
   line-height: 1;
   content: '*';
 }
@@ -28,9 +28,9 @@
 
 .editBtn {
   margin-left: 10px !important;
-  color: #002b98 !important;
+  color: #002B98 !important;
   background-color: #ffffff !important;
-  border: 1px solid #002b98 !important;
+  border: 1px solid #002B98 !important;
   border-radius: 6px !important;
 }
 
@@ -41,15 +41,13 @@ pre {
 }
 
 .drop-over-downward {
+  border-bottom: 2px dashed #002B98;
   padding-bottom: 10px;
   background: #d3e9cf;
-  border-bottom: 2px dashed #002b98;
-  border-bottom: 2px dashed #7dc014;
 }
 
 .drop-over-upward {
+  border-top: 2px dashed #002B98;
   padding-top: 10px;
   background: #d3e9cf;
-  border-top: 2px dashed #002b98;
-  border-top: 2px dashed #7dc014;
 }

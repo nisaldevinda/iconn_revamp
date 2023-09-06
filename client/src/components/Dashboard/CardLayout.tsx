@@ -368,7 +368,7 @@ const CardLayout: React.FC<CardProps> = (props) => {
                       history.push(col.link);
                     }}
                   >
-                    {/* <div style={{ width: '100%', alignItems: 'center' }}>
+                    <div style={{ width: '100%', alignItems: 'center' }}>
                       <table style={{ width: '100%' }}>
                         <tbody>
                           <tr
@@ -403,7 +403,7 @@ const CardLayout: React.FC<CardProps> = (props) => {
                           </tr>
                         </tbody>
                       </table>
-                    </div> */}
+                    </div>
                   </td>
                 </Access>
               );
@@ -590,13 +590,13 @@ const CardLayout: React.FC<CardProps> = (props) => {
                             {leaveRequestCount != 0 && (
                               <>
                                 <Row>
-                                  {/* <Col span={2} className={styles.col}>
+                                  <Col span={2} className={styles.col}>
                                     <span className={styles.leaveOuter}>
                                       <span className={styles.leave}>
                                         <p className={styles.count}>{leaveRequestCount}</p>
                                       </span>
                                     </span>
-                                  </Col> */}
+                                  </Col>
                                   <Col span={18}>
                                     <Text className={styles.primary}>
                                       {intl.formatMessage({
@@ -634,13 +634,13 @@ const CardLayout: React.FC<CardProps> = (props) => {
                             {shortLeaveRequestCount != 0 && (
                               <>
                                 <Row>
-                                  {/* <Col span={2} className={styles.col}>
+                                  <Col span={2} className={styles.col}>
                                     <span className={styles.leaveOuter}>
                                       <span className={styles.leave}>
                                         <p className={styles.count}>{shortLeaveRequestCount}</p>
                                       </span>
                                     </span>
-                                  </Col> */}
+                                  </Col>
                                   <Col span={18} style={{ textAlign: 'left' }}>
                                     <Text className={styles.primary}>
                                       {intl.formatMessage({
@@ -678,13 +678,13 @@ const CardLayout: React.FC<CardProps> = (props) => {
                             {leaveCoveringRequestCount != 0 && (
                               <>
                                 <Row>
-                                  {/* <Col span={2} className={styles.col}>
+                                  <Col span={2} className={styles.col}>
                                     <span className={styles.leaveOuter}>
                                       <span className={styles.leave}>
                                         <p className={styles.count}>{leaveCoveringRequestCount}</p>
                                       </span>
                                     </span>
-                                  </Col> */}
+                                  </Col>
                                   <Col span={18}>
                                     <Text className={styles.primary}>
                                       {intl.formatMessage({
@@ -722,13 +722,13 @@ const CardLayout: React.FC<CardProps> = (props) => {
                             {cancelLeaveRequestCount != 0 && (
                               <>
                                 <Row>
-                                  {/* <Col span={2} className={styles.col}>
+                                  <Col span={2} className={styles.col}>
                                     <span className={styles.leaveOuter}>
                                       <span className={styles.leave}>
                                         <p className={styles.count}>{cancelLeaveRequestCount}</p>
                                       </span>
                                     </span>
-                                  </Col> */}
+                                  </Col>
                                   <Col span={18}>
                                     <Text className={styles.primary}>
                                       {intl.formatMessage({
@@ -766,7 +766,7 @@ const CardLayout: React.FC<CardProps> = (props) => {
                             {cancelShortLeaveRequestCount != 0 && (
                               <>
                                 <Row>
-                                  {/* <Col span={2} className={styles.col}>
+                                  <Col span={2} className={styles.col}>
                                     <span className={styles.leaveOuter}>
                                       <span className={styles.leave}>
                                         <p className={styles.count}>
@@ -774,7 +774,7 @@ const CardLayout: React.FC<CardProps> = (props) => {
                                         </p>
                                       </span>
                                     </span>
-                                  </Col> */}
+                                  </Col>
                                   <Col span={18}>
                                     <Text className={styles.primary}>
                                       {intl.formatMessage({
@@ -1510,21 +1510,20 @@ const CardLayout: React.FC<CardProps> = (props) => {
                                   {leaveRequestCount != 0 && (
                                     <>
                                       <Row style={{ marginTop: 0, marginBottom: 0 }}>
-                                        {/* <Col span={2} className={styles.col}>
+                                        <Col span={2} className={styles.col}>
                                           <span className={styles.leaveOuter}>
                                             <span className={styles.leave}>
                                               <p className={styles.count}>{leaveRequestCount}</p>
                                             </span>
                                           </span>
-                                        </Col> */}
-                                        <Col span={20}>
+                                        </Col>
+                                        <Col span={18}>
                                           <Text className={styles.primary}>
                                             {intl.formatMessage({
                                               id: 'pages.todo.Leave.primary',
                                               defaultMessage: 'Pending  Leave Requests ',
                                             })}
                                           </Text>
-                                          <br />
                                           <Text className={styles.secondary}>
                                             {intl.formatMessage({
                                               id: 'pages.todo.secondary',
@@ -1871,21 +1870,20 @@ const CardLayout: React.FC<CardProps> = (props) => {
                                   {postOtRequestCount != 0 && (
                                     <>
                                       <Row>
-                                        {/* <Col span={2} className={styles.col}>
+                                        <Col span={2} className={styles.col}>
                                           <span className={styles.attendanceOuter}>
                                             <span className={styles.attendance}>
                                               <p className={styles.count}>{postOtRequestCount}</p>
                                             </span>
                                           </span>
-                                        </Col> */}
-                                        <Col span={20}>
+                                        </Col>
+                                        <Col span={18}>
                                           <Text className={styles.primary}>
                                             {intl.formatMessage({
                                               id: 'pages.todo.post_ot.primary',
                                               defaultMessage: 'Pending Post OT Requests',
                                             })}
                                           </Text>
-                                          <br />
                                           <Text className={styles.secondary}>
                                             {intl.formatMessage({
                                               id: 'pages.todo.secondary',

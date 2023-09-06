@@ -172,83 +172,96 @@ const DocumentManager: React.FC = (props) => {
         }
     }
      
-    return !loading && folders ? 
-        <PageContainer title="Document Manager" 
-            extra={_.isUndefined(slugs) &&(
-               <Button
-                type="primary"
-                onClick={
-                  () => setModalVisible(true)
-                }>
+    return !loading && folders ? (
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderTopLeftRadius: '30px',
+          paddingLeft: '50px',
+          paddingTop: '50px',
+          paddingBottom: '50px',
+          width: '100%',
+          paddingRight: '0px',
+        }}
+      >
+        <PageContainer
+          title="Document Manager"
+          extra={
+            _.isUndefined(slugs) && (
+              <Button type="primary" onClick={() => setModalVisible(true)}>
                 Add Folder
-              </Button>)
-            }
+              </Button>
+            )
+          }
         >
-            <FileExplorer
-                folders={folders}
-                baseRoute="documentmanager"
-                path={path}
-                getFiles={_getFiles}
-                uploadFile={_uploadFile}
-                downloadFile={_downloadFile}
-                deleteFile={_deleteFile}
-                updateDocumentFile={_updateDocumentFile}
-                documentAcknowledge={_documentAcknowledge}
-            />
-            <ModalForm
-                width={500}
-                form={modalForm}
-                title={intl.formatMessage({
-                    id: 'pages.document.addNewFolder',
-                    defaultMessage: 'Add New Folder',
-                })}
-                onFinish={async (values: any) => {
-                    await handleAdd(values as any);
-                }}
-                visible={modalVisible}
-                onVisibleChange={setModalVisible}
-                modalProps={{
-                    destroyOnClose: true,
-                }}
-                submitter={{
-                    searchConfig: {
-                        submitText: intl.formatMessage({
-                            id: 'save',
-                            defaultMessage: 'Save',
-                        }),
-                        resetText: intl.formatMessage({
-                            id: 'cancel',
-                            defaultMessage: 'Cancel',
-                        }),
+          <FileExplorer
+            folders={folders}
+            baseRoute="documentmanager"
+            path={path}
+            getFiles={_getFiles}
+            uploadFile={_uploadFile}
+            downloadFile={_downloadFile}
+            deleteFile={_deleteFile}
+            updateDocumentFile={_updateDocumentFile}
+            documentAcknowledge={_documentAcknowledge}
+          />
+          <ModalForm
+            width={500}
+            form={modalForm}
+            title={intl.formatMessage({
+              id: 'pages.document.addNewFolder',
+              defaultMessage: 'Add New Folder',
+            })}
+            onFinish={async (values: any) => {
+              await handleAdd(values as any);
+            }}
+            visible={modalVisible}
+            onVisibleChange={setModalVisible}
+            modalProps={{
+              destroyOnClose: true,
+            }}
+            submitter={{
+              searchConfig: {
+                submitText: intl.formatMessage({
+                  id: 'save',
+                  defaultMessage: 'Save',
+                }),
+                resetText: intl.formatMessage({
+                  id: 'cancel',
+                  defaultMessage: 'Cancel',
+                }),
+              },
+            }}
+          >
+            <ProForm.Group>
+              <Col style={{ paddingLeft: 20 }}>
+                <ProFormText
+                  width="md"
+                  name="name"
+                  label={intl.formatMessage({
+                    id: 'pages.document.folderName',
+                    defaultMessage: 'Folder Name',
+                  })}
+                  placeholder={intl.formatMessage({
+                    id: 'pages.document.name',
+                    defaultMessage: 'Enter a Folder Name',
+                  })}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Required',
+                      type: 'string',
                     },
-                }}
-            >
-                <ProForm.Group>
-                <Col style={{paddingLeft :20}}>
-                    <ProFormText
-                        width="md"
-                        name="name"
-                        label={intl.formatMessage({
-                            id: 'pages.document.folderName',
-                            defaultMessage: 'Folder Name',
-                        })}
-                        placeholder={intl.formatMessage({
-                            id: 'pages.document.name',
-                            defaultMessage: 'Enter a Folder Name',
-                        })}
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Required',
-                                type: 'string',
-                            },
-                        ]}
-                    />
-                    </Col>
-                </ProForm.Group>
-            </ModalForm>
+                  ]}
+                />
+              </Col>
+            </ProForm.Group>
+          </ModalForm>
         </PageContainer>
-    : <Spin/>;
+      </div>
+    ) : (
+      <Spin />
+    );
 };
 
 export default DocumentManager;

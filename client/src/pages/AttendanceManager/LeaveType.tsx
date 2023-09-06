@@ -331,169 +331,168 @@ const LeaveType: React.FC = (props) => {
 
     ]
     return (
-        <>
-             <Access
-                accessible={hasPermitted('leave-type-config')}
-                fallback={<PermissionDeniedPage />}
+      <>
+        <Access accessible={hasPermitted('leave-type-config')} fallback={<PermissionDeniedPage />}>
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderTopLeftRadius: '30px',
+              paddingLeft: '50px',
+              paddingTop: '50px',
+              paddingBottom: '50px',
+              width: '100%',
+              paddingRight: '0px',
+            }}
+          >
+            <PageContainer
+              extra={[
+                <Button
+                  onClick={(e) => {
+                    setAddModalVisible(true);
+                  }}
+                  style={{
+                    background: '#86C129',
+                    border: '1px solid #7DC014',
+                    color: '#FFFFFF',
+                  }}
+                >
+                  {' '}
+                  <PlusOutlined /> Add Leave Type
+                </Button>,
+              ]}
             >
-                <div>
-                    <PageContainer
-                        extra={[
-                            <Button
-                                onClick={(e) => {
-                                    setAddModalVisible(true)
-                                }}
-                                style={{
-                                    background: '#86C129',
-                                    border: '1px solid #7DC014',
-                                    color: '#FFFFFF',
-                                }}
-                            >
-                                {' '}
-                                <PlusOutlined /> Add Leave Type
-                            </Button>,
-                        ]}
+              <ProTable
+                actionRef={actionRef}
+                search={false}
+                toolbar={{
+                  search: handleSearch(),
+                }}
+                options={{
+                  search: true,
+                  reload: () => {
+                    actionRef.current?.reset();
+                    actionRef.current?.reload();
+                    setSearchText('');
+                  },
+                }}
+                columns={columns}
+                request={async (params, filter) => {
+                  let sorter = { name: 'name', order: 'ASC' };
+                  const response = await getLeaveTypes({ ...params, searchText, sorter });
+
+                  return {
+                    data: response.data.data,
+                    success: true,
+                    total: response.data.total,
+                  };
+                }}
+              />
+            </PageContainer>
+
+            <ModalForm
+              width={550}
+              title={intl.formatMessage({
+                id: 'add.leaveType',
+                defaultMessage: 'Add Leave Type',
+              })}
+              modalProps={{
+                destroyOnClose: true,
+                onCancel: () => setAddModalVisible(false),
+              }}
+              form={modalForm}
+              visible={addModalVisible}
+              onFinish={async (values, props) => {
+                await formOnFinish(
+                  {
+                    name: values.name,
+                    applicableCountryId: values.applicableCountryId,
+                    leavePeriod: 'STANDARD',
+                    leaveTypeComment: values.leaveTypeComment,
+                  },
+                  'add',
+                );
+              }}
+              submitter={{
+                render: (props, defaultDoms) => {
+                  return [
+                    <Button
+                      key="Reset"
+                      onClick={() => {
+                        setAddModalVisible(false);
+                      }}
                     >
-                        <ProTable
-                            actionRef={actionRef}
-                            search={false}
-                            toolbar={{
-                                search: handleSearch(),
-                            }}
-                            options={{
-                                search: true,
-                                reload:  () => {
-                                    actionRef.current?.reset();
-                                    actionRef.current?.reload();
-                                    setSearchText("");
-                                  }
-                            }}
-                            columns={columns}
-                            request={async (params, filter) => {
-                                let sorter = { name: 'name', order: 'ASC' };
-                                const response = await getLeaveTypes({ ...params ,searchText ,sorter});
+                      Cancel
+                    </Button>,
 
-                                return {
-                                    data: response.data.data,
-                                    success: true,
-                                    total: response.data.total
-                                }
-                            }}
-                        />
-                    </PageContainer>
-
-
-                    <ModalForm
-                        width={550}
-                        title={intl.formatMessage({
-                            id: 'add.leaveType',
-                            defaultMessage: 'Add Leave Type',
-                        })}
-                        modalProps={{
-                            destroyOnClose: true,
-                            onCancel: () => setAddModalVisible(false),
-                        }}
-                        form={modalForm}
-                        visible={addModalVisible}
-                        onFinish={async (values,props) => {
-                            await formOnFinish({
-                                name:values.name,
-                                applicableCountryId:values.applicableCountryId,
-                                leavePeriod:"STANDARD",
-                                leaveTypeComment:values.leaveTypeComment
-                            },"add")
-                        }
-                      
-                    }
-                        submitter={{
-                            render: (props, defaultDoms) => {
-                                return [
-
-                                    <Button
-                                        key="Reset"
-                                        onClick={() => {
-                                            
-                                            setAddModalVisible(false)
-                                        }}
-                                    >
-                                        Cancel
-                                    </Button>,
-
-                                    <Button
-                                        key="ok"
-                                        onClick={() => {
-                                            props.submit();
-                                        }}
-                                        type={"primary"}
-                                    >
-                                        Save
-                                    </Button>,
-                                ];
-                            },
-                        }}
+                    <Button
+                      key="ok"
+                      onClick={() => {
+                        props.submit();
+                      }}
+                      type={'primary'}
                     >
-                        <div
-                            style={{ paddingLeft: 16 }}
-                        >
-                            {formFields()}
-                        </div>
-
-                    </ModalForm>
-                    <DrawerForm
-                        width={550}
-                        title={intl.formatMessage({
-                            id: 'edit.leaveType',
-                            defaultMessage: 'Edit Leave Type',
-                        })}
-                        onVisibleChange={setDrawerVisible}
-                        form={drawerForm}
-                        drawerProps={{
-                            destroyOnClose: true,
-                        }}
-                        visible={drawerVisible}
-                        onFinish={async (values) => {
-                            
-                           await formOnFinish({
-                               id:currentRecordId,
-                               name:values.name,
-                               applicableCountryId:values.applicableCountryId,
-                               leaveTypeComment:values.leaveTypeComment
-                           },"update")
-                        }}
-                        initialValues={formInitialValues}
-                        submitter={{
-                            render: (props, defaultDoms) => {
-                                return [
-
-                                    <Button
-                                        key="Reset"
-                                        onClick={() => {
-                                            
-                                            setDrawerVisible(false)
-                                        }}
-                                    >
-                                        Cancel
-                                    </Button>,
-
-                                    <Button
-                                        key="ok"
-                                        onClick={() => {
-                                            props.submit();
-                                        }}
-                                        type={"primary"}
-                                    >
-                                        Update
-                                    </Button>,
-                                ];
-                            },
-                        }}
+                      Save
+                    </Button>,
+                  ];
+                },
+              }}
+            >
+              <div style={{ paddingLeft: 16 }}>{formFields()}</div>
+            </ModalForm>
+            <DrawerForm
+              width={550}
+              title={intl.formatMessage({
+                id: 'edit.leaveType',
+                defaultMessage: 'Edit Leave Type',
+              })}
+              onVisibleChange={setDrawerVisible}
+              form={drawerForm}
+              drawerProps={{
+                destroyOnClose: true,
+              }}
+              visible={drawerVisible}
+              onFinish={async (values) => {
+                await formOnFinish(
+                  {
+                    id: currentRecordId,
+                    name: values.name,
+                    applicableCountryId: values.applicableCountryId,
+                    leaveTypeComment: values.leaveTypeComment,
+                  },
+                  'update',
+                );
+              }}
+              initialValues={formInitialValues}
+              submitter={{
+                render: (props, defaultDoms) => {
+                  return [
+                    <Button
+                      key="Reset"
+                      onClick={() => {
+                        setDrawerVisible(false);
+                      }}
                     >
-                        {formFields()}
-                    </DrawerForm>
-                </div>
-            </Access>
+                      Cancel
+                    </Button>,
 
-        </>
+                    <Button
+                      key="ok"
+                      onClick={() => {
+                        props.submit();
+                      }}
+                      type={'primary'}
+                    >
+                      Update
+                    </Button>,
+                  ];
+                },
+              }}
+            >
+              {formFields()}
+            </DrawerForm>
+          </div>
+        </Access>
+      </>
     );
 }
 

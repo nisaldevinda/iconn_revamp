@@ -21,15 +21,27 @@ const AttendanceManager: React.FC = () => {
         }
         fallback={<PermissionDeniedPage />}
       >
-        <PageContainer
-          header={{
-            ghost: true,
+        <div
+          style={{
+            backgroundColor: 'white',
+            borderTopLeftRadius: '30px',
+            paddingLeft: '50px',
+            paddingTop: '50px',
+            paddingBottom: '50px',
+            width: '100%',
+            paddingRight: '0px',
           }}
         >
-          <div style={{ height: '90%', paddingTop: 25 }}>
-            <SummaryView datePassed={datePassed} employeeId={employeeId} viewType={viewType} />
-          </div>
-        </PageContainer>
+          <PageContainer
+            header={{
+              ghost: true,
+            }}
+          >
+            <div style={{ height: '90%', paddingTop: 25 }}>
+              <SummaryView datePassed={datePassed} employeeId={employeeId} viewType={viewType} />
+            </div>
+          </PageContainer>
+        </div>
       </Access>
     </>
   );

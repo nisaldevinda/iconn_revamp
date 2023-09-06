@@ -515,11 +515,12 @@ const LeaveRequest: React.FC<LeaveProps> = (props) => {
                                 paddingTop: 2,
                                 paddingBottom: 2,
                                 border: 0,
+                                backgroundColor: '#CDE7FF',
                                 fontSize: 14,
                               }}
                               color={'#FFF7E6'}
                             >
-                              <span style={{ color: '#D76B4F' }}>{leaveType['name']}</span>
+                              <span style={{ color: '#2D68FE' }}>{leaveType['name']}</span>
                             </Tag>
                             {/* {leavePeriodTypeLabel} */}
                             {/* </div> */}
@@ -617,7 +618,7 @@ const LeaveRequest: React.FC<LeaveProps> = (props) => {
                     <Col style={{ paddingLeft: 10 }} span={8}>
                       <Row
                         style={{
-                          backgroundColor: '#f2fced',
+                          backgroundColor: '#CDE7FF',
                           width: 162,
                           height: 110,
                           borderRadius: 6,
@@ -635,7 +636,7 @@ const LeaveRequest: React.FC<LeaveProps> = (props) => {
                           <Text
                             style={{
                               fontWeight: 400,
-                              color: '#74b425',
+                              color: '#71839B',
                               fontSize: 35,
                             }}
                           >
@@ -841,14 +842,14 @@ const LeaveRequest: React.FC<LeaveProps> = (props) => {
                 ) : (
                   <></>
                 )}
-                
+
                 {props.leaveData.workflowInstanceId && props.leaveData.canShowApprovalLevel ? (
                   <ApprovalLevelDetails
                     workflowInstanceId={props.leaveData.workflowInstanceId}
                     setApproverComment={props.setApproverComment}
                     actions={props.actions}
                     scope={props.scope}
-                    isViewOnly = {props.fromLeaveRquestList}
+                    isViewOnly={props.fromLeaveRquestList}
                   ></ApprovalLevelDetails>
                 ) : (
                   <></>
@@ -987,7 +988,7 @@ const LeaveRequest: React.FC<LeaveProps> = (props) => {
                   <Col style={{ paddingLeft: 8 }} span={6}>
                     <Row
                       style={{
-                        backgroundColor: '#f2fced',
+                        backgroundColor: '#CDE7FF',
                         width: 162,
                         height: 110,
                         borderRadius: 6,
@@ -1005,13 +1006,12 @@ const LeaveRequest: React.FC<LeaveProps> = (props) => {
                         <Text
                           style={{
                             fontWeight: 400,
-                            color: '#74b425',
+                            color: '#71839B',
                             fontSize: 35,
                           }}
                         >
                           {numOfCancelLeaveDates}{' '}
-                          {Number(numOfCancelLeaveDates) > 1 ||
-                          Number(numOfCancelLeaveDates) == 0
+                          {Number(numOfCancelLeaveDates) > 1 || Number(numOfCancelLeaveDates) == 0
                             ? intl.formatMessage({
                                 id: 'days',
                                 defaultMessage: 'Days',

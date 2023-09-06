@@ -31,26 +31,36 @@ const ApplyLeave: React.FC = () => {
   };
 
   return (
-    <PageContainer>
-      <Access
-        accessible={hasPermitted('my-leave-request')}
-        fallback={<PermissionDeniedPage />}
-      >
-      <div className='leaveCard'>
-        <Tabs type="card" onChange={(value) => { }}>
-          <TabPane forceRender={true} tab="Leave" key="all">
-            <ApplyLeavePage></ApplyLeavePage>
-          </TabPane>
-          {
-            isShowShortLeaveTab ?
-              <TabPane forceRender={true} tab="Short Leave" key="2">
-                <ApplyShortLeavePage></ApplyShortLeavePage>
-              </TabPane> : <></>
-          }
-        </Tabs>
-      </div>
-      </Access>
-    </PageContainer>
+    <div
+      style={{
+        backgroundColor: 'white',
+        borderTopLeftRadius: '30px',
+        paddingLeft: '50px',
+        paddingTop: '50px',
+        paddingBottom: '50px',
+        width: '100%',
+        paddingRight: '0px',
+      }}
+    >
+      <PageContainer>
+        <Access accessible={hasPermitted('my-leave-request')} fallback={<PermissionDeniedPage />}>
+          <div className="leaveCard">
+            <Tabs type="card" onChange={(value) => {}}>
+              <TabPane forceRender={true} tab="Leave" key="all">
+                <ApplyLeavePage></ApplyLeavePage>
+              </TabPane>
+              {isShowShortLeaveTab ? (
+                <TabPane forceRender={true} tab="Short Leave" key="2">
+                  <ApplyShortLeavePage></ApplyShortLeavePage>
+                </TabPane>
+              ) : (
+                <></>
+              )}
+            </Tabs>
+          </div>
+        </Access>
+      </PageContainer>
+    </div>
   );
 };
 

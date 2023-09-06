@@ -257,9 +257,9 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
               paddingTop: 2,
               paddingBottom: 2,
               border: 0,
-              color: record.leaveTypeColor,
-              background: `${record.leaveTypeColor}10`,
-              borderColor: `${record.leaveTypeColor}2a`
+              color: '#2D68FE',
+              background: '#CDE7FF',
+              borderColor: `${record.leaveTypeColor}2a`,
             }}
           >
             {record.leaveTypeName}
@@ -294,8 +294,19 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
               paddingTop: 2,
               paddingBottom: 2,
               border: 0,
+              backgroundColor:
+                record.StateLabel === 'Approved'
+                  ? '#C0FFC7'
+                  : record.StateLabel === 'Pending'
+                  ? '#FFC470'
+                  : '#FFC0C0',
+              color:
+                record.StateLabel === 'Approved'
+                  ? '#3E8D47'
+                  : record.StateLabel === 'Pending'
+                  ? '#B26A04'
+                  : '#AA4343',
             }}
-            color={record.stateTagColor}
           >
             {record.StateLabel}
           </Tag>
@@ -343,12 +354,18 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
               }
 
               if (record.hasPendingCoveringPersonRequests) {
-                const requestScope = props.accessLevel == 'employee' ? 'EMPLOYEE' : props.accessLevel == 'manager' ? 'MANAGER' : props.accessLevel == 'admin' ? 'ADMIN' : null
+                const requestScope =
+                  props.accessLevel == 'employee'
+                    ? 'EMPLOYEE'
+                    : props.accessLevel == 'manager'
+                    ? 'MANAGER'
+                    : props.accessLevel == 'admin'
+                    ? 'ADMIN'
+                    : null;
                 setRelateScope(requestScope);
               } else {
                 getRealteActions(record);
               }
-
             }}
           >
             <span style={{ position: 'relative', top: 3 }}>
@@ -356,7 +373,11 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
             </span>
           </div>
 
-          <LeaveComment leaveData={record} leaveId={record.id} refreshLeaveList={refreshLeaveList} ></LeaveComment>
+          <LeaveComment
+            leaveData={record}
+            leaveId={record.id}
+            refreshLeaveList={refreshLeaveList}
+          ></LeaveComment>
 
           {/* </Link> */}
         </Space>
@@ -767,15 +788,10 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
 
   return (
     <>
-      <Space direction="vertical" size={25} className={styles.mainSpace} >
-        <div
-          className={styles.mainDiv}
-        >
-          <Row >
-            <Col
-              className={styles.dateCol}
-              span={6}
-            >
+      <Space direction="vertical" size={25} className={styles.mainSpace}>
+        <div className={styles.mainDiv}>
+          <Row>
+            <Col className={styles.dateCol} span={6}>
               <Row className={styles.formLabel}>
                 {intl.formatMessage({
                   id: 'leaves.date',
@@ -788,32 +804,28 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                   Today: [moment(), moment()],
                   'This Month': [moment().startOf('month'), moment().endOf('month')],
                 }}
-                format={["DD-MM-YYYY"]}
+                format={['DD-MM-YYYY']}
                 onChange={onChange}
                 value={
                   fromDate !== undefined && toDate !== undefined
-                    ? [moment(fromDate, "DD-MM-YYYY"), moment(toDate, "DD-MM-YYYY")]
+                    ? [moment(fromDate, 'DD-MM-YYYY'), moment(toDate, 'DD-MM-YYYY')]
                     : null
                 }
               />
             </Col>
             <Access accessible={hasPermitted('employee-leave-request-access') && !othersView}>
-              <Col
-                className={styles.statusCol}
-                span={5}
-              >
+              <Col className={styles.statusCol} span={5}>
                 <Row className={styles.formLabel}>
                   {intl.formatMessage({
                     id: 'leaves.status',
                     defaultMessage: 'Status',
                   })}
-
                 </Row>
                 <Select
                   name="leaveState"
                   showSearch
                   optionFilterProp="label"
-                  mode={"multiple" as const}
+                  mode={'multiple' as const}
                   onChange={(value) => {
                     setSelectedStatus(value);
                   }}
@@ -827,19 +839,19 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                   options={[
                     {
                       value: 'Pending',
-                      label: 'Pending'
+                      label: 'Pending',
                     },
                     {
                       value: 'Approved',
-                      label: 'Approved'
+                      label: 'Approved',
                     },
                     {
                       value: 'Rejected',
-                      label: 'Rejected'
+                      label: 'Rejected',
                     },
                     {
                       value: 'Cancelled',
-                      label: 'Cancelled'
+                      label: 'Cancelled',
                     },
                   ]}
                 />
@@ -852,20 +864,15 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                 othersView
               }
             >
-              <Col
-                className={styles.formCol}
-                span={5}
-              >
+              <Col className={styles.formCol} span={5}>
                 <Row className={styles.formLabel}>
                   {intl.formatMessage({
                     id: 'leaves.employee',
                     defaultMessage: 'Employee',
                   })}
-
                 </Row>
 
-                {
-                  isWithInactiveEmployees ? 
+                {isWithInactiveEmployees ? (
                   <ProFormSelect
                     name="select"
                     options={selectorEmployeesWithInactives}
@@ -883,7 +890,8 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                       id: 'leaves.employee.placeholder',
                       defaultMessage: 'Search Employee',
                     })}
-                  /> :
+                  />
+                ) : (
                   <ProFormSelect
                     name="select"
                     options={selectorEmployees}
@@ -902,8 +910,7 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                       defaultMessage: 'Search Employee',
                     })}
                   />
-
-                }
+                )}
               </Col>
             </Access>
             <Access
@@ -913,10 +920,7 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                 othersView
               }
             >
-              <Col
-                className={styles.formCol}
-                span={5}
-              >
+              <Col className={styles.formCol} span={5}>
                 <Row className={styles.formLabel}>
                   {intl.formatMessage({
                     id: 'leaves.leaveType',
@@ -934,7 +938,7 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                     maxTagCount: 2,
                     onChange: (value) => {
                       setSelectedLeaveType(value);
-                    }
+                    },
                   }}
                   options={relatedLeaveTypes}
                   placeholder={intl.formatMessage({
@@ -952,13 +956,8 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                 othersView
               }
             >
-              <Col
-                className={styles.switch}
-                span={8}
-              >
-                <Text
-                  className={styles.text}
-                >
+              <Col className={styles.switch} span={8}>
+                <Text className={styles.text}>
                   {intl.formatMessage({
                     id: 'leaves.includeInactiveEmployees',
                     defaultMessage: 'Include Inactive Employees',
@@ -977,14 +976,14 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
               </Col>
             </Access>
             <Access accessible={hasPermitted('employee-leave-request-access') && !othersView}>
-              <Col
-                className={styles.resetBtnCol}
-                span={8}
-              >
+              <Col className={styles.resetBtnCol} span={8}>
                 <Space>
                   <Col>
                     <Tooltip title="reset">
-                      <Button type="default" className={styles.resetBtn} size="middle"
+                      <Button
+                        type="default"
+                        className={styles.resetBtn}
+                        size="middle"
                         onClick={async () => {
                           setLoading(true);
                           setSelectedEmployee(undefined);
@@ -992,12 +991,16 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                           setToDate(undefined);
                           setLocation(null);
                           setDepartment(null);
-                          setSelectedLeaveType(hasPermitted('manager-leave-request-access') && props.accessLevel == 'manager' ? [] : null);
+                          setSelectedLeaveType(
+                            hasPermitted('manager-leave-request-access') &&
+                              props.accessLevel == 'manager'
+                              ? []
+                              : null,
+                          );
                           setIsWithInactiveEmployees(false);
                           setSelectedStatus([]);
 
                           resetLeaveRequestList(1, 20);
-
                         }}
                       >
                         {intl.formatMessage({
@@ -1005,14 +1008,14 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                           defaultMessage: ' Reset',
                         })}
                       </Button>
-
                     </Tooltip>
                   </Col>
-                  <Col
-                    className={styles.searchCol}
-                  >
+                  <Col className={styles.searchCol}>
                     <Tooltip title="search">
-                      <Button type="primary" icon={<SearchOutlined />} size="middle"
+                      <Button
+                        type="primary"
+                        icon={<SearchOutlined />}
+                        size="middle"
                         onClick={async () => {
                           setLoading(true);
                           callGetLeaveRequestData(1, 20);
@@ -1023,31 +1026,32 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                           defaultMessage: 'Search',
                         })}
                       </Button>
-
                     </Tooltip>
                   </Col>
                 </Space>
               </Col>
             </Access>
           </Row>
-          <Access accessible={(hasPermitted('admin-leave-request-access') || hasPermitted('manager-leave-request-access')) && othersView}>
+          <Access
+            accessible={
+              (hasPermitted('admin-leave-request-access') ||
+                hasPermitted('manager-leave-request-access')) &&
+              othersView
+            }
+          >
             <Row className={styles.row}>
-              <Col
-                className={styles.dateCol}
-                span={6}
-              >
+              <Col className={styles.dateCol} span={6}>
                 <Row className={styles.formLabel}>
                   {intl.formatMessage({
                     id: 'leaves.status',
                     defaultMessage: 'Status',
                   })}
-
                 </Row>
                 <Select
                   name="leaveState"
                   showSearch
                   optionFilterProp="label"
-                  mode={"multiple" as const}
+                  mode={'multiple' as const}
                   onChange={(value) => {
                     setSelectedStatus(value);
                   }}
@@ -1061,19 +1065,19 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                   options={[
                     {
                       value: 'Pending',
-                      label: 'Pending'
+                      label: 'Pending',
                     },
                     {
                       value: 'Approved',
-                      label: 'Approved'
+                      label: 'Approved',
                     },
                     {
                       value: 'Rejected',
-                      label: 'Rejected'
+                      label: 'Rejected',
                     },
                     {
                       value: 'Cancelled',
-                      label: 'Cancelled'
+                      label: 'Cancelled',
                     },
                   ]}
                 />
@@ -1142,16 +1146,13 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                               />
                           </Col>
                         </Access> */}
-              <Col
-                className={styles.resetMainCol}
-                span={8}
-              >
+              <Col className={styles.resetMainCol} span={8}>
                 <Space>
-                  <Col
-                    className={styles.resetCol}
-                  >
+                  <Col className={styles.resetCol}>
                     <Tooltip title="reset">
-                      <Button type="default" className={styles.resetBtn}
+                      <Button
+                        type="default"
+                        className={styles.resetBtn}
                         onClick={async () => {
                           setLoading(true);
                           setSelectedEmployee(undefined);
@@ -1159,11 +1160,15 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                           setToDate(undefined);
                           setLocation(null);
                           setDepartment(null);
-                          setSelectedLeaveType(hasPermitted('manager-leave-request-access') && props.accessLevel == 'manager' ? [] : null);
+                          setSelectedLeaveType(
+                            hasPermitted('manager-leave-request-access') &&
+                              props.accessLevel == 'manager'
+                              ? []
+                              : null,
+                          );
                           setIsWithInactiveEmployees(false);
                           setSelectedStatus([]);
                           resetLeaveRequestList(1, 20);
-
                         }}
                       >
                         {intl.formatMessage({
@@ -1171,14 +1176,13 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                           defaultMessage: 'Reset',
                         })}
                       </Button>
-
                     </Tooltip>
                   </Col>
-                  <Col
-                    className={styles.searchCol}
-                  >
+                  <Col className={styles.searchCol}>
                     <Tooltip title="search">
-                      <Button type="primary" icon={<SearchOutlined />}
+                      <Button
+                        type="primary"
+                        icon={<SearchOutlined />}
                         onClick={async () => {
                           setLoading(true);
                           callGetLeaveRequestData(1, 20);
@@ -1188,14 +1192,10 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                           id: 'leaves.search',
                           defaultMessage: 'Search',
                         })}
-
                       </Button>
-
                     </Tooltip>
                   </Col>
-                  <Col
-                    className={styles.excelCol}
-                  >
+                  <Col className={styles.excelCol}>
                     <Tooltip title="Download Excel">
                       <Button
                         type="primary"
@@ -1234,10 +1234,10 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
               const sortValue = sort?.employeeName
                 ? { name: 'employeeName', order: sort?.employeeName === 'ascend' ? 'ASC' : 'DESC' }
                 : sort?.fromDate
-                  ? { name: 'fromDate', order: sort?.fromDate === 'ascend' ? 'ASC' : 'DESC' }
-                  : sort?.toDate
-                    ? { name: 'toDate', order: sort?.toDate === 'ascend' ? 'ASC' : 'DESC' }
-                    : { name: 'fromDate', order: 'DESC' };
+                ? { name: 'fromDate', order: sort?.fromDate === 'ascend' ? 'ASC' : 'DESC' }
+                : sort?.toDate
+                ? { name: 'toDate', order: sort?.toDate === 'ascend' ? 'ASC' : 'DESC' }
+                : { name: 'fromDate', order: 'DESC' };
               const filters = filter ? filter : '';
 
               const tableParams = {
@@ -1261,44 +1261,60 @@ const LeaveTableView: React.FC<TableViewProps> = (props) => {
                 setToDate(undefined);
                 setLocation(null);
                 setDepartment(null);
-                setSelectedLeaveType(hasPermitted('manager-leave-request-access') && props.accessLevel == 'manager' ? [] : null);
+                setSelectedLeaveType(
+                  hasPermitted('manager-leave-request-access') && props.accessLevel == 'manager'
+                    ? []
+                    : null,
+                );
                 setIsWithInactiveEmployees(false);
                 setSelectedStatus([]);
-              }
+              },
             }}
             style={{ width: '100%' }}
           />
         </Row>
 
         <Modal
-          title={<Row>
-            <Col>
-              <Space style={{ paddingTop: 4 }}>
-                {intl.formatMessage({
-                  id: 'pages.Workflows.addNewWorkflow',
-                  defaultMessage: 'Leave Request',
-                })}
-              </Space>
-            </Col>
-            <Col style={{ marginLeft: 20 }}>
-              <Space>
-                <Tag
-                  style={{
-                    borderRadius: 20,
-                    fontSize: 17,
-                    paddingRight: 20,
-                    paddingLeft: 20,
-                    paddingTop: 4,
-                    paddingBottom: 4,
-                    border: 0,
-                  }}
-                  color={leaveDataSet.stateTagColor}
-                >
-                  {leaveDataSet.StateLabel}
-                </Tag>
-              </Space>
-            </Col>
-          </Row>}
+          title={
+            <Row>
+              <Col>
+                <Space style={{ paddingTop: 4 }}>
+                  {intl.formatMessage({
+                    id: 'pages.Workflows.addNewWorkflow',
+                    defaultMessage: 'Leave Request',
+                  })}
+                </Space>
+              </Col>
+              <Col style={{ marginLeft: 20 }}>
+                <Space>
+                  <Tag
+                    style={{
+                      borderRadius: 20,
+                      paddingRight: 20,
+                      paddingLeft: 20,
+                      paddingTop: 2,
+                      paddingBottom: 2,
+                      border: 0,
+                      backgroundColor:
+                        leaveDataSet === 'Approved'
+                          ? '#C0FFC7'
+                          : leaveDataSet === 'Pending'
+                          ? '#FFC470'
+                          : '#FFC0C0',
+                      color:
+                        leaveDataSet === 'Approved'
+                          ? '#3E8D47'
+                          : leaveDataSet === 'Pending'
+                          ? '#B26A04'
+                          : '#AA4343',
+                    }}
+                  >
+                    {leaveDataSet.StateLabel}
+                  </Tag>
+                </Space>
+              </Col>
+            </Row>
+          }
           visible={isModalVisible}
           width={880}
           onCancel={handleCancel}

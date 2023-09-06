@@ -518,7 +518,17 @@ const WorkflowInstance: React.FC<WorkflowProps> = (props) => {
   ];
   return (
     <>
-      <div>
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderTopLeftRadius: '30px',
+          paddingLeft: '50px',
+          paddingTop: '50px',
+          paddingBottom: '50px',
+          width: '100%',
+          paddingRight: '0px',
+        }}
+      >
         <PageContainer
           header={{
             ghost: true,
@@ -528,10 +538,13 @@ const WorkflowInstance: React.FC<WorkflowProps> = (props) => {
             title={
               <Row>
                 <Col span={12}>
-                  <Space style={{ float: 'left' }}> {intl.formatMessage({
-                    id: 'leaveCoveringRequest',
-                    defaultMessage: 'Leave Covering Requests',
-                  })}</Space>
+                  <Space style={{ float: 'left' }}>
+                    {' '}
+                    {intl.formatMessage({
+                      id: 'leaveCoveringRequest',
+                      defaultMessage: 'Leave Covering Requests',
+                    })}
+                  </Space>
                 </Col>
                 <Col span={12}>
                   <Space style={{ float: 'right' }}>
@@ -682,9 +695,9 @@ const WorkflowInstance: React.FC<WorkflowProps> = (props) => {
                 {selectedRow.state == 'PENDING' ? (
                   <>
                     <Popconfirm
-                      title= {intl.formatMessage({
+                      title={intl.formatMessage({
                         id: 'declineConfirm',
-                        defaultMessage: "Are you sure you want decline this request?",
+                        defaultMessage: 'Are you sure you want decline this request?',
                       })}
                       placement="top"
                       onConfirm={(e) => {
@@ -708,9 +721,9 @@ const WorkflowInstance: React.FC<WorkflowProps> = (props) => {
                       </Button>
                     </Popconfirm>
                     <Popconfirm
-                      title= {intl.formatMessage({
+                      title={intl.formatMessage({
                         id: 'acceptConfirm',
-                        defaultMessage: "Are you sure you want accept this request?",
+                        defaultMessage: 'Are you sure you want accept this request?',
                       })}
                       placement="top"
                       onConfirm={(e) => {

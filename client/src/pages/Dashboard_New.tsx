@@ -15,6 +15,7 @@ import _ from 'lodash';
 import TimeLogButton from '@/components/Dashboard/TimeLogButton';
 
 import './new_styles.css';
+import TodoItem from './TodoItem';
 
 export default (): React.ReactNode => {
   const [layout, setLayoutModel] = useState([]);
@@ -32,6 +33,103 @@ export default (): React.ReactNode => {
       .then((response: APIResponse) => {})
       .catch((error: APIResponse) => {});
   };
+
+  interface BirthdayDataItem {
+    id: number;
+    userName: string;
+    date: string;
+    userDescription: string;
+    userImageSrc: string;
+  }
+
+  interface TodoDataItem {
+    id: number;
+    type: string;
+    name: string;
+    status: string;
+  }
+
+  const [todoData, setTodoData] = useState<TodoDataItem[]>([]);
+  const [birthdayData, setBirthdayData] = useState<BirthdayDataItem[]>([]);
+  const [anniversaryData, setAnniversaryData] = useState([]);
+
+  useEffect(() => {
+    // fetch('/api/todo')
+    //   .then((response) => response.json())
+    //   .then((data) => setTodoData(data))
+    //   .catch((error) => console.error('Error fetching ToDo data:', error));
+
+    fetch('/api/birthdays')
+      .then((response) => response.json())
+      .then((data) => setBirthdayData(data))
+      .catch((error) => console.error('Error fetching Birthdays data:', error));
+
+    fetch('/api/anniversaries')
+      .then((response) => response.json())
+      .then((data) => setAnniversaryData(data))
+      .catch((error) => console.error('Error fetching Anniversary data:', error));
+
+    // Simulated API call to fetch Todo data
+    setTimeout(() => {
+      const sampleTodoData: TodoDataItem[] = [
+        {
+          id: 1,
+          type: 'Leave Manager',
+          name: 'Pending Profile Change Requests',
+          status: 'to be approved',
+        },
+        {
+          id: 2,
+          type: 'Profile Manager',
+          name: 'Pending Profile Change Requests',
+          status: 'to be approved',
+        },
+      ];
+      setTodoData(sampleTodoData);
+    }, 1000);
+
+    setTimeout(() => {
+      const sampleBirthdayData: BirthdayDataItem[] = [
+        {
+          id: 1,
+          userName: 'Melody Tissera',
+          date: '27th of July, 2023',
+          userDescription: 'Turns 35 Today',
+          userImageSrc: '/users/user-1.png',
+        },
+        {
+          id: 2,
+          userName: 'Madhawa Bandara',
+          date: '30th of July, 2023',
+          userDescription: 'Turns 32',
+          userImageSrc: '/users/user-2.png',
+        },
+        {
+          id: 3,
+          userName: 'John Doe',
+          date: '15th of August, 2023',
+          userDescription: 'Turns 40 Today',
+          userImageSrc: '/users/user-4.png',
+        },
+        {
+          id: 4,
+          userName: 'Jane Smith',
+          date: '22nd of September, 2023',
+          userDescription: 'Turns 28 Today',
+          userImageSrc: '/users/user-5.png',
+        },
+        {
+          id: 5,
+          userName: 'Alice Johnson',
+          date: '5th of October, 2023',
+          userDescription: 'Turns 25 Today',
+          userImageSrc: '/users/user-6.png',
+        },
+        // Add more birthday data items here
+      ];
+      setBirthdayData(sampleBirthdayData);
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -55,306 +153,15 @@ export default (): React.ReactNode => {
             </div>
             <div className="card-body-wrap">
               <div className="todo-items">
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="todo-item">
-                  <div className="todo-check">
-                    <input type="checkbox" name="" id="" className="todo-checkbox" />
-                  </div>
-                  <div className="todo-content">
-                    <div className="todo-details">
-                      <span className="todo-type">Profile Manager</span>
-                      <span className="todo-name">Pending Profile Change Requests</span>
-                      <span className="todo-status">to be approved</span>
-                    </div>
-                    <div>
-                      <button className="view-more-btn">View</button>
-                    </div>
-                  </div>
-                </div>
+                {todoData.map((todoItem) => (
+                  // Use the TodoItem component to render dynamic content
+                  <TodoItem
+                    key={todoItem.id}
+                    type={todoItem.type}
+                    name={todoItem.name}
+                    status={todoItem.status}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -381,76 +188,48 @@ export default (): React.ReactNode => {
                   <div className="card-link">View All</div>
                 </div>
                 <div className="user-profiles">
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-1.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Melody Tissera</span>
-                      <span className="date">27th of July, 2023</span>
-                      <span className="user-description">Turns 35 Today</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
+                  {birthdayData.map((birthdayItem) => (
+                    <div className="user-profile" key={birthdayItem.id}>
+                      <div className="user-img-wrap">
+                        <img src="/users/user-1.png" alt="" className="user-img" />
+                      </div>
+                      <div className="user-info">
+                        <span className="user-name">{birthdayItem.userName}</span>
+                        <span className="date">{birthdayItem.date}</span>
+                        <span className="user-description">{birthdayItem.userDescription}</span>
+                        <div className="user-actions">
+                          <a href="" className="card-link">
+                            View
+                          </a>
+                          <button className="msg-btn">Message</button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
                 <div className="card-sub-header">
                   <span className="card-sub-heading">Upcoming Birthdays</span>
                   <div className="card-link">View All</div>
                 </div>
                 <div className="user-profiles">
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-3.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Madhawa Bandara</span>
-                      <span className="date">30th of July, 2023</span>
-                      <span className="user-description">Turns 32</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
+                  {birthdayData.map((birthdayItem) => (
+                    <div className="user-profile" key={birthdayItem.id}>
+                      <div className="user-img-wrap">
+                        <img src="/users/user-1.png" alt="" className="user-img" />
+                      </div>
+                      <div className="user-info">
+                        <span className="user-name">{birthdayItem.userName}</span>
+                        <span className="date">{birthdayItem.date}</span>
+                        <span className="user-description">{birthdayItem.userDescription}</span>
+                        <div className="user-actions">
+                          <a href="" className="card-link">
+                            View
+                          </a>
+                          <button className="msg-btn">Message</button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-2.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Adisha Gammanpila</span>
-                      <span className="date">29th of July, 2023</span>
-                      <span className="user-description">Turns 29</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-1.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Melody Tissera</span>
-                      <span className="date">27th of July, 2023</span>
-                      <span className="user-description">Turns 35 Today</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -474,76 +253,48 @@ export default (): React.ReactNode => {
                   <div className="card-link">View All</div>
                 </div>
                 <div className="user-profiles">
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-6.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Chamarie Ukwatte</span>
-                      <span className="date">27th of July, 2023</span>
-                      <span className="user-description">4th Anniversary</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
+                  {birthdayData.map((birthdayItem) => (
+                    <div className="user-profile" key={birthdayItem.id}>
+                      <div className="user-img-wrap">
+                        <img src="/users/user-1.png" alt="" className="user-img" />
+                      </div>
+                      <div className="user-info">
+                        <span className="user-name">{birthdayItem.userName}</span>
+                        <span className="date">{birthdayItem.date}</span>
+                        <span className="user-description">{birthdayItem.userDescription}</span>
+                        <div className="user-actions">
+                          <a href="" className="card-link">
+                            View
+                          </a>
+                          <button className="msg-btn">Message</button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
                 <div className="card-sub-header">
                   <span className="card-sub-heading">Upcoming Anniversaries</span>
                   <div className="card-link">View All</div>
                 </div>
                 <div className="user-profiles">
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-5.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Kasun Meediniya</span>
-                      <span className="date">30th of July, 2023</span>
-                      <span className="user-description">6th Anniversary</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
+                  {birthdayData.map((birthdayItem) => (
+                    <div className="user-profile" key={birthdayItem.id}>
+                      <div className="user-img-wrap">
+                        <img src="/users/user-1.png" alt="" className="user-img" />
+                      </div>
+                      <div className="user-info">
+                        <span className="user-name">{birthdayItem.userName}</span>
+                        <span className="date">{birthdayItem.date}</span>
+                        <span className="user-description">{birthdayItem.userDescription}</span>
+                        <div className="user-actions">
+                          <a href="" className="card-link">
+                            View
+                          </a>
+                          <button className="msg-btn">Message</button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-4.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Praveen Ranula</span>
-                      <span className="date">29th of July, 2023</span>
-                      <span className="user-description">3rd Anniversary</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="user-profile">
-                    <div className="user-img-wrap">
-                      <img src="/users/user-1.png" alt="" className="user-img" />
-                    </div>
-                    <div className="user-info">
-                      <span className="user-name">Melody Tissera</span>
-                      <span className="date">27th of July, 2023</span>
-                      <span className="user-description">Turns 35 Today</span>
-                      <div className="user-actions">
-                        <a href="" className="card-link">
-                          View
-                        </a>
-                        <button className="msg-btn">Message</button>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

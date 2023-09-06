@@ -126,21 +126,31 @@ const DocumentAcknowledgeProcess: React.FC = (props) => {
     }
     
    
-    return !loading && folders ? 
+    return !loading && folders ? (
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderTopLeftRadius: '30px',
+          paddingLeft: '50px',
+          paddingTop: '50px',
+        }}
+      >
         <PageContainer title="Document Manager">
-            
-            <FileList
-              getFiles={_getFiles}
-              uploadFile={_uploadFile}
-              downloadFile={_downloadFile}
-              source = 'documentAcknowledge'
-              deleteFile={_deleteFile}
-              updateDocumentFile={_updateDocumentFile}
-              documentAcknowledge={_documentAcknowledge}
-              folderPath={path}
-            />
+          <FileList
+            getFiles={_getFiles}
+            uploadFile={_uploadFile}
+            downloadFile={_downloadFile}
+            source="documentAcknowledge"
+            deleteFile={_deleteFile}
+            updateDocumentFile={_updateDocumentFile}
+            documentAcknowledge={_documentAcknowledge}
+            folderPath={path}
+          />
         </PageContainer>
-    : <Spin/>;
+      </div>
+    ) : (
+      <Spin />
+    );
 };
 
 export default DocumentAcknowledgeProcess;

@@ -990,366 +990,385 @@ const LeaveUsageReportForEmployee: React.FC = () => {
         accessible={hasPermitted('leave-entitlement-report-access')}
         fallback={<PermissionDeniedPage />}
       >
-        <PageContainer>
-          <Space direction="vertical" size={25} style={{ width: '100%' }}>
-            <div
-              style={{
-                borderRadius: '10px',
-                background: '#FFFFFF',
-                padding: '32px',
-                width: '100%',
-              }}
-            >
-              <Form form={form} onFinish={onFinish} autoComplete="off" layout="vertical">
-                <Row>
-                  <Col
-                    style={{
-                      height: 35,
-                      width: 250,
-                      paddingLeft: 20,
-                    }}
-                    span={6}
-                  >
-                    <Form.Item
-                      name="reportType"
-                      label={intl.formatMessage({
-                        id: 'reportType',
-                        defaultMessage: 'Report Type',
-                      })}
-                      rules={[
-                        {
-                          required: true,
-                          message: intl.formatMessage({
-                            id: 'leaveEntitlementReport.reportType',
-                            defaultMessage: 'Required',
-                          }),
-                        },
-                      ]}
+        <div
+          style={{
+            backgroundColor: 'white',
+            borderTopLeftRadius: '30px',
+            paddingLeft: '50px',
+            paddingTop: '50px',
+            paddingBottom: '50px',
+            width: '100%',
+            paddingRight: '0px',
+          }}
+        >
+          <PageContainer>
+            <Space direction="vertical" size={25} style={{ width: '100%' }}>
+              <div
+                style={{
+                  borderRadius: '10px',
+                  background: '#FFFFFF',
+                  padding: '32px',
+                  width: '100%',
+                }}
+              >
+                <Form form={form} onFinish={onFinish} autoComplete="off" layout="vertical">
+                  <Row>
+                    <Col
+                      style={{
+                        height: 35,
+                        width: 250,
+                        paddingLeft: 20,
+                      }}
+                      span={6}
                     >
-                      <Select
-                        placeholder={intl.formatMessage({
-                          id: 'selectField',
-                          defaultMessage: 'Select Field',
+                      <Form.Item
+                        name="reportType"
+                        label={intl.formatMessage({
+                          id: 'reportType',
+                          defaultMessage: 'Report Type',
                         })}
-                        onChange={(value) => {
-                          setLeaveEntitlements([]);
-                          form.setFieldsValue({
-                            'leaveType' : value == 'leaveEntitlement' ? [] : null,
-                            'leavePeriod': 'current',
-                          });
-                          setEntityId(1);
-                          if (value === 'leaveSummaryReport') {
-                            getEmployeesByEntityId(1);
-                            let cols = [
-                              {
-                                name: 'Employee Number',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeNumber',
-                              },
-                              {
-                                name: 'Employee Name',
-                                isShowColumn: true,
-                                mappedDataIndex: 'employeeName',
-                              }
-                            ];
-
-
-                            for (let property in hierarchyConfig) {
-                              let tempCol = {
-                                name: hierarchyConfig[property],
-                                isShowColumn: true,
-                                mappedDataIndex: property,
-                              }
-
-                              cols.push(tempCol);
-                           
-                            }
-
-
-                            let colSet2 = [
-                              { name: 'Reporting Person', isShowColumn: true, mappedDataIndex: 'reportsTo' },
-                              {
-                                name: 'Leave Type',
-                                isShowColumn: true,
-                                mappedDataIndex: 'leaveTypeName',
-                              },
-                              { name: 'Status', isShowColumn: true, mappedDataIndex: 'StateLabel' },
-                              { name: 'Start Date', isShowColumn: true, mappedDataIndex: 'fromDate' },
-                              { name: 'End Date', isShowColumn: true, mappedDataIndex: 'toDate' },
-                              {
-                                name: 'Num Of Days',
-                                isShowColumn: true,
-                                mappedDataIndex: 'numberOfLeaveDates',
-                              },
-                              {
-                                name: 'Reason',
-                                isShowColumn: true,
-                                mappedDataIndex: 'reason',
-                              }
-                            ];
-
-                            //push col set 2 to main array
-                            for (let col2Property in colSet2) { 
-                              cols.push(colSet2[col2Property]);
-                            }
-
-
-
-                            setColumnKeys(cols);
-
-
-
-
-                          }
-                          setReportType(value);
-                        }}
-                        style={{
-                          borderRadius: 6,
-                          width: '100%',
-                        }}
-                        allowClear={true}
-                      >
-                        <Option value="employee">Employee</Option>
-                        <Option value="leaveType">Leave Type</Option>
-                        <Option value="leaveEntitlement">Leave Entitlement Report</Option>
-                        <Option value="employeeLeaveRequestReport">Employee Leave Request Report</Option>
-                        <Option value="leaveSummaryReport">Leave Summary Report</Option>
-                      </Select>
-                    </Form.Item>
-                  </Col>
-                  {reportType === 'employee' && (
-                    <>
-                      <Col
-                        style={{
-                          width: 350,
-                          height: 35,
-                          paddingLeft: 20,
-                          textAlign: 'left',
-                          marginTop: 35,
-                        }}
-                        span={4}
-                      >
-                        <Text
-                          style={{
-                            marginRight: 30,
-                            verticalAlign: 'bottom',
-                          }}
-                        >
-                          {intl.formatMessage({
-                            id: 'includeInactive',
-                            defaultMessage: 'Enable Inactive Employees',
-                          })}
-                        </Text>
-                        <Switch
-                          onChange={(checked: boolean, event: Event) => {
-                            setIsEnableInactiveEmployees(checked);
-                            form.setFieldsValue({
-                              'employee' : null
-                            })
-                          }}
-                          checkedChildren="Yes"
-                          unCheckedChildren="No"
-                        />
-                      </Col>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="employee"
-                          label={intl.formatMessage({
-                            id: 'employeeName',
-                            defaultMessage: 'Employee Name',
-                          })}
-                          rules={[
-                            {
-                              required: true,
-                              message: intl.formatMessage({
-                                id: 'leaveEntitlementReport.employeeName',
-                                defaultMessage: 'Required',
-                              }),
-                            },
-                          ]}
-                        >
+                        rules={[
                           {
-                            isEnableInactiveEmployees ? 
-                            <Select
-                              showSearch
-                              style={{
-                                width: '100%',
-                              }}
-                              placeholder={intl.formatMessage({
-                                id: 'selectEmployee',
-                                defaultMessage: 'Select Employee',
-                              })}
-                              optionFilterProp="children"
-                              allowClear={true}
-                            >
-                              {employees.map((employee) => {
-                                return (
-                                  <Option key={employee.id} value={employee.id}>
-                                    {`${employee.employeeNumber} | ${employee.employeeName}`}
-                                  </Option>
-                                );
-                              })}
-                            </Select> : <Select
-                              showSearch
-                              style={{
-                                width: '100%',
-                              }}
-                              placeholder={intl.formatMessage({
-                                id: 'selectEmployee',
-                                defaultMessage: 'Select Employee',
-                              })}
-                              optionFilterProp="children"
-                              allowClear={true}
-                            >
-                              {employees.map((employee) => {
-                                return (
-                                  employee.isActive ?
-                                  <Option key={employee.id} value={employee.id}>
-                                    {`${employee.employeeNumber} | ${employee.employeeName}`}
-                                  </Option> : <></>
-                                );
-                              })}
-                            </Select>
-                          }
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        span={3}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
+                            required: true,
+                            message: intl.formatMessage({
+                              id: 'leaveEntitlementReport.reportType',
+                              defaultMessage: 'Required',
+                            }),
+                          },
+                        ]}
                       >
-                        <Form.Item
-                          name="leavePeriod"
-                          label={intl.formatMessage({
-                            id: 'leavePeriod',
-                            defaultMessage: 'Leave Period',
+                        <Select
+                          placeholder={intl.formatMessage({
+                            id: 'selectField',
+                            defaultMessage: 'Select Field',
                           })}
-                        >
-                          <Select
-                            defaultValue={leavePeriod}
-                            style={{
-                              width: '100%',
-                            }}
-                          >
-                            <Option value="current">Current</Option>
-                            <Option value="future">Future</Option>
-                            <Option value="past">Past</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                    </>
-                  )}
-                  {reportType === 'employeeLeaveRequestReport' && (
-                    <>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="requestType"
-                          label={intl.formatMessage({
-                            id: 'requestType',
-                            defaultMessage: 'Request Type',
-                          })}
-                          rules={[
-                            {
-                              required: true,
-                              message: intl.formatMessage({
-                                id: 'leaveEntitlementReport.requestType',
-                                defaultMessage: 'Required',
-                              }),
-                            },
-                          ]}
-                        >
-                          <Select
-                            style={{
-                              width: '100%',
-                            }}
-                            placeholder={'Select Request Type'}
-                            onChange={(val) => {
-                              setRequestType(val);
-                              setLeaveEntitlements([]);
-                            }}
-                          >
-                            <Option value="leave">Leave</Option>
-                            {
-                              isShowShortLeaveTab ? 
-                              <Option value="short-leave">Short Leave</Option> : <></>
-                            }
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        style={{
-                          width: 350,
-                          height: 35,
-                          paddingLeft: 20,
-                          textAlign: 'left',
-                          marginTop: 35,
-                        }}
-                        span={4}
-                      >
-                        <Text
-                          style={{
-                            marginRight: 30,
-                            verticalAlign: 'bottom',
-                          }}
-                        >
-                          {intl.formatMessage({
-                            id: 'includeInactive',
-                            defaultMessage: 'Enable Inactive Employees',
-                          })}
-                        </Text>
-                        <Switch
-                          onChange={(checked: boolean, event: Event) => {
-                            setIsEnableInactiveEmployees(checked);
+                          onChange={(value) => {
+                            setLeaveEntitlements([]);
                             form.setFieldsValue({
-                              'employee' : null
-                            })
+                              leaveType: value == 'leaveEntitlement' ? [] : null,
+                              leavePeriod: 'current',
+                            });
+                            setEntityId(1);
+                            if (value === 'leaveSummaryReport') {
+                              getEmployeesByEntityId(1);
+                              let cols = [
+                                {
+                                  name: 'Employee Number',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeNumber',
+                                },
+                                {
+                                  name: 'Employee Name',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'employeeName',
+                                },
+                              ];
+
+                              for (let property in hierarchyConfig) {
+                                let tempCol = {
+                                  name: hierarchyConfig[property],
+                                  isShowColumn: true,
+                                  mappedDataIndex: property,
+                                };
+
+                                cols.push(tempCol);
+                              }
+
+                              let colSet2 = [
+                                {
+                                  name: 'Reporting Person',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'reportsTo',
+                                },
+                                {
+                                  name: 'Leave Type',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'leaveTypeName',
+                                },
+                                {
+                                  name: 'Status',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'StateLabel',
+                                },
+                                {
+                                  name: 'Start Date',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'fromDate',
+                                },
+                                { name: 'End Date', isShowColumn: true, mappedDataIndex: 'toDate' },
+                                {
+                                  name: 'Num Of Days',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'numberOfLeaveDates',
+                                },
+                                {
+                                  name: 'Reason',
+                                  isShowColumn: true,
+                                  mappedDataIndex: 'reason',
+                                },
+                              ];
+
+                              //push col set 2 to main array
+                              for (let col2Property in colSet2) {
+                                cols.push(colSet2[col2Property]);
+                              }
+
+                              setColumnKeys(cols);
+                            }
+                            setReportType(value);
                           }}
-                          checkedChildren="Yes"
-                          unCheckedChildren="No"
-                        />
-                      </Col>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="employee"
-                          label={intl.formatMessage({
-                            id: 'employeeName',
-                            defaultMessage: 'Employee Name',
-                          })}
-                          rules={[
-                            {
-                              required: true,
-                              message: intl.formatMessage({
-                                id: 'leaveEntitlementReport.employeeName',
-                                defaultMessage: 'Required',
-                              }),
-                            },
-                          ]}
+                          style={{
+                            borderRadius: 6,
+                            width: '100%',
+                          }}
+                          allowClear={true}
                         >
-                          {/* <Select
+                          <Option value="employee">Employee</Option>
+                          <Option value="leaveType">Leave Type</Option>
+                          <Option value="leaveEntitlement">Leave Entitlement Report</Option>
+                          <Option value="employeeLeaveRequestReport">
+                            Employee Leave Request Report
+                          </Option>
+                          <Option value="leaveSummaryReport">Leave Summary Report</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    {reportType === 'employee' && (
+                      <>
+                        <Col
+                          style={{
+                            width: 350,
+                            height: 35,
+                            paddingLeft: 20,
+                            textAlign: 'left',
+                            marginTop: 35,
+                          }}
+                          span={4}
+                        >
+                          <Text
+                            style={{
+                              marginRight: 30,
+                              verticalAlign: 'bottom',
+                            }}
+                          >
+                            {intl.formatMessage({
+                              id: 'includeInactive',
+                              defaultMessage: 'Enable Inactive Employees',
+                            })}
+                          </Text>
+                          <Switch
+                            onChange={(checked: boolean, event: Event) => {
+                              setIsEnableInactiveEmployees(checked);
+                              form.setFieldsValue({
+                                employee: null,
+                              });
+                            }}
+                            checkedChildren="Yes"
+                            unCheckedChildren="No"
+                          />
+                        </Col>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="employee"
+                            label={intl.formatMessage({
+                              id: 'employeeName',
+                              defaultMessage: 'Employee Name',
+                            })}
+                            rules={[
+                              {
+                                required: true,
+                                message: intl.formatMessage({
+                                  id: 'leaveEntitlementReport.employeeName',
+                                  defaultMessage: 'Required',
+                                }),
+                              },
+                            ]}
+                          >
+                            {isEnableInactiveEmployees ? (
+                              <Select
+                                showSearch
+                                style={{
+                                  width: '100%',
+                                }}
+                                placeholder={intl.formatMessage({
+                                  id: 'selectEmployee',
+                                  defaultMessage: 'Select Employee',
+                                })}
+                                optionFilterProp="children"
+                                allowClear={true}
+                              >
+                                {employees.map((employee) => {
+                                  return (
+                                    <Option key={employee.id} value={employee.id}>
+                                      {`${employee.employeeNumber} | ${employee.employeeName}`}
+                                    </Option>
+                                  );
+                                })}
+                              </Select>
+                            ) : (
+                              <Select
+                                showSearch
+                                style={{
+                                  width: '100%',
+                                }}
+                                placeholder={intl.formatMessage({
+                                  id: 'selectEmployee',
+                                  defaultMessage: 'Select Employee',
+                                })}
+                                optionFilterProp="children"
+                                allowClear={true}
+                              >
+                                {employees.map((employee) => {
+                                  return employee.isActive ? (
+                                    <Option key={employee.id} value={employee.id}>
+                                      {`${employee.employeeNumber} | ${employee.employeeName}`}
+                                    </Option>
+                                  ) : (
+                                    <></>
+                                  );
+                                })}
+                              </Select>
+                            )}
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          span={3}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="leavePeriod"
+                            label={intl.formatMessage({
+                              id: 'leavePeriod',
+                              defaultMessage: 'Leave Period',
+                            })}
+                          >
+                            <Select
+                              defaultValue={leavePeriod}
+                              style={{
+                                width: '100%',
+                              }}
+                            >
+                              <Option value="current">Current</Option>
+                              <Option value="future">Future</Option>
+                              <Option value="past">Past</Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                      </>
+                    )}
+                    {reportType === 'employeeLeaveRequestReport' && (
+                      <>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="requestType"
+                            label={intl.formatMessage({
+                              id: 'requestType',
+                              defaultMessage: 'Request Type',
+                            })}
+                            rules={[
+                              {
+                                required: true,
+                                message: intl.formatMessage({
+                                  id: 'leaveEntitlementReport.requestType',
+                                  defaultMessage: 'Required',
+                                }),
+                              },
+                            ]}
+                          >
+                            <Select
+                              style={{
+                                width: '100%',
+                              }}
+                              placeholder={'Select Request Type'}
+                              onChange={(val) => {
+                                setRequestType(val);
+                                setLeaveEntitlements([]);
+                              }}
+                            >
+                              <Option value="leave">Leave</Option>
+                              {isShowShortLeaveTab ? (
+                                <Option value="short-leave">Short Leave</Option>
+                              ) : (
+                                <></>
+                              )}
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          style={{
+                            width: 350,
+                            height: 35,
+                            paddingLeft: 20,
+                            textAlign: 'left',
+                            marginTop: 35,
+                          }}
+                          span={4}
+                        >
+                          <Text
+                            style={{
+                              marginRight: 30,
+                              verticalAlign: 'bottom',
+                            }}
+                          >
+                            {intl.formatMessage({
+                              id: 'includeInactive',
+                              defaultMessage: 'Enable Inactive Employees',
+                            })}
+                          </Text>
+                          <Switch
+                            onChange={(checked: boolean, event: Event) => {
+                              setIsEnableInactiveEmployees(checked);
+                              form.setFieldsValue({
+                                employee: null,
+                              });
+                            }}
+                            checkedChildren="Yes"
+                            unCheckedChildren="No"
+                          />
+                        </Col>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="employee"
+                            label={intl.formatMessage({
+                              id: 'employeeName',
+                              defaultMessage: 'Employee Name',
+                            })}
+                            rules={[
+                              {
+                                required: true,
+                                message: intl.formatMessage({
+                                  id: 'leaveEntitlementReport.employeeName',
+                                  defaultMessage: 'Required',
+                                }),
+                              },
+                            ]}
+                          >
+                            {/* <Select
                             showSearch
                             style={{
                               width: '100%',
@@ -1369,32 +1388,460 @@ const LeaveUsageReportForEmployee: React.FC = () => {
                               );
                             })}
                           </Select> */}
-                          {
-                            isEnableInactiveEmployees ? 
+                            {isEnableInactiveEmployees ? (
+                              <Select
+                                showSearch
+                                style={{
+                                  width: '100%',
+                                }}
+                                placeholder={intl.formatMessage({
+                                  id: 'selectEmployee',
+                                  defaultMessage: 'Select Employee',
+                                })}
+                                optionFilterProp="children"
+                                allowClear={true}
+                              >
+                                {employees.map((employee) => {
+                                  return (
+                                    <Option key={employee.id} value={employee.id}>
+                                      {`${employee.employeeNumber} | ${employee.employeeName}`}
+                                    </Option>
+                                  );
+                                })}
+                              </Select>
+                            ) : (
+                              <Select
+                                showSearch
+                                style={{
+                                  width: '100%',
+                                }}
+                                placeholder={intl.formatMessage({
+                                  id: 'selectEmployee',
+                                  defaultMessage: 'Select Employee',
+                                })}
+                                optionFilterProp="children"
+                                allowClear={true}
+                              >
+                                {employees.map((employee) => {
+                                  return employee.isActive ? (
+                                    <Option key={employee.id} value={employee.id}>
+                                      {`${employee.employeeNumber} | ${employee.employeeName}`}
+                                    </Option>
+                                  ) : (
+                                    <></>
+                                  );
+                                })}
+                              </Select>
+                            )}
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="requestStatus"
+                            label={intl.formatMessage({
+                              id: 'requestStatus',
+                              defaultMessage: 'Request Status',
+                            })}
+                            rules={[
+                              {
+                                required: true,
+                                message: intl.formatMessage({
+                                  id: 'leaveEntitlementReport.requestStatus',
+                                  defaultMessage: 'Required',
+                                }),
+                              },
+                            ]}
+                          >
+                            <Select
+                              style={{
+                                width: '100%',
+                              }}
+                              placeholder={'Select Request Status'}
+                            >
+                              <Option value="1">Pending</Option>
+                              <Option value="2">Approved</Option>
+                              <Option value="3">Rejected</Option>
+                              <Option value="4">Cancelled</Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                      </>
+                    )}
+                    {reportType === 'leaveType' && (
+                      <>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="leaveType"
+                            label={intl.formatMessage({
+                              id: 'leaveType',
+                              defaultMessage: 'Leave Type',
+                            })}
+                            rules={[
+                              {
+                                required: true,
+                                message: intl.formatMessage({
+                                  id: 'leaveEntitlementReport.leaveType',
+                                  defaultMessage: 'Required',
+                                }),
+                              },
+                            ]}
+                          >
                             <Select
                               showSearch
                               style={{
                                 width: '100%',
                               }}
                               placeholder={intl.formatMessage({
-                                id: 'selectEmployee',
-                                defaultMessage: 'Select Employee',
+                                id: 'selectleaveType',
+                                defaultMessage: 'Select Leave Type',
                               })}
                               optionFilterProp="children"
                               allowClear={true}
                             >
-                              {employees.map((employee) => {
+                              {leaveTypes.map((leaveType) => {
                                 return (
-                                  <Option key={employee.id} value={employee.id}>
-                                    {`${employee.employeeNumber} | ${employee.employeeName}`}
+                                  <Option key={leaveType.id} value={leaveType.id}>
+                                    {leaveType.name}
                                   </Option>
                                 );
                               })}
-                            </Select> : <Select
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="leavePeriod"
+                            label={intl.formatMessage({
+                              id: 'leavePeriod',
+                              defaultMessage: 'Leave Period',
+                            })}
+                          >
+                            <Select
+                              defaultValue={leavePeriod}
+                              style={{
+                                width: '100%',
+                              }}
+                            >
+                              <Option value="current">Current</Option>
+                              <Option value="future">Future</Option>
+                              <Option value="past">Past</Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          style={{
+                            width: 350,
+                            height: 35,
+                            paddingLeft: 20,
+                            textAlign: 'left',
+                            marginTop: 35,
+                          }}
+                          span={6}
+                        >
+                          <Text
+                            style={{
+                              marginRight: 30,
+                              verticalAlign: 'bottom',
+                            }}
+                          >
+                            {intl.formatMessage({
+                              id: 'includeInactive',
+                              defaultMessage: 'Include Inactive Employees',
+                            })}
+                          </Text>
+                          <Switch
+                            onChange={(checked: boolean, event: Event) => {
+                              setIsWithInactiveEmployees(checked);
+                            }}
+                            checkedChildren="Yes"
+                            unCheckedChildren="No"
+                          />
+                        </Col>
+                        <OrgSelector
+                          value={entityId}
+                          setValue={(value: number) => setEntityId(value)}
+                          span={6}
+                          colStyle={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                            paddingTop: 20,
+                            paddingBottom: 65,
+                          }}
+                        />
+                      </>
+                    )}
+
+                    {reportType === 'leaveEntitlement' && (
+                      <>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="leaveType"
+                            label={intl.formatMessage({
+                              id: 'leaveTypes',
+                              defaultMessage: 'Leave Type',
+                            })}
+                            rules={[
+                              {
+                                required: true,
+                                message: intl.formatMessage({
+                                  id: 'leaveEntitlementReport.leaveType',
+                                  defaultMessage: 'Required',
+                                }),
+                              },
+                            ]}
+                          >
+                            <Select
                               showSearch
                               style={{
                                 width: '100%',
                               }}
+                              placeholder={intl.formatMessage({
+                                id: 'selectleaveType',
+                                defaultMessage: 'Select Leave Type',
+                              })}
+                              optionFilterProp="children"
+                              onChange={(val) => {
+                                setSelectedLeaveTypes(val);
+                              }}
+                              mode="multiple"
+                              allowClear={true}
+                            >
+                              {leaveTypes.map((leaveType) => {
+                                return (
+                                  <Option key={leaveType.id} value={leaveType.id}>
+                                    {leaveType.name}
+                                  </Option>
+                                );
+                              })}
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="leavePeriod"
+                            label={intl.formatMessage({
+                              id: 'leavePeriod',
+                              defaultMessage: 'Leave Period',
+                            })}
+                          >
+                            <Select
+                              defaultValue={leavePeriod}
+                              style={{
+                                width: '100%',
+                              }}
+                            >
+                              <Option value="current">Current</Option>
+                              <Option value="future">Future</Option>
+                              <Option value="past">Past</Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          style={{
+                            width: 350,
+                            height: 35,
+                            paddingLeft: 20,
+                            textAlign: 'left',
+                            marginTop: 35,
+                          }}
+                          span={6}
+                        >
+                          <Text
+                            style={{
+                              marginRight: 30,
+                              verticalAlign: 'bottom',
+                            }}
+                          >
+                            {intl.formatMessage({
+                              id: 'includeInactive',
+                              defaultMessage: 'Include Inactive Employees',
+                            })}
+                          </Text>
+                          <Switch
+                            onChange={(checked: boolean, event: Event) => {
+                              setIsWithInactiveEmployees(checked);
+                            }}
+                            checkedChildren="Yes"
+                            unCheckedChildren="No"
+                          />
+                        </Col>
+                        <OrgSelector
+                          value={entityId}
+                          setValue={(value: number) => setEntityId(value)}
+                          span={6}
+                          colStyle={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                            paddingTop: 20,
+                            paddingBottom: 65,
+                          }}
+                        />
+                      </>
+                    )}
+
+                    {reportType === 'leaveSummaryReport' && (
+                      <>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="dateRange"
+                            label={intl.formatMessage({
+                              id: 'dateRange',
+                              defaultMessage: 'Date Range',
+                            })}
+                            rules={[
+                              {
+                                required: true,
+                                message: intl.formatMessage({
+                                  id: 'leaveSummaryReport.dateRange',
+                                  defaultMessage: 'Required',
+                                }),
+                              },
+                            ]}
+                          >
+                            <RangePicker
+                              format={'DD-MM-YYYY'}
+                              onChange={onChange}
+                              style={{ width: '100%' }}
+                            />
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                          }}
+                        >
+                          <Form.Item
+                            name="leaveStatus"
+                            label={intl.formatMessage({
+                              id: 'leaveStatus',
+                              defaultMessage: 'Leave Status',
+                            })}
+                          >
+                            <Select
+                              mode={'multiple'}
+                              placeholder={'Select Leave Status'}
+                              style={{
+                                width: '100%',
+                              }}
+                            >
+                              <Option value={1}>Pending</Option>
+                              <Option value={2}>Approved</Option>
+                              <Option value={3}>Rejected</Option>
+                              <Option value={4}>Cancelled</Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col
+                          style={{
+                            width: 350,
+                            height: 35,
+                            paddingLeft: 20,
+                            textAlign: 'left',
+                            marginTop: 35,
+                          }}
+                          span={6}
+                        >
+                          <Text
+                            style={{
+                              marginRight: 30,
+                              verticalAlign: 'bottom',
+                            }}
+                          >
+                            {intl.formatMessage({
+                              id: 'includeInactive',
+                              defaultMessage: 'Include Inactive Employees',
+                            })}
+                          </Text>
+                          <Switch
+                            onChange={(checked: boolean, event: Event) => {
+                              setIsWithInactiveEmployees(checked);
+                            }}
+                            checkedChildren="Yes"
+                            unCheckedChildren="No"
+                          />
+                        </Col>
+                        <OrgSelector
+                          value={entityId}
+                          setValue={(value: number) => setEntityId(value)}
+                          span={6}
+                          colStyle={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                            paddingTop: 30,
+                            paddingBottom: 65,
+                          }}
+                        />
+                        <Col
+                          span={6}
+                          style={{
+                            height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                            marginTop: 30,
+                          }}
+                        >
+                          <Form.Item
+                            name="employee"
+                            label={intl.formatMessage({
+                              id: 'employeeName',
+                              defaultMessage: 'Employee Name',
+                            })}
+                          >
+                            <Select
+                              showSearch
+                              style={{
+                                width: '100%',
+                              }}
+                              mode={'multiple'}
+                              maxTagCount={1}
                               placeholder={intl.formatMessage({
                                 id: 'selectEmployee',
                                 defaultMessage: 'Select Employee',
@@ -1404,766 +1851,380 @@ const LeaveUsageReportForEmployee: React.FC = () => {
                             >
                               {employees.map((employee) => {
                                 return (
-                                  employee.isActive ?
                                   <Option key={employee.id} value={employee.id}>
-                                    {`${employee.employeeNumber} | ${employee.employeeName}`}
-                                  </Option> : <></>
+                                    {`${employee.employeeName} - ${employee.employeeNumber}`}
+                                  </Option>
                                 );
                               })}
                             </Select>
-                          }
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="requestStatus"
-                          label={intl.formatMessage({
-                            id: 'requestStatus',
-                            defaultMessage: 'Request Status',
-                          })}
-                          rules={[
-                            {
-                              required: true,
-                              message: intl.formatMessage({
-                                id: 'leaveEntitlementReport.requestStatus',
-                                defaultMessage: 'Required',
-                              }),
-                            },
-                          ]}
-                        >
-                          <Select
-                            style={{
-                              width: '100%',
-                            }}
-                            placeholder={'Select Request Status'}
-                          >
-                            <Option value="1">Pending</Option>
-                            <Option value="2">Approved</Option>
-                            <Option value="3">Rejected</Option>
-                            <Option value="4">Cancelled</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                    </>
-                  )}
-                  {reportType === 'leaveType' && (
-                    <>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="leaveType"
-                          label={intl.formatMessage({
-                            id: 'leaveType',
-                            defaultMessage: 'Leave Type',
-                          })}
-                          rules={[
-                            {
-                              required: true,
-                              message: intl.formatMessage({
-                                id: 'leaveEntitlementReport.leaveType',
-                                defaultMessage: 'Required',
-                              }),
-                            },
-                          ]}
-                        >
-                          <Select
-                            showSearch
-                            style={{
-                              width: '100%',
-                            }}
-                            placeholder={intl.formatMessage({
-                              id: 'selectleaveType',
-                              defaultMessage: 'Select Leave Type',
-                            })}
-                            optionFilterProp="children"
-                            allowClear={true}
-                          >
-                            {leaveTypes.map((leaveType) => {
-                              return (
-                                <Option key={leaveType.id} value={leaveType.id}>
-                                  {leaveType.name}
-                                </Option>
-                              );
-                            })}
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="leavePeriod"
-                          label={intl.formatMessage({
-                            id: 'leavePeriod',
-                            defaultMessage: 'Leave Period',
-                          })}
-                        >
-                          <Select
-                            defaultValue={leavePeriod}
-                            style={{
-                              width: '100%',
-                            }}
-                          >
-                            <Option value="current">Current</Option>
-                            <Option value="future">Future</Option>
-                            <Option value="past">Past</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        style={{
-                          width: 350,
-                          height: 35,
-                          paddingLeft: 20,
-                          textAlign: 'left',
-                          marginTop: 35,
-                        }}
-                        span={6}
-                      >
-                        <Text
+                          </Form.Item>
+                        </Col>
+                      </>
+                    )}
+                    {reportType === 'employee' && (
+                      <>
+                        <Col
+                          span={4}
                           style={{
-                            marginRight: 30,
-                            verticalAlign: 'bottom',
+                            height: 35,
+                            paddingLeft: 20,
+                            paddingTop: 30,
+                            paddingBottom: 35,
                           }}
                         >
-                          {intl.formatMessage({
-                            id: 'includeInactive',
-                            defaultMessage: 'Include Inactive Employees',
-                          })}
-                        </Text>
-                        <Switch
-                          onChange={(checked: boolean, event: Event) => {
-                            setIsWithInactiveEmployees(checked);
-                          }}
-                          checkedChildren="Yes"
-                          unCheckedChildren="No"
-                        />
-                      </Col>
-                      <OrgSelector
-                        value={entityId}
-                        setValue={(value: number) => setEntityId(value)}
-                        span={6}
-                        colStyle={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                          paddingTop: 20,
-                          paddingBottom: 65,
-                        }}
-                      />
-                    </>
-                  )}
-
-                  {reportType === 'leaveEntitlement' && (
-                    <>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="leaveType"
-                          label={intl.formatMessage({
-                            id: 'leaveTypes',
-                            defaultMessage: 'Leave Type',
-                          })}
-                          rules={[
-                            {
-                              required: true,
-                              message: intl.formatMessage({
-                                id: 'leaveEntitlementReport.leaveType',
-                                defaultMessage: 'Required',
-                              }),
-                            },
-                          ]}
-                        >
-                          <Select
-                            showSearch
-                            style={{
-                              width: '100%',
-                            }}
-                            placeholder={intl.formatMessage({
-                              id: 'selectleaveType',
-                              defaultMessage: 'Select Leave Type',
-                            })}
-                            optionFilterProp="children"
-                            onChange={(val) => {
-                              setSelectedLeaveTypes(val);
-                            }}
-                            mode='multiple'
-                            allowClear={true}
-                          >
-                            {leaveTypes.map((leaveType) => {
-                              return (
-                                <Option key={leaveType.id} value={leaveType.id}>
-                                  {leaveType.name}
-                                </Option>
-                              );
-                            })}
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="leavePeriod"
-                          label={intl.formatMessage({
-                            id: 'leavePeriod',
-                            defaultMessage: 'Leave Period',
-                          })}
-                        >
-                          <Select
-                            defaultValue={leavePeriod}
-                            style={{
-                              width: '100%',
-                            }}
-                          >
-                            <Option value="current">Current</Option>
-                            <Option value="future">Future</Option>
-                            <Option value="past">Past</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        style={{
-                          width: 350,
-                          height: 35,
-                          paddingLeft: 20,
-                          textAlign: 'left',
-                          marginTop: 35,
-                        }}
-                        span={6}
-                      >
-                        <Text
-                          style={{
-                            marginRight: 30,
-                            verticalAlign: 'bottom',
-                          }}
-                        >
-                          {intl.formatMessage({
-                            id: 'includeInactive',
-                            defaultMessage: 'Include Inactive Employees',
-                          })}
-                        </Text>
-                        <Switch
-                          onChange={(checked: boolean, event: Event) => {
-                            setIsWithInactiveEmployees(checked);
-                          }}
-                          checkedChildren="Yes"
-                          unCheckedChildren="No"
-                        />
-                      </Col>
-                      <OrgSelector
-                        value={entityId}
-                        setValue={(value: number) => setEntityId(value)}
-                        span={6}
-                        colStyle={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                          paddingTop: 20,
-                          paddingBottom: 65,
-                        }}
-                      />
-                    </>
-                  )}
-
-                  {reportType === 'leaveSummaryReport' && (
-                    <>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="dateRange"
-                          label={intl.formatMessage({
-                            id: 'dateRange',
-                            defaultMessage: 'Date Range',
-                          })}
-                          rules={[
-                            {
-                              required: true,
-                              message: intl.formatMessage({
-                                id: 'leaveSummaryReport.dateRange',
-                                defaultMessage: 'Required',
-                              }),
-                            },
-                          ]}
-                        >
-                          <RangePicker format={'DD-MM-YYYY'} onChange={onChange} style={{width: '100%'}} />
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                        }}
-                      >
-                        <Form.Item
-                          name="leaveStatus"
-                          label={intl.formatMessage({
-                            id: 'leaveStatus',
-                            defaultMessage: 'Leave Status',
-                          })}
-                        >
-                          <Select
-                            mode={'multiple'}
-                            placeholder={'Select Leave Status'}
-                            style={{
-                              width: '100%',
-                            }}
-                          >
-                            <Option value={1}>Pending</Option>
-                            <Option value={2}>Approved</Option>
-                            <Option value={3}>Rejected</Option>
-                            <Option value={4}>Cancelled</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col
-                        style={{
-                          width: 350,
-                          height: 35,
-                          paddingLeft: 20,
-                          textAlign: 'left',
-                          marginTop: 35,
-                        }}
-                        span={6}
-                      >
-                        <Text
-                          style={{
-                            marginRight: 30,
-                            verticalAlign: 'bottom',
-                          }}
-                        >
-                          {intl.formatMessage({
-                            id: 'includeInactive',
-                            defaultMessage: 'Include Inactive Employees',
-                          })}
-                        </Text>
-                        <Switch
-                          onChange={(checked: boolean, event: Event) => {
-                            setIsWithInactiveEmployees(checked);
-                          }}
-                          checkedChildren="Yes"
-                          unCheckedChildren="No"
-                        />
-                      </Col>
-                      <OrgSelector
-                        value={entityId}
-                        setValue={(value: number) => setEntityId(value)}
-                        span={6}
-                        colStyle={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                          paddingTop: 30,
-                          paddingBottom: 65,
-                        }}
-                      />
-                      <Col
-                        span={6}
-                        style={{
-                          height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                          marginTop: 30
-                        }}
-                      >
-                        <Form.Item
-                          name="employee"
-                          label={intl.formatMessage({
-                            id: 'employeeName',
-                            defaultMessage: 'Employee Name',
-                          })}
-                        >
-                          <Select
-                            showSearch
-                            style={{
-                              width: '100%',
-                            }}
-                            mode={'multiple'}
-                            maxTagCount = {1}
-                            placeholder={intl.formatMessage({
-                              id: 'selectEmployee',
-                              defaultMessage: 'Select Employee',
-                            })}
-                            optionFilterProp="children"
-                            allowClear={true}
-                          >
-                            {employees.map((employee) => {
-                              return (
-                                <Option key={employee.id} value={employee.id}>
-                                  {`${employee.employeeName} - ${employee.employeeNumber}`}
-                                </Option>
-                              );
-                            })}
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                    </>
-                    
-                  )}
-                  {reportType === 'employee' && (
-                    <>
-                      <Col
-                        span={4}
-                        style={{
-                          height: 35,
-                          paddingLeft: 20,
-                          paddingTop: 30,
-                          paddingBottom: 35,
-                        }}
-                      >
-                        <Space>
-                          <Button onClick={reset} type="primary">
-                            <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
-                          </Button>
-                          <Button htmlType="submit" style={{ float: 'right' }} type="primary">
-                            <FormattedMessage
-                              id="GENERATEREPORT"
-                              defaultMessage="Generate Report"
-                            />
-                          </Button>
-                        </Space>
-                      </Col>
-                    </>
-                  )}
-                  {reportType === 'leaveType' && (
-                    <>
-                      <Col
-                        span={4}
-                        style={{
-                          height: 35,
-                          paddingLeft: 20,
-                          paddingTop: 48,
-                          paddingBottom: 35,
-                        }}
-                      >
-                        <Space>
-                          <Button onClick={reset} type="primary">
-                            <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
-                          </Button>
-                          <Button htmlType="submit" type="primary">
-                            <FormattedMessage
-                              id="GENERATEREPORT"
-                              defaultMessage="Generate Report"
-                            />
-                          </Button>
-                        </Space>
-                      </Col>
-                    </>
-                  )}
-                  {reportType === 'leaveSummaryReport' && (
-                    <>
-                      <Col
-                        span={1}
-                        style={{
-                          //   height: 35,
-                          width: 250,
-                          paddingLeft: 20,
-                          marginTop: 30
-                        }}
-                      >
-                        <Popover
-                          placement="rightTop"
-                          style={{ width: 150 }}
-                          title={<h2>Customize Columns</h2>}
-                          content={
-                            <>
-                              <DndProvider backend={HTML5Backend}>
-                                {columnKeys.map((columnData, index) => {
-                                  return (
-                                    <DraggableItem
-                                      // index={targetKeys.findIndex((key) => key === item.key)}
-                                      index={index}
-                                      data={columnData}
-                                      moveRow={handleDragAndDrop}
-                                    />
-                                  );
-                                })}
-                              </DndProvider>
-                            </>
-                          }
-                          trigger="click"
-                        >
-                          <Tooltip title={'Customize Columns'}>
-                            <Button style={{ marginTop: 30, borderRadius: 6 }} type="default">
-                              <SettingOutlined
-                                style={{ fontSize: 18, marginTop: 2 }}
-                              ></SettingOutlined>
+                          <Space>
+                            <Button onClick={reset} type="primary">
+                              <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
                             </Button>
-                          </Tooltip>
-                        </Popover>
-                      </Col>
-                      <Col
-                        span={4}
-                        style={{
-                          height: 35,
-                          paddingLeft: 20,
-                          paddingTop: 60,
-                          paddingBottom: 35,
-                        }}
-                      >
-                        <Space>
-                          <Button onClick={reset} type="primary">
-                            <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
-                          </Button>
-                          <Button htmlType="submit" type="primary">
-                            <FormattedMessage
-                              id="GENERATEREPORT"
-                              defaultMessage="Generate Report"
-                            />
-                          </Button>
-                        </Space>
-                      </Col>
-                    </>
-                  )}
-                  {reportType === 'leaveEntitlement' && (
-                    <>
-                      <Col
-                        span={4}
-                        style={{
-                          height: 35,
-                          paddingLeft: 20,
-                          paddingTop: 48,
-                          paddingBottom: 35,
-                        }}
-                      >
-                        <Space>
-                          <Button onClick={reset} type="primary">
-                            <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
-                          </Button>
-                          <Button htmlType="submit" type="primary">
-                            <FormattedMessage
-                              id="GENERATEREPORT"
-                              defaultMessage="Generate Report"
-                            />
-                          </Button>
-                        </Space>
-                      </Col>
-                    </>
-                  )}
-                  {reportType === 'employeeLeaveRequestReport' && (
-                    <>
-                      <Col
-                        span={4}
-                        style={{
-                          height: 35,
-                          paddingLeft: 20,
-                          paddingTop: 28,
-                          paddingBottom: 35,
-                        }}
-                      >
-                        <Space>
-                          <Button onClick={reset} type="primary">
-                            <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
-                          </Button>
-                          <Button htmlType="submit" type="primary">
-                            <FormattedMessage
-                              id="GENERATEREPORT"
-                              defaultMessage="Generate Report"
-                            />
-                          </Button>
-                        </Space>
-                      </Col>
-                    </>
-                  )}
-                </Row>
-              </Form>
-              <br />
-            </div>
-            <br />
-
-            <Spin size="large" spinning={loading}>
-              {leaveEntitlements.length > 0 ? (
-                <Card>
-                  <Row>
-                    <Col span={24} style={{ textAlign: 'right', paddingRight: 25 }}>
-                      <Button
-                        htmlType="button"
-                        style={{
-                          background: '#FFFFFF',
-                          border: '1px solid #B8B7B7',
-                          boxSizing: 'border-box',
-                          borderRadius: '6px',
-                        }}
-                        icon={<Image src={ExportIcon} preview={false} />}
-                        onClick={async () => {
-                          setLoading(true);
-                          const excelData = reportData;
-                          excelData.dataType = '';
-                          if (reportType === 'leaveSummaryReport') {
-                            excelData.columnHeaders = JSON.stringify(columnKeys);
-                          }
-                          const { data } = await getLeaveEntitlementUsage(excelData);
-                          if (data.data) {
-                            let reportName = 'LeaveEntitlementReport.xlsx';
-                            switch (reportType) {
-                              case 'employee':
-                                reportName = 'Leave Report - Employee.xlsx';
-                                break;
-                              case 'leaveType':
-                                reportName = 'Leave Report -Leave Type.xlsx';
-                                break;
-                              case 'leaveEntitlement':
-                                reportName = 'Leave Entitlement Report.xlsx';
-                                break;
-                              case 'employeeLeaveRequestReport':
-                                if (requestType == 'leave') {
-                                  reportName = 'Employee Leave Request Report - Leave.xlsx';
-                                } else {
-                                  reportName = 'Employee Leave Request Report - Short Leave.xlsx';
-
-                                }
-                                break;
-                              case 'leaveSummaryReport':
-                                reportName = 'Leave Summary Report.xlsx';
-                                break;
-
-                              default:
-                                break;
+                            <Button htmlType="submit" style={{ float: 'right' }} type="primary">
+                              <FormattedMessage
+                                id="GENERATEREPORT"
+                                defaultMessage="Generate Report"
+                              />
+                            </Button>
+                          </Space>
+                        </Col>
+                      </>
+                    )}
+                    {reportType === 'leaveType' && (
+                      <>
+                        <Col
+                          span={4}
+                          style={{
+                            height: 35,
+                            paddingLeft: 20,
+                            paddingTop: 48,
+                            paddingBottom: 35,
+                          }}
+                        >
+                          <Space>
+                            <Button onClick={reset} type="primary">
+                              <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
+                            </Button>
+                            <Button htmlType="submit" type="primary">
+                              <FormattedMessage
+                                id="GENERATEREPORT"
+                                defaultMessage="Generate Report"
+                              />
+                            </Button>
+                          </Space>
+                        </Col>
+                      </>
+                    )}
+                    {reportType === 'leaveSummaryReport' && (
+                      <>
+                        <Col
+                          span={1}
+                          style={{
+                            //   height: 35,
+                            width: 250,
+                            paddingLeft: 20,
+                            marginTop: 30,
+                          }}
+                        >
+                          <Popover
+                            placement="rightTop"
+                            style={{ width: 150 }}
+                            title={<h2>Customize Columns</h2>}
+                            content={
+                              <>
+                                <DndProvider backend={HTML5Backend}>
+                                  {columnKeys.map((columnData, index) => {
+                                    return (
+                                      <DraggableItem
+                                        // index={targetKeys.findIndex((key) => key === item.key)}
+                                        index={index}
+                                        data={columnData}
+                                        moveRow={handleDragAndDrop}
+                                      />
+                                    );
+                                  })}
+                                </DndProvider>
+                              </>
                             }
-
-                            downloadBase64File(
-                              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                              data.data,
-                              reportName,
-                            );
-                          }
-                          setLoading(false);
-                        }}
-                      >
-                        <span style={{ verticalAlign: 'top', paddingLeft: '4px' }}> Export</span>
-                      </Button>
-                    </Col>
+                            trigger="click"
+                          >
+                            <Tooltip title={'Customize Columns'}>
+                              <Button style={{ marginTop: 30, borderRadius: 6 }} type="default">
+                                <SettingOutlined
+                                  style={{ fontSize: 18, marginTop: 2 }}
+                                ></SettingOutlined>
+                              </Button>
+                            </Tooltip>
+                          </Popover>
+                        </Col>
+                        <Col
+                          span={4}
+                          style={{
+                            height: 35,
+                            paddingLeft: 20,
+                            paddingTop: 60,
+                            paddingBottom: 35,
+                          }}
+                        >
+                          <Space>
+                            <Button onClick={reset} type="primary">
+                              <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
+                            </Button>
+                            <Button htmlType="submit" type="primary">
+                              <FormattedMessage
+                                id="GENERATEREPORT"
+                                defaultMessage="Generate Report"
+                              />
+                            </Button>
+                          </Space>
+                        </Col>
+                      </>
+                    )}
+                    {reportType === 'leaveEntitlement' && (
+                      <>
+                        <Col
+                          span={4}
+                          style={{
+                            height: 35,
+                            paddingLeft: 20,
+                            paddingTop: 48,
+                            paddingBottom: 35,
+                          }}
+                        >
+                          <Space>
+                            <Button onClick={reset} type="primary">
+                              <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
+                            </Button>
+                            <Button htmlType="submit" type="primary">
+                              <FormattedMessage
+                                id="GENERATEREPORT"
+                                defaultMessage="Generate Report"
+                              />
+                            </Button>
+                          </Space>
+                        </Col>
+                      </>
+                    )}
+                    {reportType === 'employeeLeaveRequestReport' && (
+                      <>
+                        <Col
+                          span={4}
+                          style={{
+                            height: 35,
+                            paddingLeft: 20,
+                            paddingTop: 28,
+                            paddingBottom: 35,
+                          }}
+                        >
+                          <Space>
+                            <Button onClick={reset} type="primary">
+                              <FormattedMessage id="GENERATEREPORT" defaultMessage="Reset" />
+                            </Button>
+                            <Button htmlType="submit" type="primary">
+                              <FormattedMessage
+                                id="GENERATEREPORT"
+                                defaultMessage="Generate Report"
+                              />
+                            </Button>
+                          </Space>
+                        </Col>
+                      </>
+                    )}
                   </Row>
-                  <br />
-                    {reportType === 'leaveType' || reportType === 'employee' || reportType === 'employeeLeaveRequestReport' ?
-                    <ProTable<any>
-                      actionRef={tableRef}
-                      rowKey="id"
-                      search={false}
-                      options={false}
-                      request={async (params = { pageNo: 1, pageCount: 10000 }, sort) => {
-                       
-                        const sortValue = sort?.name
-                          ? { name: 'type', order: sort?.name === 'ascend' ? 'ASC' : 'DESC' }
-                          : sort?.employeeName
-                          ? { name: 'employeeName', order: sort?.employeeName === 'ascend' ? 'ASC' : 'DESC' }
-                          : sort?.fromDate
-                          ? { name: 'fromDate', order: sort?.fromDate === 'ascend' ? 'ASC' : 'DESC' }
-                          : sort?.toDate
-                          ? { name: 'toDate', order: sort?.toDate === 'ascend' ? 'ASC' : 'DESC' }
-                          : {
-                              name: 'leavePeriod',
-                              order: sort?.leavePeriod === 'ascend' ? 'ASC' : 'DESC',
-                            };
+                </Form>
+                <br />
+              </div>
+              <br />
 
-                        const tableParams = reportData;
-                        tableParams.sort = sortValue;
-                        const { data } = await getLeaveEntitlementUsage(reportData);
-                        setLeaveEntitlements(data);
-                      }}
-                      columns={columns}
-                      dataSource={leaveEntitlements}
-                      className="custom-table"
-                      pagination={{ pageSize: 100, defaultPageSize: 100, hideOnSinglePage: false }}
-                    />  : reportType == 'leaveEntitlement' ? 
-                    <ProTable<any>
-                      actionRef={tableRef}
-                      rowKey="id"
-                      scroll={ selectedLeaveTypes.length > 3 ? { x: '130vw'} : {}}
-                      search={false}
-                      bordered
-                      options={false}
-                      request={async (params = { pageNo: 1, pageCount: 10000 }, sort) => {
-                        const sortValue = sort?.employeeNumber
-                          ? { name: 'employeeNumber', order: sort?.employeeNumber === 'ascend' ? 'ASC' : 'DESC' }
-                          : sort?.employeeName
-                          ? { name: 'employeeName', order: sort?.employeeName === 'ascend' ? 'ASC' : 'DESC' }
-                          : {
-                              name: 'leavePeriod',
-                              order: sort?.leavePeriod === 'ascend' ? 'ASC' : 'DESC',
-                            };
+              <Spin size="large" spinning={loading}>
+                {leaveEntitlements.length > 0 ? (
+                  <Card>
+                    <Row>
+                      <Col span={24} style={{ textAlign: 'right', paddingRight: 25 }}>
+                        <Button
+                          htmlType="button"
+                          style={{
+                            background: '#FFFFFF',
+                            border: '1px solid #B8B7B7',
+                            boxSizing: 'border-box',
+                            borderRadius: '6px',
+                          }}
+                          icon={<Image src={ExportIcon} preview={false} />}
+                          onClick={async () => {
+                            setLoading(true);
+                            const excelData = reportData;
+                            excelData.dataType = '';
+                            if (reportType === 'leaveSummaryReport') {
+                              excelData.columnHeaders = JSON.stringify(columnKeys);
+                            }
+                            const { data } = await getLeaveEntitlementUsage(excelData);
+                            if (data.data) {
+                              let reportName = 'LeaveEntitlementReport.xlsx';
+                              switch (reportType) {
+                                case 'employee':
+                                  reportName = 'Leave Report - Employee.xlsx';
+                                  break;
+                                case 'leaveType':
+                                  reportName = 'Leave Report -Leave Type.xlsx';
+                                  break;
+                                case 'leaveEntitlement':
+                                  reportName = 'Leave Entitlement Report.xlsx';
+                                  break;
+                                case 'employeeLeaveRequestReport':
+                                  if (requestType == 'leave') {
+                                    reportName = 'Employee Leave Request Report - Leave.xlsx';
+                                  } else {
+                                    reportName = 'Employee Leave Request Report - Short Leave.xlsx';
+                                  }
+                                  break;
+                                case 'leaveSummaryReport':
+                                  reportName = 'Leave Summary Report.xlsx';
+                                  break;
 
-                        const tableParams = reportData;
-                        tableParams.sort = sortValue;
-                        const { data } = await getLeaveEntitlementUsage(reportData);
-                        setLeaveEntitlements(data);
-                      }}
-                      columns={entitlementTableColumns}
-                      dataSource={leaveEntitlements}
-                      className="custom-table"
-                      pagination={{ pageSize: 100, defaultPageSize: 100, hideOnSinglePage: false }}
-                    /> : reportType == 'leaveSummaryReport' ? 
-                    <ProTable<any>
-                      actionRef={tableRef}
-                      rowKey="id"
-                      search={false}
-                      bordered
-                      options={false}
-                      request={async (params = { pageNo: 1, pageCount: 10000 }, sort) => {
-                        const sortValue = sort?.employeeNumber
-                          ? { name: 'employeeNumber', order: sort?.employeeNumber === 'ascend' ? 'ASC' : 'DESC' }
-                          : sort?.employeeName
-                          ? { name: 'employeeName', order: sort?.employeeName === 'ascend' ? 'ASC' : 'DESC' }
-                          : {
-                              name: 'leavePeriod',
-                              order: sort?.leavePeriod === 'ascend' ? 'ASC' : 'DESC',
-                            };
+                                default:
+                                  break;
+                              }
 
-                        const tableParams = reportData;
-                        tableParams.sort = sortValue;
-                        const { data } = await getLeaveEntitlementUsage(reportData);
-                        setLeaveEntitlements(data);
-                      }}
-                      columns={leaveSummaryTableColumns}
-                      dataSource={leaveEntitlements}
-                      className="custom-table"
-                      pagination={{ pageSize: 100, defaultPageSize: 100, hideOnSinglePage: false }}
-                    /> : <></> }
-                </Card>
-              ) : reportType ? <Card>
-                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                </Card> : null
-              }
-            </Spin>
-          </Space>
-        </PageContainer>
+                              downloadBase64File(
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                data.data,
+                                reportName,
+                              );
+                            }
+                            setLoading(false);
+                          }}
+                        >
+                          <span style={{ verticalAlign: 'top', paddingLeft: '4px' }}> Export</span>
+                        </Button>
+                      </Col>
+                    </Row>
+                    <br />
+                    {reportType === 'leaveType' ||
+                    reportType === 'employee' ||
+                    reportType === 'employeeLeaveRequestReport' ? (
+                      <ProTable<any>
+                        actionRef={tableRef}
+                        rowKey="id"
+                        search={false}
+                        options={false}
+                        request={async (params = { pageNo: 1, pageCount: 10000 }, sort) => {
+                          const sortValue = sort?.name
+                            ? { name: 'type', order: sort?.name === 'ascend' ? 'ASC' : 'DESC' }
+                            : sort?.employeeName
+                            ? {
+                                name: 'employeeName',
+                                order: sort?.employeeName === 'ascend' ? 'ASC' : 'DESC',
+                              }
+                            : sort?.fromDate
+                            ? {
+                                name: 'fromDate',
+                                order: sort?.fromDate === 'ascend' ? 'ASC' : 'DESC',
+                              }
+                            : sort?.toDate
+                            ? { name: 'toDate', order: sort?.toDate === 'ascend' ? 'ASC' : 'DESC' }
+                            : {
+                                name: 'leavePeriod',
+                                order: sort?.leavePeriod === 'ascend' ? 'ASC' : 'DESC',
+                              };
+
+                          const tableParams = reportData;
+                          tableParams.sort = sortValue;
+                          const { data } = await getLeaveEntitlementUsage(reportData);
+                          setLeaveEntitlements(data);
+                        }}
+                        columns={columns}
+                        dataSource={leaveEntitlements}
+                        className="custom-table"
+                        pagination={{
+                          pageSize: 100,
+                          defaultPageSize: 100,
+                          hideOnSinglePage: false,
+                        }}
+                      />
+                    ) : reportType == 'leaveEntitlement' ? (
+                      <ProTable<any>
+                        actionRef={tableRef}
+                        rowKey="id"
+                        scroll={selectedLeaveTypes.length > 3 ? { x: '130vw' } : {}}
+                        search={false}
+                        bordered
+                        options={false}
+                        request={async (params = { pageNo: 1, pageCount: 10000 }, sort) => {
+                          const sortValue = sort?.employeeNumber
+                            ? {
+                                name: 'employeeNumber',
+                                order: sort?.employeeNumber === 'ascend' ? 'ASC' : 'DESC',
+                              }
+                            : sort?.employeeName
+                            ? {
+                                name: 'employeeName',
+                                order: sort?.employeeName === 'ascend' ? 'ASC' : 'DESC',
+                              }
+                            : {
+                                name: 'leavePeriod',
+                                order: sort?.leavePeriod === 'ascend' ? 'ASC' : 'DESC',
+                              };
+
+                          const tableParams = reportData;
+                          tableParams.sort = sortValue;
+                          const { data } = await getLeaveEntitlementUsage(reportData);
+                          setLeaveEntitlements(data);
+                        }}
+                        columns={entitlementTableColumns}
+                        dataSource={leaveEntitlements}
+                        className="custom-table"
+                        pagination={{
+                          pageSize: 100,
+                          defaultPageSize: 100,
+                          hideOnSinglePage: false,
+                        }}
+                      />
+                    ) : reportType == 'leaveSummaryReport' ? (
+                      <ProTable<any>
+                        actionRef={tableRef}
+                        rowKey="id"
+                        search={false}
+                        bordered
+                        options={false}
+                        request={async (params = { pageNo: 1, pageCount: 10000 }, sort) => {
+                          const sortValue = sort?.employeeNumber
+                            ? {
+                                name: 'employeeNumber',
+                                order: sort?.employeeNumber === 'ascend' ? 'ASC' : 'DESC',
+                              }
+                            : sort?.employeeName
+                            ? {
+                                name: 'employeeName',
+                                order: sort?.employeeName === 'ascend' ? 'ASC' : 'DESC',
+                              }
+                            : {
+                                name: 'leavePeriod',
+                                order: sort?.leavePeriod === 'ascend' ? 'ASC' : 'DESC',
+                              };
+
+                          const tableParams = reportData;
+                          tableParams.sort = sortValue;
+                          const { data } = await getLeaveEntitlementUsage(reportData);
+                          setLeaveEntitlements(data);
+                        }}
+                        columns={leaveSummaryTableColumns}
+                        dataSource={leaveEntitlements}
+                        className="custom-table"
+                        pagination={{
+                          pageSize: 100,
+                          defaultPageSize: 100,
+                          hideOnSinglePage: false,
+                        }}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </Card>
+                ) : reportType ? (
+                  <Card>
+                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                  </Card>
+                ) : null}
+              </Spin>
+            </Space>
+          </PageContainer>
+        </div>
       </Access>
     );
 };

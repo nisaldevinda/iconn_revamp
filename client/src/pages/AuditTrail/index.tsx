@@ -94,8 +94,17 @@ const AuditTrail: React.FC = () => {
 
     return (
       <Access accessible={hasPermitted('reports-read-write')} fallback={<PermissionDeniedPage />}>
-          <div style={{ backgroundColor: '#F6F9FF', borderTopLeftRadius: '30px' , padding:'50px'}}>
-            <PageContainer loading={loading} >
+        <div
+          style={{
+            backgroundColor: 'white',
+            borderTopLeftRadius: '30px',
+            paddingLeft: '50px',
+            paddingTop: '50px',
+            width: '100%',
+            paddingRight: '0px',
+          }}
+        >
+          <PageContainer loading={loading}>
             <Card style={{ marginBottom: '32px' }}>
               <Row gutter={36}>
                 <OrgSelector
@@ -277,8 +286,8 @@ const AuditTrail: React.FC = () => {
                 };
               }}
             />
-            </PageContainer>
-          </div>
+          </PageContainer>
+        </div>
       </Access>
     );
 };

@@ -682,16 +682,16 @@ const ApplyLeave: React.FC = () => {
                               (leaveType) => leaveType.id == value,
                             );
 
-                            if (leaveTypeObject.allowCoveringPerson && leaveTypeObject.canShowCoveringPerson) {
+                            if (
+                              leaveTypeObject.allowCoveringPerson &&
+                              leaveTypeObject.canShowCoveringPerson
+                            ) {
                               setCanShowCoveringPerson(true);
                             } else {
                               setCanShowCoveringPerson(false);
                             }
 
-                            if (
-                              !leaveTypeObject.fullDayAllowed &&
-                              leaveTypeObject.halfDayAllowed
-                            ) {
+                            if (!leaveTypeObject.fullDayAllowed && leaveTypeObject.halfDayAllowed) {
                               setIsAllowShowFromDateRowOnly(true);
                               form.setFieldsValue({ fromDateLeavePeriodType: 2 });
                             } else {
@@ -764,13 +764,13 @@ const ApplyLeave: React.FC = () => {
                             label={
                               isAllowShowFromDateRowOnly
                                 ? intl.formatMessage({
-                                  id: 'date',
-                                  defaultMessage: 'Date',
-                                })
+                                    id: 'date',
+                                    defaultMessage: 'Date',
+                                  })
                                 : intl.formatMessage({
-                                  id: 'fromDate',
-                                  defaultMessage: 'From Date',
-                                })
+                                    id: 'fromDate',
+                                    defaultMessage: 'From Date',
+                                  })
                             }
                             rules={[
                               {
@@ -923,9 +923,7 @@ const ApplyLeave: React.FC = () => {
                                 label={''}
                               >
                                 <Radio.Group
-                                  onChange={(event) =>
-                                    changeToDateLeavePeriod(event.target.value)
-                                  }
+                                  onChange={(event) => changeToDateLeavePeriod(event.target.value)}
                                   value={toDateRadioVal}
                                   style={{ display: 'flex' }}
                                 >
@@ -982,14 +980,11 @@ const ApplyLeave: React.FC = () => {
                       ) : (
                         <Row>
                           {fromDateLeavePeriodType === 'IN_SHORT_LEAVE' ||
-                            fromDateLeavePeriodType === 'OUT_SHORT_LEAVE' ? (
+                          fromDateLeavePeriodType === 'OUT_SHORT_LEAVE' ? (
                             <Col span={18} style={{ width: '100%' }}>
                               <Row>
                                 <Col style={{ paddingBottom: 8, color: '#626D6C' }}>
-                                  <FormattedMessage
-                                    id="timePeriod"
-                                    defaultMessage="Time Period"
-                                  />
+                                  <FormattedMessage id="timePeriod" defaultMessage="Time Period" />
                                 </Col>
                               </Row>
                               <Row>
@@ -997,7 +992,7 @@ const ApplyLeave: React.FC = () => {
                                   <Form.Item
                                     style={{ marginBottom: 16, width: 150 }}
                                     name="fromTime"
-                                  // label={<FormattedMessage id="period" defaultMessage="Period" />}
+                                    // label={<FormattedMessage id="period" defaultMessage="Period" />}
                                   >
                                     <TimePicker
                                       placeholder={'Start Time'}
@@ -1047,10 +1042,7 @@ const ApplyLeave: React.FC = () => {
                                   </Form.Item>
                                 </Col>
                                 <Col style={{ paddingLeft: 16 }}>
-                                  <Form.Item
-                                    style={{ marginBottom: 16, width: 150 }}
-                                    name="toTime"
-                                  >
+                                  <Form.Item style={{ marginBottom: 16, width: 150 }} name="toTime">
                                     <TimePicker
                                       placeholder={'End Time'}
                                       format={'HH:mm'}
@@ -1093,7 +1085,7 @@ const ApplyLeave: React.FC = () => {
                                           setToTime(null);
                                         }
                                       }}
-                                    // disabled={toTimeDisableState}
+                                      // disabled={toTimeDisableState}
                                     />
                                   </Form.Item>
                                 </Col>
@@ -1107,10 +1099,10 @@ const ApplyLeave: React.FC = () => {
                     </Col>
                     <Col span={3}>
                       {fromDateLeavePeriodType !== 'IN_SHORT_LEAVE' &&
-                        fromDateLeavePeriodType !== 'OUT_SHORT_LEAVE' ? (
+                      fromDateLeavePeriodType !== 'OUT_SHORT_LEAVE' ? (
                         <Row
                           style={{
-                            backgroundColor: '#f2fced',
+                            backgroundColor: '#CDE7FF',
                             width: 140,
                             height: 130,
                             marginTop: 30,
@@ -1118,7 +1110,7 @@ const ApplyLeave: React.FC = () => {
                           }}
                         >
                           <div style={{ marginTop: 28, marginLeft: 20 }}>
-                            <Text style={{ color: '#626D6C', fontSize: 14 }}>
+                            <Text style={{ color: '#71839B', fontSize: 14 }}>
                               {intl.formatMessage({
                                 id: 'leaveDays',
                                 defaultMessage: 'Leave days',
@@ -1128,20 +1120,20 @@ const ApplyLeave: React.FC = () => {
                             <Text
                               style={{
                                 fontWeight: 400,
-                                color: '#74b425',
+                                color: 'red',
                                 fontSize: 26,
                               }}
                             >
                               {workingDaysCount}{' '}
                               {Number(workingDaysCount) > 1 || Number(workingDaysCount) == 0
                                 ? intl.formatMessage({
-                                  id: 'days',
-                                  defaultMessage: 'Days',
-                                })
+                                    id: 'days',
+                                    defaultMessage: 'Days',
+                                  })
                                 : intl.formatMessage({
-                                  id: 'day',
-                                  defaultMessage: 'Day',
-                                })}
+                                    id: 'day',
+                                    defaultMessage: 'Day',
+                                  })}
                             </Text>
                           </div>
                         </Row>
@@ -1192,7 +1184,10 @@ const ApplyLeave: React.FC = () => {
                           ]}
                         >
                           <Upload {...uploaderProps} className="upload-btn">
-                            <Button style={{ borderRadius: 6, marginBottom: 40 }} icon={<UploadOutlined />}>
+                            <Button
+                              style={{ borderRadius: 6, marginBottom: 40 }}
+                              icon={<UploadOutlined />}
+                            >
                               {intl.formatMessage({
                                 id: 'upload',
                                 defaultMessage: 'Upload',
@@ -1221,46 +1216,44 @@ const ApplyLeave: React.FC = () => {
                       )}
                     </Col>
                   </Row>
-                  {
-                    canShowCoveringPerson ? (
-                      <Row style={{ marginLeft: 12, marginBottom: 12 }}>
-                        <Col span={6}>
-                          <Form.Item
-                            name="coveringPerson"
-                            label="Covering Person"
-                            style={{ width: '100%' }}
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Required',
+                  {canShowCoveringPerson ? (
+                    <Row style={{ marginLeft: 12, marginBottom: 12 }}>
+                      <Col span={6}>
+                        <Form.Item
+                          name="coveringPerson"
+                          label="Covering Person"
+                          style={{ width: '100%' }}
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Required',
+                            },
+                          ]}
+                        >
+                          <ProFormSelect
+                            name="employeeSelect"
+                            showSearch
+                            // options={selectorEmployees}
+                            fieldProps={{
+                              optionItemRender(item) {
+                                return item.label;
                               },
-                            ]}
-                          >
-                            <ProFormSelect
-                              name="employeeSelect"
-                              showSearch
-                              // options={selectorEmployees}
-                              fieldProps={{
-                                optionItemRender(item) {
-                                  return item.label;
-                                },
-                                onChange: async (value) => {
-                                  if (value) {
-                                    setSelectedCoveringPerson(value);
-                                  }
-                                },
-                              }}
-                              options={relatedEmployees}
-                              placeholder="Select Employee"
-                              style={{ marginBottom: 0 }}
-                            />
-                          </Form.Item>
-                        </Col>
-                      </Row>
-                    ) : (
-                      <></>
-                    )
-                  }
+                              onChange: async (value) => {
+                                if (value) {
+                                  setSelectedCoveringPerson(value);
+                                }
+                              },
+                            }}
+                            options={relatedEmployees}
+                            placeholder="Select Employee"
+                            style={{ marginBottom: 0 }}
+                          />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  ) : (
+                    <></>
+                  )}
                   <Row>
                     <Col span={24}>
                       <Row justify="end">
@@ -1407,26 +1400,25 @@ const ApplyLeave: React.FC = () => {
                                 {currentLeaveAllocationDetail.pending}
                               </Col>
                               <Col className="single-chart-details-section-col">
-                                {(
-                                  currentLeaveAllocationDetail.total -
+                                {currentLeaveAllocationDetail.total -
                                   (currentLeaveAllocationDetail.used +
-                                    currentLeaveAllocationDetail.pending)
-                                )}
+                                    currentLeaveAllocationDetail.pending)}
                               </Col>
                             </Row>
-                            {currentLeaveAllocationDetail.exceeding && currentLeaveAllocationDetail.exceeding !== 0 &&
-                              <Row style={{ paddingTop: 10 }}>
-                                <Col className="entitlement-chart-exceeded-col">
-                                  {intl.formatMessage({
-                                    id: 'exceededLeaves',
-                                    defaultMessage: 'Exceeded Leaves',
-                                  })}
-                                </Col>
-                                <Col className="entitlement-chart-exceeded-details-col">
-                                  {currentLeaveAllocationDetail.exceeding}
-                                </Col>
-                              </Row>
-                            }
+                            {currentLeaveAllocationDetail.exceeding &&
+                              currentLeaveAllocationDetail.exceeding !== 0 && (
+                                <Row style={{ paddingTop: 10 }}>
+                                  <Col className="entitlement-chart-exceeded-col">
+                                    {intl.formatMessage({
+                                      id: 'exceededLeaves',
+                                      defaultMessage: 'Exceeded Leaves',
+                                    })}
+                                  </Col>
+                                  <Col className="entitlement-chart-exceeded-details-col">
+                                    {currentLeaveAllocationDetail.exceeding}
+                                  </Col>
+                                </Row>
+                              )}
                           </Col>
                         </Row>
                         <Row className="single-chart-body">
@@ -1481,13 +1473,12 @@ const ApplyLeave: React.FC = () => {
                                   {
                                     type: 'Availble',
                                     value:
-                                      entitlement.total -
-                                      (entitlement.used + entitlement.pending),
+                                      entitlement.total - (entitlement.used + entitlement.pending),
                                   },
                                   {
                                     type: 'Exceeded Leaves',
-                                    value: Number(entitlement.exceeding)
-                                  }
+                                    value: Number(entitlement.exceeding),
+                                  },
                                 ]}
                                 statistic={getStats(entitlement)}
                                 {...config}
@@ -1534,7 +1525,7 @@ const ApplyLeave: React.FC = () => {
                                   {entitlement.total - (entitlement.used + entitlement.pending)}
                                 </Col>
                               </Row>
-                              {entitlement.exceeding && entitlement.exceeding !== 0 &&
+                              {entitlement.exceeding && entitlement.exceeding !== 0 && (
                                 <Row style={{ paddingTop: 10 }}>
                                   <Col className="entitlement-chart-exceeded-col">
                                     {intl.formatMessage({
@@ -1546,7 +1537,7 @@ const ApplyLeave: React.FC = () => {
                                     {entitlement.exceeding}
                                   </Col>
                                 </Row>
-                              }
+                              )}
                             </Col>
                           </Row>
                           <Row className="entitlement-chart-footer-section">
@@ -1574,9 +1565,9 @@ const ApplyLeave: React.FC = () => {
         })}
         modalProps={{
           destroyOnClose: true,
-          bodyStyle: {height: 700}
+          bodyStyle: { height: 700 },
         }}
-        onFinish={async (values: any) => { }}
+        onFinish={async (values: any) => {}}
         visible={listModalVisible}
         onVisibleChange={handleListModalVisible}
         initialValues={{

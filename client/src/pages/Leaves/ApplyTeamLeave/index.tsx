@@ -29,21 +29,34 @@ const ApplyLeave: React.FC = () => {
   
 
   return (
-    <PageContainer>
-        <div className='leaveCard'>
-            <Tabs type="card" onChange={(value) => {}}>
+    <div
+      style={{
+        backgroundColor: 'white',
+        borderTopLeftRadius: '30px',
+        paddingLeft: '50px',
+        paddingTop: '50px',
+        paddingBottom: '50px',
+        width: '100%',
+        paddingRight: '0px',
+      }}
+    >
+      <PageContainer>
+        <div className="leaveCard">
+          <Tabs type="card" onChange={(value) => {}}>
             <TabPane forceRender={true} tab="Leave" key="all">
-                <ApplyLeavePage></ApplyLeavePage>
+              <ApplyLeavePage></ApplyLeavePage>
             </TabPane>
-            {
-              isShowShortLeaveTab ? 
+            {isShowShortLeaveTab ? (
               <TabPane forceRender={true} tab="Short Leave" key="2">
-                  <ApplyShortLeavePage></ApplyShortLeavePage>
-              </TabPane> : <></>
-            }
-            </Tabs>
+                <ApplyShortLeavePage></ApplyShortLeavePage>
+              </TabPane>
+            ) : (
+              <></>
+            )}
+          </Tabs>
         </div>
-    </PageContainer>
+      </PageContainer>
+    </div>
   );
 };
 

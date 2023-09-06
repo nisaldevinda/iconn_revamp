@@ -505,559 +505,679 @@ const ApplyLeave: React.FC = () => {
     }
 
     return (
-        <>
-            <Access
-                accessible={hasPermitted('assign-leave')}
-                fallback={<PermissionDeniedPage />}
+      <>
+        <Access accessible={hasPermitted('assign-leave')} fallback={<PermissionDeniedPage />}>
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderTopLeftRadius: '30px',
+              paddingLeft: '50px',
+              paddingTop: '50px',
+              paddingBottom: '50px',
+              width: '100%',
+              paddingRight: '0px',
+            }}
+          >
+            <PageContainer
+              header={{
+                ghost: true,
+              }}
             >
-                <div>
-                    <PageContainer
-                        header={{
-                            ghost: true,
-                        }}
-                    >
-                        <ProCard
-                            direction="column"
-                            ghost
-                            gutter={[0, 16]}
-                            style={{ padding: 0, margin: 0, height: '100%' }}
-                        >
-                            <Row style={{ width: '100%', }} gutter={16}>
-                                <Col  flex="auto" xs={{order:2}} sm={{order:2}} md={{order:2}} lg={{order:2}} xl={{order:1}} xxl={{order:1}}>
-                                    <Card >
-                                        <Form form={form} style={{ marginLeft: 12 }} className='leaveAssignForm' layout="vertical" initialValues={initValues}>
-                                            <Row style={{ paddingBottom: 10 }}>
-                                                <Col  span ={9} style={{ backgroundColor: '' }}>
-                                                
-                                                        <Form.Item
-                                                            name="employee"
-                                                            label="Employee"
-                                                            style={{width:"80%"}}                                                      
-                                                            rules={[
-                                                                {
-                                                                    required: true,
-                                                                    message: 'Required',
-                                                                }
-                                                            ]}
-                                                        >
-                                                            <ProFormSelect
-                                                                name="employeeSelect"
-                                                                showSearch
-                                                                // options={selectorEmployees}
-                                                                fieldProps={{
-                                                                    optionItemRender(item) {
-                                                                        return item.label;
-                                                                    },
-                                                                    onChange: async (value) => {
-                                                                        form.setFieldsValue({ leaveType: null, date: null });
-                                                                        setShowCount(false);
-                                                                        if (value) {
-                                                                            let params = { 'employee': value }
-                                                                            const res = await getEntitlementCountByEmployeeId(params);
-                                                                            setEntitlementCount(res.data);
+              <ProCard
+                direction="column"
+                ghost
+                gutter={[0, 16]}
+                style={{ padding: 0, margin: 0, height: '100%' }}
+              >
+                <Row style={{ width: '100%' }} gutter={16}>
+                  <Col
+                    flex="auto"
+                    xs={{ order: 2 }}
+                    sm={{ order: 2 }}
+                    md={{ order: 2 }}
+                    lg={{ order: 2 }}
+                    xl={{ order: 1 }}
+                    xxl={{ order: 1 }}
+                  >
+                    <Card>
+                      <Form
+                        form={form}
+                        style={{ marginLeft: 12 }}
+                        className="leaveAssignForm"
+                        layout="vertical"
+                        initialValues={initValues}
+                      >
+                        <Row style={{ paddingBottom: 10 }}>
+                          <Col span={9} style={{ backgroundColor: '' }}>
+                            <Form.Item
+                              name="employee"
+                              label="Employee"
+                              style={{ width: '80%' }}
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'Required',
+                                },
+                              ]}
+                            >
+                              <ProFormSelect
+                                name="employeeSelect"
+                                showSearch
+                                // options={selectorEmployees}
+                                fieldProps={{
+                                  optionItemRender(item) {
+                                    return item.label;
+                                  },
+                                  onChange: async (value) => {
+                                    form.setFieldsValue({ leaveType: null, date: null });
+                                    setShowCount(false);
+                                    if (value) {
+                                      let params = { employee: value };
+                                      const res = await getEntitlementCountByEmployeeId(params);
+                                      setEntitlementCount(res.data);
 
-                                                                            setSelectedEmployee(value);
-                                                                            getLeaveTypes(value)
-                                                                        } else {
-                                                                            setRelatedLeaveTypes([]);
-                                                                            setSelectedLeaveType(null);
-                                                                            setShowCount(false);
-                                                                        }
-                                                                    }
-                                                                }}
-                                                                // request={getRelatedEmployees}
-                                                                options={relatedEmployees}
-                                                                placeholder="Select Employee"
-                                                                style={{ marginBottom: 0 }}
-                                                            />
-                                                        </Form.Item>
-                                                    
-                                                </Col>
-                                                <Col span={9} style={{ backgroundColor: '', }}>
-                                                   
-                                                        <Form.Item
-                                                            name="leaveType"
-                                                            label="Leave Type"
-                                                            style={{width:"80%"}}
-                                                            rules={[
-                                                                {
-                                                                    required: true,
-                                                                    message: 'Required',
-                                                                }
-                                                            ]}
-                                                        >
-                                                            <Select
-                                                                allowClear
-                                                                disabled={isEmpSelected}
-                                                                showSearch
-                                                                optionFilterProp="label"
-                                                                placeholder="Select Leave Type"
-
-                                                                onChange={(value) => {
-
-                                                                    if (!value) {
-
-                                                                        setCanShowAttachement(true);
-                                                                        setIsAttachementMandatory(false);
-
-                                                                        setSelectedLeaveTypeObject({
-                                                                            fullDayAllowed: true,
-                                                                            halfDayAllowed: true,
-                                                                            shortLeaveAllowed: false,
-                                                                        })
-                                                                        form.setFieldsValue({ leavePeriodType: 1 })
-                                                                        setRadioVal(1)
-                                                                        return;
-                                                                    }
-                                                                    setSelectedLeaveType(value);
-                                                                    setShowCount(false);
-
-                                                                    const leaveTypeObject = leaveTypes.find((leaveType) => leaveType.id == value)
-
-                                                                    if (!leaveTypeObject.fullDayAllowed && leaveTypeObject.halfDayAllowed) {
-                                                                        form.setFieldsValue({ leavePeriodType: 2 })
-
-                                                                    }
-                                                                    else {
-                                                                        form.setFieldsValue({ leavePeriodType: 1 })
-
-                                                                    }
-
-                                                                    if (leaveTypeObject.shortLeaveAllowed) {
-                                                                        setShortLeaveDuration(leaveTypeObject.short_leave_duration);
-                                                                        form.setFieldsValue({ leavePeriodType: 4 })
-                                                                    }
-
-                                                                    if (leaveTypeObject.allowAttachment) {
-                                                                        setCanShowAttachement(true);
-                                                                        if (leaveTypeObject.attachmentManadatory) {
-                                                                          setIsAttachementMandatory(true);
-                                                                        } else {
-                                                                          setIsAttachementMandatory(false);
-                                                                        }
-                                                                    } else {
-                                                                    setCanShowAttachement(false);
-                                                                    }
-
-                                                                    
-                                                                    if (!leaveTypeObject.shortLeaveAllowed) {
-
-                                                                        if (leaveTypeObject.halfDayAllowed && leaveTypeObject.fullDayAllowed) {
-                                                                          changeLeavePeriod(1)
-                                                                        }
-                                      
-                                                                        if (leaveTypeObject.halfDayAllowed && !leaveTypeObject.fullDayAllowed) {
-                                                                          changeLeavePeriod(2)
-                                                                        }
-                                      
-                                                                    } else {
-                                                                        changeLeavePeriod(4)
-                                                                    }
-
-                                                                    form.setFieldsValue({ date: null })
-                                                                    // if (value == 0) {
-                                                                    //     setLeavePeriodType('SHORT_LEAVE');
-                                                                    // }
-                                                                    setSelectedLeaveTypeObject(
-                                                                        leaveTypes.find((leaveType) => leaveType.id == value),
-                                                                    );
-                                                                }}
-                                                                options={relatedLeaveTypes}
-                                                            />
-                                                        </Form.Item>
-                                                   
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                {
-                                                    // (leavePeriodType != 'SHORT_LEAVE') ?
-                                                    // <Col span={16} style={{ paddingBottom: 10 }}>
-                                                    <Col md={24} lg={20} xl={24} xxl={24}> 
-                                                        {/* <Row><Col>Period</Col></Row> */}
-                                                        <Row><Col>
-                                                            <Form.Item
-                                                                name="leavePeriodType"
-                                                                label={<FormattedMessage id="period" defaultMessage="Period" />}
-
-                                                            >
-                                                                <Radio.Group onChange={(event) => changeLeavePeriod(event.target.value)} value={radioVal}>
-                                                                    {selectedleaveTypeObject?.fullDayAllowed ? (
-                                                                        <Radio value={1}>Full Day</Radio>
-                                                                    ) : null}
-                                                                    {selectedleaveTypeObject?.halfDayAllowed ? (
-                                                                        <Radio value={2}>First Half Day</Radio>
-                                                                    ) : null}
-                                                                    {selectedleaveTypeObject?.halfDayAllowed ? (
-                                                                        <Radio value={3}>Second Half Day</Radio>
-                                                                    ) : null}
-                                                                    {selectedleaveTypeObject?.shortLeaveAllowed ? (
-                                                                        <Radio value={4}>In Short Leave</Radio>
-                                                                    ) : null}
-                                                                    {selectedleaveTypeObject?.shortLeaveAllowed ? (
-                                                                        <Radio value={5}>Out Short Leave</Radio>
-                                                                    ) : null}
-                                                                </Radio.Group>
-                                                            </Form.Item>
-                                                        </Col></Row>
-                                                    </Col> 
-                                                }
-                                            </Row>
-                                            <Row>
-                                                <Col style={{ paddingBottom: 10 }} >
-                                                    <Row><Col>
-                                                        {
-                                                            (leavePeriodType === 'FULL_DAY') ?
-                                                                <Form.Item
-                                                                    name="date"
-                                                                    label="Date"
-                                                                    style={{ width: 280 }}
-                                                                    rules={leavePeriodType === 'FULL_DAY' ? [{
-                                                                        required: true,
-                                                                        message: 'Required',
-                                                                    }] : []}
-                                                                >
-                                                                    <RangePicker
-                                                                        ranges={{
-                                                                            Today: [moment(), moment()],
-                                                                            'This Month': [moment().startOf('month'), moment().endOf('month')],
-                                                                        }}
-                                                                        format="DD-MM-YYYY"
-                                                                        onChange={changeDateRange}
-
-                                                                    />
-                                                                </Form.Item> :
-                                                                <Form.Item
-                                                                    name="date"
-                                                                    label="Date"
-
-                                                                    rules={leavePeriodType !== 'FULL_DAY' ? [{
-                                                                        required: true,
-                                                                        message: 'Required',
-                                                                    }] : []}
-                                                                >
-                                                                    <DatePicker
-                                                                        name="date"
-                                                                        className='assignLeaveDatePicker'
-                                                                        format='DD-MM-YYYY'
-                                                                        style={{ width: 300 }}
-                                                                        onChange={(value) => {
-                                                                            if (value != null) {
-                                                                                setShowCount(true);
-                                                                                let date = !_.isNull(value) && !_.isUndefined(value) ? value.format("YYYY-MM-DD") : null;
-                                                                                setFromDate(date);
-                                                                                setToDate(date);
-                                                                            } else {
-                                                                                setShowCount(false);
-                                                                                setFromDate(null);
-                                                                                setToDate(null);
-                                                                            }
-                                                                        }}
-                                                                    // fieldProps={{
-
-                                                                    // }}
-
-                                                                    />
-                                                                </Form.Item>
-
-                                                        }
-                                                    </Col></Row>
-                                                </Col>
-                                                <Col span={6} offset={2} >
-                                                    {(showCount && leavePeriodType !== 'IN_SHORT_LEAVE' && leavePeriodType !== 'OUT_SHORT_LEAVE') ?
-
-                                                        <span >
-                                                            <Text style={{ color: "#626D6C", fontSize: 14 }}>Leave days</Text>
-                                                            <div
-                                                                style={{
-                                                                    verticalAlign: " text-top",
-                                                                    textAlign: 'left',
-                                                                    height: 38,
-                                                                    fontSize: 32,
-
-                                                                }}
-                                                            >
-                                                                <Text style={{
-
-                                                                    fontWeight: 400,
-                                                                    color: '#626D6C',
-                                                                }}>
-                                                                    {workingDaysCount} {Number(workingDaysCount) > 1 ? "days" : "day"}
-                                                                </Text>
-                                                            </div>
-                                                        </span>
-                                                        : <></>}
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                {(leavePeriodType === 'IN_SHORT_LEAVE' || leavePeriodType === 'OUT_SHORT_LEAVE') ?
-                                                    <Col span={16} style={{ paddingBottom: 10 }}>
-                                                        <Row><Col style={{paddingBottom: 8, color: '#626D6C'}}>Time Period</Col></Row>
-                                                        <Row>
-                                                            <Col>
-                                                                <Form.Item
-                                                                    name="fromTime"
-                                                                    style={{width: 160}}
-                                                                >
-                                                                    <TimePicker
-                                                                        placeholder={'Start Time'}
-                                                                        format={'HH:mm'}
-                                                                        onSelect={(value) => {
-                                                                            form.setFieldsValue({fromTime : null});
-                                                                            if (value != null) {
-                                                                                setFromTime(value.format("HH:mm"));
-                                                                                let fromTimeVal =value.format('HH:mm');
-                                                                                form.setFieldsValue({fromTime : moment(fromTimeVal,'HH:mm')});
-                                                                                setToTimeDisableState(false);
-
-                                                                                if (toTime) {
-                                                                                    let tTime = moment(toTime, 'HH:mm');
-                                                                                    let fTime = moment(value.format('HH:mm'), 'HH:mm');
-                                                                                    let duration = tTime.diff(fTime);
-                                                                                    
-                                                                                    if (duration < 0) {
-                                                                                      form.setFields([{
-                                                                                              name: 'fromTime',
-                                                                                              errors: ['Should be before To Time'] 
-                                                                                          }
-                                                                                      ]);
-                                                                                    } else {
-                                                                                      form.setFields([{
-                                                                                              name: 'fromTime',
-                                                                                              errors: [] 
-                                                                                          }, {
-                                                                                            name: 'toTime',
-                                                                                            errors: []
-                                                                                          }
-                                                                                      ]);
-                                                                                    }
-                                          
-                                                                                }
-
-
-                                                                            } else {
-                                                                                setFromTime(null);
-                                                                                setToTime(null);
-                                                                                // setToTimeDisableState(true);
-                                                                            }
-                                                                        }}
-                                                                    />
-                                                                </Form.Item>
-                                                            </Col>
-                                                            <Col style={{ paddingLeft: 0 }}>
-                                                                <Form.Item
-                                                                    name="toTime"
-                                                                >
-                                                                    <TimePicker
-                                                                        placeholder={'End Time'}
-                                                                        format={'HH:mm'}
-                                                                        onSelect={(value) => {
-                                                                            form.setFieldsValue({toTime : null});
-                                                                            if (value != null) {
-                                                                                setToTime(value.format('HH:mm'));
-                                                                                let toTimeVal =value.format('HH:mm');
-                                                                                form.setFieldsValue({toTime : moment(toTimeVal,'HH:mm')});
-                                                                                if (fromTime) {
-                                                                                  let tTime = moment(value.format('HH:mm'), 'HH:mm');
-                                                                                  let fTime = moment(fromTime, 'HH:mm');
-                                        
-                                                                                  let duration = tTime.diff(fTime);
-                                                                                  
-                                                                                  if (duration < 0) {
-                                                                                    form.setFields([{
-                                                                                            name: 'toTime',
-                                                                                            errors: ['Should be after From Time'] 
-                                                                                        }
-                                                                                    ]);
-                                                                                  } else {
-                                                                                    form.setFields([{
-                                                                                            name: 'fromTime',
-                                                                                            errors: [] 
-                                                                                        }, {
-                                                                                          name: 'toTime',
-                                                                                          errors: []
-                                                                                        }
-                                                                                    ]);
-                                                                                  }
-                                                                                }
-                                                                            } else {
-                                                                                setToTime(null);
-                                                                            }
-                                                                        }}
-                                                                        // disabled={toTimeDisableState}
-                                                                    />
-                                                                </Form.Item>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col> : <></>
-                                                }
-                                            </Row>
-                                            <Row>
-                                                <Col span={16} style={{ paddingBottom: 10 }}>
-                                                    {/* <Row><Col>Reason</Col></Row> */}
-                                                    <Row><Col style={{ width: '100%', }}>
-                                                        <Form.Item
-                                                            name="reason"
-                                                            style={{width: '100%'}}
-                                                            label={<FormattedMessage id="reason" defaultMessage="Reason" />}
-                                                            rules={[{ max: 250, message: 'Maximum length is 250 characters.' }]}
-                                                        >
-                                                            <TextArea
-                                                            
-                                                                rows={4}
-                                                                onChange={(event) => {
-                                                                    setLeaveReason(event.target.value);
-                                                                }}
-                                                            />
-                                                        </Form.Item>
-                                                    </Col></Row>
-                                                </Col>
-                                            </Row>
-                                            <Row style={{ marginTop: 12 }}>
-                                                <Col span={9}>
-                                                    {
-                                                        canShowAttachement ? (
-                                                            <Form.Item
-                                                                name="upload"
-                                                                label={<FormattedMessage
-                                                                    id="attachDocument"
-                                                                    defaultMessage="Attach Document"
-                                                                />}
-                                                                rules={[
-                                                                    {
-                                                                        required: isAttachementMandatory,
-                                                                        message: 'Required',
-                                                                    },
-                                                                ]}
-                                                            >
-                                                                <Upload {...uploaderProps} className="upload-btn">
-                                                                    <Button style={{ borderRadius: 6 }} icon={<UploadOutlined />}>
-                                                                        Upload
-                                                                    </Button>
-                                                                    <span style={{ paddingLeft: 8, color: '#AAAAAA' }}> JPG or PDF</span>
-                                                                </Upload>
-                                                                {fileFormatError && <Row style={{ color: '#ff4d4f' }}><Col><FormattedMessage id="attachDocument" defaultMessage="File format should be JPG or PDF" /></Col></Row>}
-                                                            </Form.Item>
-                                                        ) : (
-                                                            <></>
-                                                        )
-                                                    }
-                                                    
-                                                </Col>
-                                            </Row>
-
-                                            <Row>
-                                                <Col span={16}>
-                                                    <Row justify='end'>
-                                                        <Popconfirm
-                                                            key="reset"
-                                                            title={intl.formatMessage({
-                                                                id: 'are_you_sure',
-                                                                defaultMessage: 'Are you sure?'
-                                                            })}
-                                                            onConfirm={() => {
-                                                                form.resetFields();
-                                                                setLeavePeriodType('FULL_DAY');
-                                                                setEntitlementCount([]);
-                                                                setShowCount(false);
-                                                                setSelectedLeaveTypeObject({
-                                                                    fullDayAllowed: true,
-                                                                    halfDayAllowed: true,
-                                                                    shortLeaveAllowed: false
-                                                                });
-                                                            }}
-                                                            okText="Yes"
-                                                            cancelText="No"
-                                                        >
-                                                            <Button>{intl.formatMessage({
-                                                                id: 'reset',
-                                                                defaultMessage: 'Reset'
-                                                            })}</Button>
-                                                        </Popconfirm>
-                                                        <Button type="primary" onClick={applyLeave} style={{ marginLeft: 15 }}>
-
-                                                            {intl.formatMessage({
-                                                                id: 'SUBMIT',
-                                                                defaultMessage: 'Assign',
-                                                            })}
-                                                        </Button>
-                                                    </Row>
-                                                </Col>
-                                            </Row>
-                                        </Form>
-                                    </Card>
-                                </Col>
-                                <Col  style={{width:440}}  xs={{order:1}} sm={{order:1}} md={{order:1}} lg={{order:1}} xl={{order:2}} xxl={{order:2}} >
-                                    {
-                                        (entitlementCount.length > 0) ? (
-                                            <Row justify="center" style={{ height: 150, marginBottom:16 }}>
-
-                                                <Col span={2} >
-                                                <Row align='middle' justify='start' style={{ height: 150 }}>
-                                                    <LeftOutlined color='#626D6C' onClick={() => { slider.current.next() }} />
-                                                </Row>
-                                                </Col>
-                                                <Col span={20}>
-                                                <Carousel
-                                                    {...settings}
-                                                    ref={ref => {
-                                                    slider.current = ref;
-                                                    }}
-                                                    style={{  height: 150, top: 0, left: 0 }}>
-
-                                                    {entitlementCount.map((entitlement, index) => (
-                                                    
-                                                    <div id={`${index}`}>
-                                                        <div style={{ width: 154, height: 145, backgroundColor: 'white', borderRadius: 10 }}>
-                                                        <div style={{ background: entitlement.leaveTypeColor, height: 10, width: 154, borderTopLeftRadius: 6, borderTopRightRadius: 6, top: 0, left: 0 }} />
-                                                        <div style={{ paddingTop: 4, paddingLeft: 12, paddingRight: 12, paddingBottom: 12 }}>
-                                                            <Row justify="center" align="top" style={{ height: 32, marginTop: 0, marginBottom: 6, textAlign: "center" }}>
-                                                            <span className='card-widget-title'>
-                                                                {entitlement.name}
-                                                            </span>
-                                                            </Row>
-                                                            <Row justify="center" align="middle" style={{ paddingBottom: 0 }} >
-                                                            <Col className='card-available'>
-                                                                {entitlement.total - (entitlement.used + entitlement.pending)}
-                                                            </Col>
-                                                            </Row>
-                                                            <Row justify="center" style={{ marginTop: 0 }}>
-                                                            <span className='card-available-title'>
-                                                                Available
-                                                            </span>
-                                                            </Row>
-                                                            <Row style={{ height: 30, marginTop: 8 }} justify="space-between"  >
-                                                            <Col span={12} className={"card-taken-txt"}>
-                                                                Taken &nbsp; {entitlement.used}
-                                                            </Col>
-                                                            <Col span={12} className={"card-used-txt"}>
-                                                                Total &nbsp; {entitlement.total}
-
-                                                            </Col>
-                                                            </Row>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    ))}
-                                                </Carousel>
-                                                </Col>
-                                                <Col span={2}>
-                                                <Row align='middle' justify='end' style={{ height: 150 }}>
-                                                    <RightOutlined color='#626D6C' onClick={() => { slider.current.prev() }} />
-                                                </Row>
-                                                </Col>
-                                            </Row>
-                                        ) : <></>
-
+                                      setSelectedEmployee(value);
+                                      getLeaveTypes(value);
+                                    } else {
+                                      setRelatedLeaveTypes([]);
+                                      setSelectedLeaveType(null);
+                                      setShowCount(false);
                                     }
-                                    
-                                </Col>
-                            </Row>
-                        </ProCard>
-                    </PageContainer>
+                                  },
+                                }}
+                                // request={getRelatedEmployees}
+                                options={relatedEmployees}
+                                placeholder="Select Employee"
+                                style={{ marginBottom: 0 }}
+                              />
+                            </Form.Item>
+                          </Col>
+                          <Col span={9} style={{ backgroundColor: '' }}>
+                            <Form.Item
+                              name="leaveType"
+                              label="Leave Type"
+                              style={{ width: '80%' }}
+                              rules={[
+                                {
+                                  required: true,
+                                  message: 'Required',
+                                },
+                              ]}
+                            >
+                              <Select
+                                allowClear
+                                disabled={isEmpSelected}
+                                showSearch
+                                optionFilterProp="label"
+                                placeholder="Select Leave Type"
+                                onChange={(value) => {
+                                  if (!value) {
+                                    setCanShowAttachement(true);
+                                    setIsAttachementMandatory(false);
 
-                </div>
-            </Access>
-        </>
+                                    setSelectedLeaveTypeObject({
+                                      fullDayAllowed: true,
+                                      halfDayAllowed: true,
+                                      shortLeaveAllowed: false,
+                                    });
+                                    form.setFieldsValue({ leavePeriodType: 1 });
+                                    setRadioVal(1);
+                                    return;
+                                  }
+                                  setSelectedLeaveType(value);
+                                  setShowCount(false);
+
+                                  const leaveTypeObject = leaveTypes.find(
+                                    (leaveType) => leaveType.id == value,
+                                  );
+
+                                  if (
+                                    !leaveTypeObject.fullDayAllowed &&
+                                    leaveTypeObject.halfDayAllowed
+                                  ) {
+                                    form.setFieldsValue({ leavePeriodType: 2 });
+                                  } else {
+                                    form.setFieldsValue({ leavePeriodType: 1 });
+                                  }
+
+                                  if (leaveTypeObject.shortLeaveAllowed) {
+                                    setShortLeaveDuration(leaveTypeObject.short_leave_duration);
+                                    form.setFieldsValue({ leavePeriodType: 4 });
+                                  }
+
+                                  if (leaveTypeObject.allowAttachment) {
+                                    setCanShowAttachement(true);
+                                    if (leaveTypeObject.attachmentManadatory) {
+                                      setIsAttachementMandatory(true);
+                                    } else {
+                                      setIsAttachementMandatory(false);
+                                    }
+                                  } else {
+                                    setCanShowAttachement(false);
+                                  }
+
+                                  if (!leaveTypeObject.shortLeaveAllowed) {
+                                    if (
+                                      leaveTypeObject.halfDayAllowed &&
+                                      leaveTypeObject.fullDayAllowed
+                                    ) {
+                                      changeLeavePeriod(1);
+                                    }
+
+                                    if (
+                                      leaveTypeObject.halfDayAllowed &&
+                                      !leaveTypeObject.fullDayAllowed
+                                    ) {
+                                      changeLeavePeriod(2);
+                                    }
+                                  } else {
+                                    changeLeavePeriod(4);
+                                  }
+
+                                  form.setFieldsValue({ date: null });
+                                  // if (value == 0) {
+                                  //     setLeavePeriodType('SHORT_LEAVE');
+                                  // }
+                                  setSelectedLeaveTypeObject(
+                                    leaveTypes.find((leaveType) => leaveType.id == value),
+                                  );
+                                }}
+                                options={relatedLeaveTypes}
+                              />
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                        <Row>
+                          {
+                            // (leavePeriodType != 'SHORT_LEAVE') ?
+                            // <Col span={16} style={{ paddingBottom: 10 }}>
+                            <Col md={24} lg={20} xl={24} xxl={24}>
+                              {/* <Row><Col>Period</Col></Row> */}
+                              <Row>
+                                <Col>
+                                  <Form.Item
+                                    name="leavePeriodType"
+                                    label={<FormattedMessage id="period" defaultMessage="Period" />}
+                                  >
+                                    <Radio.Group
+                                      onChange={(event) => changeLeavePeriod(event.target.value)}
+                                      value={radioVal}
+                                    >
+                                      {selectedleaveTypeObject?.fullDayAllowed ? (
+                                        <Radio value={1}>Full Day</Radio>
+                                      ) : null}
+                                      {selectedleaveTypeObject?.halfDayAllowed ? (
+                                        <Radio value={2}>First Half Day</Radio>
+                                      ) : null}
+                                      {selectedleaveTypeObject?.halfDayAllowed ? (
+                                        <Radio value={3}>Second Half Day</Radio>
+                                      ) : null}
+                                      {selectedleaveTypeObject?.shortLeaveAllowed ? (
+                                        <Radio value={4}>In Short Leave</Radio>
+                                      ) : null}
+                                      {selectedleaveTypeObject?.shortLeaveAllowed ? (
+                                        <Radio value={5}>Out Short Leave</Radio>
+                                      ) : null}
+                                    </Radio.Group>
+                                  </Form.Item>
+                                </Col>
+                              </Row>
+                            </Col>
+                          }
+                        </Row>
+                        <Row>
+                          <Col style={{ paddingBottom: 10 }}>
+                            <Row>
+                              <Col>
+                                {leavePeriodType === 'FULL_DAY' ? (
+                                  <Form.Item
+                                    name="date"
+                                    label="Date"
+                                    style={{ width: 280 }}
+                                    rules={
+                                      leavePeriodType === 'FULL_DAY'
+                                        ? [
+                                            {
+                                              required: true,
+                                              message: 'Required',
+                                            },
+                                          ]
+                                        : []
+                                    }
+                                  >
+                                    <RangePicker
+                                      ranges={{
+                                        Today: [moment(), moment()],
+                                        'This Month': [
+                                          moment().startOf('month'),
+                                          moment().endOf('month'),
+                                        ],
+                                      }}
+                                      format="DD-MM-YYYY"
+                                      onChange={changeDateRange}
+                                    />
+                                  </Form.Item>
+                                ) : (
+                                  <Form.Item
+                                    name="date"
+                                    label="Date"
+                                    rules={
+                                      leavePeriodType !== 'FULL_DAY'
+                                        ? [
+                                            {
+                                              required: true,
+                                              message: 'Required',
+                                            },
+                                          ]
+                                        : []
+                                    }
+                                  >
+                                    <DatePicker
+                                      name="date"
+                                      className="assignLeaveDatePicker"
+                                      format="DD-MM-YYYY"
+                                      style={{ width: 300 }}
+                                      onChange={(value) => {
+                                        if (value != null) {
+                                          setShowCount(true);
+                                          let date =
+                                            !_.isNull(value) && !_.isUndefined(value)
+                                              ? value.format('YYYY-MM-DD')
+                                              : null;
+                                          setFromDate(date);
+                                          setToDate(date);
+                                        } else {
+                                          setShowCount(false);
+                                          setFromDate(null);
+                                          setToDate(null);
+                                        }
+                                      }}
+                                      // fieldProps={{
+
+                                      // }}
+                                    />
+                                  </Form.Item>
+                                )}
+                              </Col>
+                            </Row>
+                          </Col>
+                          <Col span={6} offset={2}>
+                            {showCount &&
+                            leavePeriodType !== 'IN_SHORT_LEAVE' &&
+                            leavePeriodType !== 'OUT_SHORT_LEAVE' ? (
+                              <span>
+                                <Text style={{ color: '#626D6C', fontSize: 14 }}>Leave days</Text>
+                                <div
+                                  style={{
+                                    verticalAlign: ' text-top',
+                                    textAlign: 'left',
+                                    height: 38,
+                                    fontSize: 32,
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      fontWeight: 400,
+                                      color: '#626D6C',
+                                    }}
+                                  >
+                                    {workingDaysCount}{' '}
+                                    {Number(workingDaysCount) > 1 ? 'days' : 'day'}
+                                  </Text>
+                                </div>
+                              </span>
+                            ) : (
+                              <></>
+                            )}
+                          </Col>
+                        </Row>
+                        <Row>
+                          {leavePeriodType === 'IN_SHORT_LEAVE' ||
+                          leavePeriodType === 'OUT_SHORT_LEAVE' ? (
+                            <Col span={16} style={{ paddingBottom: 10 }}>
+                              <Row>
+                                <Col style={{ paddingBottom: 8, color: '#626D6C' }}>
+                                  Time Period
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  <Form.Item name="fromTime" style={{ width: 160 }}>
+                                    <TimePicker
+                                      placeholder={'Start Time'}
+                                      format={'HH:mm'}
+                                      onSelect={(value) => {
+                                        form.setFieldsValue({ fromTime: null });
+                                        if (value != null) {
+                                          setFromTime(value.format('HH:mm'));
+                                          let fromTimeVal = value.format('HH:mm');
+                                          form.setFieldsValue({
+                                            fromTime: moment(fromTimeVal, 'HH:mm'),
+                                          });
+                                          setToTimeDisableState(false);
+
+                                          if (toTime) {
+                                            let tTime = moment(toTime, 'HH:mm');
+                                            let fTime = moment(value.format('HH:mm'), 'HH:mm');
+                                            let duration = tTime.diff(fTime);
+
+                                            if (duration < 0) {
+                                              form.setFields([
+                                                {
+                                                  name: 'fromTime',
+                                                  errors: ['Should be before To Time'],
+                                                },
+                                              ]);
+                                            } else {
+                                              form.setFields([
+                                                {
+                                                  name: 'fromTime',
+                                                  errors: [],
+                                                },
+                                                {
+                                                  name: 'toTime',
+                                                  errors: [],
+                                                },
+                                              ]);
+                                            }
+                                          }
+                                        } else {
+                                          setFromTime(null);
+                                          setToTime(null);
+                                          // setToTimeDisableState(true);
+                                        }
+                                      }}
+                                    />
+                                  </Form.Item>
+                                </Col>
+                                <Col style={{ paddingLeft: 0 }}>
+                                  <Form.Item name="toTime">
+                                    <TimePicker
+                                      placeholder={'End Time'}
+                                      format={'HH:mm'}
+                                      onSelect={(value) => {
+                                        form.setFieldsValue({ toTime: null });
+                                        if (value != null) {
+                                          setToTime(value.format('HH:mm'));
+                                          let toTimeVal = value.format('HH:mm');
+                                          form.setFieldsValue({
+                                            toTime: moment(toTimeVal, 'HH:mm'),
+                                          });
+                                          if (fromTime) {
+                                            let tTime = moment(value.format('HH:mm'), 'HH:mm');
+                                            let fTime = moment(fromTime, 'HH:mm');
+
+                                            let duration = tTime.diff(fTime);
+
+                                            if (duration < 0) {
+                                              form.setFields([
+                                                {
+                                                  name: 'toTime',
+                                                  errors: ['Should be after From Time'],
+                                                },
+                                              ]);
+                                            } else {
+                                              form.setFields([
+                                                {
+                                                  name: 'fromTime',
+                                                  errors: [],
+                                                },
+                                                {
+                                                  name: 'toTime',
+                                                  errors: [],
+                                                },
+                                              ]);
+                                            }
+                                          }
+                                        } else {
+                                          setToTime(null);
+                                        }
+                                      }}
+                                      // disabled={toTimeDisableState}
+                                    />
+                                  </Form.Item>
+                                </Col>
+                              </Row>
+                            </Col>
+                          ) : (
+                            <></>
+                          )}
+                        </Row>
+                        <Row>
+                          <Col span={16} style={{ paddingBottom: 10 }}>
+                            {/* <Row><Col>Reason</Col></Row> */}
+                            <Row>
+                              <Col style={{ width: '100%' }}>
+                                <Form.Item
+                                  name="reason"
+                                  style={{ width: '100%' }}
+                                  label={<FormattedMessage id="reason" defaultMessage="Reason" />}
+                                  rules={[
+                                    { max: 250, message: 'Maximum length is 250 characters.' },
+                                  ]}
+                                >
+                                  <TextArea
+                                    rows={4}
+                                    onChange={(event) => {
+                                      setLeaveReason(event.target.value);
+                                    }}
+                                  />
+                                </Form.Item>
+                              </Col>
+                            </Row>
+                          </Col>
+                        </Row>
+                        <Row style={{ marginTop: 12 }}>
+                          <Col span={9}>
+                            {canShowAttachement ? (
+                              <Form.Item
+                                name="upload"
+                                label={
+                                  <FormattedMessage
+                                    id="attachDocument"
+                                    defaultMessage="Attach Document"
+                                  />
+                                }
+                                rules={[
+                                  {
+                                    required: isAttachementMandatory,
+                                    message: 'Required',
+                                  },
+                                ]}
+                              >
+                                <Upload {...uploaderProps} className="upload-btn">
+                                  <Button style={{ borderRadius: 6 }} icon={<UploadOutlined />}>
+                                    Upload
+                                  </Button>
+                                  <span style={{ paddingLeft: 8, color: '#AAAAAA' }}>
+                                    {' '}
+                                    JPG or PDF
+                                  </span>
+                                </Upload>
+                                {fileFormatError && (
+                                  <Row style={{ color: '#ff4d4f' }}>
+                                    <Col>
+                                      <FormattedMessage
+                                        id="attachDocument"
+                                        defaultMessage="File format should be JPG or PDF"
+                                      />
+                                    </Col>
+                                  </Row>
+                                )}
+                              </Form.Item>
+                            ) : (
+                              <></>
+                            )}
+                          </Col>
+                        </Row>
+
+                        <Row>
+                          <Col span={16}>
+                            <Row justify="end">
+                              <Popconfirm
+                                key="reset"
+                                title={intl.formatMessage({
+                                  id: 'are_you_sure',
+                                  defaultMessage: 'Are you sure?',
+                                })}
+                                onConfirm={() => {
+                                  form.resetFields();
+                                  setLeavePeriodType('FULL_DAY');
+                                  setEntitlementCount([]);
+                                  setShowCount(false);
+                                  setSelectedLeaveTypeObject({
+                                    fullDayAllowed: true,
+                                    halfDayAllowed: true,
+                                    shortLeaveAllowed: false,
+                                  });
+                                }}
+                                okText="Yes"
+                                cancelText="No"
+                              >
+                                <Button>
+                                  {intl.formatMessage({
+                                    id: 'reset',
+                                    defaultMessage: 'Reset',
+                                  })}
+                                </Button>
+                              </Popconfirm>
+                              <Button
+                                type="primary"
+                                onClick={applyLeave}
+                                style={{ marginLeft: 15 }}
+                              >
+                                {intl.formatMessage({
+                                  id: 'SUBMIT',
+                                  defaultMessage: 'Assign',
+                                })}
+                              </Button>
+                            </Row>
+                          </Col>
+                        </Row>
+                      </Form>
+                    </Card>
+                  </Col>
+                  <Col
+                    style={{ width: 440 }}
+                    xs={{ order: 1 }}
+                    sm={{ order: 1 }}
+                    md={{ order: 1 }}
+                    lg={{ order: 1 }}
+                    xl={{ order: 2 }}
+                    xxl={{ order: 2 }}
+                  >
+                    {entitlementCount.length > 0 ? (
+                      <Row justify="center" style={{ height: 150, marginBottom: 16 }}>
+                        <Col span={2}>
+                          <Row align="middle" justify="start" style={{ height: 150 }}>
+                            <LeftOutlined
+                              color="#626D6C"
+                              onClick={() => {
+                                slider.current.next();
+                              }}
+                            />
+                          </Row>
+                        </Col>
+                        <Col span={20}>
+                          <Carousel
+                            {...settings}
+                            ref={(ref) => {
+                              slider.current = ref;
+                            }}
+                            style={{ height: 150, top: 0, left: 0 }}
+                          >
+                            {entitlementCount.map((entitlement, index) => (
+                              <div id={`${index}`}>
+                                <div
+                                  style={{
+                                    width: 154,
+                                    height: 145,
+                                    backgroundColor: 'white',
+                                    borderRadius: 10,
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      background: entitlement.leaveTypeColor,
+                                      height: 10,
+                                      width: 154,
+                                      borderTopLeftRadius: 6,
+                                      borderTopRightRadius: 6,
+                                      top: 0,
+                                      left: 0,
+                                    }}
+                                  />
+                                  <div
+                                    style={{
+                                      paddingTop: 4,
+                                      paddingLeft: 12,
+                                      paddingRight: 12,
+                                      paddingBottom: 12,
+                                    }}
+                                  >
+                                    <Row
+                                      justify="center"
+                                      align="top"
+                                      style={{
+                                        height: 32,
+                                        marginTop: 0,
+                                        marginBottom: 6,
+                                        textAlign: 'center',
+                                      }}
+                                    >
+                                      <span className="card-widget-title">{entitlement.name}</span>
+                                    </Row>
+                                    <Row
+                                      justify="center"
+                                      align="middle"
+                                      style={{ paddingBottom: 0 }}
+                                    >
+                                      <Col className="card-available">
+                                        {entitlement.total -
+                                          (entitlement.used + entitlement.pending)}
+                                      </Col>
+                                    </Row>
+                                    <Row justify="center" style={{ marginTop: 0 }}>
+                                      <span className="card-available-title">Available</span>
+                                    </Row>
+                                    <Row
+                                      style={{ height: 30, marginTop: 8 }}
+                                      justify="space-between"
+                                    >
+                                      <Col span={12} className={'card-taken-txt'}>
+                                        Taken &nbsp; {entitlement.used}
+                                      </Col>
+                                      <Col span={12} className={'card-used-txt'}>
+                                        Total &nbsp; {entitlement.total}
+                                      </Col>
+                                    </Row>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </Carousel>
+                        </Col>
+                        <Col span={2}>
+                          <Row align="middle" justify="end" style={{ height: 150 }}>
+                            <RightOutlined
+                              color="#626D6C"
+                              onClick={() => {
+                                slider.current.prev();
+                              }}
+                            />
+                          </Row>
+                        </Col>
+                      </Row>
+                    ) : (
+                      <></>
+                    )}
+                  </Col>
+                </Row>
+              </ProCard>
+            </PageContainer>
+          </div>
+        </Access>
+      </>
     );
 };
 
